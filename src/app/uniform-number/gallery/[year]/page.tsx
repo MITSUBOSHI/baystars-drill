@@ -1,10 +1,13 @@
 import { registeredYears } from "@/constants/player";
 import { Year } from "@/types/Player";
+import Players2022 from "@/data/2022-players.jsonl.json";
 import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
 
 function playersByYear(year: Year) {
   switch (year) {
+    case 2022:
+      return Players2022;
     case 2023:
       return Players2023;
     case 2024:
