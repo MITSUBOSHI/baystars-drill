@@ -1,5 +1,5 @@
 [
-  { "year": 2023, "name": "三浦 大輔", "name_kana": "みうら だいすけ", "number_calc": 81, "number_disp": "81",  "role": "coach", "url": "https://npb.jp/bis/players/41443885.html" },
+  { "year": 2023, "name": "三浦 大輔", "name_kana": "みうら だいすけ", "number_calc": 81, "number_disp": "81", "role": "coach", "url": "https://npb.jp/bis/players/41443885.html" },
   { "year": 2023, "name": "東 克樹", "name_kana": "あずま かつき", "number_calc": 11, "number_disp": "11", "role": "roster", "url": "https://npb.jp/bis/players/51155136.html" },
   { "year": 2023, "name": "伊勢 大夢", "name_kana": "いせ ひろむ", "number_calc": 13, "number_disp": "13", "role": "roster", "url": "https://npb.jp/bis/players/41145151.html" },
   { "year": 2023, "name": "石田 健大", "name_kana": "いしだ けんた", "number_calc": 14, "number_disp": "14", "role": "roster", "url": "https://npb.jp/bis/players/11315130.html" },
@@ -79,5 +79,5 @@
   { "year": 2023, "name": "蓮", "name_kana": "れん", "number_calc": 100, "number_disp": "100", "role": "training", "url": "https://npb.jp/bis/players/93595157.html" },
   { "year": 2023, "name": "勝又 温史", "name_kana": "かつまた あつし", "number_calc": 28, "number_disp": "028", "role": "training", "url": "https://npb.jp/bis/players/41545138.html" },
   { "year": 2023, "name": "村川 凪", "name_kana": "むらかわ なぎ", "number_calc": 103, "number_disp": "103", "role": "training", "url": "https://npb.jp/bis/players/53355155.html" },
-  { "year": 2023, "name": "大橋 武尊", "name_kana": "おおはし たける", "number_calc": 105, "number_disp": "105", "role": "training", "url": "https://npb.jp/bis/players/61365155.html" },
+  { "year": 2023, "name": "大橋 武尊", "name_kana": "おおはし たける", "number_calc": 105, "number_disp": "105", "role": "training", "url": "https://npb.jp/bis/players/61365155.html" }
 ]
