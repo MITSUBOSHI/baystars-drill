@@ -1,0 +1,19 @@
+[
+  { "year": 2024, "player": { "name": "三浦 大輔", "name_kana": "みうら だいすけ", "number_calc": 81, "number_disp": "81",  "role": "coach", "url": "https://npb.jp/bis/players/41443885.html" } },
+  { "year": 2024, "player": { "name": "東 克樹", "name_kana": "あずま かつき", "number_calc": 11, "number_disp": "11", "role": "roster", "url": "https://npb.jp/bis/players/51155136.html" } },
+  { "year": 2024, "player": { "name": "伊勢 大夢", "name_kana": "いせ ひろむ", "number_calc": 13, "number_disp": "13", "role": "roster", "url": "https://npb.jp/bis/players/41145151.html" } },
+  { "year": 2024, "player": { "name": "石田 健大", "name_kana": "いしだ けんた", "number_calc": 14, "number_disp": "14", "role": "roster", "url": "https://npb.jp/bis/players/11315130.html" } },
+  { "year": 2024, "player": { "name": "徳山 壮馬", "name_kana": "とくやま そうま", "number_calc": 15, "number_disp": "15", "role": "roster", "url": "https://npb.jp/bis/players/81285155.html" } },
+  { "year": 2024, "player": { "name": "大貫 晋一", "name_kana": "おおぬき しんいち", "number_calc": 16, "number_disp": "16", "role": "roster", "url": "https://npb.jp/bis/players/01305138.html" } },
+  { "year": 2024, "player": { "name": "三嶋 一輝", "name_kana": "みしま かずき", "number_calc": 17, "number_disp": "17", "role": "roster", "url": "" } },
+  { "year": 2024, "player": { "name": "小園 健太", "name_kana": "こぞの けんた", "number_calc": 18, "number_disp": "18", "role": "roster", "url": "" } },
+  { "year": 2024, "player": { "name": "山﨑 康晃", "name_kana": "やまさき やすあき", "number_calc": 19, "number_disp": "19", "role": "roster", "url": "" } },
+  { "year": 2024, "player": { "name": "坂本 裕哉", "name_kana": "さかもと ゆうや", "number_calc": 20, "number_disp": "20", "role": "roster", "url": "" } },
+  { "year": 2024, "player": { "name": "入江 大生", "name_kana": "いりえ たいせい", "number_calc": 22, "number_disp": "22", "role": "roster", "url": "" } },
+  { "year": 2024, "player": { "name": "坂本 裕哉", "name_kana": "さかもと ゆうや", "number_calc": 20, "number_disp": "20", "role": "roster", "url": "" } },
+  { "year": 2024, "player": { "name": "坂本 裕哉", "name_kana": "さかもと ゆうや", "number_calc": 20, "number_disp": "20", "role": "roster", "url": "" } },
+  { "year": 2024, "player": { "name": "坂本 裕哉", "name_kana": "さかもと ゆうや", "number_calc": 20, "number_disp": "20", "role": "roster", "url": "" } },
+  { "year": 2024, "player": { "name": "坂本 裕哉", "name_kana": "さかもと ゆうや", "number_calc": 20, "number_disp": "20", "role": "roster", "url": "" } },
+
+  { "year": 2024, "player": { "name": "村川 凪", "name_kana": "むらかわ なぎ", "number_calc": 103, "number_disp": "103", "role": "training", "url": "https://npb.jp/bis/players/53355155.html" } },
+]
