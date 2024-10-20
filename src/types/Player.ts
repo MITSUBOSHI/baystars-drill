@@ -1,6 +1,6 @@
 import { registeredYears } from "@/constants/player";
 
-type Year = (typeof registeredYears)[number];
+export type Year = (typeof registeredYears)[number];
 export enum Role {
   Coach = "coach",
   Roster = "roster",
