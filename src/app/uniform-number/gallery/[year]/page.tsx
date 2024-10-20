@@ -1,8 +1,14 @@
+import Link from "next/link";
 import { registeredYears } from "@/constants/player";
 import { Year } from "@/types/Player";
 import Players2022 from "@/data/2022-players.jsonl.json";
 import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
+
+type linkArrowResult = {
+  prevYear: Year | null;
+  nextYear: Year | null;
+};
 
 function playersByYear(year: Year) {
   switch (year) {
@@ -15,6 +21,21 @@ function playersByYear(year: Year) {
   }
 }
 
+function linkArrowByYear(year: Year): linkArrowResult {
+  const currentYearIndex = registeredYears.indexOf(year);
+  const result: linkArrowResult = { prevYear: null, nextYear: null };
+
+  if (registeredYears[currentYearIndex - 1] !== undefined) {
+    result.prevYear = registeredYears[currentYearIndex - 1] as Year;
+  }
+
+  if (registeredYears[currentYearIndex + 1] !== undefined) {
+    result.nextYear = registeredYears[currentYearIndex + 1] as Year;
+  }
+
+  return result;
+}
+
 export async function generateStaticParams() {
   return registeredYears.map((y) => ({ year: y.toString() }));
 }
@@ -22,11 +43,22 @@ export async function generateStaticParams() {
 export default function Page({ params }: { params: { year: Year } }) {
   const currentYear = Number(params.year) as Year; // TODO: path paramsがデフォstring。type castの設定は要確認。
   const players = playersByYear(currentYear);
+  const linkArrowResult = linkArrowByYear(currentYear);
 
   return (
     <>
       <h1>📖 選手図鑑 📖</h1>
       <h2> Year {currentYear} </h2>
+      {linkArrowResult.prevYear != null ? (
+        <Link href={`/uniform-number/gallery/${linkArrowResult.prevYear}`}>
+          ◀{linkArrowResult.prevYear}
+        </Link>
+      ) : null}
+      {linkArrowResult.nextYear != null ? (
+        <Link href={`/uniform-number/gallery/${linkArrowResult.nextYear}`}>
+          {linkArrowResult.nextYear}▶
+        </Link>
+      ) : null}
       {players.map((player) => {
         return (
           <div key={player.number_disp}>
