@@ -1,11 +1,13 @@
-type Year = 2024;
+import { registeredYears } from "@/constants/player";
+
+type Year = (typeof registeredYears)[number];
 export enum Role {
-  Coach = 'coach',
-  Roster = 'roster',
-  Training = 'training'
+  Coach = "coach",
+  Roster = "roster",
+  Training = "training",
 }
 export type PlayerType = {
-  year: Year,
+  year: Year;
   name: string;
   name_kana: string;
   number_calc: number;

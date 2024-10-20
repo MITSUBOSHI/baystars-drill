@@ -1,4 +1,4 @@
-import Players2024 from '@/data/2024-players.jsonl.json';
+import Players2024 from "@/data/2024-players.jsonl.json";
 
 export default function Index() {
   const currentYear = 2024; // TODO
@@ -9,7 +9,10 @@ export default function Index() {
       {Players2024.map((player) => {
         return (
           <div key={player.number_disp}>
-            {player.number_disp} | {player.name}({player.name_kana})
+            {player.number_disp} |{" "}
+            <a href={player.url}>
+              {player.name}（{player.name_kana}）
+            </a>
           </div>
         );
       })}
