@@ -1,16 +1,35 @@
 import Link from "next/link";
+import { Heading, VStack, Button } from "@chakra-ui/react";
 import { registeredYears } from "@/constants/player";
 
 export default function Index() {
   const maxYear = Math.max(...registeredYears);
 
   return (
-    <>
-      <h1>⚾️ 背番号 ⚾️</h1>
-      <div>
-        <Link href={`/uniform-number/gallery/${maxYear}`}>選手図鑑</Link>
-        <a>計算ドリル</a>
-      </div>
-    </>
+    <VStack justify={"center"}>
+      <Heading size="6xl">⚾️ 背番号 ⚾️</Heading>
+      <Link href={`/uniform-number/gallery/${maxYear}`}>
+        <Button
+          as="a"
+          size="xl"
+          variant="outline"
+          colorPalette={"blue"}
+          width={"200px"}
+        >
+          選手図鑑
+        </Button>
+      </Link>
+      <Link href={`/uniform-number/drill/${maxYear}`}>
+        <Button
+          as="a"
+          size="xl"
+          variant="outline"
+          colorPalette={"blue"}
+          width={"200px"}
+        >
+          計算ドリル
+        </Button>
+      </Link>
+    </VStack>
   );
 }
