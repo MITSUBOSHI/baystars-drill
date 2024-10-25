@@ -6,6 +6,11 @@ export enum Role {
   Roster = "roster",
   Training = "training",
 }
+export const NameByRole: Record<Role, string> = {
+  [Role.Coach]: "監督・コーチ",
+  [Role.Roster]: "支配下登録",
+  [Role.Training]: "育成枠",
+};
 export type PlayerType = {
   year: Year;
   name: string;
