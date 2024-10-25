@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Baystars Drill",
   description: "ベイスターズファンのための暇潰しサイト",
   icons: "/favicon.ico",
-  keywords: ["横浜DeNAベイスターズ", "Baystars", "ベイスターズ"]
+  keywords: ["横浜DeNAベイスターズ", "Baystars", "ベイスターズ"],
 };
 
 export default function RootLayout({
