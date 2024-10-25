@@ -10,7 +10,10 @@
     "format": "prettier --write 'src/**/*.{ts,tsx}' && next lint --fix"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.0.0",
+    "@emotion/react": "^11.13.3",
     "next": "14.2.15",
+    "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18"
   },
