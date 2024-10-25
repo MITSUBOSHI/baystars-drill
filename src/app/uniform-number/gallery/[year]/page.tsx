@@ -8,19 +8,19 @@ import {
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { registeredYears } from "@/constants/player";
-import { Year, NameByRole, Role } from "@/types/Player";
+import { Year, NameByRole, PlayerType } from "@/types/Player";
 import Players2022 from "@/data/2022-players.jsonl.json";
 import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
 
-function playersByYear(year: Year) {
+function playersByYear(year: Year): PlayerType[] {
   switch (year) {
     case 2022:
-      return Players2022;
+      return Players2022 as PlayerType[];
     case 2023:
-      return Players2023;
+      return Players2023 as PlayerType[];
     case 2024:
-      return Players2024;
+      return Players2024 as PlayerType[];
   }
 }
 
@@ -67,7 +67,7 @@ export default function Page({ params }: { params: { year: Year } }) {
                     {player.name}（{player.name_kana}）
                   </ChakraLink>
                 </Table.Cell>
-                <Table.Cell>{NameByRole[player.role as Role]}</Table.Cell>
+                <Table.Cell>{NameByRole[player.role]}</Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
