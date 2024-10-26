@@ -1,10 +1,52 @@
-'use client';
+"use client";
 
-import React, { useState, useMemo } from 'react';
-import { PlayerType, Year } from "@/types/Player";
+import React, { useRef, useEffect, useReducer } from "react";
+import { PlayerType } from "@/types/Player";
 import { Button, HStack, Box, VStack, Text, Input } from "@chakra-ui/react";
-import Link from "next/link";
 
+type Action =
+  | {
+      type: "init";
+      players: PlayerType[];
+    }
+  | {
+      type: "retry";
+      players: PlayerType[];
+    }
+  | {
+      type: "answering";
+      value: number;
+    }
+  | {
+      type: "answered";
+    };
+type DrillStateType = {
+  currentDrillPlayers: PlayerType[];
+  answeredNumber: number | null;
+  showResult: boolean;
+};
+const initDrillState = {
+  currentDrillPlayers: [],
+  answeredNumber: null,
+  showResult: false,
+};
+const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
+  switch (action.type) {
+    case "init":
+    case "retry":
+      return {
+        ...prev,
+        ...initDrillState,
+        currentDrillPlayers: action.players,
+      };
+    case "answering":
+      return { ...prev, answeredNumber: action.value, showResult: false };
+    case "answered":
+      return { ...prev, showResult: true };
+    default:
+      throw new Error("unsupported action type is given");
+  }
+};
 
 const PLAYER_SELECTION_NUMBER = 3;
 const shufflePlayers = (players: PlayerType[]) =>
@@ -27,61 +69,96 @@ function selecteRandomizedPlayers(
   return result;
 }
 type QuestionType = {
-  questionSentence: string,
-  correctNumber: number,
-  explanationSentence: string
-}
+  questionSentence: string;
+  correctNumber: number;
+  explanationSentence: string;
+};
 function generateQuestion(players: PlayerType[]): QuestionType {
-  const questionSentence = players.map((p) => `${p.name}（${p.name_kana}）`).join(" ＋ ");
+  const questionSentence = players
+    .map((p) => `${p.name}（${p.name_kana}）`)
+    .join(" ＋ ");
   const correctNumber = players.reduce((sum, p) => sum + p.number_calc, 0);
-  const explanationSentence = players.map((p) => `${p.number_disp}（${p.name}）`).join(" ＋ ");
+  const explanationSentence = players
+    .map((p) => `${p.number_disp}（${p.name}）`)
+    .join(" ＋ ");
 
   return {
     questionSentence,
     correctNumber,
-    explanationSentence
+    explanationSentence,
   };
 }
 
 type Props = {
-  players: PlayerType[]
-}
+  players: PlayerType[];
+};
 
 const Question: React.FC<Props> = ({ players }) => {
-  const [session, setSession] = useState<boolean>(true);
-  const [inputValue, setInputValue] = useState<number>(0);
-  const [showResult, setShowResult] = useState<boolean>(false);
-  const selectedPlayers = useMemo(() =>
-    selecteRandomizedPlayers(
-      players,
-      PLAYER_SELECTION_NUMBER,
-    )
-  , [session]);
-  const question = useMemo(() => generateQuestion(selectedPlayers), [selectedPlayers]);
-  const handleonRetryClick = () => {
-    setShowResult(false);
-    setSession(false);
-  };
+  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const selectedPlayers = selecteRandomizedPlayers(
+    players,
+    PLAYER_SELECTION_NUMBER,
+  );
+  const [drillState, dispatch] = useReducer(reducer, {
+    ...initDrillState,
+    currentDrillPlayers: selectedPlayers,
+  });
+  const question = generateQuestion(drillState.currentDrillPlayers);
+
+  useEffect(() => {
+    inputRef.current.focus();
+    inputRef.current.value = "";
+  }, [drillState.currentDrillPlayers]);
 
   return (
     <VStack justify={"center"}>
       <Text>問題: {question.questionSentence}</Text>
-      <Input type="number" maxWidth={"70%"} height={'50px'} min={1} onChange={(e) => (setInputValue(Number(e.target.value) ?? 0))} disabled={!!showResult}/>
+      <Input
+        type="number"
+        ref={inputRef}
+        maxWidth={"70%"}
+        height={"50px"}
+        min={1}
+        onChange={(e) => {
+          dispatch({ type: "answering", value: Number(e.target.value) });
+        }}
+        disabled={!!drillState.showResult}
+      />
       <HStack>
-        <Button variant="outline" onClick={() => {setShowResult(true)}} width={'100px'}>解答する</Button>
-        <Button variant="outline" onClick={async () => handleonRetryClick() } width={'100px'}>再挑戦</Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            dispatch({ type: "answered" });
+          }}
+          width={"100px"}
+        >
+          解答する
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            dispatch({ type: "retry", players: selectedPlayers });
+          }}
+          width={"100px"}
+        >
+          再挑戦
+        </Button>
       </HStack>
-      {showResult == true ? <>
-        <Box bgColor="blue.300" width="400px" padding="10px">
-          <Text>
-            { (question.correctNumber === inputValue) ? '正解🎉' : '不正解😢' }
-          </Text>
-          <Text>
-            {question.correctNumber} = {question.explanationSentence}
-          </Text>
-        </Box>
-      </> : null}
+      {drillState.showResult == true ? (
+        <>
+          <Box bgColor="blue.300" width="400px" padding="10px">
+            <Text>
+              {question.correctNumber === drillState.answeredNumber
+                ? "正解🎉"
+                : "不正解😢"}
+            </Text>
+            <Text>
+              {question.correctNumber} = {question.explanationSentence}
+            </Text>
+          </Box>
+        </>
+      ) : null}
     </VStack>
   );
-}
+};
 export default Question;

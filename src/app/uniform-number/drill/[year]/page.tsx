@@ -3,7 +3,7 @@ import Players2022 from "@/data/2022-players.jsonl.json";
 import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
 import { PlayerType, Year } from "@/types/Player";
-import { Button, Heading, HStack, VStack, Text, Input } from "@chakra-ui/react";
+import { Button, Heading, HStack, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import Question from "@/components/number-uniform/Question";
 
