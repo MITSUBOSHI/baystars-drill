@@ -1,4 +1,5 @@
 import { registeredYears } from "@/constants/player";
+import Players2020 from "@/data/2020-players.jsonl.json";
 import Players2021 from "@/data/2021-players.jsonl.json";
 import Players2022 from "@/data/2022-players.jsonl.json";
 import Players2023 from "@/data/2023-players.jsonl.json";
@@ -10,6 +11,8 @@ import Question from "@/components/number-uniform/Question";
 
 function playersByYear(year: Year): PlayerType[] {
   switch (year) {
+    case 2020:
+      return Players2020 as PlayerType[];
     case 2021:
       return Players2021 as PlayerType[];
     case 2022:
