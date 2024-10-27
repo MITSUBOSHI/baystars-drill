@@ -104,6 +104,7 @@ const Question: React.FC<Props> = ({ players }) => {
     currentDrillPlayers: selectedPlayers,
   });
   const question = generateQuestion(drillState.currentDrillPlayers);
+  const isCorrected = question.correctNumber === drillState.answeredNumber;
 
   useEffect(() => {
     inputRef.current.focus();
@@ -146,9 +147,9 @@ const Question: React.FC<Props> = ({ players }) => {
       </HStack>
       {drillState.showResult == true ? (
         <>
-          <Box bgColor="blue.300" width="400px" padding="10px">
+          <Box bgColor={isCorrected ? "blue.300" : "red.300"} width="400px" padding="10px">
             <Text>
-              {question.correctNumber === drillState.answeredNumber
+              {isCorrected
                 ? "正解🎉"
                 : "不正解😢"}
             </Text>
