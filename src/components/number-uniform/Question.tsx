@@ -2,7 +2,11 @@
 
 import React, { useRef, useEffect, useReducer } from "react";
 import { PlayerType } from "@/types/Player";
-import { Button, HStack, Box, VStack, Text, Input } from "@chakra-ui/react";
+import { Button, HStack, Box, VStack, Text } from "@chakra-ui/react";
+import {
+  NumberInputField,
+  NumberInputRoot,
+} from "@/components/ui/number-input";
 
 type Action =
   | {
@@ -114,17 +118,21 @@ const Question: React.FC<Props> = ({ players }) => {
   return (
     <VStack justify={"center"}>
       <Text>問題: {question.questionSentence}</Text>
-      <Input
-        type="number"
-        ref={inputRef}
-        maxWidth={"70%"}
-        height={"50px"}
-        min={1}
-        onChange={(e) => {
-          dispatch({ type: "answering", value: Number(e.target.value) });
-        }}
-        disabled={!!drillState.showResult}
-      />
+      <NumberInputRoot
+        size={"lg"}
+        width="300px"
+        defaultValue=""
+        min={0}
+        max={2000}
+      >
+        <NumberInputField
+          ref={inputRef}
+          onChange={(e) => {
+            dispatch({ type: "answering", value: Number(e.target.value) });
+          }}
+          disabled={!!drillState.showResult}
+        />
+      </NumberInputRoot>
       <HStack>
         <Button
           variant="outline"
@@ -147,12 +155,12 @@ const Question: React.FC<Props> = ({ players }) => {
       </HStack>
       {drillState.showResult == true ? (
         <>
-          <Box bgColor={isCorrected ? "blue.300" : "red.300"} width="400px" padding="10px">
-            <Text>
-              {isCorrected
-                ? "正解🎉"
-                : "不正解😢"}
-            </Text>
+          <Box
+            bgColor={isCorrected ? "blue.300" : "red.300"}
+            width="400px"
+            padding="10px"
+          >
+            <Text>{isCorrected ? "正解🎉" : "不正解😢"}</Text>
             <Text>
               {question.correctNumber} = {question.explanationSentence}
             </Text>
