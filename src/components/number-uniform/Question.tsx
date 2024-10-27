@@ -1,13 +1,20 @@
 "use client";
 
 import React, { useRef, useEffect, useReducer } from "react";
-import { PlayerType } from "@/types/Player";
+import { PlayerType, Role } from "@/types/Player";
 import { Button, HStack, Box, VStack, Text } from "@chakra-ui/react";
 import {
   NumberInputField,
   NumberInputRoot,
 } from "@/components/ui/number-input";
+import { Radio, RadioGroup } from "@/components/ui/radio";
 
+const DEFAULT_PLAYER_SELECTION_NUMBER = 2;
+type ModeRoleType = "rooster" | "all";
+type Mode = {
+  role: ModeRoleType;
+  playerNum: 2 | 3 | 4;
+};
 type Action =
   | {
       type: "init";
@@ -16,6 +23,10 @@ type Action =
   | {
       type: "retry";
       players: PlayerType[];
+    }
+  | {
+      type: "settings";
+      mode: Mode;
     }
   | {
       type: "answering";
@@ -28,20 +39,30 @@ type DrillStateType = {
   currentDrillPlayers: PlayerType[];
   answeredNumber: number | null;
   showResult: boolean;
+  mode: Mode;
 };
 const initDrillState = {
   currentDrillPlayers: [],
   answeredNumber: null,
   showResult: false,
+  mode: {
+    role: "rooster",
+    playerNum: DEFAULT_PLAYER_SELECTION_NUMBER,
+  } as Mode,
 };
 const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
   switch (action.type) {
     case "init":
     case "retry":
       return {
-        ...prev,
         ...initDrillState,
+        mode: prev.mode,
         currentDrillPlayers: action.players,
+      };
+    case "settings":
+      return {
+        ...prev,
+        mode: action.mode,
       };
     case "answering":
       return { ...prev, answeredNumber: action.value, showResult: false };
@@ -52,15 +73,21 @@ const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
   }
 };
 
-const PLAYER_SELECTION_NUMBER = 3;
+const RolesByModeRole: Record<ModeRoleType, Partial<Role[]>> = {
+  rooster: [Role.Roster],
+  all: [Role.Coach, Role.Roster, Role.Training],
+};
 const shufflePlayers = (players: PlayerType[]) =>
   players.sort(() => Math.random() - Math.random());
 function selecteRandomizedPlayers(
   players: PlayerType[],
-  count: number,
+  mode: Mode,
 ): PlayerType[] {
   const result: PlayerType[] = [];
-  const shuffledPlayers = shufflePlayers(players);
+  const usingRoles = RolesByModeRole[mode.role];
+  const filteredPlayers = players.filter((p) => usingRoles.includes(p.role));
+  const shuffledPlayers = shufflePlayers(filteredPlayers);
+  const count = mode.playerNum;
 
   for (let step = 0; step < count; step++) {
     const player = shuffledPlayers[step];
@@ -99,13 +126,9 @@ type Props = {
 
 const Question: React.FC<Props> = ({ players }) => {
   const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const selectedPlayers = selecteRandomizedPlayers(
-    players,
-    PLAYER_SELECTION_NUMBER,
-  );
   const [drillState, dispatch] = useReducer(reducer, {
     ...initDrillState,
-    currentDrillPlayers: selectedPlayers,
+    currentDrillPlayers: selecteRandomizedPlayers(players, initDrillState.mode),
   });
   const question = generateQuestion(drillState.currentDrillPlayers);
   const isCorrected = question.correctNumber === drillState.answeredNumber;
@@ -117,6 +140,35 @@ const Question: React.FC<Props> = ({ players }) => {
 
   return (
     <VStack justify={"center"}>
+      <VStack>
+        <RadioGroup
+          value={drillState.mode.role}
+          onValueChange={(e) => {
+            dispatch({
+              type: "settings",
+              mode: { ...drillState.mode, role: e.value } as Mode,
+            });
+          }}
+        >
+          <Text>設定: 対象範囲</Text>
+          <Radio value="rooster">支配下選手のみ</Radio>
+          <Radio value="all">すべて</Radio>
+        </RadioGroup>
+        <RadioGroup
+          value={String(drillState.mode.playerNum)}
+          onValueChange={(e) => {
+            dispatch({
+              type: "settings",
+              mode: { ...drillState.mode, playerNum: Number(e.value) } as Mode,
+            });
+          }}
+        >
+          <Text>設定: 難易度</Text>
+          <Radio value="2">Easy</Radio>
+          <Radio value="3">Normal</Radio>
+          <Radio value="4">Hard</Radio>
+        </RadioGroup>
+      </VStack>
       <Text>問題: {question.questionSentence}</Text>
       <NumberInputRoot
         size={"lg"}
@@ -146,7 +198,10 @@ const Question: React.FC<Props> = ({ players }) => {
         <Button
           variant="outline"
           onClick={() => {
-            dispatch({ type: "retry", players: selectedPlayers });
+            dispatch({
+              type: "retry",
+              players: selecteRandomizedPlayers(players, drillState.mode),
+            });
           }}
           width={"100px"}
         >
