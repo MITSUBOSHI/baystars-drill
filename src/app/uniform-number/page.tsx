@@ -7,7 +7,7 @@ export default function Index() {
 
   return (
     <VStack justify={"center"}>
-      <Heading size="6xl">⚾️ 背番号 ⚾️</Heading>
+      <Heading size="4xl">⚾️ 背番号 ⚾️</Heading>
       <Link href={`/uniform-number/gallery/${maxYear}`}>
         <Button
           as="a"
