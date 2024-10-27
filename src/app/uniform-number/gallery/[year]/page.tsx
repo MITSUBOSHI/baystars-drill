@@ -7,8 +7,8 @@ import {
   Button,
   Link as ChakraLink,
 } from "@chakra-ui/react";
-import { registeredYears } from "@/constants/player";
-import { Year, NameByRole, PlayerType } from "@/types/Player";
+import { registeredYears, NameByRole } from "@/constants/player";
+import { Year, PlayerType } from "@/types/Player";
 import Players2022 from "@/data/2022-players.jsonl.json";
 import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
