@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next-sitemap --config sitemap.config.js",
     "start": "next start",
     "lint": "next lint --no-cache",
     "format": "prettier --write 'src/**/*.{ts,tsx}' && next lint --fix"
@@ -23,6 +23,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.15",
+    "next-sitemap": "^4.2.3",
     "prettier": "^3.3.3",
     "typescript": "^5"
   },
