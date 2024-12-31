@@ -16,7 +16,7 @@ export default function Index() {
           colorPalette={"blue"}
           width={"200px"}
         >
-          選手図鑑
+          選手名鑑
         </Button>
       </Link>
       <Link href={`/uniform-number/drill/${maxYear}`}>

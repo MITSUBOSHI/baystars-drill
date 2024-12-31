@@ -40,7 +40,7 @@ export default function Page({ params }: { params: { year: Year } }) {
 
   return (
     <VStack justify={"center"}>
-      <Heading size="4xl">📖 選手図鑑 📖</Heading>
+      <Heading size="4xl">📖 選手名鑑 📖</Heading>
       <Heading size="2xl"> Year {currentYear} </Heading>
       <HStack>
         {registeredYears.map((year) => (
