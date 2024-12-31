@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://mitsuboshi.github.io/baystars-drill
+
+# Sitemaps
+Sitemap: https://mitsuboshi.github.io/baystars-drill/sitemap.xml
