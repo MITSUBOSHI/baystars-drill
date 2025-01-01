@@ -9,7 +9,7 @@ export default function Home() {
       <Heading size="6xl">Baystars Drill</Heading>
       <Link href="/uniform-number/">
         <Button
-          as="a"
+          as="span"
           size="xl"
           variant="outline"
           colorPalette={"blue"}

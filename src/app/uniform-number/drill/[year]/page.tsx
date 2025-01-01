@@ -39,7 +39,7 @@ export default function Page({ params }: { params: { year: Year } }) {
       <HStack>
         {registeredYears.map((year) => (
           <Link key={year} href={`/uniform-number/drill/${year}`}>
-            <Button as="a" size="sm" variant="ghost" colorPalette={"blue"}>
+            <Button as="span" size="sm" variant="ghost" colorPalette={"blue"}>
               {year}
             </Button>
           </Link>

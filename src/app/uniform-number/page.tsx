@@ -10,7 +10,7 @@ export default function Index() {
       <Heading size="4xl">⚾️ 背番号 ⚾️</Heading>
       <Link href={`/uniform-number/gallery/${maxYear}`}>
         <Button
-          as="a"
+          as="span"
           size="xl"
           variant="outline"
           colorPalette={"blue"}
@@ -21,7 +21,7 @@ export default function Index() {
       </Link>
       <Link href={`/uniform-number/drill/${maxYear}`}>
         <Button
-          as="a"
+          as="span"
           size="xl"
           variant="outline"
           colorPalette={"blue"}
