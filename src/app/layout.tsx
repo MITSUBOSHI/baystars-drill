@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { GoogleTagManager } from '@next/third-parties/google';
 import Provider from "./provider";
 
+const googleTagManagerId = "G-EW129H86JD";
 export const metadata: Metadata = {
   title: "Baystars Drill",
   description: "ベイスターズファンのための暇潰しサイト",
@@ -18,6 +20,7 @@ export default function RootLayout({
       <head>
         <meta name="google-site-verification" content="vlzDVPRDmQPcycgM2kxNfnsjt5eA2wGV40ksGd7LRRI" />
       </head>
+      <GoogleTagManager gtmId={googleTagManagerId} />
       <body>
         <Provider>{children}</Provider>
       </body>
