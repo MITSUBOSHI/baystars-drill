@@ -7,8 +7,8 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint --no-cache",
-    "format": "prettier --write 'src/**/*.{ts,tsx}' && next lint --fix",
+    "lint": "prettier --check 'src/**/*.{ts,tsx}' && next lint --no-cache",
+    "fix": "prettier --write 'src/**/*.{ts,tsx}' && next lint --fix",
     "test": "jest",
     "test:watch": "jest --watch"
   },
