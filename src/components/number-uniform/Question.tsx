@@ -20,7 +20,7 @@ import {
 import { Radio, RadioGroup } from "@/components/ui/radio";
 
 const DEFAULT_PLAYER_SELECTION_NUMBER = 2;
-type ModeRoleType = "rooster" | "all";
+type ModeRoleType = "roster" | "all";
 type Operator = "+" | "-" | "*" | "/";
 type NameDisplayMode = "kanji" | "kana" | "both";
 const OPERATORS: Record<Operator, string> = {
@@ -69,7 +69,7 @@ const initDrillState = {
   showResult: false,
   inputValue: "",
   mode: {
-    role: "rooster",
+    role: "roster",
     playerNum: DEFAULT_PLAYER_SELECTION_NUMBER,
     operators: ["+"],
     nameDisplay: "both" as NameDisplayMode,
@@ -112,7 +112,7 @@ const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
 };
 
 const RolesByModeRole: Record<ModeRoleType, Role[]> = {
-  rooster: [Role.Roster],
+  roster: [Role.Roster],
   all: [Role.Coach, Role.Roster, Role.Training],
 };
 const shufflePlayers = (players: PlayerType[]) =>
@@ -266,7 +266,11 @@ function generateQuestionWithOperators(
     fixedOperatorSequence.length === players.length - 1
   ) {
     const { result, expression, explanationExpression } =
-      calculateResultWithPrecedence(players, fixedOperatorSequence, nameDisplay);
+      calculateResultWithPrecedence(
+        players,
+        fixedOperatorSequence,
+        nameDisplay,
+      );
 
     return {
       questionSentence: expression,
@@ -431,7 +435,7 @@ const Question: React.FC<Props> = ({ players }) => {
                 }}
               >
                 <HStack gap={4}>
-                  <Radio value="rooster">支配下選手のみ</Radio>
+                  <Radio value="roster">支配下選手のみ</Radio>
                   <Radio value="all">すべて</Radio>
                 </HStack>
               </RadioGroup>
@@ -548,6 +552,7 @@ const Question: React.FC<Props> = ({ players }) => {
                   disabled={!!drillState.showResult}
                   placeholder="背番号の合計を入力..."
                   bg="white"
+                  data-testid="number-input"
                   _dark={{
                     bg: "gray.700",
                   }}

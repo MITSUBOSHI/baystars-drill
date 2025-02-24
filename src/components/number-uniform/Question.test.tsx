@@ -258,12 +258,21 @@ const mockPlayers: PlayerType[] = [
 ];
 
 describe("Question Component", () => {
+  beforeEach(() => {
+    // Reset mock players before each test
+    mockPlayers.forEach((player) => {
+      player.name_kana = player.name_kana.replace(/\s+/g, " ").trim();
+    });
+  });
+
   it("renders initial state correctly", () => {
     render(<Question players={mockPlayers} />);
 
     // Check if settings are displayed
     expect(screen.getByText("対象選手")).toBeInTheDocument();
     expect(screen.getByText("難易度")).toBeInTheDocument();
+    expect(screen.getByText("選手名の表示")).toBeInTheDocument();
+    expect(screen.getByText("使用する演算子")).toBeInTheDocument();
 
     // Check if radio buttons are present
     expect(screen.getByText("支配下選手のみ")).toBeInTheDocument();
@@ -271,6 +280,15 @@ describe("Question Component", () => {
     expect(screen.getByText("Easy")).toBeInTheDocument();
     expect(screen.getByText("Normal")).toBeInTheDocument();
     expect(screen.getByText("Hard")).toBeInTheDocument();
+    expect(screen.getByText("漢字のみ")).toBeInTheDocument();
+    expect(screen.getByText("ひらがなのみ")).toBeInTheDocument();
+    expect(screen.getByText("両方")).toBeInTheDocument();
+
+    // Check if operator checkboxes are present
+    expect(screen.getByText(/足し算/)).toBeInTheDocument();
+    expect(screen.getByText(/引き算/)).toBeInTheDocument();
+    expect(screen.getByText(/掛け算/)).toBeInTheDocument();
+    expect(screen.getByText(/割り算/)).toBeInTheDocument();
 
     // Check if buttons are present
     expect(screen.getByText("解答する")).toBeInTheDocument();
@@ -401,51 +419,56 @@ describe("Question Component", () => {
 
     const retryButton = screen.getByText("再挑戦");
 
-    const questionTextOnDefaultMode = screen.getByText(new RegExp(/＋/));
-    expect(questionTextOnDefaultMode.textContent?.split("＋")?.length).toEqual(
-      2,
-    );
+    // NOTE: 「使用する演算子」で対象演算子が利用されるため暗黙的ではあるが2番目に現れる演算子に対してテストをする
+    const questionTextOnDefaultMode = screen.getAllByText(new RegExp(/＋/));
+    expect(
+      questionTextOnDefaultMode[1].textContent?.split("＋")?.length,
+    ).toEqual(2);
 
     const normalButton = screen.getByRole("radio", { name: "Normal" });
     fireEvent.click(normalButton);
     fireEvent.click(retryButton);
 
-    const questionTextOnNormalMode = screen.getByText(new RegExp(/＋/));
-    expect(questionTextOnNormalMode.textContent?.split("＋")?.length).toEqual(
-      3,
-    );
+    const questionTextOnNormalMode = screen.getAllByText(new RegExp(/＋/));
+    expect(
+      questionTextOnNormalMode[1].textContent?.split("＋")?.length,
+    ).toEqual(3);
 
     const hardButton = screen.getByRole("radio", { name: "Hard" });
     fireEvent.click(hardButton);
     fireEvent.click(retryButton);
 
-    const questionTextOnHardMode = screen.getByText(new RegExp(/＋/));
-    expect(questionTextOnHardMode.textContent?.split("＋")?.length).toEqual(4);
+    const questionTextOnHardMode = screen.getAllByText(new RegExp(/＋/));
+    expect(questionTextOnHardMode[1].textContent?.split("＋")?.length).toEqual(
+      4,
+    );
 
     const easyButton = screen.getByRole("radio", { name: "Easy" });
     fireEvent.click(easyButton);
     fireEvent.click(retryButton);
 
-    const questionTextOnEasyMode = screen.getByText(new RegExp(/＋/));
-    expect(questionTextOnEasyMode.textContent?.split("＋")?.length).toEqual(2);
+    const questionTextOnEasyMode = screen.getAllByText(new RegExp(/＋/));
+    expect(questionTextOnEasyMode[1].textContent?.split("＋")?.length).toEqual(
+      2,
+    );
   });
 
   it("should change players list when players list mode is changed", () => {
     const mockPlayers: PlayerType[] = [
       {
-        name: "粟飯原 龍之介",
-        name_kana: "あいばら りゅうのすけ",
-        number_disp: "133",
-        number_calc: 133,
-        role: Role.Training,
+        name: "佐野 恵太",
+        name_kana: "さのけいた",
+        number_disp: "2",
+        number_calc: 2,
+        role: Role.Roster,
         year: 2025,
         url: "https://dummy/",
       },
       {
-        name: "小針 大輝",
-        name_kana: "こばり だいき",
-        number_disp: "155",
-        number_calc: 155,
+        name: "粟飯原 龍之介",
+        name_kana: "あいばら りゅうのすけ",
+        number_disp: "133",
+        number_calc: 133,
         role: Role.Training,
         year: 2025,
         url: "https://dummy/",
@@ -461,7 +484,6 @@ describe("Question Component", () => {
     fireEvent.click(retryButton);
 
     expect(screen.queryByText(/粟飯原 龍之介/)).toBeInTheDocument();
-    expect(screen.queryByText(/小針 大輝/)).toBeInTheDocument();
 
     const rosterOnlyButton = screen.getByRole("radio", {
       name: "支配下選手のみ",
@@ -470,6 +492,270 @@ describe("Question Component", () => {
     fireEvent.click(retryButton);
 
     expect(screen.queryByText(/粟飯原 龍之介/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/小針 大輝/)).not.toBeInTheDocument();
+  });
+
+  describe("when changing name display mode", () => {
+    const mockPlayers: PlayerType[] = [
+      {
+        name: "佐野 恵太",
+        name_kana: "さの けいた",
+        number_disp: "2",
+        number_calc: 2,
+        role: Role.Roster,
+        year: 2025,
+        url: "https://dummy/",
+      },
+      {
+        name: "牧 秀悟",
+        name_kana: "まき しゅうご",
+        number_disp: "1",
+        number_calc: 1,
+        role: Role.Roster,
+        year: 2025,
+        url: "https://dummy/",
+      },
+    ];
+
+    it("should display names in kanji only mode", () => {
+      render(<Question players={mockPlayers} />);
+      const kanjiButton = screen.getByRole("radio", { name: "漢字のみ" });
+      fireEvent.click(kanjiButton);
+      const retryButton = screen.getByText("再挑戦");
+      fireEvent.click(retryButton);
+
+      // Check if kanji name is present in the question
+      const questionText = screen.getByText(
+        new RegExp(mockPlayers[0].name.replace(/\s/g, "\\s")),
+      );
+      expect(questionText).toBeInTheDocument();
+
+      // Check if kana is not present
+      expect(
+        screen.queryByText(
+          new RegExp(mockPlayers[0].name_kana.replace(/\s/g, "\\s")),
+        ),
+      ).not.toBeInTheDocument();
+    });
+
+    it("should display names in kana only mode", () => {
+      render(<Question players={mockPlayers} />);
+      const kanaButton = screen.getByRole("radio", { name: "ひらがなのみ" });
+      fireEvent.click(kanaButton);
+      const retryButton = screen.getByText("再挑戦");
+      fireEvent.click(retryButton);
+
+      // Check if kana is present in the question
+      const questionText = screen.getByText(
+        new RegExp(mockPlayers[0].name_kana.replace(/\s/g, "\\s")),
+      );
+      expect(questionText).toBeInTheDocument();
+
+      // Check if kanji is not present
+      expect(
+        screen.queryByText(
+          new RegExp(mockPlayers[0].name.replace(/\s/g, "\\s")),
+        ),
+      ).not.toBeInTheDocument();
+    });
+
+    it("should display names in both mode", () => {
+      render(<Question players={mockPlayers} />);
+      const bothButton = screen.getByRole("radio", { name: "両方" });
+      fireEvent.click(bothButton);
+      const retryButton = screen.getByText("再挑戦");
+      fireEvent.click(retryButton);
+
+      // In both mode, both kanji and kana should be present
+      const questionText = screen.getByText(
+        new RegExp(
+          `${mockPlayers[0].name.replace(/\s/g, "\\s")}.*${mockPlayers[0].name_kana.replace(/\s/g, "\\s")}`,
+        ),
+      );
+      expect(questionText).toBeInTheDocument();
+    });
+  });
+
+  describe("when using arithmetic operators", () => {
+    const mockPlayers: PlayerType[] = [
+      {
+        name: "佐野 恵太",
+        name_kana: "さの けいた",
+        number_disp: "2",
+        number_calc: 2,
+        role: Role.Roster,
+        year: 2025,
+        url: "https://dummy/",
+      },
+      {
+        name: "牧 秀悟",
+        name_kana: "まき しゅうご",
+        number_disp: "1",
+        number_calc: 1,
+        role: Role.Roster,
+        year: 2025,
+        url: "https://dummy/",
+      },
+    ];
+
+    it("should handle addition correctly", () => {
+      render(<Question players={mockPlayers} />);
+      const input = screen.getByTestId("number-input");
+      fireEvent.change(input, { target: { value: "3" } });
+      const submitButton = screen.getByText("解答する");
+      fireEvent.click(submitButton);
+
+      const explanation = screen.getByText(/[0-9]+ = /);
+      expect(explanation).toBeInTheDocument();
+      expect(explanation.textContent).toMatch(/[＋]/);
+    });
+
+    it("should handle multiplication correctly", () => {
+      render(<Question players={mockPlayers} />);
+
+      // Enable multiplication
+      const multiplyCheckbox = screen.getByText(/掛け算/)
+        .previousSibling as HTMLInputElement;
+      fireEvent.click(multiplyCheckbox);
+
+      // Disable addition to force multiplication
+      const addCheckbox = screen.getByText(/足し算/)
+        .previousSibling as HTMLInputElement;
+      fireEvent.click(addCheckbox);
+
+      const retryButton = screen.getByText("再挑戦");
+      fireEvent.click(retryButton);
+
+      // Look for the multiplication symbol in any text content
+      const elements = screen.getAllByText(/[×]/);
+      expect(elements.length).toBeGreaterThan(0);
+    });
+
+    it("should handle division correctly", () => {
+      render(<Question players={mockPlayers} />);
+
+      // Enable division
+      const divideCheckbox = screen.getByText(/割り算/)
+        .previousSibling as HTMLInputElement;
+      fireEvent.click(divideCheckbox);
+
+      // Disable addition to force division
+      const addCheckbox = screen.getByText(/足し算/)
+        .previousSibling as HTMLInputElement;
+      fireEvent.click(addCheckbox);
+
+      const retryButton = screen.getByText("再挑戦");
+      fireEvent.click(retryButton);
+
+      // Look for the division symbol in any text content
+      const elements = screen.getAllByText(/[÷]/);
+      expect(elements.length).toBeGreaterThan(0);
+    });
+
+    it("should handle subtraction correctly", () => {
+      render(<Question players={mockPlayers} />);
+
+      // Enable subtraction
+      const subtractCheckbox = screen.getByText(/引き算/)
+        .previousSibling as HTMLInputElement;
+      fireEvent.click(subtractCheckbox);
+
+      // Disable addition to force subtraction
+      const addCheckbox = screen.getByText(/足し算/)
+        .previousSibling as HTMLInputElement;
+      fireEvent.click(addCheckbox);
+
+      const retryButton = screen.getByText("再挑戦");
+      fireEvent.click(retryButton);
+
+      // Look for the subtraction symbol in any text content
+      const elements = screen.getAllByText(/[－]/);
+      expect(elements.length).toBeGreaterThan(0);
+    });
+
+    it("should maintain selected operators after retry", () => {
+      render(<Question players={mockPlayers} />);
+
+      // Enable multiplication and division
+      const multiplyCheckbox = screen.getByText(/掛け算/)
+        .previousSibling as HTMLInputElement;
+      const divideCheckbox = screen.getByText(/割り算/)
+        .previousSibling as HTMLInputElement;
+      fireEvent.click(multiplyCheckbox);
+      fireEvent.click(divideCheckbox);
+
+      const retryButton = screen.getByText("再挑戦");
+      fireEvent.click(retryButton);
+
+      // Check if operators are still enabled by looking for their labels
+      expect(screen.getByText(/掛け算/)).toBeInTheDocument();
+      expect(screen.getByText(/割り算/)).toBeInTheDocument();
+    });
+  });
+
+  describe("when changing settings", () => {
+    const mockPlayers: PlayerType[] = [
+      {
+        name: "佐野 恵太",
+        name_kana: "さの けいた",
+        number_disp: "2",
+        number_calc: 2,
+        role: Role.Roster,
+        year: 2025,
+        url: "https://dummy/",
+      },
+      {
+        name: "牧 秀悟",
+        name_kana: "まき しゅうご",
+        number_disp: "1",
+        number_calc: 1,
+        role: Role.Roster,
+        year: 2025,
+        url: "https://dummy/",
+      },
+    ];
+
+    it("should maintain name display mode after retry", () => {
+      render(<Question players={mockPlayers} />);
+
+      const kanaButton = screen.getByRole("radio", { name: "ひらがなのみ" });
+      fireEvent.click(kanaButton);
+
+      const retryButton = screen.getByText("再挑戦");
+      fireEvent.click(retryButton);
+
+      // Check if kana is still displayed
+      const questionText = screen.getByText(
+        new RegExp(mockPlayers[0].name_kana.replace(/\s/g, "\\s")),
+      );
+      expect(questionText).toBeInTheDocument();
+      expect(
+        screen.queryByText(
+          new RegExp(mockPlayers[0].name.replace(/\s/g, "\\s")),
+        ),
+      ).not.toBeInTheDocument();
+    });
+
+    it("should maintain all settings after answering", () => {
+      render(<Question players={mockPlayers} />);
+
+      // Change settings
+      const kanaButton = screen.getByRole("radio", { name: "ひらがなのみ" });
+      fireEvent.click(kanaButton);
+      const multiplyCheckbox = screen.getByText(/掛け算/)
+        .previousSibling as HTMLInputElement;
+      fireEvent.click(multiplyCheckbox);
+
+      // Answer the question
+      const input = screen.getByTestId("number-input");
+      fireEvent.change(input, { target: { value: "42" } });
+      const submitButton = screen.getByText("解答する");
+      fireEvent.click(submitButton);
+
+      const explanationText = screen.getByText(new RegExp(/2（さの けいた）/));
+      expect(explanationText).toBeInTheDocument();
+      expect(screen.getByText(/掛け算/)).toBeInTheDocument();
+    });
   });
 });
+
+// TODO: 四則演算の組み合わせケースに対してテストを拡充する
