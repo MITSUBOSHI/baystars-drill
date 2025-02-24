@@ -21,9 +21,17 @@ import { Radio, RadioGroup } from "@/components/ui/radio";
 
 const DEFAULT_PLAYER_SELECTION_NUMBER = 2;
 type ModeRoleType = "rooster" | "all";
+type Operator = "+" | "-" | "*" | "/";
+const OPERATORS: Record<Operator, string> = {
+  "+": "＋",
+  "-": "－",
+  "*": "×",
+  "/": "÷",
+};
 type Mode = {
   role: ModeRoleType;
   playerNum: 2 | 3 | 4;
+  operators: Operator[];
 };
 type Action =
   | {
@@ -51,6 +59,7 @@ type DrillStateType = {
   showResult: boolean;
   mode: Mode;
   inputValue: string;
+  currentOperatorSequence: Operator[];
 };
 const initDrillState = {
   currentDrillPlayers: [],
@@ -60,17 +69,25 @@ const initDrillState = {
   mode: {
     role: "rooster",
     playerNum: DEFAULT_PLAYER_SELECTION_NUMBER,
+    operators: ["+"],
   } as Mode,
+  currentOperatorSequence: [],
 };
 const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
   switch (action.type) {
     case "init":
-    case "retry":
+    case "retry": {
+      const { operatorSequence } = generateQuestionWithOperators(
+        action.players,
+        prev.mode.operators,
+      );
       return {
         ...initDrillState,
         mode: prev.mode,
         currentDrillPlayers: action.players,
+        currentOperatorSequence: operatorSequence,
       };
+    }
     case "settings":
       return {
         ...prev,
@@ -112,19 +129,175 @@ type QuestionType = {
   correctNumber: number;
   explanationSentence: string;
 };
-function generateQuestion(players: PlayerType[]): QuestionType {
-  const questionSentence = players
-    .map((p) => `${p.name}（${p.name_kana}）`)
-    .join(" ＋ ");
-  const correctNumber = players.reduce((sum, p) => sum + p.number_calc, 0);
-  const explanationSentence = players
-    .map((p) => `${p.number_disp}（${p.name}）`)
-    .join(" ＋ ");
+
+// 演算子の優先順位を定義
+const OPERATOR_PRECEDENCE: Record<Operator, number> = {
+  "*": 2,
+  "/": 2,
+  "+": 1,
+  "-": 1,
+};
+
+function calculateResult(
+  a: number,
+  b: number,
+  operator: Operator,
+): number | null {
+  switch (operator) {
+    case "+":
+      return a + b;
+    case "-":
+      return a - b;
+    case "*":
+      return a * b;
+    case "/":
+      // 割り切れる場合のみ除算を許可
+      return b !== 0 && Number.isInteger(a / b) ? a / b : null;
+  }
+}
+
+function calculateResultWithPrecedence(
+  players: PlayerType[],
+  operators: Operator[],
+): {
+  result: number;
+  expression: string;
+  explanationExpression: string;
+} {
+  if (players.length === 1) {
+    return {
+      result: players[0].number_calc,
+      expression: `${players[0].name}（${players[0].name_kana}）`,
+      explanationExpression: `${players[0].number_disp}（${players[0].name}）`,
+    };
+  }
+
+  // 掛け算・割り算を先に処理
+  const currentPlayers = [...players];
+  const currentOperators = [...operators];
+  let i = 0;
+
+  while (i < currentOperators.length) {
+    const op = currentOperators[i];
+    if (OPERATOR_PRECEDENCE[op] === 2) {
+      // 掛け算または割り算
+      const result = calculateResult(
+        currentPlayers[i].number_calc,
+        currentPlayers[i + 1].number_calc,
+        op,
+      );
+
+      if (result !== null) {
+        // 計算結果を新しいプレイヤーとして置き換え
+        const combinedPlayer: PlayerType = {
+          ...currentPlayers[i],
+          name: `${currentPlayers[i].name} ${OPERATORS[op]} ${currentPlayers[i + 1].name}`,
+          name_kana: `${currentPlayers[i].name_kana} ${OPERATORS[op]} ${currentPlayers[i + 1].name_kana}`,
+          number_calc: result,
+          number_disp: `${result}`,
+        };
+
+        currentPlayers.splice(i, 2, combinedPlayer);
+        currentOperators.splice(i, 1);
+        i--;
+      }
+    }
+    i++;
+  }
+
+  // 残りの加算・減算を処理
+  const expression = players[0].name;
+  const explanationExpression = `${players[0].number_disp}（${players[0].name}）`;
+  let result = players[0].number_calc;
+
+  for (let i = 0; i < operators.length; i++) {
+    const operator = operators[i];
+    const nextNumber = players[i + 1].number_calc;
+    const calculatedResult = calculateResult(result, nextNumber, operator);
+
+    if (calculatedResult !== null) {
+      result = calculatedResult;
+    } else {
+      // 計算できない場合は加算を使用
+      result += nextNumber;
+    }
+  }
+
+  let displayExpression = expression;
+  let displayExplanation = explanationExpression;
+
+  for (let i = 0; i < operators.length; i++) {
+    const operator = operators[i];
+    displayExpression += ` ${OPERATORS[operator]} ${players[i + 1].name}`;
+    displayExplanation += ` ${OPERATORS[operator]} ${players[i + 1].number_disp}（${players[i + 1].name}）`;
+  }
 
   return {
-    questionSentence,
-    correctNumber,
-    explanationSentence,
+    result,
+    expression: displayExpression.replace(/（/g, "(").replace(/）/g, ")"),
+    explanationExpression: displayExplanation
+      .replace(/（/g, "(")
+      .replace(/）/g, ")"),
+  };
+}
+
+function generateQuestionWithOperators(
+  players: PlayerType[],
+  operators: Operator[],
+  fixedOperatorSequence?: Operator[],
+): QuestionType & { operatorSequence: Operator[] } {
+  if (
+    fixedOperatorSequence &&
+    fixedOperatorSequence.length === players.length - 1
+  ) {
+    const { result, expression, explanationExpression } =
+      calculateResultWithPrecedence(players, fixedOperatorSequence);
+
+    return {
+      questionSentence: expression,
+      correctNumber: result,
+      explanationSentence: explanationExpression,
+      operatorSequence: fixedOperatorSequence,
+    };
+  }
+
+  // 新しい演算子シーケンスを生成
+  const shuffledOperators = [...operators].sort(() => Math.random() - 0.5);
+  const operatorSequence: Operator[] = [];
+
+  let currentResult = players[0].number_calc;
+  for (let i = 1; i < players.length; i++) {
+    const nextNumber = players[i].number_calc;
+    let validOperatorFound = false;
+
+    for (const op of shuffledOperators) {
+      const tempResult = calculateResult(currentResult, nextNumber, op);
+      if (
+        tempResult !== null &&
+        tempResult >= 0 &&
+        Number.isInteger(tempResult)
+      ) {
+        currentResult = tempResult;
+        operatorSequence.push(op);
+        validOperatorFound = true;
+        break;
+      }
+    }
+
+    if (!validOperatorFound) {
+      currentResult += nextNumber;
+      operatorSequence.push("+");
+    }
+  }
+
+  const { result, expression, explanationExpression } =
+    calculateResultWithPrecedence(players, operatorSequence);
+
+  return {
+    questionSentence: expression,
+    correctNumber: result,
+    explanationSentence: explanationExpression,
+    operatorSequence,
   };
 }
 
@@ -133,12 +306,57 @@ type Props = {
 };
 
 const Question: React.FC<Props> = ({ players }) => {
-  const [drillState, dispatch] = useReducer(reducer, {
-    ...initDrillState,
-    currentDrillPlayers: selecteRandomizedPlayers(players, initDrillState.mode),
-  });
-  const question = generateQuestion(drillState.currentDrillPlayers);
+  const [drillState, dispatch] = useReducer(
+    reducer,
+    (() => {
+      const initialPlayers = selecteRandomizedPlayers(
+        players,
+        initDrillState.mode,
+      );
+      const { operatorSequence } = generateQuestionWithOperators(
+        initialPlayers,
+        initDrillState.mode.operators,
+      );
+      return {
+        ...initDrillState,
+        currentDrillPlayers: initialPlayers,
+        currentOperatorSequence: operatorSequence,
+      };
+    })(),
+  );
+
+  const question = generateQuestionWithOperators(
+    drillState.currentDrillPlayers,
+    drillState.mode.operators,
+    drillState.currentOperatorSequence,
+  );
   const isCorrected = question.correctNumber === drillState.answeredNumber;
+
+  const handleOperatorChange = (operator: Operator) => {
+    const currentOperators = drillState.mode.operators;
+    const newOperators = currentOperators.includes(operator)
+      ? currentOperators.filter((op) => op !== operator)
+      : [...currentOperators, operator];
+
+    // 少なくとも1つの演算子は選択されている必要がある
+    const operators =
+      newOperators.length > 0 ? newOperators : (["+"] as Operator[]);
+    dispatch({
+      type: "settings",
+      mode: {
+        ...drillState.mode,
+        operators,
+      },
+    });
+  };
+
+  const handleRetry = () => {
+    // 現在の設定で新しい問題を生成
+    dispatch({
+      type: "retry",
+      players: selecteRandomizedPlayers(players, drillState.mode),
+    });
+  };
 
   return (
     <Container maxW="container.md" py={8}>
@@ -165,7 +383,7 @@ const Question: React.FC<Props> = ({ players }) => {
               </Text>
               <RadioGroup
                 value={drillState.mode.role}
-                onValueChange={(e) => {
+                onValueChange={(e: { value: string }) => {
                   dispatch({
                     type: "settings",
                     mode: { ...drillState.mode, role: e.value } as Mode,
@@ -184,7 +402,7 @@ const Question: React.FC<Props> = ({ players }) => {
               </Text>
               <RadioGroup
                 value={String(drillState.mode.playerNum)}
-                onValueChange={(e) => {
+                onValueChange={(e: { value: string }) => {
                   dispatch({
                     type: "settings",
                     mode: {
@@ -200,6 +418,40 @@ const Question: React.FC<Props> = ({ players }) => {
                   <Radio value="4">Hard</Radio>
                 </HStack>
               </RadioGroup>
+            </Box>
+            <Box>
+              <Text fontWeight="bold" mb={2}>
+                使用する演算子
+              </Text>
+              <HStack gap={4}>
+                {(Object.entries(OPERATORS) as [Operator, string][]).map(
+                  ([value, label]) => (
+                    <Box key={value}>
+                      <label
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={drillState.mode.operators.includes(value)}
+                          onChange={() => handleOperatorChange(value)}
+                          style={{ width: "1.2rem", height: "1.2rem" }}
+                        />
+                        <span>
+                          {value === "+" && "足し算"}
+                          {value === "-" && "引き算"}
+                          {value === "*" && "掛け算"}
+                          {value === "/" && "割り算"}（{label}）
+                        </span>
+                      </label>
+                    </Box>
+                  ),
+                )}
+              </HStack>
             </Box>
           </VStack>
         </Box>
@@ -294,12 +546,7 @@ const Question: React.FC<Props> = ({ players }) => {
                 bg: "white",
                 color: "black",
               }}
-              onClick={() => {
-                dispatch({
-                  type: "retry",
-                  players: selecteRandomizedPlayers(players, drillState.mode),
-                });
-              }}
+              onClick={handleRetry}
               flex="1"
             >
               再挑戦
