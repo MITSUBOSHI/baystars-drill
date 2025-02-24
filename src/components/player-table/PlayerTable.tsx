@@ -15,7 +15,10 @@ import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 
 type SortOrder = "asc" | "desc" | null;
 
-function sortPlayers(players: PlayerType[], sortOrder: SortOrder): PlayerType[] {
+function sortPlayers(
+  players: PlayerType[],
+  sortOrder: SortOrder,
+): PlayerType[] {
   if (!sortOrder) return players;
 
   return [...players].sort((a, b) => {
@@ -48,7 +51,11 @@ export default function PlayerTable({ players }: Props) {
   };
 
   return (
-    <Table.ScrollArea borderWidth="1px" rounded="md" height={{ base: 600, md: 900 }}>
+    <Table.ScrollArea
+      borderWidth="1px"
+      rounded="md"
+      height={{ base: 600, md: 900 }}
+    >
       <Table.Root striped stickyHeader>
         <Table.Header>
           <Table.Row>
@@ -65,8 +72,12 @@ export default function PlayerTable({ players }: Props) {
                 </IconButton>
               </HStack>
             </Table.ColumnHeader>
-            <Table.ColumnHeader width={{ base: "60%", md: "65%" }}>名前</Table.ColumnHeader>
-            <Table.ColumnHeader width={{ base: "20%", md: "20%" }}>ロール</Table.ColumnHeader>
+            <Table.ColumnHeader width={{ base: "60%", md: "65%" }}>
+              名前
+            </Table.ColumnHeader>
+            <Table.ColumnHeader width={{ base: "20%", md: "20%" }}>
+              ロール
+            </Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -81,7 +92,11 @@ export default function PlayerTable({ players }: Props) {
                   fontSize={{ base: "sm", md: "md" }}
                 >
                   {player.name}
-                  <Box as="span" display={{ base: "block", md: "inline" }} fontSize="sm">
+                  <Box
+                    as="span"
+                    display={{ base: "block", md: "inline" }}
+                    fontSize="sm"
+                  >
                     （{player.name_kana}）
                   </Box>
                 </ChakraLink>
@@ -93,4 +108,4 @@ export default function PlayerTable({ players }: Props) {
       </Table.Root>
     </Table.ScrollArea>
   );
-} 
+}

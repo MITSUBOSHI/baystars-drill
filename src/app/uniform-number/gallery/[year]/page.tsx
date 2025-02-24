@@ -6,13 +6,7 @@ import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
 import Players2025 from "@/data/2025-players.jsonl.json";
 import { PlayerType, Year } from "@/types/Player";
-import {
-  Button,
-  Heading,
-  HStack,
-  VStack,
-  Box,
-} from "@chakra-ui/react";
+import { Button, Heading, HStack, VStack, Box } from "@chakra-ui/react";
 import Link from "next/link";
 import PlayerTable from "@/components/player-table/PlayerTable";
 
