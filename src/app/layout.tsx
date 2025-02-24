@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleAnalytics } from "@next/third-parties/google";
 import Provider from "./provider";
 
 const gaId = "G-EW129H86JD";
@@ -18,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <meta name="google-site-verification" content="vlzDVPRDmQPcycgM2kxNfnsjt5eA2wGV40ksGd7LRRI" />
+        <meta
+          name="google-site-verification"
+          content="vlzDVPRDmQPcycgM2kxNfnsjt5eA2wGV40ksGd7LRRI"
+        />
       </head>
       <GoogleAnalytics gaId={gaId} />
       <body>

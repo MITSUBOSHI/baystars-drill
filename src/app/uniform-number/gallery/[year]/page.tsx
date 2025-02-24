@@ -37,7 +37,11 @@ export async function generateStaticParams() {
   return registeredYears.map((y) => ({ year: y.toString() }));
 }
 
-export default async function Page({ params }: { params: Promise<{ year: Year }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ year: Year }>;
+}) {
   const { year } = await params;
   const currentYear = Number(year) as Year; // TODO: path paramsがデフォstring。type castの設定は要確認。
   const players = playersByYear(currentYear);
