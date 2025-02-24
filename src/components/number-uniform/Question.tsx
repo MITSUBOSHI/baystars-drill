@@ -2,7 +2,17 @@
 
 import React, { useReducer } from "react";
 import { PlayerType, Role } from "@/types/Player";
-import { Button, HStack, Box, VStack, Text } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  Box,
+  VStack,
+  Text,
+  Container,
+  Flex,
+  Badge,
+  Heading,
+} from "@chakra-ui/react";
 import {
   NumberInputField,
   NumberInputRoot,
@@ -133,89 +143,169 @@ const Question: React.FC<Props> = ({ players }) => {
   const isCorrected = question.correctNumber === drillState.answeredNumber;
 
   return (
-    <VStack justify={"center"}>
-      <VStack>
-        <RadioGroup
-          value={drillState.mode.role}
-          onValueChange={(e) => {
-            dispatch({
-              type: "settings",
-              mode: { ...drillState.mode, role: e.value } as Mode,
-            });
-          }}
-        >
-          <Text>設定: 対象範囲</Text>
-          <Radio value="rooster">支配下選手のみ</Radio>
-          <Radio value="all">すべて</Radio>
-        </RadioGroup>
-        <RadioGroup
-          value={String(drillState.mode.playerNum)}
-          onValueChange={(e) => {
-            dispatch({
-              type: "settings",
-              mode: { ...drillState.mode, playerNum: Number(e.value) } as Mode,
-            });
-          }}
-        >
-          <Text>設定: 難易度</Text>
-          <Radio value="2">Easy</Radio>
-          <Radio value="3">Normal</Radio>
-          <Radio value="4">Hard</Radio>
-        </RadioGroup>
-      </VStack>
-      <Text>問題: {question.questionSentence}</Text>
-      <NumberInputRoot
-        size={"lg"}
-        width="300px"
-        defaultValue=""
-        min={0}
-        max={2000}
-      >
-        <NumberInputField
-          onChange={(e) => {
-            dispatch({ type: "answering", value: Number(e.target.value) });
-          }}
-          disabled={!!drillState.showResult}
-        />
-      </NumberInputRoot>
-      <HStack>
-        <Button
-          variant="outline"
-          onClick={() => {
-            dispatch({ type: "answered" });
-          }}
-          width={"100px"}
-        >
-          解答する
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => {
-            dispatch({
-              type: "retry",
-              players: selecteRandomizedPlayers(players, drillState.mode),
-            });
-          }}
-          width={"100px"}
-        >
-          再挑戦
-        </Button>
-      </HStack>
-      {drillState.showResult == true ? (
-        <>
+    <Container maxW="container.md" py={8}>
+      <VStack gap={6} align="stretch">
+        {/* Settings Section */}
+        <Box bg="blue.50" p={6} borderRadius="lg" borderWidth="1px">
+          <Heading size="md" mb={4}>
+            ⚙️ ドリル設定
+          </Heading>
+          <VStack gap={4} align="stretch">
+            <Box>
+              <Text fontWeight="bold" mb={2}>
+                対象選手
+              </Text>
+              <RadioGroup
+                value={drillState.mode.role}
+                onValueChange={(e) => {
+                  dispatch({
+                    type: "settings",
+                    mode: { ...drillState.mode, role: e.value } as Mode,
+                  });
+                }}
+              >
+                <HStack gap={4}>
+                  <Radio value="rooster">支配下選手のみ</Radio>
+                  <Radio value="all">すべて</Radio>
+                </HStack>
+              </RadioGroup>
+            </Box>
+            <Box>
+              <Text fontWeight="bold" mb={2}>
+                難易度
+              </Text>
+              <RadioGroup
+                value={String(drillState.mode.playerNum)}
+                onValueChange={(e) => {
+                  dispatch({
+                    type: "settings",
+                    mode: {
+                      ...drillState.mode,
+                      playerNum: Number(e.value),
+                    } as Mode,
+                  });
+                }}
+              >
+                <HStack gap={4}>
+                  <Radio value="2">
+                    <Badge colorScheme="green">Easy</Badge>
+                  </Radio>
+                  <Radio value="3">
+                    <Badge colorScheme="yellow">Normal</Badge>
+                  </Radio>
+                  <Radio value="4">
+                    <Badge colorScheme="red">Hard</Badge>
+                  </Radio>
+                </HStack>
+              </RadioGroup>
+            </Box>
+          </VStack>
+        </Box>
+
+        {/* Question Section */}
+        <Box bg="gray.50" p={6} borderRadius="lg" borderWidth="1px">
+          <Heading size="md" mb={4}>
+            🎯 問題
+          </Heading>
+          <VStack gap={4} align="stretch">
+            <Box p={3} bg="white" borderRadius="md" borderWidth="1px">
+              <Text fontSize="md" fontWeight="bold">
+                {question.questionSentence}
+              </Text>
+            </Box>
+            <Box>
+              <Text mb={2} fontWeight="bold">
+                答えを入力してください：
+              </Text>
+              <NumberInputRoot
+                size="lg"
+                width="100%"
+                defaultValue=""
+                min={0}
+                max={2000}
+              >
+                <NumberInputField
+                  onChange={(e) => {
+                    dispatch({
+                      type: "answering",
+                      value: Number(e.target.value),
+                    });
+                  }}
+                  disabled={!!drillState.showResult}
+                  placeholder="背番号の合計を入力..."
+                />
+              </NumberInputRoot>
+            </Box>
+          </VStack>
+          <HStack gap={4} mt={6}>
+            <Button
+              backgroundColor="blue.300"
+              fontWeight="bold"
+              onClick={() => {
+                dispatch({ type: "answered" });
+              }}
+              flex="1"
+              disabled={drillState.showResult}
+            >
+              解答する
+            </Button>
+            <Button
+              backgroundColor="blue.300"
+              fontWeight="bold"
+              onClick={() => {
+                dispatch({
+                  type: "retry",
+                  players: selecteRandomizedPlayers(players, drillState.mode),
+                });
+              }}
+              flex="1"
+            >
+              再挑戦
+            </Button>
+          </HStack>
+        </Box>
+
+        {/* Result Section */}
+        {drillState.showResult && (
           <Box
-            bgColor={isCorrected ? "blue.300" : "red.300"}
-            width="400px"
-            padding="10px"
+            bg={isCorrected ? "green.50" : "red.50"}
+            p={6}
+            borderRadius="lg"
+            borderWidth="1px"
           >
-            <Text>{isCorrected ? "正解🎉" : "不正解😢"}</Text>
-            <Text>
-              {question.correctNumber} = {question.explanationSentence}
-            </Text>
+            <VStack gap={4} align="stretch">
+              <Flex align="center">
+                <Text fontSize="xl" fontWeight="bold">
+                  {isCorrected ? "🎉 正解！" : "😢 不正解..."}
+                </Text>
+                <Box flex="1" />
+                <Badge
+                  colorScheme={isCorrected ? "green" : "red"}
+                  fontSize="md"
+                  px={3}
+                  py={1}
+                >
+                  {isCorrected ? "Correct" : "Incorrect"}
+                </Badge>
+              </Flex>
+              <Box
+                borderTopWidth="1px"
+                borderColor={isCorrected ? "green.200" : "red.200"}
+                pt={4}
+              >
+                <Text fontWeight="bold" mb={2}>
+                  解説：
+                </Text>
+                <Text fontSize="lg">
+                  {question.correctNumber} = {question.explanationSentence}
+                </Text>
+              </Box>
+            </VStack>
           </Box>
-        </>
-      ) : null}
-    </VStack>
+        )}
+      </VStack>
+    </Container>
   );
 };
+
 export default Question;
