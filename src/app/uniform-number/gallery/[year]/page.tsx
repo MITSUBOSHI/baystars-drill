@@ -4,6 +4,7 @@ import Players2021 from "@/data/2021-players.jsonl.json";
 import Players2022 from "@/data/2022-players.jsonl.json";
 import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
+import Players2025 from "@/data/2025-players.jsonl.json";
 import { PlayerType, Year } from "@/types/Player";
 import {
   Button,
@@ -27,6 +28,8 @@ function playersByYear(year: Year): PlayerType[] {
       return Players2023 as PlayerType[];
     case 2024:
       return Players2024 as PlayerType[];
+    case 2025:
+      return Players2025 as PlayerType[];
   }
 }
 
