@@ -13,6 +13,7 @@ import {
   HStack,
   Table,
   VStack,
+  Box,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -47,10 +48,10 @@ export default async function Page({
   const players = playersByYear(currentYear);
 
   return (
-    <VStack justify={"center"}>
+    <VStack justify={"center"} w="100%" gap={6} py={4}>
       <Heading size="4xl">📖 選手名鑑 📖</Heading>
       <Heading size="2xl"> Year {currentYear} </Heading>
-      <HStack>
+      <HStack gap={2} flexWrap="wrap" justify="center" px={4}>
         {registeredYears.map((year) => (
           <Link key={year} href={`/uniform-number/gallery/${year}`}>
             <Button as="span" size="sm" variant="ghost" colorPalette={"blue"}>
@@ -59,34 +60,40 @@ export default async function Page({
           </Link>
         ))}
       </HStack>
-      <Table.ScrollArea borderWidth="1px" rounded="md" height={900}>
-        <Table.Root maxWidth="100%" striped stickyHeader>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader>背番号</Table.ColumnHeader>
-              <Table.ColumnHeader>名前</Table.ColumnHeader>
-              <Table.ColumnHeader>ロール</Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {players.map((player, i) => (
-              <Table.Row key={i}>
-                <Table.Cell>{player.number_disp}</Table.Cell>
-                <Table.Cell>
-                  <ChakraLink
-                    href={player.url}
-                    variant={"underline"}
-                    colorPalette={"blue"}
-                  >
-                    {player.name}（{player.name_kana}）
-                  </ChakraLink>
-                </Table.Cell>
-                <Table.Cell>{NameByRole[player.role]}</Table.Cell>
+      <Box w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
+        <Table.ScrollArea borderWidth="1px" rounded="md" height={{ base: 600, md: 900 }}>
+          <Table.Root striped stickyHeader>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader width={{ base: "20%", md: "15%" }}>背番号</Table.ColumnHeader>
+                <Table.ColumnHeader width={{ base: "60%", md: "65%" }}>名前</Table.ColumnHeader>
+                <Table.ColumnHeader width={{ base: "20%", md: "20%" }}>ロール</Table.ColumnHeader>
               </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
-      </Table.ScrollArea>
+            </Table.Header>
+            <Table.Body>
+              {players.map((player, i) => (
+                <Table.Row key={i}>
+                  <Table.Cell>{player.number_disp}</Table.Cell>
+                  <Table.Cell>
+                    <ChakraLink
+                      href={player.url}
+                      variant={"underline"}
+                      colorPalette={"blue"}
+                      fontSize={{ base: "sm", md: "md" }}
+                    >
+                      {player.name}
+                      <Box as="span" display={{ base: "block", md: "inline" }} fontSize="sm">
+                        （{player.name_kana}）
+                      </Box>
+                    </ChakraLink>
+                  </Table.Cell>
+                  <Table.Cell>{NameByRole[player.role]}</Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+        </Table.ScrollArea>
+      </Box>
     </VStack>
   );
 }
