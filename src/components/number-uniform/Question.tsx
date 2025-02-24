@@ -50,11 +50,13 @@ type DrillStateType = {
   answeredNumber: number | null;
   showResult: boolean;
   mode: Mode;
+  inputValue: string;
 };
 const initDrillState = {
   currentDrillPlayers: [],
   answeredNumber: null,
   showResult: false,
+  inputValue: "",
   mode: {
     role: "rooster",
     playerNum: DEFAULT_PLAYER_SELECTION_NUMBER,
@@ -75,7 +77,12 @@ const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
         mode: action.mode,
       };
     case "answering":
-      return { ...prev, answeredNumber: action.value, showResult: false };
+      return {
+        ...prev,
+        answeredNumber: action.value,
+        showResult: false,
+        inputValue: String(action.value),
+      };
     case "answered":
       return { ...prev, showResult: true };
     default:
@@ -220,17 +227,17 @@ const Question: React.FC<Props> = ({ players }) => {
               <NumberInputRoot
                 size="lg"
                 width="100%"
-                defaultValue=""
                 min={0}
                 max={2000}
+                value={drillState.inputValue}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  dispatch({
+                    type: "answering",
+                    value: Number(e.target.value),
+                  });
+                }}
               >
                 <NumberInputField
-                  onChange={(e) => {
-                    dispatch({
-                      type: "answering",
-                      value: Number(e.target.value),
-                    });
-                  }}
                   disabled={!!drillState.showResult}
                   placeholder="背番号の合計を入力..."
                 />
