@@ -144,7 +144,17 @@ const Question: React.FC<Props> = ({ players }) => {
     <Container maxW="container.md" py={8}>
       <VStack gap={6} align="stretch">
         {/* Settings Section */}
-        <Box bg="blue.50" p={6} borderRadius="lg" borderWidth="1px">
+        <Box
+          bg="blue.50"
+          _dark={{
+            bg: "blue.900",
+            borderColor: "blue.700",
+          }}
+          p={6}
+          borderRadius="lg"
+          borderWidth="1px"
+          borderColor="blue.200"
+        >
           <Heading size="md" mb={4}>
             ⚙️ ドリル設定
           </Heading>
@@ -195,12 +205,32 @@ const Question: React.FC<Props> = ({ players }) => {
         </Box>
 
         {/* Question Section */}
-        <Box bg="gray.50" p={6} borderRadius="lg" borderWidth="1px">
+        <Box
+          bg="gray.50"
+          _dark={{
+            bg: "gray.800",
+            borderColor: "gray.600",
+          }}
+          p={6}
+          borderRadius="lg"
+          borderWidth="1px"
+          borderColor="gray.200"
+        >
           <Heading size="md" mb={4}>
             🎯 問題
           </Heading>
           <VStack gap={4} align="stretch">
-            <Box p={3} bg="white" borderRadius="md" borderWidth="1px">
+            <Box
+              p={3}
+              bg="white"
+              _dark={{
+                bg: "gray.700",
+                borderColor: "gray.600",
+              }}
+              borderRadius="md"
+              borderWidth="1px"
+              borderColor="gray.200"
+            >
               <Text fontSize="md" fontWeight="bold">
                 {question.questionSentence}
               </Text>
@@ -225,14 +255,29 @@ const Question: React.FC<Props> = ({ players }) => {
                 <NumberInputField
                   disabled={!!drillState.showResult}
                   placeholder="背番号の合計を入力..."
+                  bg="white"
+                  _dark={{
+                    bg: "gray.700",
+                  }}
+                  _placeholder={{
+                    color: "gray.500",
+                    _dark: {
+                      color: "gray.400",
+                    },
+                  }}
                 />
               </NumberInputRoot>
             </Box>
           </VStack>
           <HStack gap={4} mt={6}>
             <Button
-              backgroundColor="blue.300"
               fontWeight="bold"
+              color="white"
+              backgroundColor="blue.300"
+              _dark={{
+                bg: "white",
+                color: "black",
+              }}
               onClick={() => {
                 dispatch({ type: "answered" });
               }}
@@ -242,8 +287,13 @@ const Question: React.FC<Props> = ({ players }) => {
               解答する
             </Button>
             <Button
-              backgroundColor="blue.300"
               fontWeight="bold"
+              color="white"
+              backgroundColor="blue.300"
+              _dark={{
+                bg: "white",
+                color: "black",
+              }}
               onClick={() => {
                 dispatch({
                   type: "retry",
@@ -261,9 +311,14 @@ const Question: React.FC<Props> = ({ players }) => {
         {drillState.showResult && (
           <Box
             bg={isCorrected ? "green.50" : "red.50"}
+            _dark={{
+              bg: isCorrected ? "green.900" : "red.900",
+              borderColor: isCorrected ? "green.700" : "red.700",
+            }}
             p={6}
             borderRadius="lg"
             borderWidth="1px"
+            borderColor={isCorrected ? "green.200" : "red.200"}
           >
             <VStack gap={4} align="stretch">
               <Flex align="center">
@@ -283,6 +338,9 @@ const Question: React.FC<Props> = ({ players }) => {
               <Box
                 borderTopWidth="1px"
                 borderColor={isCorrected ? "green.200" : "red.200"}
+                _dark={{
+                  borderColor: isCorrected ? "green.700" : "red.700",
+                }}
                 pt={4}
               >
                 <Text fontWeight="bold" mb={2}>
