@@ -22,6 +22,7 @@ import { Radio, RadioGroup } from "@/components/ui/radio";
 const DEFAULT_PLAYER_SELECTION_NUMBER = 2;
 type ModeRoleType = "rooster" | "all";
 type Operator = "+" | "-" | "*" | "/";
+type NameDisplayMode = "kanji" | "kana" | "both";
 const OPERATORS: Record<Operator, string> = {
   "+": "＋",
   "-": "－",
@@ -32,6 +33,7 @@ type Mode = {
   role: ModeRoleType;
   playerNum: 2 | 3 | 4;
   operators: Operator[];
+  nameDisplay: NameDisplayMode;
 };
 type Action =
   | {
@@ -70,6 +72,7 @@ const initDrillState = {
     role: "rooster",
     playerNum: DEFAULT_PLAYER_SELECTION_NUMBER,
     operators: ["+"],
+    nameDisplay: "both" as NameDisplayMode,
   } as Mode,
   currentOperatorSequence: [],
 };
@@ -80,6 +83,7 @@ const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
       const { operatorSequence } = generateQuestionWithOperators(
         action.players,
         prev.mode.operators,
+        prev.mode.nameDisplay,
       );
       return {
         ...initDrillState,
@@ -156,9 +160,21 @@ function calculateResult(
   }
 }
 
+function getDisplayName(player: PlayerType, mode: NameDisplayMode): string {
+  switch (mode) {
+    case "kanji":
+      return player.name;
+    case "kana":
+      return player.name_kana;
+    case "both":
+      return `${player.name}（${player.name_kana}）`;
+  }
+}
+
 function calculateResultWithPrecedence(
   players: PlayerType[],
   operators: Operator[],
+  nameDisplay: NameDisplayMode,
 ): {
   result: number;
   expression: string;
@@ -167,8 +183,8 @@ function calculateResultWithPrecedence(
   if (players.length === 1) {
     return {
       result: players[0].number_calc,
-      expression: `${players[0].name}（${players[0].name_kana}）`,
-      explanationExpression: `${players[0].number_disp}（${players[0].name}）`,
+      expression: getDisplayName(players[0], nameDisplay),
+      explanationExpression: `${players[0].number_disp}（${getDisplayName(players[0], nameDisplay)}）`,
     };
   }
 
@@ -191,7 +207,7 @@ function calculateResultWithPrecedence(
         // 計算結果を新しいプレイヤーとして置き換え
         const combinedPlayer: PlayerType = {
           ...currentPlayers[i],
-          name: `${currentPlayers[i].name} ${OPERATORS[op]} ${currentPlayers[i + 1].name}`,
+          name: `${getDisplayName(currentPlayers[i], nameDisplay)} ${OPERATORS[op]} ${getDisplayName(currentPlayers[i + 1], nameDisplay)}`,
           name_kana: `${currentPlayers[i].name_kana} ${OPERATORS[op]} ${currentPlayers[i + 1].name_kana}`,
           number_calc: result,
           number_disp: `${result}`,
@@ -206,8 +222,8 @@ function calculateResultWithPrecedence(
   }
 
   // 残りの加算・減算を処理
-  const expression = players[0].name;
-  const explanationExpression = `${players[0].number_disp}（${players[0].name}）`;
+  const expression = getDisplayName(players[0], nameDisplay);
+  const explanationExpression = `${players[0].number_disp}（${getDisplayName(players[0], nameDisplay)}）`;
   let result = players[0].number_calc;
 
   for (let i = 0; i < operators.length; i++) {
@@ -228,22 +244,21 @@ function calculateResultWithPrecedence(
 
   for (let i = 0; i < operators.length; i++) {
     const operator = operators[i];
-    displayExpression += ` ${OPERATORS[operator]} ${players[i + 1].name}`;
-    displayExplanation += ` ${OPERATORS[operator]} ${players[i + 1].number_disp}（${players[i + 1].name}）`;
+    displayExpression += ` ${OPERATORS[operator]} ${getDisplayName(players[i + 1], nameDisplay)}`;
+    displayExplanation += ` ${OPERATORS[operator]} ${players[i + 1].number_disp}（${getDisplayName(players[i + 1], nameDisplay)}）`;
   }
 
   return {
     result,
-    expression: displayExpression.replace(/（/g, "(").replace(/）/g, ")"),
-    explanationExpression: displayExplanation
-      .replace(/（/g, "(")
-      .replace(/）/g, ")"),
+    expression: displayExpression,
+    explanationExpression: displayExplanation,
   };
 }
 
 function generateQuestionWithOperators(
   players: PlayerType[],
   operators: Operator[],
+  nameDisplay: NameDisplayMode,
   fixedOperatorSequence?: Operator[],
 ): QuestionType & { operatorSequence: Operator[] } {
   if (
@@ -251,7 +266,7 @@ function generateQuestionWithOperators(
     fixedOperatorSequence.length === players.length - 1
   ) {
     const { result, expression, explanationExpression } =
-      calculateResultWithPrecedence(players, fixedOperatorSequence);
+      calculateResultWithPrecedence(players, fixedOperatorSequence, nameDisplay);
 
     return {
       questionSentence: expression,
@@ -291,7 +306,7 @@ function generateQuestionWithOperators(
   }
 
   const { result, expression, explanationExpression } =
-    calculateResultWithPrecedence(players, operatorSequence);
+    calculateResultWithPrecedence(players, operatorSequence, nameDisplay);
 
   return {
     questionSentence: expression,
@@ -316,6 +331,7 @@ const Question: React.FC<Props> = ({ players }) => {
       const { operatorSequence } = generateQuestionWithOperators(
         initialPlayers,
         initDrillState.mode.operators,
+        initDrillState.mode.nameDisplay,
       );
       return {
         ...initDrillState,
@@ -328,6 +344,7 @@ const Question: React.FC<Props> = ({ players }) => {
   const question = generateQuestionWithOperators(
     drillState.currentDrillPlayers,
     drillState.mode.operators,
+    drillState.mode.nameDisplay,
     drillState.currentOperatorSequence,
   );
   const isCorrected = question.correctNumber === drillState.answeredNumber;
@@ -377,6 +394,29 @@ const Question: React.FC<Props> = ({ players }) => {
             ⚙️ ドリル設定
           </Heading>
           <VStack gap={4} align="stretch">
+            <Box>
+              <Text fontWeight="bold" mb={2}>
+                選手名の表示
+              </Text>
+              <RadioGroup
+                value={drillState.mode.nameDisplay}
+                onValueChange={(e: { value: string }) => {
+                  dispatch({
+                    type: "settings",
+                    mode: {
+                      ...drillState.mode,
+                      nameDisplay: e.value as NameDisplayMode,
+                    },
+                  });
+                }}
+              >
+                <HStack gap={4}>
+                  <Radio value="kanji">漢字のみ</Radio>
+                  <Radio value="kana">ひらがなのみ</Radio>
+                  <Radio value="both">両方</Radio>
+                </HStack>
+              </RadioGroup>
+            </Box>
             <Box>
               <Text fontWeight="bold" mb={2}>
                 対象選手
