@@ -1,4 +1,4 @@
-import { NameByRole, registeredYears } from "@/constants/player";
+import { registeredYears } from "@/constants/player";
 import Players2020 from "@/data/2020-players.jsonl.json";
 import Players2021 from "@/data/2021-players.jsonl.json";
 import Players2022 from "@/data/2022-players.jsonl.json";
@@ -8,14 +8,13 @@ import Players2025 from "@/data/2025-players.jsonl.json";
 import { PlayerType, Year } from "@/types/Player";
 import {
   Button,
-  Link as ChakraLink,
   Heading,
   HStack,
-  Table,
   VStack,
   Box,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import PlayerTable from "@/components/player-table/PlayerTable";
 
 function playersByYear(year: Year): PlayerType[] {
   switch (year) {
@@ -61,38 +60,7 @@ export default async function Page({
         ))}
       </HStack>
       <Box w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
-        <Table.ScrollArea borderWidth="1px" rounded="md" height={{ base: 600, md: 900 }}>
-          <Table.Root striped stickyHeader>
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeader width={{ base: "20%", md: "15%" }}>背番号</Table.ColumnHeader>
-                <Table.ColumnHeader width={{ base: "60%", md: "65%" }}>名前</Table.ColumnHeader>
-                <Table.ColumnHeader width={{ base: "20%", md: "20%" }}>ロール</Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {players.map((player, i) => (
-                <Table.Row key={i}>
-                  <Table.Cell>{player.number_disp}</Table.Cell>
-                  <Table.Cell>
-                    <ChakraLink
-                      href={player.url}
-                      variant={"underline"}
-                      colorPalette={"blue"}
-                      fontSize={{ base: "sm", md: "md" }}
-                    >
-                      {player.name}
-                      <Box as="span" display={{ base: "block", md: "inline" }} fontSize="sm">
-                        （{player.name_kana}）
-                      </Box>
-                    </ChakraLink>
-                  </Table.Cell>
-                  <Table.Cell>{NameByRole[player.role]}</Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Root>
-        </Table.ScrollArea>
+        <PlayerTable players={players} />
       </Box>
     </VStack>
   );
