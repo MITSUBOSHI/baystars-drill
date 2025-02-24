@@ -90,7 +90,7 @@ const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
   }
 };
 
-const RolesByModeRole: Record<ModeRoleType, Partial<Role[]>> = {
+const RolesByModeRole: Record<ModeRoleType, Role[]> = {
   rooster: [Role.Roster],
   all: [Role.Coach, Role.Roster, Role.Training],
 };
@@ -100,21 +100,12 @@ function selecteRandomizedPlayers(
   players: PlayerType[],
   mode: Mode,
 ): PlayerType[] {
-  const result: PlayerType[] = [];
   const usingRoles = RolesByModeRole[mode.role];
   const filteredPlayers = players.filter((p) => usingRoles.includes(p.role));
   const shuffledPlayers = shufflePlayers(filteredPlayers);
   const count = mode.playerNum;
 
-  for (let step = 0; step < count; step++) {
-    const player = shuffledPlayers[step];
-
-    if (player) {
-      result.push(player);
-    }
-  }
-
-  return result;
+  return shuffledPlayers.slice(0, count);
 }
 type QuestionType = {
   questionSentence: string;
@@ -194,15 +185,9 @@ const Question: React.FC<Props> = ({ players }) => {
                 }}
               >
                 <HStack gap={4}>
-                  <Radio value="2">
-                    <Badge colorScheme="green">Easy</Badge>
-                  </Radio>
-                  <Radio value="3">
-                    <Badge colorScheme="yellow">Normal</Badge>
-                  </Radio>
-                  <Radio value="4">
-                    <Badge colorScheme="red">Hard</Badge>
-                  </Radio>
+                  <Radio value="2">Easy</Radio>
+                  <Radio value="3">Normal</Radio>
+                  <Radio value="4">Hard</Radio>
                 </HStack>
               </RadioGroup>
             </Box>

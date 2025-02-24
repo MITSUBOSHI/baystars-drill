@@ -6,76 +6,77 @@ import React from "react";
 
 // Mock Chakra UI components
 jest.mock("@chakra-ui/react", () => ({
-  Button: ({
-    children,
-    onClick,
-  }: {
-    children: React.ReactNode;
-    onClick?: () => void;
-  }) => <button onClick={onClick}>{children}</button>,
-  HStack: ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  ),
   Box: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   VStack: ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
+  HStack: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
   ),
   Text: ({ children }: { children: React.ReactNode }) => (
     <span>{children}</span>
   ),
-}));
-
-// Mock number input components
-jest.mock("@/components/ui/number-input", () => ({
-  NumberInputRoot: ({ children }: { children: React.ReactNode }) => (
+  Container: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
   ),
-  NumberInputField: ({
-    onChange,
+  Flex: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Badge: ({ children }: { children: React.ReactNode }) => (
+    <span>{children}</span>
+  ),
+  Heading: ({ children }: { children: React.ReactNode }) => <h2>{children}</h2>,
+  Button: ({
+    children,
+    onClick,
     disabled,
   }: {
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    children: React.ReactNode;
+    onClick?: () => void;
     disabled?: boolean;
+  }) => (
+    <button onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  ),
+  Radio: ({
+    children,
+    value,
+  }: {
+    children: React.ReactNode;
+    value: string;
   }) => {
-    const [value, setValue] = React.useState<string>("");
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value;
-      setValue(newValue);
-      if (onChange) {
-        const event = {
-          ...e,
-          target: {
-            ...e.target,
-            value: newValue,
-          },
-        };
-        onChange(event);
-      }
-    };
-
-    React.useEffect(() => {
-      if (!disabled) {
-        setValue("");
-      }
-    }, [disabled]);
-
     return (
-      <input
-        type="text"
-        inputMode="numeric"
-        pattern="[0-9]*"
-        aria-label="number-input"
-        onChange={handleChange}
-        disabled={disabled}
-        value={value}
-        data-testid="number-input"
-      />
+      <div>
+        <input
+          type="radio"
+          role="radio"
+          name="radio-group"
+          value={value}
+          id={`radio-${value}`}
+        />
+        <label htmlFor={`radio-${value}`}>{children}</label>
+      </div>
     );
   },
+  RadioGroup: ({
+    children,
+    value,
+    onValueChange,
+  }: {
+    children: React.ReactNode;
+    value?: string;
+    onValueChange?: (e: { value: string }) => void;
+  }) => (
+    <div
+      role="radiogroup"
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        onValueChange?.({ value: e.target.value })
+      }
+    >
+      {children}
+    </div>
+  ),
 }));
 
-// Mock radio group components
 jest.mock("@/components/ui/radio", () => ({
   Radio: ({
     children,
@@ -113,6 +114,109 @@ jest.mock("@/components/ui/radio", () => ({
     </div>
   ),
 }));
+// jest.mock("@/components/ui/radio", () => ({
+//   Radio: ({
+//     children,
+//     value,
+//   }: {
+//     children: React.ReactNode;
+//     value: string;
+//   }) => {
+//     const id = `radio-${value}`;
+//     // const label = typeof children === "string" ? children : value;
+//     return (
+//       <div>
+//         <input
+//           type="radio"
+//           role="radio"
+//           name="radio-group"
+//           value={value}
+//           id={id}
+//           aria-label={children?.toString()}
+//         />
+//         <label htmlFor={id}>{children}</label>
+//       </div>
+//     );
+//   },
+//   RadioGroup: ({
+//     children,
+//     value,
+//     onValueChange,
+//   }: {
+//     children: React.ReactNode;
+//     value?: string;
+//     onValueChange?: (value: string) => void;
+//   }) => (
+//     <div role="radiogroup">
+//       <div>
+//         {React.Children.map(children, (child) => {
+//           if (
+//             React.isValidElement<{
+//               value: string;
+//               onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+//               checked?: boolean;
+//             }>(child)
+//           ) {
+//             return React.cloneElement(child, {
+//               checked: child.props.value === value,
+//               onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+//                 onValueChange?.(e.target.value),
+//             });
+//           }
+//           return child;
+//         })}
+//       </div>
+//     </div>
+//   ),
+// }));
+
+jest.mock("@/components/ui/number-input", () => ({
+  NumberInputRoot: ({
+    children,
+    value,
+    onChange,
+  }: {
+    children: React.ReactNode;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  }) => (
+    <div>
+      {React.Children.map(children, (child) => {
+        if (
+          React.isValidElement<{
+            value?: string;
+            onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+          }>(child)
+        ) {
+          return React.cloneElement(child, { value, onChange });
+        }
+        return child;
+      })}
+    </div>
+  ),
+  NumberInputField: ({
+    disabled,
+    placeholder,
+    value,
+    onChange,
+  }: {
+    disabled?: boolean;
+    placeholder?: string;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  }) => (
+    <input
+      type="text"
+      inputMode="numeric"
+      pattern="[0-9]*"
+      disabled={disabled}
+      placeholder={placeholder}
+      value={value || ""}
+      onChange={onChange}
+      data-testid="number-input"
+    />
+  ),
+}));
 
 const mockPlayers: PlayerType[] = [
   {
@@ -122,7 +226,7 @@ const mockPlayers: PlayerType[] = [
     number_calc: 2,
     role: Role.Roster,
     year: 2025,
-    url: "https://dummy/",
+    url: "https://dummy/sano",
   },
   {
     name: "牧 秀悟",
@@ -131,7 +235,7 @@ const mockPlayers: PlayerType[] = [
     number_calc: 1,
     role: Role.Roster,
     year: 2025,
-    url: "https://dummy/",
+    url: "https://dummy/maki",
   },
   {
     name: "山本 祐大",
@@ -140,7 +244,7 @@ const mockPlayers: PlayerType[] = [
     number_calc: 50,
     role: Role.Roster,
     year: 2025,
-    url: "https://dummy/",
+    url: "https://dummy/yamamoto",
   },
   {
     name: "宮﨑 敏郎",
@@ -149,7 +253,7 @@ const mockPlayers: PlayerType[] = [
     number_calc: 51,
     role: Role.Roster,
     year: 2025,
-    url: "https://www.baystars.co.jp/player/2025/18",
+    url: "https://dummy/miyazaki",
   },
 ];
 
@@ -158,8 +262,8 @@ describe("Question Component", () => {
     render(<Question players={mockPlayers} />);
 
     // Check if settings are displayed
-    expect(screen.getByText("設定: 対象範囲")).toBeInTheDocument();
-    expect(screen.getByText("設定: 難易度")).toBeInTheDocument();
+    expect(screen.getByText("対象選手")).toBeInTheDocument();
+    expect(screen.getByText("難易度")).toBeInTheDocument();
 
     // Check if radio buttons are present
     expect(screen.getByText("支配下選手のみ")).toBeInTheDocument();
@@ -175,7 +279,7 @@ describe("Question Component", () => {
 
   it("allows user to input answer", () => {
     render(<Question players={mockPlayers} />);
-    const input = screen.getByLabelText("number-input");
+    const input = screen.getByTestId("number-input");
     fireEvent.change(input, { target: { value: "42" } });
     expect(input).toHaveValue("42");
   });
@@ -183,14 +287,14 @@ describe("Question Component", () => {
   it("shows result when answer is submitted", () => {
     render(<Question players={mockPlayers} />);
 
-    const input = screen.getByLabelText("number-input");
+    const input = screen.getByTestId("number-input");
     const submitButton = screen.getByText("解答する");
 
     fireEvent.change(input, { target: { value: "42" } });
     fireEvent.click(submitButton);
 
     // Result box should be visible
-    const resultText = screen.getByText("不正解😢");
+    const resultText = screen.getByText("😢 不正解...");
     expect(resultText).toBeInTheDocument();
   });
 
@@ -218,13 +322,13 @@ describe("Question Component", () => {
       ];
       render(<Question players={mockPlayers} />);
 
-      const input = screen.getByLabelText("number-input");
+      const input = screen.getByTestId("number-input");
       fireEvent.change(input, { target: { value: String(3) } });
       const submitButton = screen.getByText("解答する");
       fireEvent.click(submitButton);
 
       // Result box should show correct message
-      const resultText = screen.getByText("正解🎉");
+      const resultText = screen.getByText("🎉 正解！");
       expect(resultText).toBeInTheDocument();
 
       // NOTE: 内訳の選手の順番は制御していないため省略する
@@ -255,12 +359,13 @@ describe("Question Component", () => {
       ];
       render(<Question players={mockPlayers} />);
 
-      const input = screen.getByLabelText("number-input");
+      const input = screen.getByTestId("number-input");
       fireEvent.change(input, { target: { value: String(10) } });
       const submitButton = screen.getByText("解答する");
       fireEvent.click(submitButton);
 
-      const resultText = screen.getByText("不正解😢");
+      // Result box should show incorrect message
+      const resultText = screen.getByText("😢 不正解...");
       expect(resultText).toBeInTheDocument();
 
       // NOTE: 内訳の選手の順番は制御していないため省略する
@@ -272,7 +377,7 @@ describe("Question Component", () => {
   it("should rest the game when retry button is clicked", () => {
     render(<Question players={mockPlayers} />);
 
-    const input = screen.getByLabelText("number-input");
+    const input = screen.getByTestId("number-input");
     const submitButton = screen.getByText("解答する");
     const retryButton = screen.getByText("再挑戦");
 
@@ -281,23 +386,22 @@ describe("Question Component", () => {
 
     expect(input).toHaveValue("999");
     expect(input).toBeDisabled();
-    const resultBox = screen.queryByText("不正解😢");
+    const resultBox = screen.queryByText("😢 不正解...");
     expect(resultBox).toBeInTheDocument();
 
     fireEvent.click(retryButton);
 
-    const newInput = screen.getByLabelText("number-input");
-    expect(newInput).toHaveValue("");
-    expect(newInput).not.toBeDisabled();
+    expect(input).toHaveValue("");
+    expect(input).not.toBeDisabled();
     expect(resultBox).not.toBeInTheDocument();
   });
 
-  it("should change difficulty when difficulty mode is changed", () => {
+  it("should change difficulty when difficulty mode is changed", async () => {
     render(<Question players={mockPlayers} />);
 
     const retryButton = screen.getByText("再挑戦");
 
-    const questionTextOnDefaultMode = screen.getByText(new RegExp(/問題: /));
+    const questionTextOnDefaultMode = screen.getByText(new RegExp(/＋/));
     expect(questionTextOnDefaultMode.textContent?.split("＋")?.length).toEqual(
       2,
     );
@@ -306,7 +410,7 @@ describe("Question Component", () => {
     fireEvent.click(normalButton);
     fireEvent.click(retryButton);
 
-    const questionTextOnNormalMode = screen.getByText(new RegExp(/問題: /));
+    const questionTextOnNormalMode = screen.getByText(new RegExp(/＋/));
     expect(questionTextOnNormalMode.textContent?.split("＋")?.length).toEqual(
       3,
     );
@@ -315,14 +419,14 @@ describe("Question Component", () => {
     fireEvent.click(hardButton);
     fireEvent.click(retryButton);
 
-    const questionTextOnHardMode = screen.getByText(new RegExp(/問題: /));
+    const questionTextOnHardMode = screen.getByText(new RegExp(/＋/));
     expect(questionTextOnHardMode.textContent?.split("＋")?.length).toEqual(4);
 
     const easyButton = screen.getByRole("radio", { name: "Easy" });
     fireEvent.click(easyButton);
     fireEvent.click(retryButton);
 
-    const questionTextOnEasyMode = screen.getByText(new RegExp(/問題: /));
+    const questionTextOnEasyMode = screen.getByText(new RegExp(/＋/));
     expect(questionTextOnEasyMode.textContent?.split("＋")?.length).toEqual(2);
   });
 
