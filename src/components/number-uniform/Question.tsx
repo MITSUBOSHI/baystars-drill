@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useReducer } from "react";
+import React, { useReducer } from "react";
 import { PlayerType, Role } from "@/types/Player";
 import { Button, HStack, Box, VStack, Text } from "@chakra-ui/react";
 import {
@@ -125,18 +125,12 @@ type Props = {
 };
 
 const Question: React.FC<Props> = ({ players }) => {
-  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [drillState, dispatch] = useReducer(reducer, {
     ...initDrillState,
     currentDrillPlayers: selecteRandomizedPlayers(players, initDrillState.mode),
   });
   const question = generateQuestion(drillState.currentDrillPlayers);
   const isCorrected = question.correctNumber === drillState.answeredNumber;
-
-  useEffect(() => {
-    inputRef.current.focus();
-    inputRef.current.value = "";
-  }, [drillState.currentDrillPlayers]);
 
   return (
     <VStack justify={"center"}>
@@ -178,7 +172,6 @@ const Question: React.FC<Props> = ({ players }) => {
         max={2000}
       >
         <NumberInputField
-          ref={inputRef}
           onChange={(e) => {
             dispatch({ type: "answering", value: Number(e.target.value) });
           }}
