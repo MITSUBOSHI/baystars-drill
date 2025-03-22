@@ -13,6 +13,7 @@ type BreadcrumbItemType = {
 
 const pathMap: Record<string, string> = {
   "uniform-number": "背番号",
+  drill: "計算ドリル",
   gallery: "選手名鑑",
   lineup: "スタメン作成",
   "number-uniform": "背番号ドリル",
