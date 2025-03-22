@@ -12,12 +12,12 @@ import {
   Flex,
   Badge,
   Heading,
+  Input,
 } from "@chakra-ui/react";
 import {
   NumberInputField,
   NumberInputRoot,
 } from "@/components/ui/number-input";
-import { Radio, RadioGroup } from "@/components/ui/radio";
 
 const DEFAULT_PLAYER_SELECTION_NUMBER = 2;
 type ModeRoleType = "roster" | "all";
@@ -402,96 +402,207 @@ const Question: React.FC<Props> = ({ players }) => {
               <Text fontWeight="bold" mb={2}>
                 選手名の表示
               </Text>
-              <RadioGroup
-                value={drillState.mode.nameDisplay}
-                onValueChange={(e: { value: string }) => {
-                  dispatch({
-                    type: "settings",
-                    mode: {
-                      ...drillState.mode,
-                      nameDisplay: e.value as NameDisplayMode,
-                    },
-                  });
-                }}
-              >
-                <HStack gap={4}>
-                  <Radio value="kanji">漢字のみ</Radio>
-                  <Radio value="kana">ひらがなのみ</Radio>
-                  <Radio value="both">両方</Radio>
-                </HStack>
-              </RadioGroup>
+              <HStack gap="24px">
+                {[
+                  { value: "kanji", label: "漢字のみ" },
+                  { value: "kana", label: "ひらがなのみ" },
+                  { value: "both", label: "両方" },
+                ].map((option) => (
+                  <Box
+                    key={option.value}
+                    as="label"
+                    p={2}
+                    borderWidth="1px"
+                    borderRadius="md"
+                    borderColor={
+                      drillState.mode.nameDisplay === option.value
+                        ? "blue.500"
+                        : "gray.200"
+                    }
+                    bg={
+                      drillState.mode.nameDisplay === option.value
+                        ? "blue.500"
+                        : "white"
+                    }
+                    color={
+                      drillState.mode.nameDisplay === option.value
+                        ? "white"
+                        : "black"
+                    }
+                    cursor="pointer"
+                    _hover={{ borderColor: "blue.300" }}
+                  >
+                    <Input
+                      type="radio"
+                      name="nameDisplay"
+                      value={option.value}
+                      checked={drillState.mode.nameDisplay === option.value}
+                      onChange={() => {
+                        dispatch({
+                          type: "settings",
+                          mode: {
+                            ...drillState.mode,
+                            nameDisplay: option.value as NameDisplayMode,
+                          },
+                        });
+                      }}
+                      hidden
+                    />
+                    {option.label}
+                  </Box>
+                ))}
+              </HStack>
             </Box>
             <Box>
               <Text fontWeight="bold" mb={2}>
                 対象選手
               </Text>
-              <RadioGroup
-                value={drillState.mode.role}
-                onValueChange={(e: { value: string }) => {
-                  dispatch({
-                    type: "settings",
-                    mode: { ...drillState.mode, role: e.value } as Mode,
-                  });
-                }}
-              >
-                <HStack gap={4}>
-                  <Radio value="roster">支配下選手のみ</Radio>
-                  <Radio value="all">すべて</Radio>
-                </HStack>
-              </RadioGroup>
+              <HStack gap="24px">
+                {[
+                  { value: "roster", label: "支配下選手のみ" },
+                  { value: "all", label: "すべて" },
+                ].map((option) => (
+                  <Box
+                    key={option.value}
+                    as="label"
+                    p={2}
+                    borderWidth="1px"
+                    borderRadius="md"
+                    borderColor={
+                      drillState.mode.role === option.value
+                        ? "blue.500"
+                        : "gray.200"
+                    }
+                    bg={
+                      drillState.mode.role === option.value
+                        ? "blue.500"
+                        : "white"
+                    }
+                    color={
+                      drillState.mode.role === option.value ? "white" : "black"
+                    }
+                    cursor="pointer"
+                    _hover={{ borderColor: "blue.300" }}
+                  >
+                    <Input
+                      type="radio"
+                      name="role"
+                      value={option.value}
+                      checked={drillState.mode.role === option.value}
+                      onChange={() => {
+                        dispatch({
+                          type: "settings",
+                          mode: {
+                            ...drillState.mode,
+                            role: option.value as ModeRoleType,
+                          },
+                        });
+                      }}
+                      hidden
+                    />
+                    {option.label}
+                  </Box>
+                ))}
+              </HStack>
             </Box>
             <Box>
               <Text fontWeight="bold" mb={2}>
                 難易度
               </Text>
-              <RadioGroup
-                value={String(drillState.mode.playerNum)}
-                onValueChange={(e: { value: string }) => {
-                  dispatch({
-                    type: "settings",
-                    mode: {
-                      ...drillState.mode,
-                      playerNum: Number(e.value),
-                    } as Mode,
-                  });
-                }}
-              >
-                <HStack gap={4}>
-                  <Radio value="2">Easy</Radio>
-                  <Radio value="3">Normal</Radio>
-                  <Radio value="4">Hard</Radio>
-                </HStack>
-              </RadioGroup>
+              <HStack gap="24px">
+                {[
+                  { value: "2", label: "Easy" },
+                  { value: "3", label: "Normal" },
+                  { value: "4", label: "Hard" },
+                ].map((option) => (
+                  <Box
+                    key={option.value}
+                    as="label"
+                    p={2}
+                    borderWidth="1px"
+                    borderRadius="md"
+                    borderColor={
+                      String(drillState.mode.playerNum) === option.value
+                        ? "blue.500"
+                        : "gray.200"
+                    }
+                    bg={
+                      String(drillState.mode.playerNum) === option.value
+                        ? "blue.500"
+                        : "white"
+                    }
+                    color={
+                      String(drillState.mode.playerNum) === option.value
+                        ? "white"
+                        : "black"
+                    }
+                    cursor="pointer"
+                    _hover={{ borderColor: "blue.300" }}
+                  >
+                    <Input
+                      type="radio"
+                      name="playerNum"
+                      value={option.value}
+                      checked={
+                        String(drillState.mode.playerNum) === option.value
+                      }
+                      onChange={() => {
+                        dispatch({
+                          type: "settings",
+                          mode: {
+                            ...drillState.mode,
+                            playerNum: Number(option.value) as 2 | 3 | 4,
+                          },
+                        });
+                      }}
+                      hidden
+                    />
+                    {option.label}
+                  </Box>
+                ))}
+              </HStack>
             </Box>
             <Box>
               <Text fontWeight="bold" mb={2}>
                 使用する演算子
               </Text>
-              <HStack gap={4}>
+              <HStack gap={4} flexWrap="wrap">
                 {(Object.entries(OPERATORS) as [Operator, string][]).map(
                   ([value, label]) => (
-                    <Box key={value}>
-                      <label
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={drillState.mode.operators.includes(value)}
-                          onChange={() => handleOperatorChange(value)}
-                          style={{ width: "1.2rem", height: "1.2rem" }}
-                        />
-                        <span>
-                          {value === "+" && "足し算"}
-                          {value === "-" && "引き算"}
-                          {value === "*" && "掛け算"}
-                          {value === "/" && "割り算"}（{label}）
-                        </span>
-                      </label>
+                    <Box
+                      key={value}
+                      as="label"
+                      p={2}
+                      borderWidth="1px"
+                      borderRadius="md"
+                      borderColor={
+                        drillState.mode.operators.includes(value)
+                          ? "blue.500"
+                          : "gray.200"
+                      }
+                      bg={
+                        drillState.mode.operators.includes(value)
+                          ? "blue.500"
+                          : "white"
+                      }
+                      color={
+                        drillState.mode.operators.includes(value)
+                          ? "white"
+                          : "black"
+                      }
+                      cursor="pointer"
+                      _hover={{ borderColor: "blue.300" }}
+                    >
+                      <Input
+                        type="checkbox"
+                        checked={drillState.mode.operators.includes(value)}
+                        onChange={() => handleOperatorChange(value)}
+                        hidden
+                      />
+                      {value === "+" && "足し算"}
+                      {value === "-" && "引き算"}
+                      {value === "*" && "掛け算"}
+                      {value === "/" && "割り算"}（{label}）
                     </Box>
                   ),
                 )}
