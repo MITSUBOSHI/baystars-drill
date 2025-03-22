@@ -88,6 +88,10 @@ export default function DraggableLineup({
                       }
                       bg={snapshot.isDragging ? "blue.50" : "white"}
                       boxShadow={snapshot.isDragging ? "md" : "none"}
+                      color="black"
+                      _dark={{
+                        color: "black",
+                      }}
                     >
                       <Flex align="center" justify="space-between">
                         <Flex align="center">
@@ -118,6 +122,10 @@ export default function DraggableLineup({
                           colorScheme="red"
                           variant="outline"
                           onClick={() => removePlayerFromOrder(spot.position)}
+                          color="black"
+                          _dark={{
+                            color: "black",
+                          }}
                         >
                           削除
                         </Button>

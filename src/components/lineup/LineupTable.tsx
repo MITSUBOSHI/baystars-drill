@@ -89,6 +89,7 @@ export default function LineupTable({
                   style={{
                     backgroundColor:
                       spot.order && spot.order % 2 === 0 ? "#f7fafc" : "white",
+                    color: "black",
                   }}
                 >
                   <td

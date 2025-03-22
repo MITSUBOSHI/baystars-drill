@@ -117,7 +117,14 @@ export default function PlayerSelector({
                     <Badge colorScheme="blue" fontSize="sm" mr={2}>
                       {player.number_disp}
                     </Badge>
-                    <Text>{getDisplayName(player)}</Text>
+                    <Text
+                      color="black"
+                      _dark={{
+                        color: "black",
+                      }}
+                    >
+                      {getDisplayName(player)}
+                    </Text>
                   </Flex>
                 </Box>
               ))

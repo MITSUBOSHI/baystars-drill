@@ -82,7 +82,14 @@ export default function YearSelector({
         _hover={{ bg: "blue.100" }}
         {...buttonStyle}
       >
-        <Text>{currentYear}</Text>
+        <Text
+          color="black"
+          _dark={{
+            color: "black",
+          }}
+        >
+          {currentYear}
+        </Text>
         <Box
           as="span"
           transform={isOpen ? "rotate(180deg)" : "none"}
@@ -120,7 +127,15 @@ export default function YearSelector({
               onClick={() => handleYearChange(year)}
             >
               <Flex align="center">
-                <Text fontSize={isInline ? "sm" : "md"}>{year}</Text>
+                <Text
+                  color="black"
+                  _dark={{
+                    color: "black",
+                  }}
+                  fontSize={isInline ? "sm" : "md"}
+                >
+                  {year}
+                </Text>
               </Flex>
             </Box>
           ))}
