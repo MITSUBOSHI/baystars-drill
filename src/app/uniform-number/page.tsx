@@ -19,6 +19,17 @@ export default function Index() {
           選手名鑑
         </Button>
       </Link>
+      <Link href={`/uniform-number/lineup/${maxYear}`}>
+        <Button
+          as="span"
+          size="xl"
+          variant="outline"
+          colorPalette={"blue"}
+          width={"200px"}
+        >
+          スタメン作成
+        </Button>
+      </Link>
       <Link href={`/uniform-number/drill/${maxYear}`}>
         <Button
           as="span"
