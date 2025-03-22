@@ -70,6 +70,7 @@ export default function LineupCreator({ players }: Props) {
   const [isMounted, setIsMounted] = useState(false);
   const [hasDH, setHasDH] = useState(false);
   const [nameDisplay, setNameDisplay] = useState<NameDisplayMode>("kanji");
+  const [customTitle, setCustomTitle] = useState("");
 
   // クライアントサイドでのみレンダリングするためのフラグ
   useEffect(() => {
@@ -352,6 +353,16 @@ export default function LineupCreator({ players }: Props) {
               ))}
             </HStack>
           </Box>
+
+          <Box>
+            <Text mb={2}>スタメン表の名前</Text>
+            <Input
+              value={customTitle}
+              onChange={(e) => setCustomTitle(e.target.value)}
+              placeholder="表のタイトルを入力"
+              maxW="500px"
+            />
+          </Box>
         </Stack>
       </Box>
 
@@ -360,6 +371,7 @@ export default function LineupCreator({ players }: Props) {
           lineup={getSortedLineup()}
           startingPitcher={startingPitcher}
           getDisplayName={getDisplayName}
+          title={customTitle}
         />
       </Box>
 

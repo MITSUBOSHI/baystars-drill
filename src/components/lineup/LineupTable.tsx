@@ -8,12 +8,14 @@ type Props = {
   lineup: LineupSpot[];
   startingPitcher: PlayerType | null;
   getDisplayName: (player: PlayerType | null) => string;
+  title?: string;
 };
 
 export default function LineupTable({
   lineup,
   startingPitcher,
   getDisplayName,
+  title = "スタメンジェネレータ",
 }: Props) {
   // 打順が設定されているラインナップのみ表示
   const activeLineup = lineup.filter((spot) => spot.order !== null);
@@ -25,7 +27,7 @@ export default function LineupTable({
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4}>
       <Flex justify="space-between" mb={4}>
         <Text fontSize="xl" fontWeight="bold">
-          スタメンジェネレータ
+          {title}
         </Text>
         <Box>
           <Text fontSize="sm">先発投手:</Text>
