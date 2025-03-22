@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Question from "./Question";
 import { PlayerType, Role } from "@/types/Player";
@@ -11,56 +11,56 @@ jest.mock("@chakra-ui/react", () => ({
     ...props
   }: {
     children: React.ReactNode;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => <div {...props}>{children}</div>,
   VStack: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => <div {...props}>{children}</div>,
   HStack: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => <div {...props}>{children}</div>,
   Text: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => <span {...props}>{children}</span>,
   Container: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => <div {...props}>{children}</div>,
   Flex: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => <div {...props}>{children}</div>,
   Badge: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => <span {...props}>{children}</span>,
   Heading: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => <h2 {...props}>{children}</h2>,
   Button: ({
     children,
@@ -71,7 +71,7 @@ jest.mock("@chakra-ui/react", () => ({
     children: React.ReactNode;
     onClick?: () => void;
     disabled?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => (
     <button onClick={onClick} disabled={disabled} {...props}>
       {children}
@@ -92,7 +92,7 @@ jest.mock("@chakra-ui/react", () => ({
     checked?: boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     hidden?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
   }) => (
     <input
       type={type || "text"}
