@@ -6,9 +6,9 @@ import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
 import Players2025 from "@/data/2025-players.jsonl.json";
 import { PlayerType, Year } from "@/types/Player";
-import { Button, Heading, HStack, VStack, Box } from "@chakra-ui/react";
-import Link from "next/link";
+import { Heading, VStack, Box, Flex } from "@chakra-ui/react";
 import PlayerTable from "@/components/player-table/PlayerTable";
+import YearSelector from "@/components/common/YearSelector";
 
 function playersByYear(year: Year): PlayerType[] {
   switch (year) {
@@ -43,16 +43,17 @@ export default async function Page({
   return (
     <VStack justify={"center"} w="100%" gap={6} py={4}>
       <Heading size="4xl">📖 選手名鑑 📖</Heading>
-      <Heading size="2xl"> Year {currentYear} </Heading>
-      <HStack gap={2} flexWrap="wrap" justify="center" px={4}>
-        {registeredYears.map((year) => (
-          <Link key={year} href={`/uniform-number/gallery/${year}`}>
-            <Button as="span" size="sm" variant="ghost" colorPalette={"blue"}>
-              {year}
-            </Button>
-          </Link>
-        ))}
-      </HStack>
+      <Flex align="center" justify="center">
+        <Heading size="2xl" display="inline">
+          Year
+        </Heading>
+        <YearSelector
+          currentYear={currentYear}
+          baseUrl="/uniform-number/gallery"
+          label={""}
+          isInline={true}
+        />
+      </Flex>
       <Box w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
         <PlayerTable players={players} />
       </Box>

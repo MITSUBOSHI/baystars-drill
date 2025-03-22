@@ -6,9 +6,9 @@ import Players2023 from "@/data/2023-players.jsonl.json";
 import Players2024 from "@/data/2024-players.jsonl.json";
 import Players2025 from "@/data/2025-players.jsonl.json";
 import { PlayerType, Year } from "@/types/Player";
-import { Button, Heading, HStack, VStack } from "@chakra-ui/react";
-import Link from "next/link";
+import { Heading, VStack, Box, Flex } from "@chakra-ui/react";
 import Question from "@/components/number-uniform/Question";
+import YearSelector from "@/components/common/YearSelector";
 
 function playersByYear(year: Year): PlayerType[] {
   switch (year) {
@@ -41,19 +41,22 @@ export default async function Page({
   const players = playersByYear(currentYear);
 
   return (
-    <VStack justify={"center"}>
+    <VStack justify={"center"} w="100%" gap={6} py={4}>
       <Heading size="4xl">🖋 計算ドリル 🖋</Heading>
-      <Heading size="2xl"> Year {currentYear} </Heading>
-      <HStack>
-        {registeredYears.map((year) => (
-          <Link key={year} href={`/uniform-number/drill/${year}`}>
-            <Button as="span" size="sm" variant="ghost" colorPalette={"blue"}>
-              {year}
-            </Button>
-          </Link>
-        ))}
-      </HStack>
-      <Question players={players} />
+      <Flex align="center" justify="center">
+        <Heading size="2xl" display="inline">
+          Year
+        </Heading>
+        <YearSelector
+          currentYear={currentYear}
+          baseUrl="/uniform-number/drill"
+          label={""}
+          isInline={true}
+        />
+      </Flex>
+      <Box w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
+        <Question players={players} />
+      </Box>
     </VStack>
   );
 }
