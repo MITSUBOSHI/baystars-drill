@@ -2,7 +2,16 @@
 
 import { PlayerType } from "@/types/Player";
 import { useState, useMemo, useEffect } from "react";
-import { Box, Button, Heading, Text, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  Text,
+  Flex,
+  HStack,
+  Stack,
+  Input,
+} from "@chakra-ui/react";
 import LineupTable from "./LineupTable";
 import PlayerSelector from "./PlayerSelector";
 import dynamic from "next/dynamic";
@@ -18,7 +27,11 @@ export type Position =
   | "遊撃手"
   | "左翼手"
   | "中堅手"
-  | "右翼手";
+  | "右翼手"
+  | "DH";
+
+// 選手名表示形式
+export type NameDisplayMode = "kanji" | "kana" | "both";
 
 // バッティングオーダーとポジションのタイプ
 export type LineupSpot = {
@@ -55,11 +68,46 @@ export default function LineupCreator({ players }: Props) {
     null,
   );
   const [isMounted, setIsMounted] = useState(false);
+  const [hasDH, setHasDH] = useState(false);
+  const [nameDisplay, setNameDisplay] = useState<NameDisplayMode>("kanji");
 
   // クライアントサイドでのみレンダリングするためのフラグ
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // DHありなしが変更されたときにラインナップを更新
+  useEffect(() => {
+    if (hasDH) {
+      // DHありの場合、投手を打順から外し、DHを追加
+      setLineup((prevLineup) => {
+        const newLineup = prevLineup.filter((spot) => spot.position !== "投手");
+        // DHが既に存在するか確認
+        const dhExists = newLineup.some((spot) => spot.position === "DH");
+        if (!dhExists) {
+          newLineup.push({ order: null, player: null, position: "DH" });
+        }
+        return newLineup;
+      });
+    } else {
+      // DHなしの場合、DHを非表示にし、投手を追加
+      setLineup((prevLineup) => {
+        const newLineup = prevLineup.filter((spot) => spot.position !== "DH");
+        // 投手が既に存在するか確認
+        const pitcherExists = newLineup.some(
+          (spot) => spot.position === "投手",
+        );
+        if (!pitcherExists) {
+          newLineup.push({
+            order: null,
+            player: startingPitcher,
+            position: "投手",
+          });
+        }
+        return newLineup;
+      });
+    }
+  }, [hasDH, startingPitcher]);
 
   // useMemoを使用してorderedPlayersを最適化し、不要な再レンダリングを防ぐ
   const orderedPlayers = useMemo(() => {
@@ -193,14 +241,125 @@ export default function LineupCreator({ players }: Props) {
   // ドラッグ＆ドロップUIが表示されるかどうか
   const showDragDropUI = orderedPlayers.length > 0 && isMounted;
 
+  // 選手名表示関数
+  const getDisplayName = (player: PlayerType | null): string => {
+    if (!player) return "未選択";
+
+    switch (nameDisplay) {
+      case "kanji":
+        return player.name;
+      case "kana":
+        return player.name_kana;
+      case "both":
+        return `${player.name}（${player.name_kana}）`;
+    }
+  };
+
+  // 表示形式オプション
+  const options = [
+    { value: "kanji", label: "漢字のみ" },
+    { value: "kana", label: "ひらがなのみ" },
+    { value: "both", label: "両方" },
+  ];
+
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap="8">
       <Heading size="lg">スタメンジェネレータ</Heading>
+
+      <Box
+        w="100%"
+        maxW="800px"
+        borderWidth="1px"
+        borderRadius="lg"
+        p={4}
+        mb={4}
+      >
+        <Heading size="md" mb={4}>
+          ⚙️ 設定
+        </Heading>
+
+        <Stack gap={4}>
+          <Flex align="center">
+            <Text mr={3}>DHあり</Text>
+            <Box
+              as="label"
+              display="inline-flex"
+              alignItems="center"
+              cursor="pointer"
+            >
+              <Input
+                type="checkbox"
+                checked={hasDH}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setHasDH(e.target.checked)
+                }
+                hidden
+              />
+              <Box
+                position="relative"
+                display="inline-block"
+                w="48px"
+                h="24px"
+                bg={hasDH ? "blue.500" : "gray.300"}
+                rounded="full"
+                transition="0.2s"
+              >
+                <Box
+                  position="absolute"
+                  transform={hasDH ? "translateX(24px)" : "translateX(0)"}
+                  w="20px"
+                  h="20px"
+                  mt="2px"
+                  ml="2px"
+                  bg="white"
+                  rounded="full"
+                  transition="0.2s"
+                />
+              </Box>
+            </Box>
+          </Flex>
+
+          <Box>
+            <Text mb={2}>選手名表示形式</Text>
+            <HStack gap="24px">
+              {options.map((option) => (
+                <Box
+                  key={option.value}
+                  as="label"
+                  p={2}
+                  borderWidth="1px"
+                  borderRadius="md"
+                  borderColor={
+                    nameDisplay === option.value ? "blue.500" : "gray.200"
+                  }
+                  bg={nameDisplay === option.value ? "blue.500" : "white"}
+                  color={nameDisplay === option.value ? "white" : "black"}
+                  cursor="pointer"
+                  _hover={{ borderColor: "blue.300" }}
+                >
+                  <Input
+                    type="radio"
+                    name="nameDisplay"
+                    value={option.value}
+                    checked={nameDisplay === option.value}
+                    onChange={() =>
+                      setNameDisplay(option.value as NameDisplayMode)
+                    }
+                    hidden
+                  />
+                  {option.label}
+                </Box>
+              ))}
+            </HStack>
+          </Box>
+        </Stack>
+      </Box>
 
       <Box w="100%" maxW="800px">
         <LineupTable
           lineup={getSortedLineup()}
           startingPitcher={startingPitcher}
+          getDisplayName={getDisplayName}
         />
       </Box>
 
@@ -214,18 +373,21 @@ export default function LineupCreator({ players }: Props) {
             orderedPlayers={orderedPlayers}
             onDragEnd={handleDragEnd}
             removePlayerFromOrder={removePlayerFromOrder}
+            getDisplayName={getDisplayName}
           />
         </Box>
       )}
 
       <Box w="100%" maxW="800px">
         <Box display="flex" flexDirection="column" gap="4">
+          {/* 先発投手選択は常に表示 */}
           <Heading size="md">投手選択</Heading>
           <PlayerSelector
             players={players.filter((p) => p.role === "roster")}
             onSelectPlayer={handleSelectPitcher}
             selectedPlayer={startingPitcher}
             position="投手"
+            getDisplayName={getDisplayName}
           />
 
           <Heading size="md">ポジション別選手設定</Heading>
@@ -268,6 +430,7 @@ export default function LineupCreator({ players }: Props) {
                 }
                 selectedPlayer={spot.player}
                 position={spot.position}
+                getDisplayName={getDisplayName}
               />
             </Box>
           ))}

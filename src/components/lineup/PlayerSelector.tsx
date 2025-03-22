@@ -10,6 +10,7 @@ type Props = {
   onSelectPlayer: (player: PlayerType | null) => void;
   selectedPlayer: PlayerType | null;
   position: Position;
+  getDisplayName: (player: PlayerType | null) => string;
 };
 
 export default function PlayerSelector({
@@ -17,92 +18,117 @@ export default function PlayerSelector({
   onSelectPlayer,
   selectedPlayer,
   position,
+  getDisplayName,
 }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 選手名で検索
+  // Toggle the dropdown
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  // Filter players based on search term
   const filteredPlayers = players.filter(
     (player) =>
       player.name.includes(searchTerm) ||
       player.name_kana.includes(searchTerm) ||
-      player.number_disp.includes(searchTerm),
+      String(player.number_disp).includes(searchTerm),
   );
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const playerId = e.target.value;
-    if (playerId === "") {
-      onSelectPlayer(null);
-      return;
-    }
-
-    // IDから年度と背番号を抽出
-    const [year, numberDisp] = playerId.split("-");
-    const selectedPlayer = players.find(
-      (p) => p.year.toString() === year && p.number_disp === numberDisp,
-    );
-
-    if (selectedPlayer) {
-      onSelectPlayer(selectedPlayer);
-    }
+  // 選手を選択する
+  const handleSelectPlayer = (player: PlayerType) => {
+    onSelectPlayer(player);
+    setIsOpen(false);
+    setSearchTerm("");
   };
 
-  const clearSelection = () => {
+  // 選手の選択を解除する
+  const handleClearSelection = () => {
     onSelectPlayer(null);
   };
 
-  // 選手ごとにユニークなID値を生成
-  const getPlayerId = (player: PlayerType) =>
-    `${player.year}-${player.number_disp}`;
-
   return (
-    <Box>
-      {selectedPlayer && (
-        <Flex align="center" mb={2}>
-          <Badge colorScheme="green" mr={2}>
-            {selectedPlayer.number_disp}
-          </Badge>
-          <Text>{selectedPlayer.name}</Text>
-          <Button
-            aria-label="Clear selection"
-            size="xs"
-            ml={2}
-            onClick={clearSelection}
-            variant="ghost"
-          >
-            ✕
+    <Box position="relative">
+      {/* 選択済みの場合は選手情報を表示 */}
+      {selectedPlayer ? (
+        <Flex align="center" justify="space-between">
+          <Flex align="center">
+            <Badge colorScheme="blue" fontSize="md" mr={2}>
+              {selectedPlayer.number_disp}
+            </Badge>
+            <Text>{getDisplayName(selectedPlayer)}</Text>
+          </Flex>
+          <Button size="xs" colorScheme="red" onClick={handleClearSelection}>
+            クリア
           </Button>
         </Flex>
+      ) : (
+        // 未選択の場合はドロップダウンボタンを表示
+        <Button
+          w="100%"
+          onClick={toggleDropdown}
+          colorScheme="gray"
+          variant="outline"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Text>{position}の選手を選択</Text>
+          <Box
+            as="span"
+            transform={isOpen ? "rotate(180deg)" : "none"}
+            transition="transform 0.2s"
+          >
+            ▼
+          </Box>
+        </Button>
       )}
 
-      <Box mb={2}>
-        <Input
-          placeholder="選手名・背番号で検索"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          size="sm"
-        />
-      </Box>
+      {/* ドロップダウンメニュー */}
+      {isOpen && (
+        <Box
+          position="absolute"
+          w="100%"
+          maxH="300px"
+          overflowY="auto"
+          mt={2}
+          bgColor="white"
+          borderWidth="1px"
+          borderRadius="md"
+          boxShadow="md"
+          zIndex={10}
+        >
+          <Box p={2}>
+            <Input
+              placeholder="検索..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              mb={2}
+            />
 
-      <select
-        style={{
-          width: "100%",
-          padding: "8px",
-          borderWidth: "1px",
-          borderRadius: "6px",
-        }}
-        onChange={handleSelectChange}
-        value={selectedPlayer ? getPlayerId(selectedPlayer) : ""}
-      >
-        <option value="">{position}の選手を選択</option>
-        {filteredPlayers.map((player, index) => (
-          <option
-            key={`${getPlayerId(player)}-${index}`}
-            value={getPlayerId(player)}
-          >
-            {player.number_disp} - {player.name}
-          </option>
-        ))}
-      </select>
+            {filteredPlayers.length > 0 ? (
+              filteredPlayers.map((player) => (
+                <Box
+                  key={`${player.year}-${player.number_disp}`}
+                  p={2}
+                  cursor="pointer"
+                  _hover={{ bg: "gray.100" }}
+                  onClick={() => handleSelectPlayer(player)}
+                >
+                  <Flex align="center">
+                    <Badge colorScheme="blue" fontSize="sm" mr={2}>
+                      {player.number_disp}
+                    </Badge>
+                    <Text>{getDisplayName(player)}</Text>
+                  </Flex>
+                </Box>
+              ))
+            ) : (
+              <Text p={2} color="gray.500">
+                選手が見つかりません
+              </Text>
+            )}
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }

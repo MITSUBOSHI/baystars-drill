@@ -7,9 +7,14 @@ import { Box, Text, Flex, Badge } from "@chakra-ui/react";
 type Props = {
   lineup: LineupSpot[];
   startingPitcher: PlayerType | null;
+  getDisplayName: (player: PlayerType | null) => string;
 };
 
-export default function LineupTable({ lineup, startingPitcher }: Props) {
+export default function LineupTable({
+  lineup,
+  startingPitcher,
+  getDisplayName,
+}: Props) {
   // 打順が設定されているラインナップのみ表示
   const activeLineup = lineup.filter((spot) => spot.order !== null);
 
@@ -20,14 +25,12 @@ export default function LineupTable({ lineup, startingPitcher }: Props) {
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4}>
       <Flex justify="space-between" mb={4}>
         <Text fontSize="xl" fontWeight="bold">
-          スターティングメンバー
+          スタメンジェネレータ
         </Text>
         <Box>
           <Text fontSize="sm">先発投手:</Text>
           <Badge colorScheme="blue" fontSize="md">
-            {startingPitcher
-              ? `${startingPitcher.number_disp} ${startingPitcher.name}`
-              : "未選択"}
+            {startingPitcher ? getDisplayName(startingPitcher) : "未選択"}
           </Badge>
         </Box>
       </Flex>
@@ -110,7 +113,7 @@ export default function LineupTable({ lineup, startingPitcher }: Props) {
                       borderBottom: "1px solid #e2e8f0",
                     }}
                   >
-                    {spot.player ? spot.player.name : "未選択"}
+                    {spot.player ? getDisplayName(spot.player) : "未選択"}
                   </td>
                   <td
                     style={{

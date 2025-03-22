@@ -6,20 +6,23 @@ import {
   Draggable,
   type DropResult,
 } from "@hello-pangea/dnd";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Badge } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { LineupSpot, Position } from "./LineupCreator";
+import { LineupSpot } from "./LineupCreator";
+import { PlayerType } from "@/types/Player";
 
 type DraggableLineupProps = {
   orderedPlayers: LineupSpot[];
   onDragEnd: (result: DropResult) => void;
-  removePlayerFromOrder: (position: Position) => void;
+  removePlayerFromOrder: (position: string) => void;
+  getDisplayName: (player: PlayerType | null) => string;
 };
 
 export default function DraggableLineup({
   orderedPlayers,
   onDragEnd,
   removePlayerFromOrder,
+  getDisplayName,
 }: DraggableLineupProps) {
   // マウント状態を追跡する
   const [mounted, setMounted] = useState(false);
@@ -33,9 +36,15 @@ export default function DraggableLineup({
   // マウントされるまでは空のコンテンツを返す
   if (!mounted) {
     return (
-      <Box borderWidth="1px" borderRadius="md" padding={2} minHeight="100px">
-        <Text textAlign="center" p={4} color="gray.500">
-          ドラッグ＆ドロップ機能を読み込み中...
+      <Box
+        borderWidth="1px"
+        borderRadius="md"
+        p={4}
+        bg="gray.50"
+        minHeight="100px"
+      >
+        <Text textAlign="center" color="gray.500">
+          ドラッグ＆ドロップ領域を読み込み中...
         </Text>
       </Box>
     );
@@ -44,57 +53,80 @@ export default function DraggableLineup({
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable-batting-order">
-        {(provided) => (
+        {(provided, snapshot) => (
           <Box
-            ref={provided.innerRef}
             {...provided.droppableProps}
+            ref={provided.innerRef}
             borderWidth="1px"
             borderRadius="md"
-            padding={2}
+            bg={snapshot.isDraggingOver ? "blue.50" : "white"}
+            p={3}
+            minHeight="50px"
           >
-            {orderedPlayers.map((spot, index) => (
-              <Draggable
-                key={spot.position}
-                draggableId={spot.position}
-                index={index}
-              >
-                {(provided, snapshot) => (
-                  <Box
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    p={3}
-                    mb={2}
-                    borderWidth="1px"
-                    borderRadius="md"
-                    bg={snapshot.isDragging ? "blue.50" : "white"}
-                    boxShadow={snapshot.isDragging ? "md" : "none"}
-                  >
-                    <Flex justify="space-between" align="center">
-                      <Flex align="center">
-                        <Text fontWeight="bold" mr={2}>
-                          {spot.order}番:{" "}
-                        </Text>
-                        <Text>{spot.position}</Text>
+            {orderedPlayers.length === 0 ? (
+              <Text textAlign="center" color="gray.500" py={2}>
+                打順が設定されていません
+              </Text>
+            ) : (
+              orderedPlayers.map((spot, index) => (
+                <Draggable
+                  key={spot.position}
+                  draggableId={spot.position}
+                  index={index}
+                >
+                  {(provided, snapshot) => (
+                    <Box
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      mb={2}
+                      p={3}
+                      borderWidth="1px"
+                      borderRadius="md"
+                      borderColor={
+                        snapshot.isDragging ? "blue.400" : "gray.200"
+                      }
+                      bg={snapshot.isDragging ? "blue.50" : "white"}
+                      boxShadow={snapshot.isDragging ? "md" : "none"}
+                    >
+                      <Flex align="center" justify="space-between">
+                        <Flex align="center">
+                          <Text
+                            fontWeight="bold"
+                            mr={3}
+                            color="blue.500"
+                            fontSize="lg"
+                          >
+                            {spot.order}番
+                          </Text>
+                          <Badge mr={2} colorScheme="gray">
+                            {spot.position}
+                          </Badge>
+                          <Text fontWeight="bold">
+                            {spot.player && (
+                              <Flex align="center">
+                                <Badge colorScheme="blue" mr={2}>
+                                  {spot.player.number_disp}
+                                </Badge>
+                                {getDisplayName(spot.player)}
+                              </Flex>
+                            )}
+                          </Text>
+                        </Flex>
+                        <Button
+                          size="xs"
+                          colorScheme="red"
+                          variant="outline"
+                          onClick={() => removePlayerFromOrder(spot.position)}
+                        >
+                          削除
+                        </Button>
                       </Flex>
-                      {spot.player && (
-                        <Text>
-                          {spot.player.number_disp} {spot.player.name}
-                        </Text>
-                      )}
-                      <Button
-                        size="xs"
-                        colorScheme="red"
-                        variant="ghost"
-                        onClick={() => removePlayerFromOrder(spot.position)}
-                      >
-                        削除
-                      </Button>
-                    </Flex>
-                  </Box>
-                )}
-              </Draggable>
-            ))}
+                    </Box>
+                  )}
+                </Draggable>
+              ))
+            )}
             {provided.placeholder}
           </Box>
         )}
