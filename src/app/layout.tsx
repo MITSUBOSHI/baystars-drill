@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Provider from "./provider";
+import AppBreadcrumb from "@/components/common/Breadcrumb";
 
 const gaId = "G-EW129H86JD";
 export const metadata: Metadata = {
@@ -25,7 +26,10 @@ export default function RootLayout({
       </head>
       <GoogleAnalytics gaId={gaId} />
       <body>
-        <Provider>{children}</Provider>
+        <Provider>
+          <AppBreadcrumb />
+          {children}
+        </Provider>
       </body>
     </html>
   );
