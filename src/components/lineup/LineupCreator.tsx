@@ -368,7 +368,6 @@ export default function LineupCreator({ players }: Props) {
           <Heading size="md" mb={4}>
             打順（ドラッグ＆ドロップで並べ替え）
           </Heading>
-          {/* @ts-expect-error - 動的インポートによる型エラーを無視 */}
           <DraggableLineup
             orderedPlayers={orderedPlayers}
             onDragEnd={handleDragEnd}

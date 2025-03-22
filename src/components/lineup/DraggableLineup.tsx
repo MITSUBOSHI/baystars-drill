@@ -8,13 +8,13 @@ import {
 } from "@hello-pangea/dnd";
 import { Box, Button, Flex, Text, Badge } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { LineupSpot } from "./LineupCreator";
+import { LineupSpot, Position } from "./LineupCreator";
 import { PlayerType } from "@/types/Player";
 
 type DraggableLineupProps = {
   orderedPlayers: LineupSpot[];
   onDragEnd: (result: DropResult) => void;
-  removePlayerFromOrder: (position: string) => void;
+  removePlayerFromOrder: (position: Position) => void;
   getDisplayName: (player: PlayerType | null) => string;
 };
 
