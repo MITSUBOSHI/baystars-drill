@@ -59,17 +59,17 @@ export default function LineupTable({
                     padding: "8px",
                     textAlign: "left",
                     borderBottom: "1px solid #e2e8f0",
-                    width: "15%",
+                    width: "10%",
                   }}
                 >
-                  背番号
+                  位置
                 </th>
                 <th
                   style={{
                     padding: "8px",
                     textAlign: "left",
                     borderBottom: "1px solid #e2e8f0",
-                    width: "30%",
+                    width: "55%",
                   }}
                 >
                   選手名
@@ -82,7 +82,7 @@ export default function LineupTable({
                     width: "25%",
                   }}
                 >
-                  ポジション
+                  背番号
                 </th>
               </tr>
             </thead>
@@ -102,7 +102,7 @@ export default function LineupTable({
                       borderBottom: "1px solid #e2e8f0",
                     }}
                   >
-                    {spot.order}番
+                    {spot.order}
                   </td>
                   <td
                     style={{
@@ -110,7 +110,7 @@ export default function LineupTable({
                       borderBottom: "1px solid #e2e8f0",
                     }}
                   >
-                    {spot.player ? spot.player.number_disp : "-"}
+                    {spot.position[0]}
                   </td>
                   <td
                     style={{
@@ -126,7 +126,7 @@ export default function LineupTable({
                       borderBottom: "1px solid #e2e8f0",
                     }}
                   >
-                    {spot.position}
+                    {spot.player ? spot.player.number_disp : "-"}
                   </td>
                 </tr>
               ))}
