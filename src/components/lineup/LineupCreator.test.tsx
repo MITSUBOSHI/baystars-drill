@@ -1,8 +1,7 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import LineupCreator from "./LineupCreator";
 import { PlayerType, Role } from "@/types/Player";
-import { Position } from "./LineupCreator";
 import { ReactNode } from "react";
 
 // Chakra UIコンポーネントのモック
@@ -75,7 +74,7 @@ jest.mock("@chakra-ui/react", () => ({
   }: {
     type?: string;
     checked?: boolean;
-    onChange?: (e: any) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value?: string;
     placeholder?: string;
     [key: string]: unknown;
@@ -193,12 +192,10 @@ jest.mock("@chakra-ui/react", () => ({
   ),
   RadioGroup: ({
     children,
-    onChange,
     value,
     ...props
   }: {
     children?: ReactNode;
-    onChange?: (value: string) => void;
     value?: string;
     [key: string]: unknown;
   }) => (
@@ -211,7 +208,7 @@ jest.mock("@chakra-ui/react", () => ({
     isChecked,
     ...props
   }: {
-    onChange?: (e: any) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     isChecked?: boolean;
     [key: string]: unknown;
   }) => (
@@ -228,7 +225,7 @@ jest.mock("@chakra-ui/react", () => ({
 
 // Node.js環境では利用できないがブラウザ環境で利用可能なstructuredCloneをモック
 if (typeof structuredClone === "undefined") {
-  global.structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
+  global.structuredClone = (obj: unknown) => JSON.parse(JSON.stringify(obj));
 }
 
 // html2canvasのモック
@@ -251,7 +248,11 @@ jest.mock("html2canvas", () => ({
 jest.mock("./LineupTable", () => {
   return {
     __esModule: true,
-    default: (props: any) => (
+    default: (props: {
+      title?: string;
+      startingPitcher: PlayerType | null;
+      getDisplayName: (player: PlayerType | null) => string;
+    }) => (
       <div data-testid="lineup-table">
         <div>タイトル: {props.title || "スタメンジェネレータ"}</div>
         <div>
@@ -396,7 +397,8 @@ describe("LineupCreator", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // html2canvasのモックを上書き
-    require("html2canvas").default.mockImplementation(html2canvasMock);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    jest.requireMock("html2canvas").default.mockImplementation(html2canvasMock);
   });
 
   test("コンポーネントが正しくレンダリングされる", () => {
