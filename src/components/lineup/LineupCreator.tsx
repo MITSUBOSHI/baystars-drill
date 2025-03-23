@@ -281,7 +281,10 @@ export default function LineupCreator({ players }: Props) {
       });
 
       const link = document.createElement("a");
-      link.download = "baystars-lineup.png";
+      const fileName = customTitle
+        ? `${customTitle}.png`
+        : "baystars-lineup.png";
+      link.download = fileName;
       link.href = canvas.toDataURL("image/png");
       link.click();
     } catch (error) {
@@ -289,7 +292,7 @@ export default function LineupCreator({ players }: Props) {
     } finally {
       setIsForImage(false);
     }
-  }, [lineupTableRef]);
+  }, [lineupTableRef, customTitle]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap="8">
