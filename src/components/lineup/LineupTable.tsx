@@ -28,7 +28,13 @@ export default function LineupTable({
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4}>
       <Flex justify="space-between" mb={4}>
-        <Text fontSize="xl" fontWeight="bold">
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+          _dark={{
+            color: isForImage ? "black" : "white",
+          }}
+        >
           {title}
         </Text>
         <Box>
