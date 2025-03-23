@@ -159,8 +159,8 @@ const mockPlayers: PlayerType[] = [
   {
     name: "佐野 恵太",
     name_kana: "さの けいた",
-    number_disp: "2",
-    number_calc: 2,
+    number_disp: "7",
+    number_calc: 7,
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/sano",
@@ -168,8 +168,8 @@ const mockPlayers: PlayerType[] = [
   {
     name: "牧 秀悟",
     name_kana: "まき しゅうご",
-    number_disp: "1",
-    number_calc: 1,
+    number_disp: "2",
+    number_calc: 2,
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/maki",
@@ -259,8 +259,8 @@ describe("Question Component", () => {
         {
           name: "佐野 恵太",
           name_kana: "さのけいた",
-          number_disp: "2",
-          number_calc: 2,
+          number_disp: "7",
+          number_calc: 7,
           role: Role.Roster,
           year: 2025,
           url: "https://dummy/",
@@ -268,8 +268,8 @@ describe("Question Component", () => {
         {
           name: "牧 秀悟",
           name_kana: "まきしゅうご",
-          number_disp: "1",
-          number_calc: 1,
+          number_disp: "2",
+          number_calc: 2,
           role: Role.Roster,
           year: 2025,
           url: "https://dummy/",
@@ -278,7 +278,7 @@ describe("Question Component", () => {
       render(<Question players={mockPlayers} />);
 
       const input = screen.getByTestId("number-input");
-      fireEvent.change(input, { target: { value: String(3) } });
+      fireEvent.change(input, { target: { value: String(9) } });
       const submitButton = screen.getByText("解答する");
       fireEvent.click(submitButton);
 
@@ -287,7 +287,7 @@ describe("Question Component", () => {
       expect(resultText).toBeInTheDocument();
 
       // NOTE: 内訳の選手の順番は制御していないため省略する
-      const explanation = screen.getByText(new RegExp(/3 = /));
+      const explanation = screen.getByText(new RegExp(/9 = /));
       expect(explanation).toBeInTheDocument();
     });
 
@@ -296,8 +296,8 @@ describe("Question Component", () => {
         {
           name: "佐野 恵太",
           name_kana: "さのけいた",
-          number_disp: "2",
-          number_calc: 2,
+          number_disp: "7",
+          number_calc: 7,
           role: Role.Roster,
           year: 2025,
           url: "https://dummy/",
@@ -305,8 +305,8 @@ describe("Question Component", () => {
         {
           name: "牧 秀悟",
           name_kana: "まきしゅうご",
-          number_disp: "1",
-          number_calc: 1,
+          number_disp: "2",
+          number_calc: 2,
           role: Role.Roster,
           year: 2025,
           url: "https://dummy/",
@@ -324,7 +324,7 @@ describe("Question Component", () => {
       expect(resultText).toBeInTheDocument();
 
       // NOTE: 内訳の選手の順番は制御していないため省略する
-      const explanation = screen.getByText(new RegExp(/3 = /));
+      const explanation = screen.getByText(new RegExp(/9 = /));
       expect(explanation).toBeInTheDocument();
     });
   });
@@ -470,8 +470,8 @@ describe("Question Component", () => {
       {
         name: "佐野 恵太",
         name_kana: "さの けいた",
-        number_disp: "2",
-        number_calc: 2,
+        number_disp: "7",
+        number_calc: 7,
         role: Role.Roster,
         year: 2025,
         url: "https://dummy/",
@@ -479,8 +479,8 @@ describe("Question Component", () => {
       {
         name: "牧 秀悟",
         name_kana: "まき しゅうご",
-        number_disp: "1",
-        number_calc: 1,
+        number_disp: "2",
+        number_calc: 2,
         role: Role.Roster,
         year: 2025,
         url: "https://dummy/",
@@ -490,7 +490,7 @@ describe("Question Component", () => {
     it("should handle addition correctly", () => {
       render(<Question players={mockPlayers} />);
       const input = screen.getByTestId("number-input");
-      fireEvent.change(input, { target: { value: "3" } });
+      fireEvent.change(input, { target: { value: "9" } });
       const submitButton = screen.getByText("解答する");
       fireEvent.click(submitButton);
 
@@ -608,7 +608,7 @@ describe("Question Component", () => {
 
       // 解答するために入力
       const input = screen.getByTestId("number-input");
-      fireEvent.change(input, { target: { value: "3" } });
+      fireEvent.change(input, { target: { value: "9" } });
 
       // 解答するボタンをクリック
       fireEvent.click(screen.getByText("解答する"));

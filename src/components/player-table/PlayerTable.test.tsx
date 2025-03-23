@@ -50,8 +50,8 @@ const mockPlayers: PlayerType[] = [
   {
     name: "佐野 恵太",
     name_kana: "さの けいた",
-    number_disp: "2",
-    number_calc: 2,
+    number_disp: "7",
+    number_calc: 7,
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/sano",
@@ -59,8 +59,8 @@ const mockPlayers: PlayerType[] = [
   {
     name: "牧 秀悟",
     name_kana: "まき しゅうご",
-    number_disp: "1",
-    number_calc: 1,
+    number_disp: "2",
+    number_calc: 2,
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/maki",
@@ -99,29 +99,29 @@ describe("PlayerTable", () => {
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
-    expect(initialCells[0]).toHaveTextContent("2");
-    expect(initialCells[3]).toHaveTextContent("1");
+    expect(initialCells[0]).toHaveTextContent("7");
+    expect(initialCells[3]).toHaveTextContent("2");
     expect(initialCells[6]).toHaveTextContent("50");
 
     // Click sort button for ascending order
     fireEvent.click(sortButton);
     const ascCells = screen.getAllByRole("cell");
-    expect(ascCells[0]).toHaveTextContent("1");
-    expect(ascCells[3]).toHaveTextContent("2");
+    expect(ascCells[0]).toHaveTextContent("2");
+    expect(ascCells[3]).toHaveTextContent("7");
     expect(ascCells[6]).toHaveTextContent("50");
 
     // Click sort button for descending order
     fireEvent.click(sortButton);
     const descCells = screen.getAllByRole("cell");
     expect(descCells[0]).toHaveTextContent("50");
-    expect(descCells[3]).toHaveTextContent("2");
-    expect(descCells[6]).toHaveTextContent("1");
+    expect(descCells[3]).toHaveTextContent("7");
+    expect(descCells[6]).toHaveTextContent("2");
 
     // Click sort button to reset order
     fireEvent.click(sortButton);
     const resetCells = screen.getAllByRole("cell");
-    expect(resetCells[0]).toHaveTextContent("2");
-    expect(resetCells[3]).toHaveTextContent("1");
+    expect(resetCells[0]).toHaveTextContent("7");
+    expect(resetCells[3]).toHaveTextContent("2");
     expect(resetCells[6]).toHaveTextContent("50");
   });
 
