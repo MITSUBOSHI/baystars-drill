@@ -370,6 +370,15 @@ const mockPlayers: PlayerType[] = [
     year: 2025,
     url: "https://dummy/miyazaki",
   },
+  {
+    name: "粟飯原 龍之介",
+    name_kana: "あいばら りゅうのすけ",
+    number_disp: "133",
+    number_calc: 133,
+    role: Role.Training,
+    year: 2025,
+    url: "https://dummy/aibara",
+  },
 ];
 
 describe("LineupCreator", () => {
@@ -410,6 +419,9 @@ describe("LineupCreator", () => {
     // 設定セクションが表示されることを確認
     expect(screen.getByText("⚙️ 設定")).toBeInTheDocument();
     expect(screen.getAllByText("DHあり")[0]).toBeInTheDocument();
+    expect(
+      screen.getAllByText("育成枠含む(ファーム対応)")[0],
+    ).toBeInTheDocument();
 
     // ポジション設定セクションが表示されることを確認
     expect(screen.getByText("ポジション別選手設定")).toBeInTheDocument();
@@ -447,14 +459,89 @@ describe("LineupCreator", () => {
   test("DHありの設定を切り替える", () => {
     render(<LineupCreator players={mockPlayers} />);
 
-    // DHありのチェックボックスを探す
-    const dhCheckbox = screen.getByTestId("checkbox-input");
+    // すべてのチェックボックスを取得
+    const checkboxes = screen.getAllByTestId("checkbox-input");
+
+    // DHチェックボックスは最初のもの
+    const dhCheckbox = checkboxes[0];
 
     // DHをオンにする
     fireEvent.click(dhCheckbox);
 
     // DHポジションが追加されたことを確認
     expect(screen.getByTestId("player-selector-DH")).toBeInTheDocument();
+  });
+
+  test("ファームモードの設定を切り替える", () => {
+    render(<LineupCreator players={mockPlayers} />);
+
+    // すべてのチェックボックスを取得
+    const checkboxes = screen.getAllByTestId("checkbox-input");
+
+    // ファームモードチェックボックスは2番目のもの
+    const farmModeCheckbox = checkboxes[1];
+
+    // 初期状態ではファームモードがオフであることを確認（育成選手は選択できない）
+    expect(farmModeCheckbox).toHaveProperty("checked", false);
+
+    // ファームモードをオンにする
+    fireEvent.click(farmModeCheckbox);
+
+    // チェックボックスがオンになったことを確認
+    expect(farmModeCheckbox).toHaveProperty("checked", true);
+  });
+
+  test("ファームモードがオンの場合、育成選手を含むすべての選手が選択可能", () => {
+    // テスト用にPlayerSelectorをモックして、実際に受け取ったプレイヤーリストを確認できるようにする
+    const originalPlayerSelector = jest.requireMock("./PlayerSelector").default;
+    let capturedPlayers: PlayerType[] = [];
+
+    jest.requireMock("./PlayerSelector").default = ({
+      players,
+      onSelectPlayer,
+      selectedPlayer,
+      position,
+      getDisplayName,
+    }: {
+      players: PlayerType[];
+      onSelectPlayer: (player: PlayerType | null) => void;
+      selectedPlayer: PlayerType | null;
+      position: string;
+      getDisplayName: (player: PlayerType | null) => string;
+    }) => {
+      // 投手セレクターの場合のみ、プレイヤーリストをキャプチャ
+      if (position === "投手") {
+        capturedPlayers = players;
+      }
+      return originalPlayerSelector({
+        players,
+        onSelectPlayer,
+        selectedPlayer,
+        position,
+        getDisplayName,
+      });
+    };
+
+    // コンポーネントをレンダリング
+    const { rerender } = render(<LineupCreator players={mockPlayers} />);
+
+    // 初期状態では育成選手を含まない（ロースターのみ）
+    expect(capturedPlayers.length).toBe(4); // ロースター選手の数
+    expect(capturedPlayers.some((p) => p.role === Role.Training)).toBe(false);
+
+    // ファームモードをオンにする
+    const farmModeCheckbox = screen.getAllByTestId("checkbox-input")[1];
+    fireEvent.click(farmModeCheckbox);
+
+    // 再レンダリングさせる
+    rerender(<LineupCreator players={mockPlayers} />);
+
+    // 育成選手を含むすべての選手が利用可能になったことを確認
+    expect(capturedPlayers.length).toBe(5); // すべての選手
+    expect(capturedPlayers.some((p) => p.role === Role.Training)).toBe(true);
+
+    // モックを元に戻す
+    jest.requireMock("./PlayerSelector").default = originalPlayerSelector;
   });
 
   test("選手名表示形式を変更できる", () => {
