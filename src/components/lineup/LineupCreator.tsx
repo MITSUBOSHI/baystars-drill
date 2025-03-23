@@ -71,6 +71,7 @@ export default function LineupCreator({ players }: Props) {
   );
   const [isMounted, setIsMounted] = useState(false);
   const [hasDH, setHasDH] = useState(false);
+  const [isFarmMode, setIsFarmMode] = useState(false);
   const [nameDisplay, setNameDisplay] = useState<NameDisplayMode>("kanji");
   const [customTitle, setCustomTitle] = useState("");
   const lineupTableRef = useRef<HTMLDivElement>(null);
@@ -267,6 +268,20 @@ export default function LineupCreator({ players }: Props) {
     { value: "both", label: "両方" },
   ];
 
+  // 選手フィルター関数
+  const filterPlayersByMode = useCallback(
+    (playersList: PlayerType[]) => {
+      if (isFarmMode) {
+        return playersList.filter(
+          (p) => p.role === "roster" || p.role === "training",
+        );
+      } else {
+        return playersList.filter((p) => p.role === "roster");
+      }
+    },
+    [isFarmMode],
+  );
+
   const saveAsImage = useCallback(async () => {
     if (!lineupTableRef.current) return;
 
@@ -339,6 +354,46 @@ export default function LineupCreator({ players }: Props) {
                 <Box
                   position="absolute"
                   transform={hasDH ? "translateX(24px)" : "translateX(0)"}
+                  w="20px"
+                  h="20px"
+                  mt="2px"
+                  ml="2px"
+                  bg="white"
+                  rounded="full"
+                  transition="0.2s"
+                />
+              </Box>
+            </Box>
+          </Flex>
+
+          <Flex align="center">
+            <Text mr={3}>育成枠含む(ファーム対応)</Text>
+            <Box
+              as="label"
+              display="inline-flex"
+              alignItems="center"
+              cursor="pointer"
+            >
+              <Input
+                type="checkbox"
+                checked={isFarmMode}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setIsFarmMode(e.target.checked)
+                }
+                hidden
+              />
+              <Box
+                position="relative"
+                display="inline-block"
+                w="48px"
+                h="24px"
+                bg={isFarmMode ? "blue.500" : "gray.300"}
+                rounded="full"
+                transition="0.2s"
+              >
+                <Box
+                  position="absolute"
+                  transform={isFarmMode ? "translateX(24px)" : "translateX(0)"}
                   w="20px"
                   h="20px"
                   mt="2px"
@@ -437,7 +492,7 @@ export default function LineupCreator({ players }: Props) {
           {/* 先発投手選択は常に表示 */}
           <Heading size="md">投手選択</Heading>
           <PlayerSelector
-            players={players.filter((p) => p.role === "roster")}
+            players={filterPlayersByMode(players)}
             onSelectPlayer={handleSelectPitcher}
             selectedPlayer={startingPitcher}
             position="投手"
@@ -478,7 +533,7 @@ export default function LineupCreator({ players }: Props) {
                 )}
               </Flex>
               <PlayerSelector
-                players={players.filter((p) => p.role === "roster")}
+                players={filterPlayersByMode(players)}
                 onSelectPlayer={(player: PlayerType | null) =>
                   handleSelectPlayer(spot.position, player)
                 }
