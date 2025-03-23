@@ -102,6 +102,10 @@ export default function PlayerSelector({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               mb={2}
+              color="black"
+              _dark={{
+                color: "black",
+              }}
             />
 
             {filteredPlayers.length > 0 ? (
