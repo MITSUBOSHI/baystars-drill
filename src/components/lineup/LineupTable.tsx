@@ -32,15 +32,32 @@ export default function LineupTable({
           {title}
         </Text>
         <Box>
-          <Text fontSize="sm">先発投手:</Text>
-          <Badge colorScheme="blue" fontSize="md">
+          <Text
+            fontSize="sm"
+            _dark={{
+              color: isForImage ? "black" : "white",
+            }}
+          >
+            先発投手:
+          </Text>
+          {/* html2canvasでpaddingBottomを指定しないと表示ズレが起きる */}
+          <Badge
+            colorPalette="gray"
+            fontSize="md"
+            paddingBottom={isForImage ? 2 : 0}
+          >
             {startingPitcher ? getDisplayName(startingPitcher) : "未選択"}
           </Badge>
         </Box>
       </Flex>
 
       {activeLineup.length > 0 ? (
-        <Box overflowX="auto">
+        <Box
+          overflowX="auto"
+          _dark={{
+            color: isForImage ? "black" : "white",
+          }}
+        >
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
