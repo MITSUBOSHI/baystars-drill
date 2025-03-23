@@ -1,7 +1,7 @@
 "use client";
 
 import { PlayerType } from "@/types/Player";
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import {
   Box,
   Button,
@@ -17,7 +17,7 @@ import PlayerSelector from "./PlayerSelector";
 import dynamic from "next/dynamic";
 import { type DropResult } from "@hello-pangea/dnd";
 import html2canvas from "html2canvas";
-import { DownloadIcon } from "@chakra-ui/icons";
+import { FiDownload } from "react-icons/fi";
 
 // 野球のポジション
 export type Position =
@@ -74,6 +74,7 @@ export default function LineupCreator({ players }: Props) {
   const [nameDisplay, setNameDisplay] = useState<NameDisplayMode>("kanji");
   const [customTitle, setCustomTitle] = useState("");
   const lineupTableRef = useRef<HTMLDivElement>(null);
+  const [isForImage, setIsForImage] = useState(false);
 
   // クライアントサイドでのみレンダリングするためのフラグ
   useEffect(() => {
@@ -266,29 +267,29 @@ export default function LineupCreator({ players }: Props) {
     { value: "both", label: "両方" },
   ];
 
-  // 画像として保存する関数
-  const saveAsImage = async () => {
+  const saveAsImage = useCallback(async () => {
     if (!lineupTableRef.current) return;
-    
+
     try {
+      setIsForImage(true);
+      // 非同期処理の後に状態を確実に更新するために少し遅延を入れる
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
       const canvas = await html2canvas(lineupTableRef.current, {
+        scale: 2,
         backgroundColor: "#ffffff",
-        scale: 2, // 解像度を上げる
       });
-      
-      // canvasをbase64画像に変換
-      const image = canvas.toDataURL("image/png");
-      
-      // ダウンロードリンクを作成
+
       const link = document.createElement("a");
-      link.href = image;
-      link.download = `${customTitle || "lineup"}.png`;
+      link.download = "baystars-lineup.png";
+      link.href = canvas.toDataURL("image/png");
       link.click();
     } catch (error) {
-      console.error("画像の保存に失敗しました", error);
-      alert("画像の保存に失敗しました");
+      console.error("Failed to save image:", error);
+    } finally {
+      setIsForImage(false);
     }
-  };
+  }, [lineupTableRef]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap="8">
@@ -398,7 +399,7 @@ export default function LineupCreator({ players }: Props) {
           <Heading size="md">スターティングメンバー</Heading>
           <Button colorScheme="teal" onClick={saveAsImage}>
             <Flex align="center" gap={2}>
-              <DownloadIcon />
+              <FiDownload />
               <Text>画像として保存</Text>
             </Flex>
           </Button>
@@ -409,6 +410,7 @@ export default function LineupCreator({ players }: Props) {
             startingPitcher={startingPitcher}
             getDisplayName={getDisplayName}
             title={customTitle}
+            isForImage={isForImage}
           />
         </Box>
       </Box>

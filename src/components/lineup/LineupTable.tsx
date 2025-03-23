@@ -9,6 +9,7 @@ type Props = {
   startingPitcher: PlayerType | null;
   getDisplayName: (player: PlayerType | null) => string;
   title?: string;
+  isForImage?: boolean;
 };
 
 export default function LineupTable({
@@ -16,6 +17,7 @@ export default function LineupTable({
   startingPitcher,
   getDisplayName,
   title = "スタメンジェネレータ",
+  isForImage = false,
 }: Props) {
   // 打順が設定されているラインナップのみ表示
   const activeLineup = lineup.filter((spot) => spot.order !== null);
@@ -137,7 +139,7 @@ export default function LineupTable({
         </Box>
       )}
 
-      {unassignedCount > 0 && activeLineup.length > 0 && (
+      {!isForImage && unassignedCount > 0 && activeLineup.length > 0 && (
         <Box mt={4} p={2} bg="gray.50" borderRadius="md">
           <Text fontSize="sm" color="gray.600">
             残り{unassignedCount}ポジションが打順未設定です
@@ -145,7 +147,7 @@ export default function LineupTable({
         </Box>
       )}
 
-      {activeLineup.length === 9 && (
+      {!isForImage && activeLineup.length === 9 && (
         <Box mt={4} p={2} bg="green.50" borderRadius="md">
           <Text fontSize="sm" fontWeight="bold" color="green.600">
             打順設定完了 ⚾
