@@ -3,7 +3,7 @@
 import { PlayerType } from "@/types/Player";
 import { Position } from "./LineupCreator";
 import { Box, Button, Flex, Text, Badge, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 type Props = {
   players: PlayerType[];
@@ -22,9 +22,20 @@ export default function PlayerSelector({
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Toggle the dropdown
   const toggleDropdown = () => setIsOpen(!isOpen);
+
+  // Focus on search input when dropdown opens
+  useEffect(() => {
+    if (isOpen && searchInputRef.current) {
+      // Small timeout to ensure the DOM is ready
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 50);
+    }
+  }, [isOpen]);
 
   // Filter players based on search term
   const filteredPlayers = players.filter(
@@ -106,6 +117,7 @@ export default function PlayerSelector({
               _dark={{
                 color: "black",
               }}
+              ref={searchInputRef}
             />
 
             {filteredPlayers.length > 0 ? (
