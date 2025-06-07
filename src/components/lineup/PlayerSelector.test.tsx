@@ -122,6 +122,9 @@ const mockPlayers: PlayerType[] = [
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/sano",
+    date_of_birth: "1994-11-28",
+    height_cm: 178,
+    weight_kg: 88,
   },
   {
     name: "牧 秀悟",
@@ -131,6 +134,9 @@ const mockPlayers: PlayerType[] = [
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/maki",
+    date_of_birth: "1998-04-21",
+    height_cm: 178,
+    weight_kg: 97,
   },
 ];
 

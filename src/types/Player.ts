@@ -14,4 +14,7 @@ export type PlayerType = {
   number_disp: string;
   role: Role;
   url: string;
+  date_of_birth: string;
+  height_cm: number | null;
+  weight_kg: number | null;
 };

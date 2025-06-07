@@ -78,6 +78,15 @@ export default function PlayerTable({ players }: Props) {
             <Table.ColumnHeader width={{ base: "20%", md: "20%" }}>
               ロール
             </Table.ColumnHeader>
+            <Table.ColumnHeader width={{ base: "20%", md: "15%" }}>
+              生年月日
+            </Table.ColumnHeader>
+            <Table.ColumnHeader width={{ base: "20%", md: "10%" }}>
+              身長
+            </Table.ColumnHeader>
+            <Table.ColumnHeader width={{ base: "20%", md: "10%" }}>
+              体重
+            </Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -102,6 +111,13 @@ export default function PlayerTable({ players }: Props) {
                 </ChakraLink>
               </Table.Cell>
               <Table.Cell>{NameByRole[player.role]}</Table.Cell>
+              <Table.Cell>{player.date_of_birth}</Table.Cell>
+              <Table.Cell>
+                {player.height_cm ? `${player.height_cm}cm` : "-"}
+              </Table.Cell>
+              <Table.Cell>
+                {player.weight_kg ? `${player.weight_kg}kg` : "-"}
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

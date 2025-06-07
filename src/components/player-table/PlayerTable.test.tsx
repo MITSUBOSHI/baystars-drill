@@ -55,6 +55,9 @@ const mockPlayers: PlayerType[] = [
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/sano",
+    date_of_birth: "1994-11-28",
+    height_cm: 178,
+    weight_kg: 88,
   },
   {
     name: "牧 秀悟",
@@ -64,6 +67,9 @@ const mockPlayers: PlayerType[] = [
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/maki",
+    date_of_birth: "1998-04-21",
+    height_cm: 178,
+    weight_kg: 97,
   },
   {
     name: "山本 祐大",
@@ -73,6 +79,9 @@ const mockPlayers: PlayerType[] = [
     role: Role.Roster,
     year: 2025,
     url: "https://dummy/yamamoto",
+    date_of_birth: "1998-09-11",
+    height_cm: 180,
+    weight_kg: 87,
   },
 ];
 
@@ -91,6 +100,9 @@ describe("PlayerTable", () => {
     expect(screen.getByText("背番号")).toBeInTheDocument();
     expect(screen.getByText("名前")).toBeInTheDocument();
     expect(screen.getByText("ロール")).toBeInTheDocument();
+    expect(screen.getByText("生年月日")).toBeInTheDocument();
+    expect(screen.getByText("身長")).toBeInTheDocument();
+    expect(screen.getByText("体重")).toBeInTheDocument();
   });
 
   it("should sort players by number when sort button is clicked", () => {
@@ -100,29 +112,29 @@ describe("PlayerTable", () => {
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
     expect(initialCells[0]).toHaveTextContent("7");
-    expect(initialCells[3]).toHaveTextContent("2");
-    expect(initialCells[6]).toHaveTextContent("50");
+    expect(initialCells[6]).toHaveTextContent("2");
+    expect(initialCells[12]).toHaveTextContent("50");
 
     // Click sort button for ascending order
     fireEvent.click(sortButton);
     const ascCells = screen.getAllByRole("cell");
     expect(ascCells[0]).toHaveTextContent("2");
-    expect(ascCells[3]).toHaveTextContent("7");
-    expect(ascCells[6]).toHaveTextContent("50");
+    expect(ascCells[6]).toHaveTextContent("7");
+    expect(ascCells[12]).toHaveTextContent("50");
 
     // Click sort button for descending order
     fireEvent.click(sortButton);
     const descCells = screen.getAllByRole("cell");
     expect(descCells[0]).toHaveTextContent("50");
-    expect(descCells[3]).toHaveTextContent("7");
-    expect(descCells[6]).toHaveTextContent("2");
+    expect(descCells[6]).toHaveTextContent("7");
+    expect(descCells[12]).toHaveTextContent("2");
 
     // Click sort button to reset order
     fireEvent.click(sortButton);
     const resetCells = screen.getAllByRole("cell");
     expect(resetCells[0]).toHaveTextContent("7");
-    expect(resetCells[3]).toHaveTextContent("2");
-    expect(resetCells[6]).toHaveTextContent("50");
+    expect(resetCells[6]).toHaveTextContent("2");
+    expect(resetCells[12]).toHaveTextContent("50");
   });
 
   it("should render player links correctly", () => {
