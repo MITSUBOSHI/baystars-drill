@@ -1,8 +1,13 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { useSearchParams } from "next/navigation";
 import UniformViewer from "./UniformViewer";
 import { PlayerType, Role } from "@/types/Player";
 import { ReactNode } from "react";
+
+jest.mock("next/navigation", () => ({
+  useSearchParams: jest.fn(() => new URLSearchParams("")),
+}));
 
 jest.mock("@chakra-ui/react", () => ({
   Box: ({
@@ -180,5 +185,23 @@ describe("UniformViewer", () => {
   it("displays player number and kana info", () => {
     render(<UniformViewer players={mockPlayers} />);
     expect(screen.getByText("No.2 / まき しゅうご")).toBeInTheDocument();
+  });
+
+  it("jumps to player when number is entered and Enter is pressed", () => {
+    render(<UniformViewer players={mockPlayers} />);
+    const input = screen.getByLabelText("背番号で検索");
+    fireEvent.change(input, { target: { value: "11" } });
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(screen.getByText("東 克樹")).toBeInTheDocument();
+    expect((input as HTMLInputElement).value).toBe("");
+  });
+
+  it("shows player matching ?number query param on mount", () => {
+    (useSearchParams as jest.Mock).mockReturnValue(
+      new URLSearchParams("number=81"),
+    );
+    render(<UniformViewer players={mockPlayers} />);
+    expect(screen.getByText("三浦 大輔")).toBeInTheDocument();
+    (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams(""));
   });
 });

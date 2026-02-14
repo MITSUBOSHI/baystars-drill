@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { registeredYears } from "@/constants/player";
 import { playersByYear } from "@/lib/players";
@@ -46,7 +47,9 @@ export default async function Page({
         />
       </Flex>
       <Box w="100%" maxW={{ base: "100%", md: "500px" }} px={4}>
-        <UniformViewer players={players} />
+        <Suspense>
+          <UniformViewer players={players} />
+        </Suspense>
       </Box>
     </VStack>
   );

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
+import { useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -13,7 +14,9 @@ type Props = {
 };
 
 export default function UniformViewer({ players }: Props) {
+  const searchParams = useSearchParams();
   const [rosterOnly, setRosterOnly] = useState(false);
+  const [numberInput, setNumberInput] = useState("");
 
   const filteredPlayers = useMemo(
     () =>
@@ -28,6 +31,21 @@ export default function UniformViewer({ players }: Props) {
   useEffect(() => {
     setCurrentIndex(0);
   }, [rosterOnly]);
+
+  const initializedRef = useRef(false);
+  useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+    const numberParam = searchParams.get("number");
+    if (numberParam && filteredPlayers.length > 0) {
+      const index = filteredPlayers.findIndex(
+        (p) => p.number_disp === numberParam,
+      );
+      if (index !== -1) {
+        setCurrentIndex(index);
+      }
+    }
+  }, [searchParams, filteredPlayers]);
 
   const currentPlayer = filteredPlayers[currentIndex];
 
@@ -59,8 +77,21 @@ export default function UniformViewer({ players }: Props) {
     goToNext();
   }, [goToNext, currentPlayer]);
 
+  const handleNumberJump = useCallback(() => {
+    const trimmed = numberInput.trim();
+    if (!trimmed) return;
+    const index = filteredPlayers.findIndex(
+      (p) => p.number_disp === trimmed,
+    );
+    if (index !== -1) {
+      setCurrentIndex(index);
+    }
+    setNumberInput("");
+  }, [numberInput, filteredPlayers]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
       if (e.key === "ArrowLeft") handlePrev();
       if (e.key === "ArrowRight") handleNext();
     };
@@ -74,7 +105,7 @@ export default function UniformViewer({ players }: Props) {
 
   return (
     <Box w="100%" maxW="400px" mx="auto" userSelect="none">
-      <Flex justify="center" mb={4}>
+      <Flex justify="center" align="center" gap={4} mb={4}>
         <Switch
           checked={rosterOnly}
           onCheckedChange={(e) => setRosterOnly(e.checked)}
@@ -82,6 +113,24 @@ export default function UniformViewer({ players }: Props) {
         >
           支配下のみ
         </Switch>
+        <input
+          type="text"
+          inputMode="numeric"
+          value={numberInput}
+          onChange={(e) => setNumberInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleNumberJump();
+          }}
+          placeholder="No."
+          aria-label="背番号で検索"
+          style={{
+            width: "56px",
+            fontSize: "12px",
+            padding: "2px 6px",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+          }}
+        />
       </Flex>
 
       <Box textAlign="center" mb={4}>
