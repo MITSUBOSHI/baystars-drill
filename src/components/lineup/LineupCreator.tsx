@@ -11,10 +11,11 @@ import {
   Heading,
   Text,
   Flex,
-  HStack,
   Stack,
   Input,
 } from "@chakra-ui/react";
+import OptionGroup from "@/components/common/OptionGroup";
+import { Switch } from "@/components/ui/switch";
 import LineupTable from "./LineupTable";
 import PlayerSelector from "./PlayerSelector";
 import dynamic from "next/dynamic";
@@ -317,118 +318,25 @@ export default function LineupCreator({ players }: Props) {
         </Heading>
 
         <Stack gap={4}>
-          <Flex align="center">
-            <Text mr={3}>DHあり</Text>
-            <Box
-              as="label"
-              display="inline-flex"
-              alignItems="center"
-              cursor="pointer"
-            >
-              <Input
-                type="checkbox"
-                checked={hasDH}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setHasDH(e.target.checked)
-                }
-                hidden
-              />
-              <Box
-                position="relative"
-                display="inline-block"
-                w="48px"
-                h="24px"
-                bg={hasDH ? "blue.500" : "gray.300"}
-                rounded="full"
-                transition="0.2s"
-              >
-                <Box
-                  position="absolute"
-                  transform={hasDH ? "translateX(24px)" : "translateX(0)"}
-                  w="20px"
-                  h="20px"
-                  mt="2px"
-                  ml="2px"
-                  bg="white"
-                  rounded="full"
-                  transition="0.2s"
-                />
-              </Box>
-            </Box>
-          </Flex>
+          <Switch checked={hasDH} onCheckedChange={(e) => setHasDH(e.checked)}>
+            DHあり
+          </Switch>
 
-          <Flex align="center">
-            <Text mr={3}>育成枠含む(ファーム対応)</Text>
-            <Box
-              as="label"
-              display="inline-flex"
-              alignItems="center"
-              cursor="pointer"
-            >
-              <Input
-                type="checkbox"
-                checked={isFarmMode}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setIsFarmMode(e.target.checked)
-                }
-                hidden
-              />
-              <Box
-                position="relative"
-                display="inline-block"
-                w="48px"
-                h="24px"
-                bg={isFarmMode ? "blue.500" : "gray.300"}
-                rounded="full"
-                transition="0.2s"
-              >
-                <Box
-                  position="absolute"
-                  transform={isFarmMode ? "translateX(24px)" : "translateX(0)"}
-                  w="20px"
-                  h="20px"
-                  mt="2px"
-                  ml="2px"
-                  bg="white"
-                  rounded="full"
-                  transition="0.2s"
-                />
-              </Box>
-            </Box>
-          </Flex>
+          <Switch
+            checked={isFarmMode}
+            onCheckedChange={(e) => setIsFarmMode(e.checked)}
+          >
+            育成枠含む(ファーム対応)
+          </Switch>
 
           <Box>
             <Text mb={2}>選手名表示形式</Text>
-            <HStack gap="24px">
-              {options.map((option) => (
-                <Box
-                  key={option.value}
-                  as="label"
-                  p={2}
-                  borderWidth="1px"
-                  borderRadius="md"
-                  borderColor={
-                    nameDisplay === option.value ? "blue.500" : "gray.200"
-                  }
-                  bg={nameDisplay === option.value ? "blue.500" : "white"}
-                  color={nameDisplay === option.value ? "white" : "black"}
-                  cursor="pointer"
-                  _hover={{ borderColor: "blue.300" }}
-                >
-                  <Input
-                    type="radio"
-                    name="nameDisplay"
-                    value={option.value}
-                    checked={nameDisplay === option.value}
-                    onChange={() =>
-                      setNameDisplay(option.value as NameDisplayMode)
-                    }
-                    hidden
-                  />
-                  {option.label}
-                </Box>
-              ))}
-            </HStack>
+            <OptionGroup
+              name="nameDisplay"
+              options={options}
+              selectedValues={[nameDisplay]}
+              onChange={(value) => setNameDisplay(value as NameDisplayMode)}
+            />
           </Box>
 
           <Box>

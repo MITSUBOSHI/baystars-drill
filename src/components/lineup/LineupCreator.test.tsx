@@ -223,6 +223,66 @@ jest.mock("@chakra-ui/react", () => ({
   useBoolean: () => [false, { toggle: jest.fn() }],
 }));
 
+// Switch UIコンポーネントのモック
+jest.mock("@/components/ui/switch", () => ({
+  __esModule: true,
+  Switch: ({
+    checked,
+    onCheckedChange,
+    children,
+    ...props
+  }: {
+    checked?: boolean;
+    onCheckedChange?: (e: { checked: boolean }) => void;
+    children?: ReactNode;
+    [key: string]: unknown;
+  }) => (
+    <label data-testid="switch-label">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onCheckedChange?.({ checked: e.target.checked })}
+        data-testid="switch"
+        {...props}
+      />
+      {children}
+    </label>
+  ),
+}));
+
+// OptionGroupコンポーネントのモック
+jest.mock("@/components/common/OptionGroup", () => ({
+  __esModule: true,
+  default: ({
+    name,
+    options,
+    selectedValues,
+    onChange,
+  }: {
+    name: string;
+    options: { value: string; label: string }[];
+    selectedValues: string[];
+    onChange: (value: string) => void;
+    multiple?: boolean;
+  }) => (
+    <div data-testid={`option-group-${name}`}>
+      {options.map((option: { value: string; label: string }) => (
+        <label key={option.value}>
+          <input
+            type="radio"
+            name={name}
+            value={option.value}
+            checked={selectedValues.includes(option.value)}
+            onChange={() => onChange(option.value)}
+            data-testid={`radio-${option.value}`}
+          />
+          {option.label}
+        </label>
+      ))}
+    </div>
+  ),
+}));
+
 // Node.js環境では利用できないがブラウザ環境で利用可能なstructuredCloneをモック
 if (typeof structuredClone === "undefined") {
   global.structuredClone = (obj: unknown) => JSON.parse(JSON.stringify(obj));
@@ -459,14 +519,14 @@ describe("LineupCreator", () => {
   test("DHありの設定を切り替える", () => {
     render(<LineupCreator players={mockPlayers} />);
 
-    // すべてのチェックボックスを取得
-    const checkboxes = screen.getAllByTestId("checkbox-input");
+    // すべてのSwitchを取得
+    const switches = screen.getAllByTestId("switch");
 
-    // DHチェックボックスは最初のもの
-    const dhCheckbox = checkboxes[0];
+    // DHスイッチは最初のもの
+    const dhSwitch = switches[0];
 
     // DHをオンにする
-    fireEvent.click(dhCheckbox);
+    fireEvent.click(dhSwitch);
 
     // DHポジションが追加されたことを確認
     expect(screen.getByTestId("player-selector-DH")).toBeInTheDocument();
@@ -475,20 +535,20 @@ describe("LineupCreator", () => {
   test("ファームモードの設定を切り替える", () => {
     render(<LineupCreator players={mockPlayers} />);
 
-    // すべてのチェックボックスを取得
-    const checkboxes = screen.getAllByTestId("checkbox-input");
+    // すべてのSwitchを取得
+    const switches = screen.getAllByTestId("switch");
 
-    // ファームモードチェックボックスは2番目のもの
-    const farmModeCheckbox = checkboxes[1];
+    // ファームモードスイッチは2番目のもの
+    const farmModeSwitch = switches[1];
 
     // 初期状態ではファームモードがオフであることを確認（育成選手は選択できない）
-    expect(farmModeCheckbox).toHaveProperty("checked", false);
+    expect(farmModeSwitch).toHaveProperty("checked", false);
 
     // ファームモードをオンにする
-    fireEvent.click(farmModeCheckbox);
+    fireEvent.click(farmModeSwitch);
 
-    // チェックボックスがオンになったことを確認
-    expect(farmModeCheckbox).toHaveProperty("checked", true);
+    // スイッチがオンになったことを確認
+    expect(farmModeSwitch).toHaveProperty("checked", true);
   });
 
   test("ファームモードがオンの場合、育成選手を含むすべての選手が選択可能", () => {
@@ -530,8 +590,8 @@ describe("LineupCreator", () => {
     expect(capturedPlayers.some((p) => p.role === Role.Training)).toBe(false);
 
     // ファームモードをオンにする
-    const farmModeCheckbox = screen.getAllByTestId("checkbox-input")[1];
-    fireEvent.click(farmModeCheckbox);
+    const farmModeSwitch = screen.getAllByTestId("switch")[1];
+    fireEvent.click(farmModeSwitch);
 
     // 再レンダリングさせる
     rerender(<LineupCreator players={mockPlayers} />);
