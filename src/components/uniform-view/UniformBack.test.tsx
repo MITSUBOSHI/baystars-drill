@@ -53,7 +53,7 @@ describe("UniformBack", () => {
     );
 
     const nameText = container.querySelectorAll("text")[0];
-    expect(nameText.getAttribute("font-size")).toBe("28");
+    expect(nameText.getAttribute("font-size")).toBe("26");
   });
 
   it("uses default font size for short names (<= 6 chars)", () => {
@@ -62,7 +62,7 @@ describe("UniformBack", () => {
     );
 
     const nameText = container.querySelectorAll("text")[0];
-    expect(nameText.getAttribute("font-size")).toBe("34");
+    expect(nameText.getAttribute("font-size")).toBe("30");
   });
 
   it("uses smaller font size for 3-digit numbers", () => {
@@ -71,7 +71,7 @@ describe("UniformBack", () => {
     );
 
     const numberText = container.querySelectorAll("text")[1];
-    expect(numberText.getAttribute("font-size")).toBe("90");
+    expect(numberText.getAttribute("font-size")).toBe("80");
   });
 
   it("uses default font size for 1-2 digit numbers", () => {
@@ -80,6 +80,6 @@ describe("UniformBack", () => {
     );
 
     const numberText = container.querySelectorAll("text")[1];
-    expect(numberText.getAttribute("font-size")).toBe("120");
+    expect(numberText.getAttribute("font-size")).toBe("110");
   });
 });
