@@ -31,19 +31,12 @@ export default function LineupTable({
         <Text
           fontSize="xl"
           fontWeight="bold"
-          _dark={{
-            color: isForImage ? "black" : "white",
-          }}
+          color={isForImage ? "black" : "text.primary"}
         >
           {title}
         </Text>
         <Box>
-          <Text
-            fontSize="sm"
-            _dark={{
-              color: isForImage ? "black" : "white",
-            }}
-          >
+          <Text fontSize="sm" color={isForImage ? "black" : "text.primary"}>
             先発投手:
           </Text>
           {/* html2canvasでpaddingBottomを指定しないと表示ズレが起きる */}
@@ -58,12 +51,7 @@ export default function LineupTable({
       </Flex>
 
       {activeLineup.length > 0 ? (
-        <Box
-          overflowX="auto"
-          _dark={{
-            color: isForImage ? "black" : "white",
-          }}
-        >
+        <Box overflowX="auto" color={isForImage ? "black" : "text.primary"}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
@@ -163,15 +151,15 @@ export default function LineupTable({
       )}
 
       {!isForImage && unassignedCount > 0 && activeLineup.length > 0 && (
-        <Box mt={4} p={2} bg="gray.50" borderRadius="md">
-          <Text fontSize="sm" color="gray.600">
+        <Box mt={4} p={2} bg="surface.card" borderRadius="md">
+          <Text fontSize="sm" color="text.secondary">
             残り{unassignedCount}ポジションが打順未設定です
           </Text>
         </Box>
       )}
 
       {!isForImage && activeLineup.length === 9 && (
-        <Box mt={4} p={2} bg="green.50" borderRadius="md">
+        <Box mt={4} p={2} bg="surface.success" borderRadius="md">
           <Text fontSize="sm" fontWeight="bold" color="green.600">
             打順設定完了 ⚾
           </Text>

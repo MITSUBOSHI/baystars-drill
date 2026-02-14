@@ -101,7 +101,7 @@ export default function PlayerSelector({
           maxH="300px"
           overflowY="auto"
           mt={2}
-          bgColor="white"
+          bgColor="surface.card.subtle"
           borderWidth="1px"
           borderRadius="md"
           boxShadow="md"
@@ -113,10 +113,6 @@ export default function PlayerSelector({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               mb={2}
-              color="black"
-              _dark={{
-                color: "black",
-              }}
               ref={searchInputRef}
             />
 
@@ -133,14 +129,7 @@ export default function PlayerSelector({
                     <Badge colorScheme="blue" fontSize="sm" mr={2}>
                       {player.number_disp}
                     </Badge>
-                    <Text
-                      color="black"
-                      _dark={{
-                        color: "black",
-                      }}
-                    >
-                      {getDisplayName(player)}
-                    </Text>
+                    <Text>{getDisplayName(player)}</Text>
                   </Flex>
                 </Box>
               ))

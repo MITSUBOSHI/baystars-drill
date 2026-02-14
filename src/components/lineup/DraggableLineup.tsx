@@ -40,10 +40,10 @@ export default function DraggableLineup({
         borderWidth="1px"
         borderRadius="md"
         p={4}
-        bg="gray.50"
+        bg="surface.card"
         minHeight="100px"
       >
-        <Text textAlign="center" color="gray.500">
+        <Text textAlign="center" color="text.secondary">
           ドラッグ＆ドロップ領域を読み込み中...
         </Text>
       </Box>
@@ -59,12 +59,14 @@ export default function DraggableLineup({
             ref={provided.innerRef}
             borderWidth="1px"
             borderRadius="md"
-            bg={snapshot.isDraggingOver ? "blue.50" : "white"}
+            bg={
+              snapshot.isDraggingOver ? "surface.brand" : "surface.card.subtle"
+            }
             p={3}
             minHeight="50px"
           >
             {orderedPlayers.length === 0 ? (
-              <Text textAlign="center" color="gray.500" py={2}>
+              <Text textAlign="center" color="text.secondary" py={2}>
                 打順が設定されていません
               </Text>
             ) : (
@@ -84,14 +86,14 @@ export default function DraggableLineup({
                       borderWidth="1px"
                       borderRadius="md"
                       borderColor={
-                        snapshot.isDragging ? "blue.400" : "gray.200"
+                        snapshot.isDragging ? "border.brand" : "border.card"
                       }
-                      bg={snapshot.isDragging ? "blue.50" : "white"}
+                      bg={
+                        snapshot.isDragging
+                          ? "surface.brand"
+                          : "surface.card.subtle"
+                      }
                       boxShadow={snapshot.isDragging ? "md" : "none"}
-                      color="black"
-                      _dark={{
-                        color: "black",
-                      }}
                     >
                       <Flex align="center" justify="space-between">
                         <Flex align="center">
@@ -122,10 +124,6 @@ export default function DraggableLineup({
                           colorScheme="red"
                           variant="outline"
                           onClick={() => removePlayerFromOrder(spot.position)}
-                          color="black"
-                          _dark={{
-                            color: "black",
-                          }}
                         >
                           削除
                         </Button>
