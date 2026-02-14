@@ -61,6 +61,11 @@ export default function PlayerTable({ players }: Props) {
     return FaSort;
   };
 
+  const getAriaSort = (column: string): "ascending" | "descending" | "none" => {
+    if (sortColumn !== column || !sortOrder) return "none";
+    return sortOrder === "asc" ? "ascending" : "descending";
+  };
+
   return (
     <Table.ScrollArea
       borderWidth="1px"
@@ -70,11 +75,14 @@ export default function PlayerTable({ players }: Props) {
       <Table.Root striped stickyHeader>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader width={{ base: "20%", md: "15%" }}>
+            <Table.ColumnHeader
+              width={{ base: "20%", md: "15%" }}
+              aria-sort={getAriaSort("number_disp")}
+            >
               <HStack gap={2}>
                 <Box>背番号</Box>
                 <IconButton
-                  aria-label="Sort by number"
+                  aria-label="背番号でソート"
                   onClick={() => {
                     setSortColumn("number_disp");
                     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -89,11 +97,14 @@ export default function PlayerTable({ players }: Props) {
             <Table.ColumnHeader width={{ base: "60%", md: "65%" }}>
               名前
             </Table.ColumnHeader>
-            <Table.ColumnHeader width={{ base: "20%", md: "20%" }}>
+            <Table.ColumnHeader
+              width={{ base: "20%", md: "20%" }}
+              aria-sort={getAriaSort("date_of_birth")}
+            >
               <HStack gap={2}>
                 <Box>生年月日</Box>
                 <IconButton
-                  aria-label="Sort by date of birth"
+                  aria-label="生年月日でソート"
                   onClick={() => {
                     setSortColumn("date_of_birth");
                     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -105,11 +116,14 @@ export default function PlayerTable({ players }: Props) {
                 </IconButton>
               </HStack>
             </Table.ColumnHeader>
-            <Table.ColumnHeader width={{ base: "20%", md: "10%" }}>
+            <Table.ColumnHeader
+              width={{ base: "20%", md: "10%" }}
+              aria-sort={getAriaSort("height_cm")}
+            >
               <HStack gap={2}>
                 <Box>身長</Box>
                 <IconButton
-                  aria-label="Sort by height"
+                  aria-label="身長でソート"
                   onClick={() => {
                     setSortColumn("height_cm");
                     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -121,11 +135,14 @@ export default function PlayerTable({ players }: Props) {
                 </IconButton>
               </HStack>
             </Table.ColumnHeader>
-            <Table.ColumnHeader width={{ base: "20%", md: "10%" }}>
+            <Table.ColumnHeader
+              width={{ base: "20%", md: "10%" }}
+              aria-sort={getAriaSort("weight_kg")}
+            >
               <HStack gap={2}>
                 <Box>体重</Box>
                 <IconButton
-                  aria-label="Sort by weight"
+                  aria-label="体重でソート"
                   onClick={() => {
                     setSortColumn("weight_kg");
                     setSortOrder(sortOrder === "asc" ? "desc" : "asc");

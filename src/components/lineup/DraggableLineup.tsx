@@ -81,6 +81,8 @@ export default function DraggableLineup({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
+                      aria-roledescription="ドラッグ可能"
+                      aria-label={`${spot.order}番 ${spot.position} ${spot.player ? getDisplayName(spot.player) : ""}`}
                       mb={2}
                       p={3}
                       borderWidth="1px"

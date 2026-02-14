@@ -53,35 +53,41 @@ export default function AppBreadcrumb() {
   }
 
   return (
-    <Flex w="100%" maxW="1200px" mx="auto" mb={4} px={4} pt={4}>
-      <HStack gap="8px">
-        {breadcrumbItems.map((item, index) => (
-          <Box key={index} display="flex" alignItems="center">
-            {index > 0 && (
-              <Text mx={2} color="text.secondary">
-                &gt;
-              </Text>
-            )}
-            {item.isCurrentPage ? (
-              <Text fontWeight="bold" color="interactive.primary">
-                {item.label}
-              </Text>
-            ) : (
-              <ChakraLink
-                as={Link}
-                href={item.href}
-                color="text.secondary"
-                _hover={{
-                  color: "interactive.primary",
-                  textDecoration: "underline",
-                }}
-              >
-                {item.label}
-              </ChakraLink>
-            )}
-          </Box>
-        ))}
-      </HStack>
-    </Flex>
+    <nav aria-label="パンくずリスト">
+      <Flex w="100%" maxW="1200px" mx="auto" mb={4} px={4} pt={4}>
+        <HStack as="ol" gap="8px" listStyleType="none">
+          {breadcrumbItems.map((item, index) => (
+            <Box as="li" key={index} display="flex" alignItems="center">
+              {index > 0 && (
+                <Text mx={2} color="text.secondary" aria-hidden="true">
+                  &gt;
+                </Text>
+              )}
+              {item.isCurrentPage ? (
+                <Text
+                  fontWeight="bold"
+                  color="interactive.primary"
+                  aria-current="page"
+                >
+                  {item.label}
+                </Text>
+              ) : (
+                <ChakraLink
+                  as={Link}
+                  href={item.href}
+                  color="text.secondary"
+                  _hover={{
+                    color: "interactive.primary",
+                    textDecoration: "underline",
+                  }}
+                >
+                  {item.label}
+                </ChakraLink>
+              )}
+            </Box>
+          ))}
+        </HStack>
+      </Flex>
+    </nav>
   );
 }

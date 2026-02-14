@@ -110,7 +110,7 @@ describe("PlayerTable", () => {
 
   it("should sort players by number when sort button is clicked", () => {
     render(<PlayerTable players={mockPlayers} />);
-    const sortButton = screen.getByLabelText("Sort by number");
+    const sortButton = screen.getByLabelText("背番号でソート");
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
@@ -135,7 +135,7 @@ describe("PlayerTable", () => {
 
   it("should sort players by date_of_birth when sort button is clicked", () => {
     render(<PlayerTable players={mockPlayers} />);
-    const sortButton = screen.getByLabelText("Sort by date of birth");
+    const sortButton = screen.getByLabelText("生年月日でソート");
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
@@ -160,7 +160,7 @@ describe("PlayerTable", () => {
 
   it("should sort players by height_cm when sort button is clicked", () => {
     render(<PlayerTable players={mockPlayers} />);
-    const sortButton = screen.getByLabelText("Sort by height");
+    const sortButton = screen.getByLabelText("身長でソート");
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
@@ -185,7 +185,7 @@ describe("PlayerTable", () => {
 
   it("should sort players by weight_kg when sort button is clicked", () => {
     render(<PlayerTable players={mockPlayers} />);
-    const sortButton = screen.getByLabelText("Sort by weight");
+    const sortButton = screen.getByLabelText("体重でソート");
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");

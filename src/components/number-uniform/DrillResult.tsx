@@ -14,6 +14,8 @@ export default function DrillResult({ isCorrected, question }: Props) {
       borderRadius="lg"
       borderWidth="1px"
       borderColor={isCorrected ? "border.success" : "border.error"}
+      role="alert"
+      aria-live="polite"
     >
       <VStack gap={4} align="stretch">
         <Flex align="center">
