@@ -11,12 +11,6 @@ type Props = {
   players: PlayerType[];
 };
 
-function getUniformDisplayName(player: PlayerType): string {
-  if (player.uniform_name) return player.uniform_name;
-  const familyName = player.name_kana.split(" ")[0] || player.name_kana;
-  return familyName;
-}
-
 export default function UniformViewer({ players }: Props) {
   const rosterPlayers = players
     .filter((p) => p.role === Role.Roster)
@@ -62,8 +56,6 @@ export default function UniformViewer({ players }: Props) {
     return <Text color="text.secondary">選手データがありません</Text>;
   }
 
-  const displayName = getUniformDisplayName(currentPlayer);
-
   return (
     <Box w="100%" maxW="400px" mx="auto" userSelect="none">
       <Box textAlign="center" mb={4}>
@@ -88,7 +80,7 @@ export default function UniformViewer({ players }: Props) {
         </IconButton>
 
         <UniformBack
-          uniformName={displayName}
+          uniformName={currentPlayer.uniform_name}
           numberDisp={currentPlayer.number_disp}
         />
 
