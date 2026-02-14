@@ -52,71 +52,86 @@ jest.mock("@chakra-ui/react", () => ({
       {children}
     </span>
   ),
-  Table: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <table data-testid="table" {...props}>
-      {children}
-    </table>
-  ),
-  Thead: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <thead data-testid="thead" {...props}>
-      {children}
-    </thead>
-  ),
-  Tbody: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <tbody data-testid="tbody" {...props}>
-      {children}
-    </tbody>
-  ),
-  Tr: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <tr data-testid="tr" {...props}>
-      {children}
-    </tr>
-  ),
-  Th: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <th data-testid="th" {...props}>
-      {children}
-    </th>
-  ),
-  Td: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <td data-testid="td" {...props}>
-      {children}
-    </td>
+  Table: Object.assign(
+    ({
+      children,
+      ...props
+    }: {
+      children?: ReactNode;
+      [key: string]: unknown;
+    }) => (
+      <table data-testid="table" {...props}>
+        {children}
+      </table>
+    ),
+    {
+      Root: ({
+        children,
+        ...props
+      }: {
+        children?: ReactNode;
+        [key: string]: unknown;
+      }) => (
+        <table data-testid="table" {...props}>
+          {children}
+        </table>
+      ),
+      Header: ({
+        children,
+        ...props
+      }: {
+        children?: ReactNode;
+        [key: string]: unknown;
+      }) => (
+        <thead data-testid="thead" {...props}>
+          {children}
+        </thead>
+      ),
+      Body: ({
+        children,
+        ...props
+      }: {
+        children?: ReactNode;
+        [key: string]: unknown;
+      }) => (
+        <tbody data-testid="tbody" {...props}>
+          {children}
+        </tbody>
+      ),
+      Row: ({
+        children,
+        ...props
+      }: {
+        children?: ReactNode;
+        [key: string]: unknown;
+      }) => (
+        <tr data-testid="tr" {...props}>
+          {children}
+        </tr>
+      ),
+      ColumnHeader: ({
+        children,
+        ...props
+      }: {
+        children?: ReactNode;
+        [key: string]: unknown;
+      }) => (
+        <th data-testid="th" {...props}>
+          {children}
+        </th>
+      ),
+      Cell: ({
+        children,
+        ...props
+      }: {
+        children?: ReactNode;
+        [key: string]: unknown;
+      }) => (
+        <td data-testid="td" {...props}>
+          {children}
+        </td>
+      ),
+    },
   ),
   Heading: ({
     children,

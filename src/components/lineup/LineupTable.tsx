@@ -2,7 +2,7 @@
 
 import { PlayerType } from "@/types/Player";
 import { LineupSpot } from "./LineupCreator";
-import { Box, Text, Flex, Badge } from "@chakra-ui/react";
+import { Box, Text, Flex, Badge, Table } from "@chakra-ui/react";
 
 type Props = {
   lineup: LineupSpot[];
@@ -19,27 +19,20 @@ export default function LineupTable({
   title = "スタメンジェネレータ",
   isForImage = false,
 }: Props) {
-  // 打順が設定されているラインナップのみ表示
   const activeLineup = lineup.filter((spot) => spot.order !== null);
-
-  // 設定されていないポジションの数
   const unassignedCount = lineup.filter((spot) => spot.order === null).length;
+  const textColor = isForImage ? "black" : "text.primary";
 
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4}>
       <Flex justify="space-between" mb={4}>
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-          color={isForImage ? "black" : "text.primary"}
-        >
+        <Text fontSize="xl" fontWeight="bold" color={textColor}>
           {title}
         </Text>
         <Box>
-          <Text fontSize="sm" color={isForImage ? "black" : "text.primary"}>
+          <Text fontSize="sm" color={textColor}>
             先発投手:
           </Text>
-          {/* html2canvasでpaddingBottomを指定しないと表示ズレが起きる */}
           <Badge
             colorPalette="gray"
             fontSize="md"
@@ -51,102 +44,47 @@ export default function LineupTable({
       </Flex>
 
       {activeLineup.length > 0 ? (
-        <Box overflowX="auto" color={isForImage ? "black" : "text.primary"}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr>
-                <th
-                  style={{
-                    padding: "8px",
-                    textAlign: "left",
-                    borderBottom: "1px solid #e2e8f0",
-                    width: "10%",
-                  }}
-                >
-                  打順
-                </th>
-                <th
-                  style={{
-                    padding: "8px",
-                    textAlign: "left",
-                    borderBottom: "1px solid #e2e8f0",
-                    width: "10%",
-                  }}
-                >
-                  位置
-                </th>
-                <th
-                  style={{
-                    padding: "8px",
-                    textAlign: "left",
-                    borderBottom: "1px solid #e2e8f0",
-                    width: "55%",
-                  }}
-                >
-                  選手名
-                </th>
-                <th
-                  style={{
-                    padding: "8px",
-                    textAlign: "left",
-                    borderBottom: "1px solid #e2e8f0",
-                    width: "25%",
-                  }}
-                >
-                  背番号
-                </th>
-              </tr>
-            </thead>
-            <tbody>
+        <Box overflowX="auto" color={textColor}>
+          <Table.Root size="sm">
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader width="10%">打順</Table.ColumnHeader>
+                <Table.ColumnHeader width="10%">位置</Table.ColumnHeader>
+                <Table.ColumnHeader width="55%">選手名</Table.ColumnHeader>
+                <Table.ColumnHeader width="25%">背番号</Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
               {activeLineup.map((spot) => (
-                <tr
+                <Table.Row
                   key={spot.position}
-                  style={{
-                    backgroundColor:
-                      spot.order && spot.order % 2 === 0 ? "#f7fafc" : "white",
-                    color: "black",
-                  }}
+                  bg={
+                    isForImage
+                      ? spot.order && spot.order % 2 === 0
+                        ? "#f7fafc"
+                        : "white"
+                      : spot.order && spot.order % 2 === 0
+                        ? "surface.card"
+                        : "surface.card.subtle"
+                  }
+                  color={textColor}
                 >
-                  <td
-                    style={{
-                      padding: "8px",
-                      borderBottom: "1px solid #e2e8f0",
-                    }}
-                  >
-                    {spot.order}
-                  </td>
-                  <td
-                    style={{
-                      padding: "8px",
-                      borderBottom: "1px solid #e2e8f0",
-                    }}
-                  >
-                    {spot.position[0]}
-                  </td>
-                  <td
-                    style={{
-                      padding: "8px",
-                      borderBottom: "1px solid #e2e8f0",
-                    }}
-                  >
+                  <Table.Cell>{spot.order}</Table.Cell>
+                  <Table.Cell>{spot.position[0]}</Table.Cell>
+                  <Table.Cell>
                     {spot.player ? getDisplayName(spot.player) : "未選択"}
-                  </td>
-                  <td
-                    style={{
-                      padding: "8px",
-                      borderBottom: "1px solid #e2e8f0",
-                    }}
-                  >
+                  </Table.Cell>
+                  <Table.Cell>
                     {spot.player ? spot.player.number_disp : "-"}
-                  </td>
-                </tr>
+                  </Table.Cell>
+                </Table.Row>
               ))}
-            </tbody>
-          </table>
+            </Table.Body>
+          </Table.Root>
         </Box>
       ) : (
         <Box textAlign="center" p={4}>
-          <Text color="gray.500">打順が設定されていません</Text>
+          <Text color="text.secondary">打順が設定されていません</Text>
         </Box>
       )}
 
