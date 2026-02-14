@@ -41,7 +41,7 @@ export default function RootLayout({
           {children}
           <Box as="footer" py={4} px={6} textAlign="center">
             <Text fontSize="xs" color="gray.500">
-              本サイトは個人が運営するファンサイトであり、横浜DeNAベイスターズおよび株式会社ディー・エヌ・エーとは一切関係ありません。
+              本サイトは個人が運営するファンサイトであり、株式会社横浜DeNAベイスターズとは一切関係ありません。
             </Text>
           </Box>
         </Provider>

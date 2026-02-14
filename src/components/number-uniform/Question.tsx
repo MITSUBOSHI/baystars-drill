@@ -213,12 +213,11 @@ function generateQuestionWithOperators(
     fixedOperatorSequence &&
     fixedOperatorSequence.length === players.length - 1
   ) {
-    const { result, expression, explanationExpression } =
-      calculateExpression(
-        players,
-        fixedOperatorSequence,
-        nameDisplay,
-      );
+    const { result, expression, explanationExpression } = calculateExpression(
+      players,
+      fixedOperatorSequence,
+      nameDisplay,
+    );
 
     return {
       questionSentence: expression,
@@ -257,8 +256,11 @@ function generateQuestionWithOperators(
     }
   }
 
-  const { result, expression, explanationExpression } =
-    calculateExpression(players, operatorSequence, nameDisplay);
+  const { result, expression, explanationExpression } = calculateExpression(
+    players,
+    operatorSequence,
+    nameDisplay,
+  );
 
   return {
     questionSentence: expression,
@@ -659,7 +661,8 @@ const Question: React.FC<Props> = ({ players }) => {
               onClick={() => {
                 dispatch({ type: "answered" });
                 sendGAEvent("event", "drill_answer", {
-                  is_correct: question.correctNumber === drillState.answeredNumber,
+                  is_correct:
+                    question.correctNumber === drillState.answeredNumber,
                   operators: drillState.mode.operators.join(","),
                   player_num: drillState.mode.playerNum,
                 });
