@@ -10,6 +10,7 @@ export type PlayerType = {
   year: Year;
   name: string;
   name_kana: string;
+  uniform_name?: string;
   number_calc: number;
   number_disp: string;
   role: Role;
