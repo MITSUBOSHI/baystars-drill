@@ -117,6 +117,7 @@ const mockPlayers: PlayerType[] = [
   {
     name: "佐野 恵太",
     name_kana: "さの けいた",
+    uniform_name: "SANO",
     number_disp: "7",
     number_calc: 7,
     role: Role.Roster,
@@ -129,6 +130,7 @@ const mockPlayers: PlayerType[] = [
   {
     name: "牧 秀悟",
     name_kana: "まき しゅうご",
+    uniform_name: "MAKI",
     number_disp: "2",
     number_calc: 2,
     role: Role.Roster,

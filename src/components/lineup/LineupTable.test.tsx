@@ -154,11 +154,15 @@ if (typeof structuredClone === "undefined") {
 const mockPlayer: PlayerType = {
   name: "佐野 恵太",
   name_kana: "さの けいた",
+  uniform_name: "SANO",
   number_disp: "7",
   number_calc: 7,
   role: Role.Roster,
   year: 2025,
   url: "https://dummy/sano",
+  date_of_birth: "1994-11-28",
+  height_cm: 178,
+  weight_kg: 88,
 };
 
 const mockLineup: LineupSpot[] = [
