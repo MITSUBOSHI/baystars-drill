@@ -1,9 +1,22 @@
+import type { Metadata } from "next";
 import { registeredYears } from "@/constants/player";
 import { playersByYear } from "@/lib/players";
 import { Year } from "@/types/Player";
 import { Heading, VStack, Box, Flex } from "@chakra-ui/react";
 import Question from "@/components/number-uniform/Question";
 import YearSelector from "@/components/common/YearSelector";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ year: Year }>;
+}): Promise<Metadata> {
+  const { year } = await params;
+  return {
+    title: `${year}年 背番号計算ドリル | Baystars Drill`,
+    description: `横浜DeNAベイスターズ${year}年の選手背番号で計算ドリルに挑戦`,
+  };
+}
 
 export async function generateStaticParams() {
   return registeredYears.map((y) => ({ year: y.toString() }));
