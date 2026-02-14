@@ -15,6 +15,7 @@ const pathMap: Record<string, string> = {
   "player-directory": "選手名鑑",
   "number-drill": "背番号計算ドリル",
   "lineup-maker": "スタメン作成",
+  "uniform-view": "ユニフォームビュー",
   "uniform-number": "背番号",
   drill: "計算ドリル",
   gallery: "選手名鑑",

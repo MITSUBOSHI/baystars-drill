@@ -31,6 +31,12 @@ const features = [
     href: `/lineup-maker/${maxYear}`,
     icon: "⚾",
   },
+  {
+    title: "ユニフォームビュー",
+    description: "ユニフォーム背面の選手名と背番号を表示",
+    href: `/uniform-view/${maxYear}`,
+    icon: "👕",
+  },
 ];
 
 export default function Home() {
@@ -44,7 +50,7 @@ export default function Home() {
         </Text>
       </VStack>
 
-      <SimpleGrid columns={{ base: 1, md: 3 }} gap={6} w="100%" maxW="900px">
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} w="100%" maxW="900px">
         {features.map((feature) => (
           <Link key={feature.href} href={feature.href}>
             <Box
