@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { Switch } from "@/components/ui/switch";
 import UniformBack from "./UniformBack";
 
 type Props = {
@@ -12,20 +13,35 @@ type Props = {
 };
 
 export default function UniformViewer({ players }: Props) {
-  const rosterPlayers = players
-    .filter((p) => p.role === Role.Roster)
-    .sort((a, b) => a.number_calc - b.number_calc);
+  const [rosterOnly, setRosterOnly] = useState(false);
+
+  const filteredPlayers = useMemo(
+    () =>
+      players
+        .filter((p) => !rosterOnly || p.role === Role.Roster)
+        .sort((a, b) => a.number_calc - b.number_calc),
+    [players, rosterOnly],
+  );
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const currentPlayer = rosterPlayers[currentIndex];
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [rosterOnly]);
+
+  const currentPlayer = filteredPlayers[currentIndex];
 
   const goToPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : rosterPlayers.length - 1));
-  }, [rosterPlayers.length]);
+    setCurrentIndex((prev) =>
+      prev > 0 ? prev - 1 : filteredPlayers.length - 1,
+    );
+  }, [filteredPlayers.length]);
 
   const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev < rosterPlayers.length - 1 ? prev + 1 : 0));
-  }, [rosterPlayers.length]);
+    setCurrentIndex((prev) =>
+      prev < filteredPlayers.length - 1 ? prev + 1 : 0,
+    );
+  }, [filteredPlayers.length]);
 
   const handlePrev = useCallback(() => {
     sendGAEvent("event", "uniform_swipe", {
@@ -52,12 +68,22 @@ export default function UniformViewer({ players }: Props) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handlePrev, handleNext]);
 
-  if (rosterPlayers.length === 0) {
+  if (filteredPlayers.length === 0) {
     return <Text color="text.secondary">選手データがありません</Text>;
   }
 
   return (
     <Box w="100%" maxW="400px" mx="auto" userSelect="none">
+      <Flex justify="center" mb={4}>
+        <Switch
+          checked={rosterOnly}
+          onCheckedChange={(e) => setRosterOnly(e.checked)}
+          size="sm"
+        >
+          支配下のみ
+        </Switch>
+      </Flex>
+
       <Box textAlign="center" mb={4}>
         <Text fontSize="lg" fontWeight="bold" color="text.primary">
           {currentPlayer.name}
@@ -116,7 +142,7 @@ export default function UniformViewer({ players }: Props) {
       </Box>
 
       <Text textAlign="center" mt={4} fontSize="sm" color="text.secondary">
-        {currentIndex + 1} / {rosterPlayers.length}
+        {currentIndex + 1} / {filteredPlayers.length}
       </Text>
     </Box>
   );

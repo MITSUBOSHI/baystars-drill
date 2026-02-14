@@ -38,18 +38,28 @@ jest.mock("@chakra-ui/react", () => ({
       {children}
     </div>
   ),
-  IconButton: ({
+}));
+
+jest.mock("@/components/ui/switch", () => ({
+  Switch: ({
     children,
-    onClick,
+    checked,
+    onCheckedChange,
     ...props
   }: {
     children?: ReactNode;
-    onClick?: () => void;
+    checked?: boolean;
+    onCheckedChange?: (e: { checked: boolean }) => void;
     [key: string]: unknown;
   }) => (
-    <button onClick={onClick} {...props}>
+    <label data-testid="switch" {...props}>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onCheckedChange?.({ checked: e.target.checked })}
+      />
       {children}
-    </button>
+    </label>
   ),
 }));
 
@@ -120,14 +130,21 @@ const mockPlayers: PlayerType[] = [
 ];
 
 describe("UniformViewer", () => {
-  it("renders first roster player sorted by number", () => {
+  it("renders first player sorted by number", () => {
     render(<UniformViewer players={mockPlayers} />);
     expect(screen.getByText("牧 秀悟")).toBeInTheDocument();
     expect(screen.getByTestId("uniform-back")).toHaveTextContent("MAKI #2");
   });
 
-  it("filters out coach players", () => {
+  it("shows all players by default including coaches", () => {
     render(<UniformViewer players={mockPlayers} />);
+    expect(screen.getByText("1 / 3")).toBeInTheDocument();
+  });
+
+  it("filters to roster only when switch is toggled", () => {
+    render(<UniformViewer players={mockPlayers} />);
+    const checkbox = screen.getByRole("checkbox");
+    fireEvent.click(checkbox);
     expect(screen.getByText("1 / 2")).toBeInTheDocument();
   });
 
@@ -143,7 +160,7 @@ describe("UniformViewer", () => {
     render(<UniformViewer players={mockPlayers} />);
     const prevButton = screen.getByLabelText("前の選手");
     fireEvent.click(prevButton);
-    expect(screen.getByText("東 克樹")).toBeInTheDocument();
+    expect(screen.getByText("三浦 大輔")).toBeInTheDocument();
   });
 
   it("wraps around at the end of the list", () => {
@@ -151,12 +168,12 @@ describe("UniformViewer", () => {
     const nextButton = screen.getByLabelText("次の選手");
     fireEvent.click(nextButton);
     fireEvent.click(nextButton);
+    fireEvent.click(nextButton);
     expect(screen.getByText("牧 秀悟")).toBeInTheDocument();
   });
 
-  it("shows empty message when no roster players", () => {
-    const coachOnly = mockPlayers.filter((p) => p.role === Role.Coach);
-    render(<UniformViewer players={coachOnly} />);
+  it("shows empty message when no players", () => {
+    render(<UniformViewer players={[]} />);
     expect(screen.getByText("選手データがありません")).toBeInTheDocument();
   });
 
