@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useReducer } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
 import {
   Button,
@@ -657,6 +658,11 @@ const Question: React.FC<Props> = ({ players }) => {
               }}
               onClick={() => {
                 dispatch({ type: "answered" });
+                sendGAEvent("event", "drill_answer", {
+                  is_correct: question.correctNumber === drillState.answeredNumber,
+                  operators: drillState.mode.operators.join(","),
+                  player_num: drillState.mode.playerNum,
+                });
               }}
               flex="1"
               disabled={drillState.showResult}

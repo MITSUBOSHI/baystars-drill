@@ -1,6 +1,7 @@
 "use client";
 
 import { PlayerType } from "@/types/Player";
+import { sendGAEvent } from "@next/third-parties/google";
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import {
   Box,
@@ -302,12 +303,16 @@ export default function LineupCreator({ players }: Props) {
       link.download = fileName;
       link.href = canvas.toDataURL("image/png");
       link.click();
+      sendGAEvent("event", "lineup_save_image", {
+        player_count: orderedPlayers.length,
+        has_dh: hasDH,
+      });
     } catch (error) {
       console.error("Failed to save image:", error);
     } finally {
       setIsForImage(false);
     }
-  }, [lineupTableRef, customTitle]);
+  }, [lineupTableRef, customTitle, orderedPlayers.length, hasDH]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap="8">

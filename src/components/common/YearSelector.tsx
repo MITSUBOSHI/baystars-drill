@@ -1,6 +1,7 @@
 "use client";
 
 import { registeredYears } from "@/constants/player";
+import { sendGAEvent } from "@next/third-parties/google";
 import { Text, Box, Button, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -32,6 +33,11 @@ export default function YearSelector({
   // 年を選択したときの処理
   const handleYearChange = (year: number) => {
     if (year !== currentYear) {
+      sendGAEvent("event", "year_change", {
+        from_year: currentYear,
+        to_year: year,
+        page: baseUrl,
+      });
       router.push(`${baseUrl}/${year}`);
     }
     setIsOpen(false);
