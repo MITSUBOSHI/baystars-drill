@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { Box, Text, Flex, IconButton } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -67,34 +67,53 @@ export default function UniformViewer({ players }: Props) {
         </Text>
       </Box>
 
-      <Flex align="center" justify="center" gap={2}>
-        <IconButton
-          aria-label="前の選手"
-          onClick={handlePrev}
-          variant="ghost"
-          size="lg"
-          color="interactive.primary"
-          _hover={{ bg: "surface.brand" }}
-        >
-          <FiChevronLeft size={28} />
-        </IconButton>
-
+      {/* ユニフォーム + 左右タップ領域 */}
+      <Box position="relative" cursor="pointer">
         <UniformBack
           uniformName={currentPlayer.uniform_name}
           numberDisp={currentPlayer.number_disp}
         />
 
-        <IconButton
-          aria-label="次の選手"
-          onClick={handleNext}
-          variant="ghost"
-          size="lg"
-          color="interactive.primary"
-          _hover={{ bg: "surface.brand" }}
+        {/* 左半分タップ領域 */}
+        <Flex
+          position="absolute"
+          top="0"
+          left="0"
+          w="50%"
+          h="100%"
+          align="center"
+          justify="flex-start"
+          pl={1}
+          onClick={handlePrev}
+          aria-label="前の選手"
+          role="button"
+          _hover={{ bg: "blackAlpha.50" }}
+          transition="background 0.15s"
+          borderRadius="md"
         >
-          <FiChevronRight size={28} />
-        </IconButton>
-      </Flex>
+          <FiChevronLeft size={28} color="#004B98" opacity={0.5} />
+        </Flex>
+
+        {/* 右半分タップ領域 */}
+        <Flex
+          position="absolute"
+          top="0"
+          right="0"
+          w="50%"
+          h="100%"
+          align="center"
+          justify="flex-end"
+          pr={1}
+          onClick={handleNext}
+          aria-label="次の選手"
+          role="button"
+          _hover={{ bg: "blackAlpha.50" }}
+          transition="background 0.15s"
+          borderRadius="md"
+        >
+          <FiChevronRight size={28} color="#004B98" opacity={0.5} />
+        </Flex>
+      </Box>
 
       <Text textAlign="center" mt={4} fontSize="sm" color="text.secondary">
         {currentIndex + 1} / {rosterPlayers.length}
