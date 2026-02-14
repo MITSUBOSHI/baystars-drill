@@ -20,7 +20,6 @@ import LineupTable from "./LineupTable";
 import PlayerSelector from "./PlayerSelector";
 import dynamic from "next/dynamic";
 import { type DropResult } from "@hello-pangea/dnd";
-import html2canvas from "html2canvas";
 import { FiDownload } from "react-icons/fi";
 
 // バッティングオーダーとポジションのタイプ
@@ -278,6 +277,7 @@ export default function LineupCreator({ players }: Props) {
       // 非同期処理の後に状態を確実に更新するために少し遅延を入れる
       await new Promise((resolve) => setTimeout(resolve, 50));
 
+      const { default: html2canvas } = await import("html2canvas");
       const canvas = await html2canvas(lineupTableRef.current, {
         scale: 2,
         backgroundColor: "#ffffff",
