@@ -3,6 +3,7 @@
 import React, { useReducer } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
+import type { NameDisplayMode } from "@/types/common";
 import {
   Button,
   HStack,
@@ -23,7 +24,6 @@ import {
 const DEFAULT_PLAYER_SELECTION_NUMBER = 2;
 type ModeRoleType = "roster" | "all";
 type Operator = "+" | "-" | "*" | "/";
-type NameDisplayMode = "kanji" | "kana" | "both";
 const OPERATORS: Record<Operator, string> = {
   "+": "＋",
   "-": "－",

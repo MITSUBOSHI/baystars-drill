@@ -1,6 +1,8 @@
 "use client";
 
 import { PlayerType } from "@/types/Player";
+import type { NameDisplayMode, Position } from "@/types/common";
+export type { Position } from "@/types/common";
 import { sendGAEvent } from "@next/third-parties/google";
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import {
@@ -19,22 +21,6 @@ import dynamic from "next/dynamic";
 import { type DropResult } from "@hello-pangea/dnd";
 import html2canvas from "html2canvas";
 import { FiDownload } from "react-icons/fi";
-
-// 野球のポジション
-export type Position =
-  | "投手"
-  | "捕手"
-  | "一塁手"
-  | "二塁手"
-  | "三塁手"
-  | "遊撃手"
-  | "左翼手"
-  | "中堅手"
-  | "右翼手"
-  | "DH";
-
-// 選手名表示形式
-export type NameDisplayMode = "kanji" | "kana" | "both";
 
 // バッティングオーダーとポジションのタイプ
 export type LineupSpot = {
