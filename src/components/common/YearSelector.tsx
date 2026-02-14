@@ -83,19 +83,12 @@ export default function YearSelector({
         variant="outline"
         justifyContent="space-between"
         alignItems="center"
-        bg="blue.50"
-        borderColor="blue.200"
-        _hover={{ bg: "blue.100" }}
+        bg="surface.brand"
+        borderColor="border.brand"
+        _hover={{ bg: "interactive.primary.hover", color: "white" }}
         {...buttonStyle}
       >
-        <Text
-          color="black"
-          _dark={{
-            color: "black",
-          }}
-        >
-          {currentYear}
-        </Text>
+        <Text>{currentYear}</Text>
         <Box
           as="span"
           transform={isOpen ? "rotate(180deg)" : "none"}
@@ -115,9 +108,9 @@ export default function YearSelector({
           maxH="300px"
           overflowY="auto"
           mt={2}
-          bgColor="white"
+          bgColor="surface.card.subtle"
           borderWidth="1px"
-          borderColor="blue.200"
+          borderColor="border.brand"
           borderRadius="md"
           boxShadow="md"
           zIndex={10}
@@ -127,21 +120,15 @@ export default function YearSelector({
               key={year}
               p={isInline ? 2 : 3}
               cursor="pointer"
-              bg={year === currentYear ? "blue.100" : "white"}
+              bg={
+                year === currentYear ? "surface.brand" : "surface.card.subtle"
+              }
               fontWeight={year === currentYear ? "bold" : "normal"}
-              _hover={{ bg: "blue.50" }}
+              _hover={{ bg: "surface.brand" }}
               onClick={() => handleYearChange(year)}
             >
               <Flex align="center">
-                <Text
-                  color="black"
-                  _dark={{
-                    color: "black",
-                  }}
-                  fontSize={isInline ? "sm" : "md"}
-                >
-                  {year}
-                </Text>
+                <Text fontSize={isInline ? "sm" : "md"}>{year}</Text>
               </Flex>
             </Box>
           ))}

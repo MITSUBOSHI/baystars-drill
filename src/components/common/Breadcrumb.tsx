@@ -57,20 +57,23 @@ export default function AppBreadcrumb() {
         {breadcrumbItems.map((item, index) => (
           <Box key={index} display="flex" alignItems="center">
             {index > 0 && (
-              <Text mx={2} color="gray.500">
+              <Text mx={2} color="text.secondary">
                 &gt;
               </Text>
             )}
             {item.isCurrentPage ? (
-              <Text fontWeight="bold" color="blue.500">
+              <Text fontWeight="bold" color="interactive.primary">
                 {item.label}
               </Text>
             ) : (
               <ChakraLink
                 as={Link}
                 href={item.href}
-                color="gray.500"
-                _hover={{ color: "blue.400", textDecoration: "underline" }}
+                color="text.secondary"
+                _hover={{
+                  color: "interactive.primary",
+                  textDecoration: "underline",
+                }}
               >
                 {item.label}
               </ChakraLink>
