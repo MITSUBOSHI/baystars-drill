@@ -9,19 +9,66 @@ type UniformBackProps = {
 
 const BAYSTARS_BLUE = "#004B98";
 const GOLD = "#C9A84C";
-const UNIFORM_PATH =
-  "M 75,0 L 0,55 L 15,75 L 42,57 Q 44,120 48,160 L 48,380 Q 48,395 70,395 L 230,395 Q 252,395 252,380 L 252,160 Q 256,120 258,57 L 285,75 L 300,55 L 225,0 Z";
 
-function getNameFontSize(name: string): string {
-  if (name.length > 10) return "18";
-  if (name.length > 8) return "22";
-  if (name.length > 6) return "26";
-  return "30";
+/*
+ * viewBox 480x340
+ * 袖を大きく確保し、実物のTシャツに近いシルエット
+ * 袖:身頃:袖 ≈ 20%:60%:20%
+ */
+const UNIFORM_PATH =
+  "M 140,0 L 0,40 L 40,105 L 90,96 Q 92,140 95,175 L 95,348 Q 95,363 115,363 L 365,363 Q 385,363 385,348 L 385,175 Q 388,140 390,96 L 440,105 L 480,40 L 340,0 Z";
+
+const CENTER_X = 240;
+
+/* ストライプ水平位置（中央を基準に対称配置） */
+const STRIPE_W = 22; /* 金2(外側のみ) + 青20 */
+const STRIPE_GAP = 10;
+const LEFT_X = CENTER_X - STRIPE_GAP / 2 - STRIPE_W; /* 217 */
+const RIGHT_X = CENTER_X + STRIPE_GAP / 2; /* 249 */
+
+/* ストライプ垂直位置（名前・背番号を避けて上下に分断） */
+const STRIPE_UPPER_Y = 10;
+const STRIPE_UPPER_H = 48; /* y=10〜58 */
+const STRIPE_LOWER_Y = 233;
+const STRIPE_LOWER_H = 130; /* y=233〜363, 1.2倍 */
+
+function getNameFontSize(name: string): number {
+  if (name.length > 10) return 24;
+  if (name.length > 8) return 30;
+  if (name.length > 6) return 36;
+  return 44;
 }
 
-function getNumberFontSize(numberDisp: string): string {
-  if (numberDisp.length > 2) return "80";
-  return "110";
+function getNumberFontSize(numberDisp: string): number {
+  if (numberDisp.length > 2) return 90;
+  return 130;
+}
+
+function Stripe({
+  x,
+  y,
+  h,
+  goldSide,
+}: {
+  x: number;
+  y: number;
+  h: number;
+  goldSide: "left" | "right";
+}) {
+  if (goldSide === "left") {
+    return (
+      <>
+        <rect x={x} y={y} width="2" height={h} fill={GOLD} />
+        <rect x={x + 2} y={y} width="20" height={h} fill={BAYSTARS_BLUE} />
+      </>
+    );
+  }
+  return (
+    <>
+      <rect x={x} y={y} width="20" height={h} fill={BAYSTARS_BLUE} />
+      <rect x={x + 20} y={y} width="2" height={h} fill={GOLD} />
+    </>
+  );
 }
 
 export default function UniformBack({
@@ -31,7 +78,7 @@ export default function UniformBack({
   return (
     <Box position="relative" w="100%" maxW="320px" mx="auto">
       <svg
-        viewBox="0 0 300 400"
+        viewBox="0 0 480 370"
         xmlns="http://www.w3.org/2000/svg"
         style={{ width: "100%", height: "auto" }}
         role="img"
@@ -51,129 +98,55 @@ export default function UniformBack({
           strokeWidth="1.2"
         />
 
-        {/* 首元のカーブ */}
+        {/* 首元のカーブ（ブルーの襟トリム） */}
         <path
-          d="M 115,0 Q 150,35 185,0"
+          d="M 190,0 Q 240,20 290,0"
           fill="#FFFFFF"
-          stroke="#DDDDDD"
-          strokeWidth="1.2"
+          stroke={BAYSTARS_BLUE}
+          strokeWidth="2.5"
         />
 
         {/* クリッピングされたストライプ群 */}
         <g clipPath="url(#uniformClip)">
-          {/* 肩の横ストライプ（ヨーク） */}
-          <rect x="0" y="8" width="300" height="2" fill={GOLD} />
-          <rect x="0" y="10" width="300" height="4" fill={BAYSTARS_BLUE} />
-          <rect x="0" y="14" width="300" height="2" fill={GOLD} />
+          {/* 上部ストライプ（襟下〜名前の手前） */}
+          <Stripe x={LEFT_X} y={STRIPE_UPPER_Y} h={STRIPE_UPPER_H} goldSide="left" />
+          <Stripe x={RIGHT_X} y={STRIPE_UPPER_Y} h={STRIPE_UPPER_H} goldSide="right" />
 
-          {/* 縦ストライプ - 身頃全体に5本を等間隔配置 */}
-          {/* ストライプ構成: 金1.5px + 青8px + 金1.5px = 計11px */}
+          {/* 下部ストライプ（背番号の下〜裾） */}
+          <Stripe x={LEFT_X} y={STRIPE_LOWER_Y} h={STRIPE_LOWER_H} goldSide="left" />
+          <Stripe x={RIGHT_X} y={STRIPE_LOWER_Y} h={STRIPE_LOWER_H} goldSide="right" />
 
-          {/* ストライプ1 */}
-          <rect x="72.5" y="16" width="1.5" height="379" fill={GOLD} />
-          <rect x="74" y="16" width="8" height="379" fill={BAYSTARS_BLUE} />
-          <rect x="82" y="16" width="1.5" height="379" fill={GOLD} />
-
-          {/* ストライプ2 */}
-          <rect x="106.5" y="16" width="1.5" height="379" fill={GOLD} />
-          <rect x="108" y="16" width="8" height="379" fill={BAYSTARS_BLUE} />
-          <rect x="116" y="16" width="1.5" height="379" fill={GOLD} />
-
-          {/* ストライプ3（中央） */}
-          <rect x="140.5" y="16" width="1.5" height="379" fill={GOLD} />
-          <rect x="142" y="16" width="8" height="379" fill={BAYSTARS_BLUE} />
-          <rect x="150" y="16" width="1.5" height="379" fill={GOLD} />
-
-          {/* ストライプ4 */}
-          <rect x="174.5" y="16" width="1.5" height="379" fill={GOLD} />
-          <rect x="176" y="16" width="8" height="379" fill={BAYSTARS_BLUE} />
-          <rect x="184" y="16" width="1.5" height="379" fill={GOLD} />
-
-          {/* ストライプ5 */}
-          <rect x="208.5" y="16" width="1.5" height="379" fill={GOLD} />
-          <rect x="210" y="16" width="8" height="379" fill={BAYSTARS_BLUE} />
-          <rect x="218" y="16" width="1.5" height="379" fill={GOLD} />
-
-          {/* 左袖口ストライプ */}
-          <line
-            x1="0"
-            y1="53"
-            x2="42"
-            y2="56"
-            stroke={GOLD}
-            strokeWidth="1.5"
-          />
-          <line
-            x1="0"
-            y1="55"
-            x2="42"
-            y2="58"
-            stroke={BAYSTARS_BLUE}
-            strokeWidth="3"
-          />
-          <line
-            x1="0"
-            y1="57"
-            x2="42"
-            y2="60"
-            stroke={GOLD}
-            strokeWidth="1.5"
-          />
-
-          {/* 右袖口ストライプ */}
-          <line
-            x1="258"
-            y1="56"
-            x2="300"
-            y2="53"
-            stroke={GOLD}
-            strokeWidth="1.5"
-          />
-          <line
-            x1="258"
-            y1="58"
-            x2="300"
-            y2="55"
-            stroke={BAYSTARS_BLUE}
-            strokeWidth="3"
-          />
-          <line
-            x1="258"
-            y1="60"
-            x2="300"
-            y2="57"
-            stroke={GOLD}
-            strokeWidth="1.5"
-          />
         </g>
 
-        {/* uniform_name テキスト */}
+        {/* uniform_name テキスト（上部ストライプと背番号の間の余白） */}
         <text
-          x="150"
-          y="90"
+          x={CENTER_X}
+          y="80"
           textAnchor="middle"
           dominantBaseline="central"
-          fontFamily="var(--font-oswald), 'Oswald', sans-serif"
-          fontWeight="700"
-          fontSize={getNameFontSize(uniformName)}
           fill={BAYSTARS_BLUE}
-          letterSpacing="3"
+          style={{
+            fontFamily: "var(--font-oswald), 'Oswald', sans-serif",
+            fontWeight: 700,
+            fontSize: getNameFontSize(uniformName),
+            letterSpacing: 8,
+          }}
         >
           {uniformName}
         </text>
 
-        {/* 背番号テキスト */}
+        {/* 背番号テキスト（名前と下部ストライプの間の余白） */}
         <text
-          x="150"
-          y="225"
+          x={CENTER_X}
+          y="168"
           textAnchor="middle"
           dominantBaseline="central"
-          fontFamily="var(--font-oswald), 'Oswald', sans-serif"
-          fontWeight="700"
-          fontSize={getNumberFontSize(numberDisp)}
           fill={BAYSTARS_BLUE}
-          stroke={BAYSTARS_BLUE}
-          strokeWidth="0.5"
+          style={{
+            fontFamily: "var(--font-oswald), 'Oswald', sans-serif",
+            fontWeight: 700,
+            fontSize: getNumberFontSize(numberDisp),
+          }}
         >
           {numberDisp}
         </text>
