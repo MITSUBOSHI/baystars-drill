@@ -17,7 +17,11 @@ const customJestConfig: Config = {
   testEnvironment: 'jest-environment-jsdom',
   testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
   collectCoverage: true,
-  collectCoverageFrom: ["**/*.(t|j)s"],
+  collectCoverageFrom: [
+    "src/**/*.{ts,tsx}",
+    "!src/**/*.test.{ts,tsx}",
+    "!src/**/*.d.ts",
+  ],
   coverageDirectory: 'coverage',
 };
 
