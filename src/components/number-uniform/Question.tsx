@@ -38,11 +38,11 @@ type Mode = {
 type Action =
   | {
       type: "init";
-      players: PlayerType[];
+      allPlayers: PlayerType[];
     }
   | {
       type: "retry";
-      players: PlayerType[];
+      allPlayers: PlayerType[];
     }
   | {
       type: "settings";
@@ -80,15 +80,14 @@ const reducer = (prev: DrillStateType, action: Action): DrillStateType => {
   switch (action.type) {
     case "init":
     case "retry": {
-      const { operatorSequence } = generateQuestionWithOperators(
-        action.players,
-        prev.mode.operators,
-        prev.mode.nameDisplay,
+      const { selectedPlayers, operatorSequence } = generateDrillQuestion(
+        action.allPlayers,
+        prev.mode,
       );
       return {
         ...initDrillState,
         mode: prev.mode,
-        currentDrillPlayers: action.players,
+        currentDrillPlayers: selectedPlayers,
         currentOperatorSequence: operatorSequence,
       };
     }
@@ -134,14 +133,6 @@ type QuestionType = {
   explanationSentence: string;
 };
 
-// 演算子の優先順位を定義
-const OPERATOR_PRECEDENCE: Record<Operator, number> = {
-  "*": 2,
-  "/": 2,
-  "+": 1,
-  "-": 1,
-};
-
 function calculateResult(
   a: number,
   b: number,
@@ -171,7 +162,7 @@ function getDisplayName(player: PlayerType, mode: NameDisplayMode): string {
   }
 }
 
-function calculateResultWithPrecedence(
+function calculateExpression(
   players: PlayerType[],
   operators: Operator[],
   nameDisplay: NameDisplayMode,
@@ -188,43 +179,10 @@ function calculateResultWithPrecedence(
     };
   }
 
-  // 掛け算・割り算を先に処理
-  const currentPlayers = [...players];
-  const currentOperators = [...operators];
-  let i = 0;
-
-  while (i < currentOperators.length) {
-    const op = currentOperators[i];
-    if (OPERATOR_PRECEDENCE[op] === 2) {
-      // 掛け算または割り算
-      const result = calculateResult(
-        currentPlayers[i].number_calc,
-        currentPlayers[i + 1].number_calc,
-        op,
-      );
-
-      if (result !== null) {
-        // 計算結果を新しいプレイヤーとして置き換え
-        const combinedPlayer: PlayerType = {
-          ...currentPlayers[i],
-          name: `${getDisplayName(currentPlayers[i], nameDisplay)} ${OPERATORS[op]} ${getDisplayName(currentPlayers[i + 1], nameDisplay)}`,
-          name_kana: `${currentPlayers[i].name_kana} ${OPERATORS[op]} ${currentPlayers[i + 1].name_kana}`,
-          number_calc: result,
-          number_disp: `${result}`,
-        };
-
-        currentPlayers.splice(i, 2, combinedPlayer);
-        currentOperators.splice(i, 1);
-        i--;
-      }
-    }
-    i++;
-  }
-
-  // 残りの加算・減算を処理
-  const expression = getDisplayName(players[0], nameDisplay);
-  const explanationExpression = `${players[0].number_disp}（${getDisplayName(players[0], nameDisplay)}）`;
+  // 左から右へ順番に計算
   let result = players[0].number_calc;
+  let expression = getDisplayName(players[0], nameDisplay);
+  let explanationExpression = `${players[0].number_disp}（${getDisplayName(players[0], nameDisplay)}）`;
 
   for (let i = 0; i < operators.length; i++) {
     const operator = operators[i];
@@ -234,25 +192,14 @@ function calculateResultWithPrecedence(
     if (calculatedResult !== null) {
       result = calculatedResult;
     } else {
-      // 計算できない場合は加算を使用
       result += nextNumber;
     }
+
+    expression += ` ${OPERATORS[operator]} ${getDisplayName(players[i + 1], nameDisplay)}`;
+    explanationExpression += ` ${OPERATORS[operator]} ${players[i + 1].number_disp}（${getDisplayName(players[i + 1], nameDisplay)}）`;
   }
 
-  let displayExpression = expression;
-  let displayExplanation = explanationExpression;
-
-  for (let i = 0; i < operators.length; i++) {
-    const operator = operators[i];
-    displayExpression += ` ${OPERATORS[operator]} ${getDisplayName(players[i + 1], nameDisplay)}`;
-    displayExplanation += ` ${OPERATORS[operator]} ${players[i + 1].number_disp}（${getDisplayName(players[i + 1], nameDisplay)}）`;
-  }
-
-  return {
-    result,
-    expression: displayExpression,
-    explanationExpression: displayExplanation,
-  };
+  return { result, expression, explanationExpression };
 }
 
 function generateQuestionWithOperators(
@@ -266,7 +213,7 @@ function generateQuestionWithOperators(
     fixedOperatorSequence.length === players.length - 1
   ) {
     const { result, expression, explanationExpression } =
-      calculateResultWithPrecedence(
+      calculateExpression(
         players,
         fixedOperatorSequence,
         nameDisplay,
@@ -310,7 +257,7 @@ function generateQuestionWithOperators(
   }
 
   const { result, expression, explanationExpression } =
-    calculateResultWithPrecedence(players, operatorSequence, nameDisplay);
+    calculateExpression(players, operatorSequence, nameDisplay);
 
   return {
     questionSentence: expression,
@@ -318,6 +265,33 @@ function generateQuestionWithOperators(
     explanationSentence: explanationExpression,
     operatorSequence,
   };
+}
+
+function generateDrillQuestion(
+  allPlayers: PlayerType[],
+  mode: Mode,
+): { selectedPlayers: PlayerType[]; operatorSequence: Operator[] } {
+  const maxAttempts = 10;
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    const selectedPlayers = selecteRandomizedPlayers(allPlayers, mode);
+    const { operatorSequence } = generateQuestionWithOperators(
+      selectedPlayers,
+      mode.operators,
+      mode.nameDisplay,
+    );
+    // 生成された演算子がすべてユーザー選択の演算子に含まれているか確認
+    if (operatorSequence.every((op) => mode.operators.includes(op))) {
+      return { selectedPlayers, operatorSequence };
+    }
+  }
+  // 最大試行回数に達した場合、最後の結果をそのまま使う
+  const selectedPlayers = selecteRandomizedPlayers(allPlayers, mode);
+  const { operatorSequence } = generateQuestionWithOperators(
+    selectedPlayers,
+    mode.operators,
+    mode.nameDisplay,
+  );
+  return { selectedPlayers, operatorSequence };
 }
 
 type Props = {
@@ -328,18 +302,13 @@ const Question: React.FC<Props> = ({ players }) => {
   const [drillState, dispatch] = useReducer(
     reducer,
     (() => {
-      const initialPlayers = selecteRandomizedPlayers(
+      const { selectedPlayers, operatorSequence } = generateDrillQuestion(
         players,
         initDrillState.mode,
       );
-      const { operatorSequence } = generateQuestionWithOperators(
-        initialPlayers,
-        initDrillState.mode.operators,
-        initDrillState.mode.nameDisplay,
-      );
       return {
         ...initDrillState,
-        currentDrillPlayers: initialPlayers,
+        currentDrillPlayers: selectedPlayers,
         currentOperatorSequence: operatorSequence,
       };
     })(),
@@ -375,7 +344,7 @@ const Question: React.FC<Props> = ({ players }) => {
     // 現在の設定で新しい問題を生成
     dispatch({
       type: "retry",
-      players: selecteRandomizedPlayers(players, drillState.mode),
+      allPlayers: players,
     });
   };
 
