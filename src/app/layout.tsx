@@ -1,14 +1,24 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Box, Text } from "@chakra-ui/react";
 import Provider from "./provider";
 import AppBreadcrumb from "@/components/common/Breadcrumb";
 
 const gaId = "G-EW129H86JD";
 export const metadata: Metadata = {
   title: "Baystars Drill",
-  description: "ベイスターズファンのための暇潰しサイト",
+  description:
+    "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
   icons: "/favicon.ico",
-  keywords: ["横浜DeNAベイスターズ", "Baystars", "ベイスターズ"],
+  keywords: [
+    "横浜DeNAベイスターズ",
+    "Baystars",
+    "ベイスターズ",
+    "背番号",
+    "計算ドリル",
+    "スタメン",
+    "選手名鑑",
+  ],
 };
 
 export default function RootLayout({
@@ -29,6 +39,11 @@ export default function RootLayout({
         <Provider>
           <AppBreadcrumb />
           {children}
+          <Box as="footer" py={4} px={6} textAlign="center">
+            <Text fontSize="xs" color="gray.500">
+              本サイトは個人が運営するファンサイトであり、横浜DeNAベイスターズおよび株式会社ディー・エヌ・エーとは一切関係ありません。
+            </Text>
+          </Box>
         </Provider>
       </body>
     </html>
