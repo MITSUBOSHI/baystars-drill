@@ -87,15 +87,11 @@ const Question: React.FC<Props> = ({ players }) => {
       <VStack gap={6} align="stretch">
         {/* Settings Section */}
         <Box
-          bg="blue.50"
-          _dark={{
-            bg: "blue.900",
-            borderColor: "blue.700",
-          }}
+          bg="surface.brand"
           p={6}
           borderRadius="lg"
           borderWidth="1px"
-          borderColor="blue.200"
+          borderColor="border.brand"
         >
           <Heading size="md" mb={4}>
             ⚙️ ドリル設定
@@ -191,15 +187,11 @@ const Question: React.FC<Props> = ({ players }) => {
 
         {/* Question Section */}
         <Box
-          bg="gray.50"
-          _dark={{
-            bg: "gray.800",
-            borderColor: "gray.600",
-          }}
+          bg="surface.card"
           p={6}
           borderRadius="lg"
           borderWidth="1px"
-          borderColor="gray.200"
+          borderColor="border.card"
         >
           <Heading size="md" mb={4}>
             🎯 問題
@@ -207,14 +199,10 @@ const Question: React.FC<Props> = ({ players }) => {
           <VStack gap={4} align="stretch">
             <Box
               p={3}
-              bg="white"
-              _dark={{
-                bg: "gray.700",
-                borderColor: "gray.600",
-              }}
+              bg="surface.card.subtle"
               borderRadius="md"
               borderWidth="1px"
-              borderColor="gray.200"
+              borderColor="border.card"
             >
               <Text fontSize="md" fontWeight="bold">
                 {question.questionSentence}
@@ -240,16 +228,10 @@ const Question: React.FC<Props> = ({ players }) => {
                 <NumberInputField
                   disabled={!!drillState.showResult}
                   placeholder="背番号の合計を入力..."
-                  bg="white"
+                  bg="surface.card.subtle"
                   data-testid="number-input"
-                  _dark={{
-                    bg: "gray.700",
-                  }}
                   _placeholder={{
-                    color: "gray.500",
-                    _dark: {
-                      color: "gray.400",
-                    },
+                    color: "text.secondary",
                   }}
                 />
               </NumberInputRoot>
@@ -259,11 +241,8 @@ const Question: React.FC<Props> = ({ players }) => {
             <Button
               fontWeight="bold"
               color="white"
-              backgroundColor="blue.300"
-              _dark={{
-                bg: "white",
-                color: "black",
-              }}
+              bg="interactive.primary"
+              _hover={{ bg: "interactive.primary.hover" }}
               onClick={() => {
                 dispatch({ type: "answered" });
                 sendGAEvent("event", "drill_answer", {
@@ -281,11 +260,8 @@ const Question: React.FC<Props> = ({ players }) => {
             <Button
               fontWeight="bold"
               color="white"
-              backgroundColor="blue.300"
-              _dark={{
-                bg: "white",
-                color: "black",
-              }}
+              bg="interactive.primary"
+              _hover={{ bg: "interactive.primary.hover" }}
               onClick={handleRetry}
               flex="1"
             >
@@ -297,15 +273,11 @@ const Question: React.FC<Props> = ({ players }) => {
         {/* Result Section */}
         {drillState.showResult && (
           <Box
-            bg={isCorrected ? "green.50" : "red.50"}
-            _dark={{
-              bg: isCorrected ? "green.900" : "red.900",
-              borderColor: isCorrected ? "green.700" : "red.700",
-            }}
+            bg={isCorrected ? "surface.success" : "surface.error"}
             p={6}
             borderRadius="lg"
             borderWidth="1px"
-            borderColor={isCorrected ? "green.200" : "red.200"}
+            borderColor={isCorrected ? "border.success" : "border.error"}
           >
             <VStack gap={4} align="stretch">
               <Flex align="center">
@@ -324,10 +296,7 @@ const Question: React.FC<Props> = ({ players }) => {
               </Flex>
               <Box
                 borderTopWidth="1px"
-                borderColor={isCorrected ? "green.200" : "red.200"}
-                _dark={{
-                  borderColor: isCorrected ? "green.700" : "red.700",
-                }}
+                borderColor={isCorrected ? "border.success" : "border.error"}
                 pt={4}
               >
                 <Text fontWeight="bold" mb={2}>
