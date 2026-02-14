@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Oswald } from "next/font/google";
 import { Box, Text } from "@chakra-ui/react";
 import Provider from "./provider";
 import AppBreadcrumb from "@/components/common/Breadcrumb";
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: "700",
+  display: "swap",
+  variable: "--font-oswald",
+});
 
 const gaId = "G-EW129H86JD";
 export const metadata: Metadata = {
@@ -27,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" className={oswald.variable}>
       <head>
         <meta
           name="google-site-verification"

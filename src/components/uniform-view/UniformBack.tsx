@@ -79,7 +79,7 @@ export default function UniformBack({
           y="80"
           textAnchor="middle"
           dominantBaseline="central"
-          fontFamily="'Oswald', sans-serif"
+          fontFamily="var(--font-oswald), 'Oswald', sans-serif"
           fontWeight="700"
           fontSize={getNameFontSize(uniformName)}
           fill="#0055A5"
@@ -96,7 +96,7 @@ export default function UniformBack({
           y="230"
           textAnchor="middle"
           dominantBaseline="central"
-          fontFamily="'Oswald', sans-serif"
+          fontFamily="var(--font-oswald), 'Oswald', sans-serif"
           fontWeight="700"
           fontSize={getNumberFontSize(numberDisp)}
           fill="#0055A5"
