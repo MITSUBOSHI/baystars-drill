@@ -102,7 +102,7 @@ export default function DraggableLineup({
                           <Text
                             fontWeight="bold"
                             mr={3}
-                            color="blue.500"
+                            color="interactive.primary"
                             fontSize="lg"
                           >
                             {spot.order}番

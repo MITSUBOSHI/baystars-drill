@@ -53,6 +53,9 @@ const config = defineConfig({
         "text.secondary": {
           value: { base: "{colors.gray.600}", _dark: "{colors.gray.400}" },
         },
+        "text.success": {
+          value: { base: "{colors.green.600}", _dark: "{colors.green.300}" },
+        },
         "interactive.primary": {
           value: { base: "{colors.brand.500}", _dark: "{colors.brand.300}" },
         },

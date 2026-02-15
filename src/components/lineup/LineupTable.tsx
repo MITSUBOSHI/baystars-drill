@@ -98,14 +98,14 @@ export default function LineupTable({
 
       {!isForImage && activeLineup.length === 9 && (
         <Box mt={4} p={2} bg="surface.success" borderRadius="md">
-          <Text fontSize="sm" fontWeight="bold" color="green.600">
+          <Text fontSize="sm" fontWeight="bold" color="text.success">
             打順設定完了 ⚾
           </Text>
         </Box>
       )}
 
       {isForImage && (
-        <Text fontSize="xs" color="gray.200">
+        <Text fontSize="xs" color="text.secondary">
           Baystars Drill で作成
         </Text>
       )}

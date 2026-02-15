@@ -340,8 +340,10 @@ export default function LineupCreator({ players }: Props) {
       <Box
         w="100%"
         maxW="800px"
+        bg="surface.brand"
         borderWidth="1px"
         borderRadius="lg"
+        borderColor="border.brand"
         mb={4}
       >
         <Collapsible.Root>
@@ -364,7 +366,7 @@ export default function LineupCreator({ players }: Props) {
             </Flex>
           </Collapsible.Trigger>
           <Collapsible.Content>
-            <Stack gap={4} px={4} pb={4}>
+            <Stack gap={4} px={6} pb={6}>
               <Switch checked={hasDH} onCheckedChange={(e) => setHasDH(e.checked)}>
                 DHあり
               </Switch>
@@ -472,7 +474,7 @@ export default function LineupCreator({ players }: Props) {
                 <Text fontWeight="bold">{spot.position}</Text>
                 {spot.order !== null ? (
                   <Flex align="center">
-                    <Text fontWeight="bold" color="blue.500">
+                    <Text fontWeight="bold" color="interactive.primary">
                       {spot.order}番
                     </Text>
                     <Button

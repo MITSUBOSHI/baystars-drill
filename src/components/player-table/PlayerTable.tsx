@@ -167,7 +167,7 @@ export default function PlayerTable({ players }: Props) {
                 >
                   <Box
                     _hover={{
-                      bg: "gray.100",
+                      bg: "surface.brand",
                       transition: "background-color 0.2s",
                     }}
                     p={2}
