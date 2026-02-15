@@ -14,7 +14,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { year } = await params;
   return {
-    title: `${year}年 ユニフォームビュー | Baystars Drill`,
+    title: `${year}年 ユニフォームビュー`,
     description: `横浜DeNAベイスターズ${year}年のユニフォーム背面を再現。選手のユニフォーム名と背番号を表示。`,
   };
 }

@@ -14,7 +14,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { year } = await params;
   return {
-    title: `${year}年 スタメン作成 | Baystars Drill`,
+    title: `${year}年 スタメン作成`,
     description: `横浜DeNAベイスターズ${year}年の選手でオリジナルスタメンを作成`,
   };
 }

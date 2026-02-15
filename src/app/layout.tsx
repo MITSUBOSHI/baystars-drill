@@ -13,8 +13,14 @@ const oswald = Oswald({
 });
 
 const gaId = "G-EW129H86JD";
+const siteUrl = "https://mitsuboshi.github.io/baystars-drill";
+
 export const metadata: Metadata = {
-  title: "Baystars Drill",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Baystars Drill",
+    template: "%s | Baystars Drill",
+  },
   description:
     "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
   icons: "/favicon.ico",
@@ -27,6 +33,20 @@ export const metadata: Metadata = {
     "スタメン",
     "選手名鑑",
   ],
+  openGraph: {
+    type: "website",
+    siteName: "Baystars Drill",
+    locale: "ja_JP",
+    title: "Baystars Drill",
+    description:
+      "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+  },
+  twitter: {
+    card: "summary",
+    title: "Baystars Drill",
+    description:
+      "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+  },
 };
 
 export default function RootLayout({

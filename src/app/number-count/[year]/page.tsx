@@ -13,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { year } = await params;
   return {
-    title: `${year}年 背番号タイマー | Baystars Drill`,
+    title: `${year}年 背番号タイマー`,
     description: `横浜DeNAベイスターズ${year}年の背番号タイマー。背番号順に選手名を読み上げてカウント。`,
   };
 }
