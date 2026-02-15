@@ -1,3 +1,20 @@
+import type { PlayerType } from "@/types/Player";
+import type { NameDisplayMode } from "@/types/common";
+
+export function getDisplayName(
+  player: PlayerType,
+  mode: NameDisplayMode,
+): string {
+  switch (mode) {
+    case "kanji":
+      return player.name;
+    case "kana":
+      return player.name_kana;
+    case "both":
+      return `${player.name}（${player.name_kana}）`;
+  }
+}
+
 export function extractFamilyNameKana(nameKana: string): string {
   if (nameKana.includes("\u30FB")) {
     // 外国人選手: 中黒区切りの末尾が姓

@@ -1,5 +1,11 @@
 export type NameDisplayMode = "kanji" | "kana" | "both";
 
+export const NAME_DISPLAY_OPTIONS = [
+  { value: "kanji", label: "漢字のみ" },
+  { value: "kana", label: "ひらがなのみ" },
+  { value: "both", label: "両方" },
+] as const;
+
 export type Position =
   | "投手"
   | "捕手"

@@ -1,5 +1,6 @@
 import { PlayerType, Role } from "@/types/Player";
 import type { NameDisplayMode } from "@/types/common";
+import { getDisplayName } from "@/lib/nameUtils";
 
 export const DEFAULT_PLAYER_SELECTION_NUMBER = 2;
 export type ModeRoleType = "roster" | "all";
@@ -101,7 +102,7 @@ const RolesByModeRole: Record<ModeRoleType, Role[]> = {
 };
 const shufflePlayers = (players: PlayerType[]) =>
   players.sort(() => Math.random() - Math.random());
-export function selecteRandomizedPlayers(
+export function selectRandomizedPlayers(
   players: PlayerType[],
   mode: Mode,
 ): PlayerType[] {
@@ -136,19 +137,7 @@ function calculateResult(
   }
 }
 
-export function getDisplayName(
-  player: PlayerType,
-  mode: NameDisplayMode,
-): string {
-  switch (mode) {
-    case "kanji":
-      return player.name;
-    case "kana":
-      return player.name_kana;
-    case "both":
-      return `${player.name}（${player.name_kana}）`;
-  }
-}
+export { getDisplayName } from "@/lib/nameUtils";
 
 function calculateExpression(
   players: PlayerType[],
@@ -263,7 +252,7 @@ export function generateDrillQuestion(
 ): { selectedPlayers: PlayerType[]; operatorSequence: Operator[] } {
   const maxAttempts = 10;
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const selectedPlayers = selecteRandomizedPlayers(allPlayers, mode);
+    const selectedPlayers = selectRandomizedPlayers(allPlayers, mode);
     const { operatorSequence } = generateQuestionWithOperators(
       selectedPlayers,
       mode.operators,
@@ -275,7 +264,7 @@ export function generateDrillQuestion(
     }
   }
   // 最大試行回数に達した場合、最後の結果をそのまま使う
-  const selectedPlayers = selecteRandomizedPlayers(allPlayers, mode);
+  const selectedPlayers = selectRandomizedPlayers(allPlayers, mode);
   const { operatorSequence } = generateQuestionWithOperators(
     selectedPlayers,
     mode.operators,

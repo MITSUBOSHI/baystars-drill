@@ -13,7 +13,7 @@ type Props = {
 };
 
 type CountState = "idle" | "counting" | "paused" | "finished";
-type CountDirection = "up" | "down";
+export type CountDirection = "up" | "down";
 
 export default function NumberCounter({ players }: Props) {
   const [state, setState] = useState<CountState>("idle");

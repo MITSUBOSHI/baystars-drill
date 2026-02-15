@@ -1,8 +1,7 @@
 import { Box, VStack, Text, Flex, Collapsible } from "@chakra-ui/react";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import OptionGroup from "@/components/common/OptionGroup";
-
-type CountDirection = "up" | "down";
+import type { CountDirection } from "./NumberCounter";
 
 type Props = {
   direction: CountDirection;

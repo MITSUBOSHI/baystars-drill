@@ -1,7 +1,7 @@
 import { Box, VStack, Text, Collapsible, Flex } from "@chakra-ui/react";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import OptionGroup from "@/components/common/OptionGroup";
-import type { NameDisplayMode } from "@/types/common";
+import { type NameDisplayMode, NAME_DISPLAY_OPTIONS } from "@/types/common";
 import type { Mode, Operator, ModeRoleType } from "@/lib/drill";
 
 type Props = {
@@ -55,11 +55,7 @@ export default function DrillSettings({ mode, onModeChange }: Props) {
               </Text>
               <OptionGroup
                 name="nameDisplay"
-                options={[
-                  { value: "kanji", label: "漢字のみ" },
-                  { value: "kana", label: "ひらがなのみ" },
-                  { value: "both", label: "両方" },
-                ]}
+                options={[...NAME_DISPLAY_OPTIONS]}
                 selectedValues={[mode.nameDisplay]}
                 onChange={(value) => {
                   onModeChange({

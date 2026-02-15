@@ -1,9 +1,10 @@
 "use client";
 
-import { PlayerType } from "@/types/Player";
-import type { NameDisplayMode, Position } from "@/types/common";
+import { PlayerType, Role } from "@/types/Player";
+import { type NameDisplayMode, type Position, NAME_DISPLAY_OPTIONS } from "@/types/common";
 export type { Position } from "@/types/common";
 import { sendGAEvent } from "@next/third-parties/google";
+import { getDisplayName as getDisplayNameBase } from "@/lib/nameUtils";
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import {
   Box,
@@ -264,33 +265,18 @@ export default function LineupCreator({ players }: Props) {
   // 選手名表示関数
   const getDisplayName = (player: PlayerType | null): string => {
     if (!player) return "未選択";
-
-    switch (nameDisplay) {
-      case "kanji":
-        return player.name;
-      case "kana":
-        return player.name_kana;
-      case "both":
-        return `${player.name}（${player.name_kana}）`;
-    }
+    return getDisplayNameBase(player, nameDisplay);
   };
-
-  // 表示形式オプション
-  const options = [
-    { value: "kanji", label: "漢字のみ" },
-    { value: "kana", label: "ひらがなのみ" },
-    { value: "both", label: "両方" },
-  ];
 
   // 選手フィルター関数
   const filterPlayersByMode = useCallback(
     (playersList: PlayerType[]) => {
       if (isFarmMode) {
         return playersList.filter(
-          (p) => p.role === "roster" || p.role === "training",
+          (p) => p.role === Role.Roster || p.role === Role.Training,
         );
       } else {
-        return playersList.filter((p) => p.role === "roster");
+        return playersList.filter((p) => p.role === Role.Roster);
       }
     },
     [isFarmMode],
@@ -392,7 +378,7 @@ export default function LineupCreator({ players }: Props) {
                 <Text mb={2}>選手名の表示</Text>
                 <OptionGroup
                   name="nameDisplay"
-                  options={options}
+                  options={[...NAME_DISPLAY_OPTIONS]}
                   selectedValues={[nameDisplay]}
                   onChange={(value) => setNameDisplay(value as NameDisplayMode)}
                 />
