@@ -5,7 +5,7 @@ import { Box, Text, Flex } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiShare2, FiCheck } from "react-icons/fi";
 import { Switch } from "@/components/ui/switch";
 import UniformBack from "./UniformBack";
 
@@ -17,6 +17,7 @@ export default function UniformViewer({ players }: Props) {
   const searchParams = useSearchParams();
   const [rosterOnly, setRosterOnly] = useState(false);
   const [numberInput, setNumberInput] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const filteredPlayers = useMemo(
     () =>
@@ -89,6 +90,28 @@ export default function UniformViewer({ players }: Props) {
     setNumberInput("");
   }, [numberInput, filteredPlayers]);
 
+  const handleShare = useCallback(async () => {
+    if (!currentPlayer) return;
+    const url = `${window.location.origin}${window.location.pathname}?number=${currentPlayer.number_disp}`;
+    const shareData = {
+      title: `${currentPlayer.name} No.${currentPlayer.number_disp}`,
+      url,
+    };
+
+    if (navigator.share && navigator.canShare?.(shareData)) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (e) {
+        if ((e as DOMException).name === "AbortError") return;
+      }
+    }
+
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }, [currentPlayer]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
@@ -137,9 +160,30 @@ export default function UniformViewer({ players }: Props) {
         <Text fontSize="lg" fontWeight="bold" color="text.primary">
           {currentPlayer.name}
         </Text>
-        <Text fontSize="sm" color="text.secondary">
-          No.{currentPlayer.number_disp} / {currentPlayer.name_kana}
-        </Text>
+        <Flex justify="center" align="center" gap={2}>
+          <Text fontSize="sm" color="text.secondary">
+            No.{currentPlayer.number_disp} / {currentPlayer.name_kana}
+          </Text>
+          <button
+            onClick={handleShare}
+            aria-label="この選手をシェア"
+            style={{
+              background: "none",
+              border: "none",
+              padding: "4px",
+              cursor: "pointer",
+              borderRadius: "4px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {copied ? (
+              <FiCheck size={16} color="#28a745" />
+            ) : (
+              <FiShare2 size={16} color="#004B98" style={{ opacity: 0.6 }} />
+            )}
+          </button>
+        </Flex>
       </Box>
 
       {/* ユニフォーム + 左右タップ領域 */}

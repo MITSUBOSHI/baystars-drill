@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { useSearchParams } from "next/navigation";
 import UniformViewer from "./UniformViewer";
@@ -86,6 +86,8 @@ jest.mock("./UniformBack", () => ({
 jest.mock("react-icons/fi", () => ({
   FiChevronLeft: () => <span>left</span>,
   FiChevronRight: () => <span>right</span>,
+  FiShare2: () => <span data-testid="icon-share">share</span>,
+  FiCheck: () => <span data-testid="icon-check">check</span>,
 }));
 
 jest.mock("@next/third-parties/google", () => ({
@@ -203,5 +205,29 @@ describe("UniformViewer", () => {
     render(<UniformViewer players={mockPlayers} />);
     expect(screen.getByText("三浦 大輔")).toBeInTheDocument();
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams(""));
+  });
+
+  it("renders share button", () => {
+    render(<UniformViewer players={mockPlayers} />);
+    expect(screen.getByLabelText("この選手をシェア")).toBeInTheDocument();
+    expect(screen.getByTestId("icon-share")).toBeInTheDocument();
+  });
+
+  it("copies URL with number param when share button is clicked", async () => {
+    const writeText = jest.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, {
+      clipboard: { writeText },
+      share: undefined,
+    });
+
+    render(<UniformViewer players={mockPlayers} />);
+    fireEvent.click(screen.getByLabelText("この選手をシェア"));
+
+    await waitFor(() => {
+      expect(writeText).toHaveBeenCalledWith(
+        expect.stringContaining("?number=2"),
+      );
+    });
+    expect(screen.getByTestId("icon-check")).toBeInTheDocument();
   });
 });
