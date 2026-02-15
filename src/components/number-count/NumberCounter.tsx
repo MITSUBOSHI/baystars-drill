@@ -2,17 +2,11 @@
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
-import {
-  FiPlay,
-  FiPause,
-  FiRotateCcw,
-  FiArrowUp,
-  FiArrowDown,
-} from "react-icons/fi";
+import { FiPlay, FiPause, FiRotateCcw } from "react-icons/fi";
 import { PlayerType, Role } from "@/types/Player";
 import { extractFamilyNameKana } from "@/lib/nameUtils";
-import OptionGroup from "@/components/common/OptionGroup";
 import UniformBack from "@/components/uniform-view/UniformBack";
+import CounterSettings from "./CounterSettings";
 
 type Props = {
   players: PlayerType[];
@@ -222,24 +216,13 @@ export default function NumberCounter({ players }: Props) {
   const displayName = currentPlayer?.name ?? "ベイスターズ";
   const displayKana = currentPlayer ? currentPlayer.name_kana : "べいすたーず";
 
-  const countLimitPresets = [10, 15, 20, 30, 45, 60, 90, 99];
-
-  const handleCountLimitSelect = useCallback(
-    (value: string) => {
-      setCountLimitInput(value);
-      const v = parseInt(value, 10);
-      if (!isNaN(v) && v >= 1 && v <= 200) {
-        setCountLimit(v);
-      }
-    },
-    [],
-  );
-
-  const speedOptions = [
-    { value: "2000", label: "ゆっくり (2秒)" },
-    { value: "1000", label: "ふつう (1秒)" },
-    { value: "500", label: "はやい (0.5秒)" },
-  ];
+  const handleCountLimitSelect = useCallback((value: string) => {
+    setCountLimitInput(value);
+    const v = parseInt(value, 10);
+    if (!isNaN(v) && v >= 1 && v <= 200) {
+      setCountLimit(v);
+    }
+  }, []);
 
   return (
     <Box w="100%" maxW="400px" mx="auto" userSelect="none">
@@ -305,7 +288,7 @@ export default function NumberCounter({ players }: Props) {
             colorPalette="blue"
             size="lg"
             borderRadius="full"
-            aria-label={state === "finished" ? "再生" : "再生"}
+            aria-label="再生"
             w="56px"
             h="56px"
             disabled={state === "finished"}
@@ -313,102 +296,23 @@ export default function NumberCounter({ players }: Props) {
             <FiPlay size={24} />
           </Button>
         )}
-
-        {/* 方向切替 */}
-        <Button
-          onClick={() => setDirection((d) => (d === "up" ? "down" : "up"))}
-          variant="outline"
-          size="sm"
-          borderRadius="full"
-          aria-label={
-            direction === "up" ? "カウントダウンに切替" : "カウントアップに切替"
-          }
-          disabled={state === "counting"}
-        >
-          {direction === "up" ? (
-            <Flex align="center" gap={1}>
-              <FiArrowUp />
-              <Text fontSize="xs">UP</Text>
-            </Flex>
-          ) : (
-            <Flex align="center" gap={1}>
-              <FiArrowDown />
-              <Text fontSize="xs">DOWN</Text>
-            </Flex>
-          )}
-        </Button>
       </Flex>
 
-      {/* カウント数 */}
-      <Box mb={4}>
-        <Flex justify="center" align="center" gap={2}>
-          <Text fontSize="sm" fontWeight="bold">
-            カウント数
-          </Text>
-          <input
-            list="count-limit-options"
-            value={countLimitInput}
-            onChange={(e) => handleCountLimitSelect(e.target.value)}
-            onFocus={() => setCountLimitInput("")}
-            onClick={() => setCountLimitInput("")}
-            onBlur={() => setCountLimitInput(String(countLimit))}
-            disabled={state === "counting"}
-            aria-label="カウント数"
-            style={{
-              width: "64px",
-              fontSize: "14px",
-              padding: "4px 8px",
-              border:
-                "1px solid var(--chakra-colors-border-card, #ccc)",
-              borderRadius: "4px",
-              background:
-                "var(--chakra-colors-surface-card-subtle, white)",
-              color: "var(--chakra-colors-text-primary, #000)",
-              textAlign: "center",
-            }}
-          />
-          <datalist id="count-limit-options">
-            {countLimitPresets.map((n) => (
-              <option key={n} value={n} />
-            ))}
-          </datalist>
-        </Flex>
-      </Box>
-
-      {/* 速度選択 */}
-      <Box mb={4}>
-        <Text mb={2} fontSize="sm" fontWeight="bold" textAlign="center">
-          速度
-        </Text>
-        <Flex justify="center">
-          <OptionGroup
-            name="speed"
-            options={speedOptions}
-            selectedValues={[String(intervalMs)]}
-            onChange={(value) => setIntervalMs(Number(value))}
-            gap="8px"
-          />
-        </Flex>
-      </Box>
-
-      {/* 音声読み上げ */}
-      <Box>
-        <Text mb={2} fontSize="sm" fontWeight="bold" textAlign="center">
-          音声
-        </Text>
-        <Flex justify="center">
-          <OptionGroup
-            name="speech"
-            options={[
-              { value: "on", label: "ON" },
-              { value: "off", label: "OFF" },
-            ]}
-            selectedValues={[speechEnabled ? "on" : "off"]}
-            onChange={(value) => setSpeechEnabled(value === "on")}
-            gap="8px"
-          />
-        </Flex>
-      </Box>
+      {/* 設定 */}
+      <CounterSettings
+        direction={direction}
+        onDirectionChange={setDirection}
+        intervalMs={intervalMs}
+        onIntervalMsChange={setIntervalMs}
+        countLimit={countLimit}
+        countLimitInput={countLimitInput}
+        onCountLimitSelect={handleCountLimitSelect}
+        onCountLimitFocus={() => setCountLimitInput("")}
+        onCountLimitBlur={() => setCountLimitInput(String(countLimit))}
+        speechEnabled={speechEnabled}
+        onSpeechEnabledChange={setSpeechEnabled}
+        disabled={state === "counting"}
+      />
     </Box>
   );
 }

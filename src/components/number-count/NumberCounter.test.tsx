@@ -38,6 +38,17 @@ jest.mock("@chakra-ui/react", () => ({
       {children}
     </div>
   ),
+  VStack: ({
+    children,
+    ...props
+  }: {
+    children?: ReactNode;
+    [key: string]: unknown;
+  }) => (
+    <div data-testid="vstack" {...props}>
+      {children}
+    </div>
+  ),
   Button: ({
     children,
     onClick,
@@ -53,6 +64,11 @@ jest.mock("@chakra-ui/react", () => ({
       {children}
     </button>
   ),
+  Collapsible: {
+    Root: ({ children }: { children: ReactNode }) => <div>{children}</div>,
+    Trigger: ({ children }: { children: ReactNode }) => <div>{children}</div>,
+    Content: ({ children }: { children: ReactNode }) => <div>{children}</div>,
+  },
 }));
 
 jest.mock("@/components/common/OptionGroup", () => ({
@@ -100,8 +116,8 @@ jest.mock("react-icons/fi", () => ({
   FiPlay: () => <span>play</span>,
   FiPause: () => <span>pause</span>,
   FiRotateCcw: () => <span>reset</span>,
-  FiArrowUp: () => <span>up</span>,
-  FiArrowDown: () => <span>down</span>,
+  FiChevronRight: () => <span>chevron-right</span>,
+  FiChevronDown: () => <span>chevron-down</span>,
 }));
 
 const mockSpeak = jest.fn();
@@ -283,15 +299,13 @@ describe("NumberCounter", () => {
 
   it("方向切替でカウントダウンに変更", () => {
     render(<NumberCounter players={mockPlayers} />);
-    // デフォルトはUP
-    expect(screen.getByText("UP")).toBeInTheDocument();
-    // 方向切替ボタンクリック
-    const dirButton = screen.getByLabelText("カウントダウンに切替");
+    // デフォルトはカウントアップが選択されている
+    expect(screen.getByText("カウントアップ")).toBeInTheDocument();
+    // カウントダウンボタンをクリック
+    const downButton = screen.getByText("カウントダウン");
     act(() => {
-      fireEvent.click(dirButton);
+      fireEvent.click(downButton);
     });
-    // DOWNに変わる
-    expect(screen.getByText("DOWN")).toBeInTheDocument();
     // countLimit(30) から開始、1まで
     expect(screen.getByText("30 / 1")).toBeInTheDocument();
   });
