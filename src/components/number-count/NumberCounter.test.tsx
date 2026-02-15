@@ -125,6 +125,7 @@ beforeEach(() => {
     value: {
       speak: mockSpeak,
       cancel: mockCancel,
+      speaking: false,
       getVoices: jest.fn(() => []),
       addEventListener: jest.fn(),
       removeEventListener: jest.fn(),
@@ -235,10 +236,6 @@ describe("NumberCounter", () => {
     const playButton = screen.getByLabelText("再生");
     act(() => {
       fireEvent.click(playButton);
-    });
-    // speak 内の setTimeout(10ms) を進める
-    act(() => {
-      jest.advanceTimersByTime(10);
     });
     // start() 内で speakCurrentNumber が呼ばれる
     expect(mockSpeak).toHaveBeenCalled();

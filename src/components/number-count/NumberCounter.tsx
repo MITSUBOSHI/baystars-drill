@@ -80,17 +80,17 @@ export default function NumberCounter({ players }: Props) {
   // 音声読み上げ
   const speak = useCallback((text: string) => {
     if (typeof window === "undefined" || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
+    // 再生中の音声があれば停止
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
     utterance.rate = 1.0;
     if (jaVoiceRef.current) {
       utterance.voice = jaVoiceRef.current;
     }
-    // Chrome で cancel 直後の speak が無視される対策
-    setTimeout(() => {
-      window.speechSynthesis.speak(utterance);
-    }, 10);
+    window.speechSynthesis.speak(utterance);
   }, []);
 
   const speakCurrentNumber = useCallback(
