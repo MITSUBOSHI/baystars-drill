@@ -37,6 +37,12 @@ const features = [
     href: `/uniform-view/${maxYear}`,
     icon: "👕",
   },
+  {
+    title: "背番号タイマー",
+    description: "秒数を選手名で読み上げてカウント",
+    href: `/number-count/${maxYear}`,
+    icon: "🔢",
+  },
 ];
 
 export default function Home() {

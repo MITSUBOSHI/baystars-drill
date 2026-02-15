@@ -13,6 +13,7 @@ type OptionGroupProps = {
   selectedValues: string[];
   onChange: (value: string) => void;
   multiple?: boolean;
+  gap?: string;
 };
 
 export default function OptionGroup({
@@ -21,10 +22,11 @@ export default function OptionGroup({
   selectedValues,
   onChange,
   multiple = false,
+  gap: gapProp = "24px",
 }: OptionGroupProps) {
   return (
     <HStack
-      gap="24px"
+      gap={gapProp}
       flexWrap="wrap"
       role={multiple ? "group" : "radiogroup"}
       aria-label={name}

@@ -5,6 +5,7 @@ import { Box } from "@chakra-ui/react";
 type UniformBackProps = {
   uniformName: string;
   numberDisp: string;
+  clipPathId?: string;
 };
 
 const BAYSTARS_BLUE = "#004B98";
@@ -74,6 +75,7 @@ function Stripe({
 export default function UniformBack({
   uniformName,
   numberDisp,
+  clipPathId = "uniformClip",
 }: UniformBackProps) {
   return (
     <Box position="relative" w="100%" maxW="320px" mx="auto">
@@ -85,7 +87,7 @@ export default function UniformBack({
         aria-label={`${uniformName} ${numberDisp}番のユニフォーム背面`}
       >
         <defs>
-          <clipPath id="uniformClip">
+          <clipPath id={clipPathId}>
             <path d={UNIFORM_PATH} />
           </clipPath>
         </defs>
@@ -107,15 +109,34 @@ export default function UniformBack({
         />
 
         {/* クリッピングされたストライプ群 */}
-        <g clipPath="url(#uniformClip)">
+        <g clipPath={`url(#${clipPathId})`}>
           {/* 上部ストライプ（襟下〜名前の手前） */}
-          <Stripe x={LEFT_X} y={STRIPE_UPPER_Y} h={STRIPE_UPPER_H} goldSide="left" />
-          <Stripe x={RIGHT_X} y={STRIPE_UPPER_Y} h={STRIPE_UPPER_H} goldSide="right" />
+          <Stripe
+            x={LEFT_X}
+            y={STRIPE_UPPER_Y}
+            h={STRIPE_UPPER_H}
+            goldSide="left"
+          />
+          <Stripe
+            x={RIGHT_X}
+            y={STRIPE_UPPER_Y}
+            h={STRIPE_UPPER_H}
+            goldSide="right"
+          />
 
           {/* 下部ストライプ（背番号の下〜裾） */}
-          <Stripe x={LEFT_X} y={STRIPE_LOWER_Y} h={STRIPE_LOWER_H} goldSide="left" />
-          <Stripe x={RIGHT_X} y={STRIPE_LOWER_Y} h={STRIPE_LOWER_H} goldSide="right" />
-
+          <Stripe
+            x={LEFT_X}
+            y={STRIPE_LOWER_Y}
+            h={STRIPE_LOWER_H}
+            goldSide="left"
+          />
+          <Stripe
+            x={RIGHT_X}
+            y={STRIPE_LOWER_Y}
+            h={STRIPE_LOWER_H}
+            goldSide="right"
+          />
         </g>
 
         {/* uniform_name テキスト（上部ストライプと背番号の間の余白） */}
