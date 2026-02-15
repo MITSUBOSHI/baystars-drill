@@ -158,7 +158,8 @@ export default function UniformViewer({ players }: Props) {
               list="player-numbers"
               value={numberSelectValue}
               onChange={(e) => handleNumberSelect(e.target.value)}
-              onFocus={(e) => e.target.select()}
+              onFocus={() => setNumberSelectValue("")}
+              onClick={() => setNumberSelectValue("")}
               onBlur={() =>
                 setNumberSelectValue(currentPlayer.number_disp)
               }
