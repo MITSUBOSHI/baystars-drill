@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, VStack, Text, Heading, Button, Flex } from "@chakra-ui/react";
 import {
   NumberInputField,
@@ -11,7 +10,7 @@ type Props = {
   inputValue: string;
   showResult: boolean;
   onAnswer: () => void;
-  onInputChange: (value: number) => void;
+  onInputChange: (value: string, valueAsNumber: number) => void;
   onRetry: () => void;
 };
 
@@ -56,8 +55,8 @@ export default function DrillQuestion({
             min={0}
             max={2000}
             value={inputValue}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              onInputChange(Number(e.target.value));
+            onValueChange={(details: { value: string; valueAsNumber: number }) => {
+              onInputChange(details.value, details.valueAsNumber);
             }}
           >
             <NumberInputField

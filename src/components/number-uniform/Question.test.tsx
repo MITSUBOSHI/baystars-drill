@@ -122,11 +122,14 @@ jest.mock("@/components/ui/number-input", () => ({
   NumberInputRoot: ({
     children,
     value,
-    onChange,
+    onValueChange,
   }: {
     children: React.ReactNode;
     value?: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onValueChange?: (details: {
+      value: string;
+      valueAsNumber: number;
+    }) => void;
   }) => (
     <div>
       {React.Children.map(children, (child) => {
@@ -136,7 +139,15 @@ jest.mock("@/components/ui/number-input", () => ({
             onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
           }>(child)
         ) {
-          return React.cloneElement(child, { value, onChange });
+          return React.cloneElement(child, {
+            value,
+            onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+              onValueChange?.({
+                value: e.target.value,
+                valueAsNumber: Number(e.target.value),
+              });
+            },
+          });
         }
         return child;
       })}

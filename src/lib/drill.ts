@@ -31,7 +31,8 @@ export type Action =
     }
   | {
       type: "answering";
-      value: number;
+      value: string;
+      valueAsNumber: number;
     }
   | {
       type: "answered";
@@ -83,9 +84,9 @@ export const reducer = (
     case "answering":
       return {
         ...prev,
-        answeredNumber: action.value,
+        answeredNumber: action.valueAsNumber,
         showResult: false,
-        inputValue: String(action.value),
+        inputValue: action.value,
       };
     case "answered":
       return { ...prev, showResult: true };

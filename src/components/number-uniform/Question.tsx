@@ -62,8 +62,8 @@ const Question: React.FC<Props> = ({ players }) => {
               player_num: drillState.mode.playerNum,
             });
           }}
-          onInputChange={(value) => {
-            dispatch({ type: "answering", value });
+          onInputChange={(value, valueAsNumber) => {
+            dispatch({ type: "answering", value, valueAsNumber });
           }}
           onRetry={() => {
             dispatch({ type: "retry", allPlayers: players });
