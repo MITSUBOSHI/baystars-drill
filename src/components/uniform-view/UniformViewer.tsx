@@ -114,7 +114,11 @@ export default function UniformViewer({ players }: Props) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement) return;
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLSelectElement
+      )
+        return;
       if (e.key === "ArrowLeft") handlePrev();
       if (e.key === "ArrowRight") handleNext();
     };
@@ -161,9 +165,32 @@ export default function UniformViewer({ players }: Props) {
           {currentPlayer.name}
         </Text>
         <Flex justify="center" align="center" gap={2}>
-          <Text fontSize="sm" color="text.secondary">
-            No.{currentPlayer.number_disp} / {currentPlayer.name_kana}
-          </Text>
+          <Flex align="center" gap={1}>
+            <Text fontSize="sm" color="text.secondary">
+              No.
+            </Text>
+            <select
+              value={currentIndex}
+              onChange={(e) => setCurrentIndex(Number(e.target.value))}
+              aria-label="背番号を選択"
+              style={{
+                fontSize: "14px",
+                padding: "1px 2px",
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                background: "white",
+              }}
+            >
+              {filteredPlayers.map((p, i) => (
+                <option key={p.number_disp} value={i}>
+                  {p.number_disp}
+                </option>
+              ))}
+            </select>
+            <Text fontSize="sm" color="text.secondary">
+              / {currentPlayer.name_kana}
+            </Text>
+          </Flex>
           <button
             onClick={handleShare}
             aria-label="この選手をシェア"

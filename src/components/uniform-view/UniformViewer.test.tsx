@@ -184,9 +184,21 @@ describe("UniformViewer", () => {
     expect(screen.getByText("選手データがありません")).toBeInTheDocument();
   });
 
-  it("displays player number and kana info", () => {
+  it("displays player number select and kana info", () => {
     render(<UniformViewer players={mockPlayers} />);
-    expect(screen.getByText("No.2 / まき しゅうご")).toBeInTheDocument();
+    const select = screen.getByLabelText("背番号を選択") as HTMLSelectElement;
+    expect(select.value).toBe("0");
+    expect(select.options).toHaveLength(3);
+    expect(select.options[0].text).toBe("2");
+    expect(screen.getByText("/ まき しゅうご")).toBeInTheDocument();
+  });
+
+  it("jumps to player when number is selected from select box", () => {
+    render(<UniformViewer players={mockPlayers} />);
+    const select = screen.getByLabelText("背番号を選択");
+    fireEvent.change(select, { target: { value: "2" } });
+    expect(screen.getByText("三浦 大輔")).toBeInTheDocument();
+    expect(screen.getByTestId("uniform-back")).toHaveTextContent("MIURA #81");
   });
 
   it("jumps to player when number is entered and Enter is pressed", () => {
