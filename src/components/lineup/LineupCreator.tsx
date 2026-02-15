@@ -13,7 +13,9 @@ import {
   Flex,
   Stack,
   Input,
+  Collapsible,
 } from "@chakra-ui/react";
+import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import OptionGroup from "@/components/common/OptionGroup";
 import { Switch } from "@/components/ui/switch";
 import LineupTable from "./LineupTable";
@@ -310,45 +312,62 @@ export default function LineupCreator({ players }: Props) {
         maxW="800px"
         borderWidth="1px"
         borderRadius="lg"
-        p={4}
         mb={4}
       >
-        <Heading size="md" mb={4}>
-          ⚙️ 設定
-        </Heading>
+        <Collapsible.Root>
+          <Collapsible.Trigger asChild>
+            <Flex
+              as="button"
+              w="100%"
+              p={4}
+              align="center"
+              justify="space-between"
+              cursor="pointer"
+              fontWeight="bold"
+              fontSize="md"
+              _open={{ "& > .chevron-down": { display: "inline" }, "& > .chevron-right": { display: "none" } }}
+              _closed={{ "& > .chevron-down": { display: "none" }, "& > .chevron-right": { display: "inline" } }}
+            >
+              ⚙️ 設定
+              <FiChevronRight className="chevron-right" />
+              <FiChevronDown className="chevron-down" />
+            </Flex>
+          </Collapsible.Trigger>
+          <Collapsible.Content>
+            <Stack gap={4} px={4} pb={4}>
+              <Switch checked={hasDH} onCheckedChange={(e) => setHasDH(e.checked)}>
+                DHあり
+              </Switch>
 
-        <Stack gap={4}>
-          <Switch checked={hasDH} onCheckedChange={(e) => setHasDH(e.checked)}>
-            DHあり
-          </Switch>
+              <Switch
+                checked={isFarmMode}
+                onCheckedChange={(e) => setIsFarmMode(e.checked)}
+              >
+                育成枠含む(ファーム対応)
+              </Switch>
 
-          <Switch
-            checked={isFarmMode}
-            onCheckedChange={(e) => setIsFarmMode(e.checked)}
-          >
-            育成枠含む(ファーム対応)
-          </Switch>
+              <Box>
+                <Text mb={2}>選手名表示形式</Text>
+                <OptionGroup
+                  name="nameDisplay"
+                  options={options}
+                  selectedValues={[nameDisplay]}
+                  onChange={(value) => setNameDisplay(value as NameDisplayMode)}
+                />
+              </Box>
 
-          <Box>
-            <Text mb={2}>選手名表示形式</Text>
-            <OptionGroup
-              name="nameDisplay"
-              options={options}
-              selectedValues={[nameDisplay]}
-              onChange={(value) => setNameDisplay(value as NameDisplayMode)}
-            />
-          </Box>
-
-          <Box>
-            <Text mb={2}>スタメン表の名前</Text>
-            <Input
-              value={customTitle}
-              onChange={(e) => setCustomTitle(e.target.value)}
-              placeholder="表のタイトルを入力"
-              maxW="500px"
-            />
-          </Box>
-        </Stack>
+              <Box>
+                <Text mb={2}>スタメン表の名前</Text>
+                <Input
+                  value={customTitle}
+                  onChange={(e) => setCustomTitle(e.target.value)}
+                  placeholder="表のタイトルを入力"
+                  maxW="500px"
+                />
+              </Box>
+            </Stack>
+          </Collapsible.Content>
+        </Collapsible.Root>
       </Box>
 
       <Box w="100%" maxW="800px">
