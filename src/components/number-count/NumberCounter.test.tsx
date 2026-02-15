@@ -253,7 +253,10 @@ describe("NumberCounter", () => {
     act(() => {
       fireEvent.click(playButton);
     });
-    // start() 内で speakCurrentNumber が呼ばれる
+    // speak() は Chrome 対策で 50ms 遅延して発話する
+    act(() => {
+      jest.advanceTimersByTime(50);
+    });
     expect(mockSpeak).toHaveBeenCalled();
   });
 

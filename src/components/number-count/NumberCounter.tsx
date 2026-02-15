@@ -27,6 +27,8 @@ export default function NumberCounter({ players }: Props) {
   const [speechEnabled, setSpeechEnabled] = useState(true);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const speakTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // 選手マップを構築（支配下選手のみ）
   const playerMap = useMemo(() => {
@@ -77,17 +79,38 @@ export default function NumberCounter({ players }: Props) {
   // 音声読み上げ
   const speak = useCallback((text: string) => {
     if (typeof window === "undefined" || !window.speechSynthesis) return;
-    // 再生中の音声があれば停止
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
+
+    const synth = window.speechSynthesis;
+    const needsCancel = synth.speaking || synth.pending;
+
+    // 予約済みの発話タイマーをクリア
+    if (speakTimeoutRef.current) {
+      clearTimeout(speakTimeoutRef.current);
+      speakTimeoutRef.current = null;
     }
+
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "ja-JP";
     utterance.rate = 1.0;
     if (jaVoiceRef.current) {
       utterance.voice = jaVoiceRef.current;
     }
-    window.speechSynthesis.speak(utterance);
+    // GC による発話中断を防ぐため参照を保持
+    utteranceRef.current = utterance;
+
+    if (needsCancel) {
+      // Chrome: cancel() は内部的に非同期。直後の speak() は破棄されるため、
+      // cancel 完了を待ってから speak する。
+      synth.cancel();
+      speakTimeoutRef.current = setTimeout(() => {
+        synth.speak(utterance);
+        speakTimeoutRef.current = null;
+      }, 100);
+    } else {
+      // 再生中でなければ cancel 不要。同期的に speak することで
+      // ユーザージェスチャのコンテキストを維持する（Chrome の自動再生ポリシー対策）。
+      synth.speak(utterance);
+    }
   }, []);
 
   const speakCurrentNumber = useCallback(
@@ -198,10 +221,26 @@ export default function NumberCounter({ players }: Props) {
     prevNumberRef.current = currentNumber;
   }, [currentNumber, state, speechEnabled, speakCurrentNumber]);
 
+  // Chrome: speechSynthesis が長時間連続使用時に自動停止するバグへの対策
+  useEffect(() => {
+    if (state !== "counting" || !speechEnabled) return;
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+
+    const id = setInterval(() => {
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
+    }, 5000);
+    return () => clearInterval(id);
+  }, [state, speechEnabled]);
+
   // クリーンアップ
   useEffect(() => {
     return () => {
       stopInterval();
+      if (speakTimeoutRef.current) {
+        clearTimeout(speakTimeoutRef.current);
+      }
       if (typeof window !== "undefined" && window.speechSynthesis) {
         window.speechSynthesis.cancel();
       }
