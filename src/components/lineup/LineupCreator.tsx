@@ -15,14 +15,15 @@ import {
   Input,
   Collapsible,
 } from "@chakra-ui/react";
-import { FiChevronDown, FiChevronRight } from "react-icons/fi";
+import { FiChevronDown, FiChevronRight, FiDownload, FiLink, FiCheck } from "react-icons/fi";
+import { useSearchParams } from "next/navigation";
 import OptionGroup from "@/components/common/OptionGroup";
 import { Switch } from "@/components/ui/switch";
+import { encodeLineupParams, decodeLineupParams } from "@/lib/lineupUrl";
 import LineupTable from "./LineupTable";
 import PlayerSelector from "./PlayerSelector";
 import dynamic from "next/dynamic";
 import { type DropResult } from "@hello-pangea/dnd";
-import { FiDownload } from "react-icons/fi";
 
 // バッティングオーダーとポジションのタイプ
 export type LineupSpot = {
@@ -54,6 +55,7 @@ type Props = {
 };
 
 export default function LineupCreator({ players }: Props) {
+  const searchParams = useSearchParams();
   const [lineup, setLineup] = useState<LineupSpot[]>(DEFAULT_LINEUP);
   const [startingPitcher, setStartingPitcher] = useState<PlayerType | null>(
     null,
@@ -65,6 +67,28 @@ export default function LineupCreator({ players }: Props) {
   const [customTitle, setCustomTitle] = useState("");
   const lineupTableRef = useRef<HTMLDivElement>(null);
   const [isForImage, setIsForImage] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const initializedRef = useRef(false);
+  const isRestoringRef = useRef(false);
+
+  // URLパラメータからラインナップを復元
+  useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+    const decoded = decodeLineupParams(searchParams, players);
+    if (!decoded) return;
+    isRestoringRef.current = true;
+    setLineup(decoded.lineup);
+    setStartingPitcher(decoded.startingPitcher);
+    setHasDH(decoded.hasDH);
+    setIsFarmMode(decoded.isFarmMode);
+    setNameDisplay(decoded.nameDisplay);
+    setCustomTitle(decoded.customTitle);
+    requestAnimationFrame(() => {
+      isRestoringRef.current = false;
+    });
+  }, [searchParams, players]);
 
   // クライアントサイドでのみレンダリングするためのフラグ
   useEffect(() => {
@@ -73,6 +97,7 @@ export default function LineupCreator({ players }: Props) {
 
   // DHありなしが変更されたときにラインナップを更新
   useEffect(() => {
+    if (isRestoringRef.current) return;
     if (hasDH) {
       // DHありの場合、投手を打順から外し、DHを追加
       setLineup((prevLineup) => {
@@ -303,6 +328,25 @@ export default function LineupCreator({ players }: Props) {
     }
   }, [lineupTableRef, customTitle, orderedPlayers.length, hasDH]);
 
+  const handleShareLink = useCallback(async () => {
+    const params = encodeLineupParams({
+      lineup,
+      startingPitcher,
+      hasDH,
+      isFarmMode,
+      nameDisplay,
+      customTitle,
+    });
+    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+    sendGAEvent("event", "lineup_share_link", {
+      player_count: orderedPlayers.length,
+      has_dh: hasDH,
+    });
+  }, [lineup, startingPitcher, hasDH, isFarmMode, nameDisplay, customTitle, orderedPlayers.length]);
+
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap="8">
       <Box
@@ -371,12 +415,20 @@ export default function LineupCreator({ players }: Props) {
       <Box w="100%" maxW="800px">
         <Flex justifyContent="space-between" alignItems="center" mb={4}>
           <Heading size="md">スターティングメンバー</Heading>
-          <Button colorScheme="teal" onClick={saveAsImage}>
-            <Flex align="center" gap={2}>
-              <FiDownload />
-              <Text>画像として保存</Text>
-            </Flex>
-          </Button>
+          <Flex gap={2}>
+            <Button onClick={handleShareLink}>
+              <Flex align="center" gap={2}>
+                {copied ? <FiCheck /> : <FiLink />}
+                <Text>{copied ? "コピーしました" : "リンクを共有"}</Text>
+              </Flex>
+            </Button>
+            <Button colorScheme="teal" onClick={saveAsImage}>
+              <Flex align="center" gap={2}>
+                <FiDownload />
+                <Text>画像として保存</Text>
+              </Flex>
+            </Button>
+          </Flex>
         </Flex>
         <Box ref={lineupTableRef}>
           <LineupTable

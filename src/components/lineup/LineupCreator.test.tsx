@@ -4,6 +4,10 @@ import LineupCreator from "./LineupCreator";
 import { PlayerType, Role } from "@/types/Player";
 import { ReactNode } from "react";
 
+jest.mock("next/navigation", () => ({
+  useSearchParams: () => new URLSearchParams(),
+}));
+
 // Chakra UIコンポーネントのモック
 jest.mock("@chakra-ui/react", () => ({
   __esModule: true,

@@ -9,7 +9,6 @@ type Props = {
   onDirectionChange: (direction: CountDirection) => void;
   intervalMs: number;
   onIntervalMsChange: (ms: number) => void;
-  countLimit: number;
   countLimitInput: string;
   onCountLimitSelect: (value: string) => void;
   onCountLimitFocus: () => void;
@@ -32,7 +31,6 @@ export default function CounterSettings({
   onDirectionChange,
   intervalMs,
   onIntervalMsChange,
-  countLimit,
   countLimitInput,
   onCountLimitSelect,
   onCountLimitFocus,

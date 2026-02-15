@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { registeredYears } from "@/constants/player";
 import { playersByYear } from "@/lib/players";
@@ -46,7 +47,9 @@ export default async function Page({
         />
       </Flex>
       <Box w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
-        <LineupCreator players={players} />
+        <Suspense>
+          <LineupCreator players={players} />
+        </Suspense>
       </Box>
     </VStack>
   );

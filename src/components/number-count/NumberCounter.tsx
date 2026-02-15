@@ -233,7 +233,6 @@ export default function NumberCounter({ players }: Props) {
           onDirectionChange={setDirection}
           intervalMs={intervalMs}
           onIntervalMsChange={setIntervalMs}
-          countLimit={countLimit}
           countLimitInput={countLimitInput}
           onCountLimitSelect={handleCountLimitSelect}
           onCountLimitFocus={() => setCountLimitInput("")}
