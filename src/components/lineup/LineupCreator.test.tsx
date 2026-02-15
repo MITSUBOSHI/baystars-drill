@@ -507,7 +507,7 @@ describe("LineupCreator", () => {
     render(<LineupCreator players={mockPlayers} />);
 
     // 設定セクションが表示されることを確認
-    expect(screen.getByText("⚙️ 設定")).toBeInTheDocument();
+    expect(screen.getByText("設定")).toBeInTheDocument();
     expect(screen.getAllByText("DHあり")[0]).toBeInTheDocument();
     expect(
       screen.getAllByText("育成枠含む(ファーム対応)")[0],

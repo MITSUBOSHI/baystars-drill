@@ -370,7 +370,7 @@ export default function LineupCreator({ players }: Props) {
               _open={{ "& > .chevron-down": { display: "inline" }, "& > .chevron-right": { display: "none" } }}
               _closed={{ "& > .chevron-down": { display: "none" }, "& > .chevron-right": { display: "inline" } }}
             >
-              ⚙️ 設定
+              設定
               <FiChevronRight className="chevron-right" />
               <FiChevronDown className="chevron-down" />
             </Flex>
@@ -389,7 +389,7 @@ export default function LineupCreator({ players }: Props) {
               </Switch>
 
               <Box>
-                <Text mb={2}>選手名表示形式</Text>
+                <Text mb={2}>選手名の表示</Text>
                 <OptionGroup
                   name="nameDisplay"
                   options={options}
@@ -494,7 +494,7 @@ export default function LineupCreator({ players }: Props) {
                       variant="ghost"
                       onClick={() => removePlayerFromOrder(spot.position)}
                     >
-                      打順から削除
+                      打順を解除
                     </Button>
                   </Flex>
                 ) : (

@@ -30,7 +30,7 @@ export default function AppBreadcrumb() {
     const pathSegments = pathname.split("/").filter(Boolean);
 
     const items: BreadcrumbItemType[] = [
-      { label: "Top", href: "/", isCurrentPage: pathname === "/" },
+      { label: "トップ", href: "/", isCurrentPage: pathname === "/" },
     ];
 
     let currentPath = "";
@@ -38,7 +38,9 @@ export default function AppBreadcrumb() {
       currentPath += `/${pathSegments[i]}`;
       const isLast = i === pathSegments.length - 1;
 
-      const label = pathMap[pathSegments[i]] || pathSegments[i];
+      // 年度セグメントの場合は「XXXX年」と表示
+      const segment = pathSegments[i];
+      const label = pathMap[segment] || (/^\d{4}$/.test(segment) ? `${segment}年` : segment);
 
       items.push({
         label,

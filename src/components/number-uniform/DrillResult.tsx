@@ -29,7 +29,7 @@ export default function DrillResult({ isCorrected, question }: Props) {
             px={3}
             py={1}
           >
-            {isCorrected ? "Correct" : "Incorrect"}
+            {isCorrected ? "正解" : "不正解"}
           </Badge>
         </Flex>
         <Box

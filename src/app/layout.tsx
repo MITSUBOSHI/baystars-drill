@@ -48,7 +48,7 @@ export default function RootLayout({
           <AppBreadcrumb />
           {children}
           <Box as="footer" py={4} px={6} textAlign="center">
-            <Text fontSize="xs" color="gray.500">
+            <Text fontSize="xs" color="text.secondary">
               本サイトは個人が運営するファンサイトであり、株式会社横浜DeNAベイスターズとは一切関係ありません。
             </Text>
           </Box>

@@ -127,7 +127,7 @@ export default function DraggableLineup({
                           variant="outline"
                           onClick={() => removePlayerFromOrder(spot.position)}
                         >
-                          削除
+                          打順を解除
                         </Button>
                       </Flex>
                     </Box>

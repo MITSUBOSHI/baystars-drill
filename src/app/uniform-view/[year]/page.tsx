@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { registeredYears } from "@/constants/player";
 import { playersByYear } from "@/lib/players";
 import { Year } from "@/types/Player";
-import { Heading, VStack, Box, Flex } from "@chakra-ui/react";
+import { Heading, VStack, Box } from "@chakra-ui/react";
 import UniformViewer from "@/components/uniform-view/UniformViewer";
 import YearSelector from "@/components/common/YearSelector";
 
@@ -35,17 +35,10 @@ export default async function Page({
   return (
     <VStack justify={"center"} w="100%" gap={6} py={4}>
       <Heading size="4xl">ユニフォームビュー</Heading>
-      <Flex align="center" justify="center">
-        <Heading size="2xl" display="inline">
-          Year
-        </Heading>
-        <YearSelector
-          currentYear={currentYear}
-          baseUrl="/uniform-view"
-          label={""}
-          isInline={true}
-        />
-      </Flex>
+      <YearSelector
+        currentYear={currentYear}
+        baseUrl="/uniform-view"
+      />
       <Box w="100%" maxW={{ base: "100%", md: "500px" }} px={4}>
         <Suspense>
           <UniformViewer players={players} />

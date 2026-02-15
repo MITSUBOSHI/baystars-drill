@@ -42,7 +42,7 @@ export default function DrillSettings({ mode, onModeChange }: Props) {
             _open={{ "& > .chevron-down": { display: "inline" }, "& > .chevron-right": { display: "none" } }}
             _closed={{ "& > .chevron-down": { display: "none" }, "& > .chevron-right": { display: "inline" } }}
           >
-            ドリル設定
+            設定
             <FiChevronRight className="chevron-right" />
             <FiChevronDown className="chevron-down" />
           </Flex>
