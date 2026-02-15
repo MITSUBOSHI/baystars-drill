@@ -100,8 +100,14 @@ const RolesByModeRole: Record<ModeRoleType, Role[]> = {
   roster: [Role.Roster],
   all: [Role.Coach, Role.Roster, Role.Training],
 };
-const shufflePlayers = (players: PlayerType[]) =>
-  players.sort(() => Math.random() - Math.random());
+function shufflePlayers(players: PlayerType[]): PlayerType[] {
+  const arr = [...players];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 export function selectRandomizedPlayers(
   players: PlayerType[],
   mode: Mode,
@@ -162,18 +168,15 @@ function calculateExpression(
   let explanationExpression = `${players[0].number_disp}（${getDisplayName(players[0], nameDisplay)}）`;
 
   for (let i = 0; i < operators.length; i++) {
-    const operator = operators[i];
     const nextNumber = players[i + 1].number_calc;
-    const calculatedResult = calculateResult(result, nextNumber, operator);
+    const calculatedResult = calculateResult(result, nextNumber, operators[i]);
 
-    if (calculatedResult !== null) {
-      result = calculatedResult;
-    } else {
-      result += nextNumber;
-    }
+    // 割り切れない場合は加算にフォールバックし、表示も加算にする
+    const effectiveOperator = calculatedResult !== null ? operators[i] : "+";
+    result = calculatedResult !== null ? calculatedResult : result + nextNumber;
 
-    expression += ` ${OPERATORS[operator]} ${getDisplayName(players[i + 1], nameDisplay)}`;
-    explanationExpression += ` ${OPERATORS[operator]} ${players[i + 1].number_disp}（${getDisplayName(players[i + 1], nameDisplay)}）`;
+    expression += ` ${OPERATORS[effectiveOperator]} ${getDisplayName(players[i + 1], nameDisplay)}`;
+    explanationExpression += ` ${OPERATORS[effectiveOperator]} ${players[i + 1].number_disp}（${getDisplayName(players[i + 1], nameDisplay)}）`;
   }
 
   return { result, expression, explanationExpression };

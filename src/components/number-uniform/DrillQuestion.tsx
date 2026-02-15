@@ -79,7 +79,7 @@ export default function DrillQuestion({
           _hover={{ bg: "interactive.primary.hover" }}
           onClick={onAnswer}
           flex="1"
-          disabled={showResult}
+          disabled={showResult || inputValue === ""}
         >
           解答する
         </Button>

@@ -45,6 +45,7 @@ export default function NumberCounter({ players }: Props) {
     setCurrentNumber(startNumber);
     setState("idle");
     stopInterval();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startNumber, direction, countLimit]);
 
   const currentPlayer = playerMap.get(currentNumber) ?? null;

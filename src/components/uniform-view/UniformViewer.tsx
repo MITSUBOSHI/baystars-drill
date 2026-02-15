@@ -100,9 +100,13 @@ export default function UniformViewer({ players }: Props) {
   const handleCopyLink = useCallback(async () => {
     if (!currentPlayer) return;
     const url = `${window.location.origin}${window.location.pathname}?number=${currentPlayer.number_disp}`;
-    await navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      console.warn("Clipboard API not available");
+    }
   }, [currentPlayer]);
 
   useEffect(() => {

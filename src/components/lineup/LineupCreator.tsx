@@ -220,9 +220,6 @@ export default function LineupCreator({ players }: Props) {
   const resetLineup = () => {
     setLineup(DEFAULT_LINEUP);
     setStartingPitcher(null);
-    if (typeof window !== "undefined") {
-      alert("ラインナップをリセットしました");
-    }
   };
 
   // 表示用に並び替えられたラインナップを取得
@@ -324,9 +321,14 @@ export default function LineupCreator({ players }: Props) {
       customTitle,
     });
     const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    await navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // Clipboard API が使えない環境（HTTP等）ではフォールバック
+      console.warn("Clipboard API not available");
+    }
     sendGAEvent("event", "lineup_share_link", {
       player_count: orderedPlayers.length,
       has_dh: hasDH,
