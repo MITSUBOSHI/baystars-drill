@@ -305,8 +305,6 @@ export default function LineupCreator({ players }: Props) {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap="8">
-      <Heading size="lg">スタメンジェネレータ</Heading>
-
       <Box
         w="100%"
         maxW="800px"

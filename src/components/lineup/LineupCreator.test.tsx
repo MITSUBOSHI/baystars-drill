@@ -502,9 +502,6 @@ describe("LineupCreator", () => {
   test("コンポーネントが正しくレンダリングされる", () => {
     render(<LineupCreator players={mockPlayers} />);
 
-    // ヘッダーが表示されることを確認
-    expect(screen.getByText("スタメンジェネレータ")).toBeInTheDocument();
-
     // 設定セクションが表示されることを確認
     expect(screen.getByText("⚙️ 設定")).toBeInTheDocument();
     expect(screen.getAllByText("DHあり")[0]).toBeInTheDocument();
