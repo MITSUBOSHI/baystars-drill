@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
 import { FiPlay, FiPause, FiRotateCcw } from "react-icons/fi";
+import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
 import { extractFamilyNameKana } from "@/lib/nameUtils";
 import UniformBack from "@/components/uniform-view/UniformBack";
@@ -150,9 +151,13 @@ export default function NumberCounter({ players }: Props) {
     if (speechEnabled) {
       speakCurrentNumber(currentNumber);
     }
+    sendGAEvent("event", "number_count_start", {
+      direction,
+      count_limit: countLimit,
+    });
     setState("counting");
     intervalRef.current = setInterval(tick, intervalMs);
-  }, [currentNumber, intervalMs, speechEnabled, speakCurrentNumber, tick]);
+  }, [countLimit, currentNumber, direction, intervalMs, speechEnabled, speakCurrentNumber, tick]);
 
   // 再開
   const resume = useCallback(() => {

@@ -103,6 +103,9 @@ export default function UniformViewer({ players }: Props) {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
+      sendGAEvent("event", "uniform_copy_link", {
+        player_number: currentPlayer.number_disp,
+      });
       setTimeout(() => setCopied(false), 1500);
     } catch {
       console.warn("Clipboard API not available");
