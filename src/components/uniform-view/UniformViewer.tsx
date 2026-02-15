@@ -16,7 +16,7 @@ type Props = {
 export default function UniformViewer({ players }: Props) {
   const searchParams = useSearchParams();
   const [rosterOnly, setRosterOnly] = useState(false);
-  const [numberInput, setNumberInput] = useState("");
+  const [numberSelectValue, setNumberSelectValue] = useState("");
   const [copied, setCopied] = useState(false);
 
   const filteredPlayers = useMemo(
@@ -50,6 +50,25 @@ export default function UniformViewer({ players }: Props) {
 
   const currentPlayer = filteredPlayers[currentIndex];
 
+  useEffect(() => {
+    if (currentPlayer) {
+      setNumberSelectValue(currentPlayer.number_disp);
+    }
+  }, [currentPlayer]);
+
+  const handleNumberSelect = useCallback(
+    (value: string) => {
+      setNumberSelectValue(value);
+      const index = filteredPlayers.findIndex(
+        (p) => p.number_disp === value,
+      );
+      if (index !== -1) {
+        setCurrentIndex(index);
+      }
+    },
+    [filteredPlayers],
+  );
+
   const goToPrev = useCallback(() => {
     setCurrentIndex((prev) =>
       prev > 0 ? prev - 1 : filteredPlayers.length - 1,
@@ -78,18 +97,6 @@ export default function UniformViewer({ players }: Props) {
     goToNext();
   }, [goToNext, currentPlayer]);
 
-  const handleNumberJump = useCallback(() => {
-    const trimmed = numberInput.trim();
-    if (!trimmed) return;
-    const index = filteredPlayers.findIndex(
-      (p) => p.number_disp === trimmed,
-    );
-    if (index !== -1) {
-      setCurrentIndex(index);
-    }
-    setNumberInput("");
-  }, [numberInput, filteredPlayers]);
-
   const handleShare = useCallback(async () => {
     if (!currentPlayer) return;
     const url = `${window.location.origin}${window.location.pathname}?number=${currentPlayer.number_disp}`;
@@ -114,11 +121,7 @@ export default function UniformViewer({ players }: Props) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLSelectElement
-      )
-        return;
+      if (e.target instanceof HTMLInputElement) return;
       if (e.key === "ArrowLeft") handlePrev();
       if (e.key === "ArrowRight") handleNext();
     };
@@ -140,24 +143,6 @@ export default function UniformViewer({ players }: Props) {
         >
           支配下のみ
         </Switch>
-        <input
-          type="text"
-          inputMode="numeric"
-          value={numberInput}
-          onChange={(e) => setNumberInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleNumberJump();
-          }}
-          placeholder="No."
-          aria-label="背番号で検索"
-          style={{
-            width: "56px",
-            fontSize: "12px",
-            padding: "2px 6px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-          }}
-        />
       </Flex>
 
       <Box textAlign="center" mb={4}>
@@ -169,24 +154,30 @@ export default function UniformViewer({ players }: Props) {
             <Text fontSize="sm" color="text.secondary">
               No.
             </Text>
-            <select
-              value={currentIndex}
-              onChange={(e) => setCurrentIndex(Number(e.target.value))}
+            <input
+              list="player-numbers"
+              value={numberSelectValue}
+              onChange={(e) => handleNumberSelect(e.target.value)}
+              onFocus={(e) => e.target.select()}
+              onBlur={() =>
+                setNumberSelectValue(currentPlayer.number_disp)
+              }
               aria-label="背番号を選択"
               style={{
+                width: "48px",
                 fontSize: "14px",
-                padding: "1px 2px",
+                padding: "1px 4px",
                 border: "1px solid #ccc",
                 borderRadius: "4px",
                 background: "white",
+                textAlign: "center",
               }}
-            >
-              {filteredPlayers.map((p, i) => (
-                <option key={p.number_disp} value={i}>
-                  {p.number_disp}
-                </option>
+            />
+            <datalist id="player-numbers">
+              {filteredPlayers.map((p) => (
+                <option key={p.number_disp} value={p.number_disp} />
               ))}
-            </select>
+            </datalist>
             <Text fontSize="sm" color="text.secondary">
               / {currentPlayer.name_kana}
             </Text>

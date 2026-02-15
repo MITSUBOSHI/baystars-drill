@@ -184,30 +184,20 @@ describe("UniformViewer", () => {
     expect(screen.getByText("選手データがありません")).toBeInTheDocument();
   });
 
-  it("displays player number select and kana info", () => {
+  it("displays searchable number input with current value and kana", () => {
     render(<UniformViewer players={mockPlayers} />);
-    const select = screen.getByLabelText("背番号を選択") as HTMLSelectElement;
-    expect(select.value).toBe("0");
-    expect(select.options).toHaveLength(3);
-    expect(select.options[0].text).toBe("2");
+    const input = screen.getByLabelText("背番号を選択") as HTMLInputElement;
+    expect(input.value).toBe("2");
+    expect(input.getAttribute("list")).toBe("player-numbers");
     expect(screen.getByText("/ まき しゅうご")).toBeInTheDocument();
   });
 
-  it("jumps to player when number is selected from select box", () => {
+  it("jumps to player when number is typed into searchable input", () => {
     render(<UniformViewer players={mockPlayers} />);
-    const select = screen.getByLabelText("背番号を選択");
-    fireEvent.change(select, { target: { value: "2" } });
+    const input = screen.getByLabelText("背番号を選択");
+    fireEvent.change(input, { target: { value: "81" } });
     expect(screen.getByText("三浦 大輔")).toBeInTheDocument();
     expect(screen.getByTestId("uniform-back")).toHaveTextContent("MIURA #81");
-  });
-
-  it("jumps to player when number is entered and Enter is pressed", () => {
-    render(<UniformViewer players={mockPlayers} />);
-    const input = screen.getByLabelText("背番号で検索");
-    fireEvent.change(input, { target: { value: "11" } });
-    fireEvent.keyDown(input, { key: "Enter" });
-    expect(screen.getByText("東 克樹")).toBeInTheDocument();
-    expect((input as HTMLInputElement).value).toBe("");
   });
 
   it("shows player matching ?number query param on mount", () => {
