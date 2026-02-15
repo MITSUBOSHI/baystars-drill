@@ -416,12 +416,22 @@ export default function LineupCreator({ players }: Props) {
         <Flex justifyContent="space-between" alignItems="center" mb={4}>
           <Heading size="md">スターティングメンバー</Heading>
           <Flex gap={2}>
-            <Button onClick={handleShareLink}>
-              <Flex align="center" gap={2}>
-                {copied ? <FiCheck /> : <FiLink />}
-                <Text>{copied ? "コピーしました" : "リンクを共有"}</Text>
-              </Flex>
-            </Button>
+            <button
+              onClick={handleShareLink}
+              aria-label="URLをコピー"
+              style={{
+                background: "none",
+                border: "none",
+                padding: "4px",
+                cursor: "pointer",
+              }}
+            >
+              {copied ? (
+                <FiCheck size={16} color="#28a745" />
+              ) : (
+                <FiLink size={16} color="#004B98" style={{ opacity: 0.6 }} />
+              )}
+            </button>
             <Button colorScheme="teal" onClick={saveAsImage}>
               <Flex align="center" gap={2}>
                 <FiDownload />
