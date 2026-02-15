@@ -29,6 +29,7 @@ export default function NumberCounter({ players }: Props) {
   const [countLimitInput, setCountLimitInput] = useState("30");
   const [currentNumber, setCurrentNumber] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
+  const [speechEnabled, setSpeechEnabled] = useState(true);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -151,10 +152,12 @@ export default function NumberCounter({ players }: Props) {
   // 再生開始
   const start = useCallback(() => {
     // iOS Safari 対策: ユーザーアクション内で初回speak
-    speakCurrentNumber(currentNumber);
+    if (speechEnabled) {
+      speakCurrentNumber(currentNumber);
+    }
     setState("counting");
     intervalRef.current = setInterval(tick, intervalMs);
-  }, [currentNumber, intervalMs, speakCurrentNumber, tick]);
+  }, [currentNumber, intervalMs, speechEnabled, speakCurrentNumber, tick]);
 
   // 再開
   const resume = useCallback(() => {
@@ -185,11 +188,15 @@ export default function NumberCounter({ players }: Props) {
   // カウント中に番号が変わったら音声を発声
   const prevNumberRef = useRef(currentNumber);
   useEffect(() => {
-    if (state === "counting" && currentNumber !== prevNumberRef.current) {
+    if (
+      speechEnabled &&
+      state === "counting" &&
+      currentNumber !== prevNumberRef.current
+    ) {
       speakCurrentNumber(currentNumber);
     }
     prevNumberRef.current = currentNumber;
-  }, [currentNumber, state, speakCurrentNumber]);
+  }, [currentNumber, state, speechEnabled, speakCurrentNumber]);
 
   // クリーンアップ
   useEffect(() => {
@@ -369,7 +376,7 @@ export default function NumberCounter({ players }: Props) {
       </Box>
 
       {/* 速度選択 */}
-      <Box>
+      <Box mb={4}>
         <Text mb={2} fontSize="sm" fontWeight="bold" textAlign="center">
           速度
         </Text>
@@ -379,6 +386,25 @@ export default function NumberCounter({ players }: Props) {
             options={speedOptions}
             selectedValues={[String(intervalMs)]}
             onChange={(value) => setIntervalMs(Number(value))}
+            gap="8px"
+          />
+        </Flex>
+      </Box>
+
+      {/* 音声読み上げ */}
+      <Box>
+        <Text mb={2} fontSize="sm" fontWeight="bold" textAlign="center">
+          音声
+        </Text>
+        <Flex justify="center">
+          <OptionGroup
+            name="speech"
+            options={[
+              { value: "on", label: "ON" },
+              { value: "off", label: "OFF" },
+            ]}
+            selectedValues={[speechEnabled ? "on" : "off"]}
+            onChange={(value) => setSpeechEnabled(value === "on")}
             gap="8px"
           />
         </Flex>
