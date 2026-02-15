@@ -226,6 +226,24 @@ export default function NumberCounter({ players }: Props) {
 
   return (
     <Box w="100%" maxW="400px" mx="auto" userSelect="none">
+      {/* 設定 */}
+      <Box mb={6}>
+        <CounterSettings
+          direction={direction}
+          onDirectionChange={setDirection}
+          intervalMs={intervalMs}
+          onIntervalMsChange={setIntervalMs}
+          countLimit={countLimit}
+          countLimitInput={countLimitInput}
+          onCountLimitSelect={handleCountLimitSelect}
+          onCountLimitFocus={() => setCountLimitInput("")}
+          onCountLimitBlur={() => setCountLimitInput(String(countLimit))}
+          speechEnabled={speechEnabled}
+          onSpeechEnabledChange={setSpeechEnabled}
+          disabled={state === "counting"}
+        />
+      </Box>
+
       {/* ユニフォーム表示 */}
       <Box
         style={{
@@ -297,22 +315,6 @@ export default function NumberCounter({ players }: Props) {
           </Button>
         )}
       </Flex>
-
-      {/* 設定 */}
-      <CounterSettings
-        direction={direction}
-        onDirectionChange={setDirection}
-        intervalMs={intervalMs}
-        onIntervalMsChange={setIntervalMs}
-        countLimit={countLimit}
-        countLimitInput={countLimitInput}
-        onCountLimitSelect={handleCountLimitSelect}
-        onCountLimitFocus={() => setCountLimitInput("")}
-        onCountLimitBlur={() => setCountLimitInput(String(countLimit))}
-        speechEnabled={speechEnabled}
-        onSpeechEnabledChange={setSpeechEnabled}
-        disabled={state === "counting"}
-      />
     </Box>
   );
 }
