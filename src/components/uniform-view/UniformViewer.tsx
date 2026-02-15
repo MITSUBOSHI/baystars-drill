@@ -154,9 +154,12 @@ export default function UniformViewer({ players }: Props) {
                 width: "48px",
                 fontSize: "14px",
                 padding: "1px 4px",
-                border: "1px solid #ccc",
+                border:
+                  "1px solid var(--chakra-colors-border-card, #ccc)",
                 borderRadius: "4px",
-                background: "white",
+                background:
+                  "var(--chakra-colors-surface-card-subtle, white)",
+                color: "var(--chakra-colors-text-primary, #000)",
                 textAlign: "center",
               }}
             />
