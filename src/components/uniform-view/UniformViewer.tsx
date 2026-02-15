@@ -5,7 +5,7 @@ import { Box, Text, Flex } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
-import { FiChevronLeft, FiChevronRight, FiShare2, FiCheck } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiLink, FiCheck } from "react-icons/fi";
 import { Switch } from "@/components/ui/switch";
 import UniformBack from "./UniformBack";
 
@@ -97,23 +97,9 @@ export default function UniformViewer({ players }: Props) {
     goToNext();
   }, [goToNext, currentPlayer]);
 
-  const handleShare = useCallback(async () => {
+  const handleCopyLink = useCallback(async () => {
     if (!currentPlayer) return;
     const url = `${window.location.origin}${window.location.pathname}?number=${currentPlayer.number_disp}`;
-    const shareData = {
-      title: `${currentPlayer.name} No.${currentPlayer.number_disp}`,
-      url,
-    };
-
-    if (navigator.share && navigator.canShare?.(shareData)) {
-      try {
-        await navigator.share(shareData);
-        return;
-      } catch (e) {
-        if ((e as DOMException).name === "AbortError") return;
-      }
-    }
-
     await navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
@@ -184,8 +170,8 @@ export default function UniformViewer({ players }: Props) {
             </Text>
           </Flex>
           <button
-            onClick={handleShare}
-            aria-label="この選手をシェア"
+            onClick={handleCopyLink}
+            aria-label="URLをコピー"
             style={{
               background: "none",
               border: "none",
@@ -199,7 +185,7 @@ export default function UniformViewer({ players }: Props) {
             {copied ? (
               <FiCheck size={16} color="#28a745" />
             ) : (
-              <FiShare2 size={16} color="#004B98" style={{ opacity: 0.6 }} />
+              <FiLink size={16} color="#004B98" style={{ opacity: 0.6 }} />
             )}
           </button>
         </Flex>

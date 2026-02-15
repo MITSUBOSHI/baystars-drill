@@ -86,7 +86,7 @@ jest.mock("./UniformBack", () => ({
 jest.mock("react-icons/fi", () => ({
   FiChevronLeft: () => <span>left</span>,
   FiChevronRight: () => <span>right</span>,
-  FiShare2: () => <span data-testid="icon-share">share</span>,
+  FiLink: () => <span data-testid="icon-link">link</span>,
   FiCheck: () => <span data-testid="icon-check">check</span>,
 }));
 
@@ -209,21 +209,20 @@ describe("UniformViewer", () => {
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams(""));
   });
 
-  it("renders share button", () => {
+  it("renders copy link button", () => {
     render(<UniformViewer players={mockPlayers} />);
-    expect(screen.getByLabelText("この選手をシェア")).toBeInTheDocument();
-    expect(screen.getByTestId("icon-share")).toBeInTheDocument();
+    expect(screen.getByLabelText("URLをコピー")).toBeInTheDocument();
+    expect(screen.getByTestId("icon-link")).toBeInTheDocument();
   });
 
-  it("copies URL with number param when share button is clicked", async () => {
+  it("copies URL with number param when link button is clicked", async () => {
     const writeText = jest.fn().mockResolvedValue(undefined);
     Object.assign(navigator, {
       clipboard: { writeText },
-      share: undefined,
     });
 
     render(<UniformViewer players={mockPlayers} />);
-    fireEvent.click(screen.getByLabelText("この選手をシェア"));
+    fireEvent.click(screen.getByLabelText("URLをコピー"));
 
     await waitFor(() => {
       expect(writeText).toHaveBeenCalledWith(
