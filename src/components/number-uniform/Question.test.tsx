@@ -383,7 +383,7 @@ describe("Question Component", () => {
     });
   });
 
-  it("should rest the game when retry button is clicked", () => {
+  it("should reset the game when retry button is clicked", () => {
     render(<Question players={mockPlayers} />);
 
     const input = screen.getByTestId("number-input");

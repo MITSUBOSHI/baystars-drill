@@ -54,11 +54,20 @@ export default function PlayerTable({ players }: Props) {
   const [sortColumn, setSortColumn] = useState<string>("number_disp");
   const sortedPlayers = sortPlayers(players, sortOrder, sortColumn);
 
-  const SortIcon = ({ column }: { column: string }) => {
+  const getSortIcon = (column: string) => {
     if (sortColumn !== column) return FaSort;
     if (sortOrder === "asc") return FaSortUp;
     if (sortOrder === "desc") return FaSortDown;
     return FaSort;
+  };
+
+  const handleSort = (column: string) => {
+    if (sortColumn === column) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortColumn(column);
+      setSortOrder("asc");
+    }
   };
 
   const getAriaSort = (column: string): "ascending" | "descending" | "none" => {
@@ -83,14 +92,11 @@ export default function PlayerTable({ players }: Props) {
                 <Box>背番号</Box>
                 <IconButton
                   aria-label="背番号でソート"
-                  onClick={() => {
-                    setSortColumn("number_disp");
-                    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-                  }}
+                  onClick={() => handleSort("number_disp")}
                   size="sm"
                   variant="ghost"
                 >
-                  <Icon as={SortIcon({ column: "number_disp" })} />
+                  <Icon as={getSortIcon("number_disp")} />
                 </IconButton>
               </HStack>
             </Table.ColumnHeader>
@@ -105,14 +111,11 @@ export default function PlayerTable({ players }: Props) {
                 <Box>生年月日</Box>
                 <IconButton
                   aria-label="生年月日でソート"
-                  onClick={() => {
-                    setSortColumn("date_of_birth");
-                    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-                  }}
+                  onClick={() => handleSort("date_of_birth")}
                   size="sm"
                   variant="ghost"
                 >
-                  <Icon as={SortIcon({ column: "date_of_birth" })} />
+                  <Icon as={getSortIcon("date_of_birth")} />
                 </IconButton>
               </HStack>
             </Table.ColumnHeader>
@@ -124,14 +127,11 @@ export default function PlayerTable({ players }: Props) {
                 <Box>身長</Box>
                 <IconButton
                   aria-label="身長でソート"
-                  onClick={() => {
-                    setSortColumn("height_cm");
-                    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-                  }}
+                  onClick={() => handleSort("height_cm")}
                   size="sm"
                   variant="ghost"
                 >
-                  <Icon as={SortIcon({ column: "height_cm" })} />
+                  <Icon as={getSortIcon("height_cm")} />
                 </IconButton>
               </HStack>
             </Table.ColumnHeader>
@@ -143,14 +143,11 @@ export default function PlayerTable({ players }: Props) {
                 <Box>体重</Box>
                 <IconButton
                   aria-label="体重でソート"
-                  onClick={() => {
-                    setSortColumn("weight_kg");
-                    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-                  }}
+                  onClick={() => handleSort("weight_kg")}
                   size="sm"
                   variant="ghost"
                 >
-                  <Icon as={SortIcon({ column: "weight_kg" })} />
+                  <Icon as={getSortIcon("weight_kg")} />
                 </IconButton>
               </HStack>
             </Table.ColumnHeader>
