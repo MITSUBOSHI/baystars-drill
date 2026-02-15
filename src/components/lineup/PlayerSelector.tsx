@@ -135,12 +135,12 @@ export default function PlayerSelector({
       {selectedPlayer ? (
         <Flex align="center" justify="space-between">
           <Flex align="center">
-            <Badge colorScheme="blue" fontSize="md" mr={2}>
+            <Badge colorPalette="blue" fontSize="md" mr={2}>
               {selectedPlayer.number_disp}
             </Badge>
             <Text>{getDisplayName(selectedPlayer)}</Text>
           </Flex>
-          <Button size="xs" colorScheme="red" onClick={handleClearSelection}>
+          <Button size="xs" colorPalette="red" onClick={handleClearSelection}>
             クリア
           </Button>
         </Flex>
@@ -150,7 +150,7 @@ export default function PlayerSelector({
           w="100%"
           onClick={toggleDropdown}
           onKeyDown={handleKeyDown}
-          colorScheme="gray"
+          colorPalette="gray"
           variant="outline"
           justifyContent="space-between"
           alignItems="center"
@@ -212,7 +212,7 @@ export default function PlayerSelector({
                     onClick={() => handleSelectPlayer(player)}
                   >
                     <Flex align="center">
-                      <Badge colorScheme="blue" fontSize="sm" mr={2}>
+                      <Badge colorPalette="blue" fontSize="sm" mr={2}>
                         {player.number_disp}
                       </Badge>
                       <Text>{getDisplayName(player)}</Text>

@@ -107,13 +107,13 @@ export default function DraggableLineup({
                           >
                             {spot.order}番
                           </Text>
-                          <Badge mr={2} colorScheme="gray">
+                          <Badge mr={2} colorPalette="gray">
                             {spot.position}
                           </Badge>
                           <Text fontWeight="bold">
                             {spot.player && (
                               <Flex align="center">
-                                <Badge colorScheme="blue" mr={2}>
+                                <Badge colorPalette="blue" mr={2}>
                                   {spot.player.number_disp}
                                 </Badge>
                                 {getDisplayName(spot.player)}
@@ -123,7 +123,7 @@ export default function DraggableLineup({
                         </Flex>
                         <Button
                           size="xs"
-                          colorScheme="red"
+                          colorPalette="red"
                           variant="outline"
                           onClick={() => removePlayerFromOrder(spot.position)}
                         >

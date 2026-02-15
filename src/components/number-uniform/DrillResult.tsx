@@ -24,7 +24,7 @@ export default function DrillResult({ isCorrected, question }: Props) {
           </Text>
           <Box flex="1" />
           <Badge
-            colorScheme={isCorrected ? "green" : "red"}
+            colorPalette={isCorrected ? "green" : "red"}
             fontSize="md"
             px={3}
             py={1}

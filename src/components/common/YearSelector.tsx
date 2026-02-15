@@ -160,7 +160,7 @@ export default function YearSelector({
         w="100%"
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
-        colorScheme="blue"
+        colorPalette="blue"
         variant="outline"
         justifyContent="space-between"
         alignItems="center"

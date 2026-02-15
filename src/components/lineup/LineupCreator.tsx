@@ -432,7 +432,7 @@ export default function LineupCreator({ players }: Props) {
                 <FiLink size={16} color="#004B98" style={{ opacity: 0.6 }} />
               )}
             </button>
-            <Button colorScheme="teal" onClick={saveAsImage}>
+            <Button colorPalette="teal" onClick={saveAsImage}>
               <Flex align="center" gap={2}>
                 <FiDownload />
                 <Text>画像として保存</Text>
@@ -490,7 +490,7 @@ export default function LineupCreator({ players }: Props) {
                     <Button
                       size="xs"
                       ml={2}
-                      colorScheme="red"
+                      colorPalette="red"
                       variant="ghost"
                       onClick={() => removePlayerFromOrder(spot.position)}
                     >
@@ -501,7 +501,7 @@ export default function LineupCreator({ players }: Props) {
                   spot.player && (
                     <Button
                       size="xs"
-                      colorScheme="blue"
+                      colorPalette="blue"
                       onClick={() => addPlayerToOrder(spot.position)}
                       disabled={orderedPlayers.length >= 9}
                     >
@@ -524,7 +524,7 @@ export default function LineupCreator({ players }: Props) {
         </Box>
       </Box>
 
-      <Button colorScheme="red" onClick={resetLineup}>
+      <Button colorPalette="red" onClick={resetLineup}>
         リセット
       </Button>
     </Box>
