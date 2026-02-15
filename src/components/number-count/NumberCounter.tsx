@@ -30,10 +30,12 @@ export default function NumberCounter({ players }: Props) {
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const speakTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 選手マップを構築（支配下選手のみ）
+  // 選手マップを構築（支配下選手・育成選手）
   const playerMap = useMemo(() => {
     const map = new Map<number, PlayerType>();
-    for (const player of players.filter((p) => p.role === Role.Roster)) {
+    for (const player of players.filter(
+      (p) => p.role === Role.Roster || p.role === Role.Training,
+    )) {
       map.set(player.number_calc, player);
     }
     return map;
