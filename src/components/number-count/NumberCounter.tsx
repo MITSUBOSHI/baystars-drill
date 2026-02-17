@@ -24,7 +24,7 @@ export default function NumberCounter({ players }: Props) {
   const [countLimitInput, setCountLimitInput] = useState("30");
   const [currentNumber, setCurrentNumber] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
-  const [speechEnabled, setSpeechEnabled] = useState(true);
+  const [speechEnabled, setSpeechEnabled] = useState(false);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);

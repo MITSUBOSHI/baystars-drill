@@ -247,8 +247,13 @@ describe("NumberCounter", () => {
     expect(screen.getByTestId("uniform-back")).toHaveTextContent("MAKI #2");
   });
 
-  it("再生ボタンでカウント開始、音声が呼ばれる", () => {
+  it("再生ボタンでカウント開始、音声ONなら音声が呼ばれる", () => {
     render(<NumberCounter players={mockPlayers} />);
+    // デフォルトは音声OFF。ONに切り替える
+    const onButton = screen.getByText("ON");
+    act(() => {
+      fireEvent.click(onButton);
+    });
     const playButton = screen.getByLabelText("再生");
     act(() => {
       fireEvent.click(playButton);
@@ -258,6 +263,19 @@ describe("NumberCounter", () => {
       jest.advanceTimersByTime(50);
     });
     expect(mockSpeak).toHaveBeenCalled();
+  });
+
+  it("再生ボタンでカウント開始、音声OFFなら音声が呼ばれない", () => {
+    render(<NumberCounter players={mockPlayers} />);
+    // デフォルトは音声OFF
+    const playButton = screen.getByLabelText("再生");
+    act(() => {
+      fireEvent.click(playButton);
+    });
+    act(() => {
+      jest.advanceTimersByTime(50);
+    });
+    expect(mockSpeak).not.toHaveBeenCalled();
   });
 
   it("停止ボタンでカウント一時停止", () => {
