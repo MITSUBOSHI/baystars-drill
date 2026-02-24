@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("背番号計算ドリル", () => {
   test("ページが表示され問題が出題される", async ({ page }) => {
-    await page.goto("/number-drill/2025");
+    await page.goto("/number-drill/2026");
 
     await expect(page.getByRole("heading", { name: "背番号計算ドリル" })).toBeVisible();
     await expect(page.getByText("問題", { exact: false })).toBeVisible();
@@ -15,13 +15,13 @@ test.describe("背番号計算ドリル", () => {
   });
 
   test("未入力状態では解答ボタンが無効", async ({ page }) => {
-    await page.goto("/number-drill/2025");
+    await page.goto("/number-drill/2026");
 
     await expect(page.getByRole("button", { name: "解答する" })).toBeDisabled();
   });
 
   test("解答を入力して結果が表示される", async ({ page }) => {
-    await page.goto("/number-drill/2025");
+    await page.goto("/number-drill/2026");
 
     const input = page.getByTestId("number-input");
     await input.fill("999");
@@ -37,7 +37,7 @@ test.describe("背番号計算ドリル", () => {
   });
 
   test("再挑戦で新しい問題に切り替わる", async ({ page }) => {
-    await page.goto("/number-drill/2025");
+    await page.goto("/number-drill/2026");
 
     // 解答する
     await page.getByTestId("number-input").fill("1");
@@ -54,7 +54,7 @@ test.describe("背番号計算ドリル", () => {
   });
 
   test("設定パネルに設定項目が表示される", async ({ page }) => {
-    await page.goto("/number-drill/2025");
+    await page.goto("/number-drill/2026");
 
     // 設定パネルを開く
     await page.getByText("設定").click();

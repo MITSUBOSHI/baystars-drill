@@ -96,7 +96,7 @@ jest.mock("@next/third-parties/google", () => ({
 
 const mockPlayers: PlayerType[] = [
   {
-    year: 2025,
+    year: 2026,
     name: "牧 秀悟",
     name_kana: "まき しゅうご",
     uniform_name: "MAKI",
@@ -109,7 +109,7 @@ const mockPlayers: PlayerType[] = [
     weight_kg: 97,
   },
   {
-    year: 2025,
+    year: 2026,
     name: "東 克樹",
     name_kana: "あずま かつき",
     uniform_name: "AZUMA",
@@ -122,7 +122,7 @@ const mockPlayers: PlayerType[] = [
     weight_kg: 80,
   },
   {
-    year: 2025,
+    year: 2026,
     name: "三浦 大輔",
     name_kana: "みうら だいすけ",
     uniform_name: "MIURA",

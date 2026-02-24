@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("パンくずリスト", () => {
   test("サブページで表示され、正しいリンクを持つ", async ({ page }) => {
-    await page.goto("/player-directory/2025");
+    await page.goto("/player-directory/2026");
 
     const nav = page.locator('nav[aria-label="パンくずリスト"]');
     await expect(nav).toBeVisible();
@@ -12,11 +12,11 @@ test.describe("パンくずリスト", () => {
     await expect(topLink).toHaveAttribute("href", "/");
 
     await expect(nav.getByText("選手名鑑")).toBeVisible();
-    await expect(nav.getByText("2025年")).toBeVisible();
+    await expect(nav.getByText("2026年")).toBeVisible();
   });
 
   test("トップリンクからトップページに戻れる", async ({ page }) => {
-    await page.goto("/number-drill/2025");
+    await page.goto("/number-drill/2026");
 
     const nav = page.locator('nav[aria-label="パンくずリスト"]');
     await nav.getByRole("link", { name: "トップ" }).click();

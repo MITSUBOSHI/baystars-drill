@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("背番号タイマー", () => {
   test("ページが表示される", async ({ page }) => {
-    await page.goto("/number-count/2025");
+    await page.goto("/number-count/2026");
 
     await expect(page.getByRole("heading", { name: "背番号タイマー" })).toBeVisible();
     await expect(page.getByRole("img", { name: "ユニフォーム背面" })).toBeVisible();
@@ -12,7 +12,7 @@ test.describe("背番号タイマー", () => {
   });
 
   test("設定パネルの項目が表示される", async ({ page }) => {
-    await page.goto("/number-count/2025");
+    await page.goto("/number-count/2026");
 
     // 設定パネルを開く
     await page.getByText("設定").click();
@@ -29,7 +29,7 @@ test.describe("背番号タイマー", () => {
   });
 
   test("再生・停止・リセットの操作", async ({ page }) => {
-    await page.goto("/number-count/2025");
+    await page.goto("/number-count/2026");
 
     // 設定を開いて速度を「はやい」にする（テストの安定性のため）
     await page.getByText("設定").click();

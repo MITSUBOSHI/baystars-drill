@@ -7,7 +7,7 @@ const player = (
   name: string,
   number_calc?: number,
 ): PlayerType => ({
-  year: 2025,
+  year: 2026,
   name,
   name_kana: "",
   uniform_name: "",

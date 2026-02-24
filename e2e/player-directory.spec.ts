@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("選手名鑑", () => {
   test("選手一覧テーブルが表示される", async ({ page }) => {
-    await page.goto("/player-directory/2025");
+    await page.goto("/player-directory/2026");
 
     await expect(page.getByRole("heading", { name: "選手名鑑" })).toBeVisible();
 
@@ -16,7 +16,7 @@ test.describe("選手名鑑", () => {
   });
 
   test("背番号でソートできる", async ({ page }) => {
-    await page.goto("/player-directory/2025");
+    await page.goto("/player-directory/2026");
 
     const sortButton = page.getByRole("button", { name: "背番号でソート" });
     await sortButton.click();
@@ -29,7 +29,7 @@ test.describe("選手名鑑", () => {
   });
 
   test("ソートカラムを切り替えるとソート順がリセットされる", async ({ page }) => {
-    await page.goto("/player-directory/2025");
+    await page.goto("/player-directory/2026");
 
     // 背番号で昇順ソート
     await page.getByRole("button", { name: "背番号でソート" }).click();

@@ -14,11 +14,11 @@ test.describe("トップページ", () => {
     await page.goto("/");
 
     const features = [
-      { name: "選手名鑑", href: "/player-directory/2025" },
-      { name: "背番号計算ドリル", href: "/number-drill/2025" },
-      { name: "スタメン作成", href: "/lineup-maker/2025" },
-      { name: "ユニフォームビュー", href: "/uniform-view/2025" },
-      { name: "背番号タイマー", href: "/number-count/2025" },
+      { name: "選手名鑑", href: "/player-directory/2026" },
+      { name: "背番号計算ドリル", href: "/number-drill/2026" },
+      { name: "スタメン作成", href: "/lineup-maker/2026" },
+      { name: "ユニフォームビュー", href: "/uniform-view/2026" },
+      { name: "背番号タイマー", href: "/number-count/2026" },
     ];
 
     for (const feature of features) {
@@ -32,7 +32,7 @@ test.describe("トップページ", () => {
     await page.goto("/");
 
     await page.getByRole("link", { name: /選手名鑑/ }).click();
-    await page.waitForURL("**/player-directory/2025");
+    await page.waitForURL("**/player-directory/2026");
 
     await expect(page.getByRole("heading", { name: "選手名鑑" })).toBeVisible();
   });

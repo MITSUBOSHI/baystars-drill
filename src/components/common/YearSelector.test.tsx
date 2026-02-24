@@ -41,7 +41,7 @@ jest.mock("@chakra-ui/react", () => ({
 
 // 定数のモック
 jest.mock("@/constants/player", () => ({
-  registeredYears: [2023, 2024, 2025],
+  registeredYears: [2023, 2024, 2025, 2026],
 }));
 
 describe("YearSelector", () => {

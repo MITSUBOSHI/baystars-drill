@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("スタメン作成", () => {
   test("ページが表示される", async ({ page }) => {
-    await page.goto("/lineup-maker/2025");
+    await page.goto("/lineup-maker/2026");
 
     await expect(page.getByRole("heading", { name: "スタメン作成" })).toBeVisible();
     await expect(page.getByText("スターティングメンバー")).toBeVisible();
@@ -12,7 +12,7 @@ test.describe("スタメン作成", () => {
   });
 
   test("ポジションに選手を割り当てて打順に追加できる", async ({ page }) => {
-    await page.goto("/lineup-maker/2025");
+    await page.goto("/lineup-maker/2026");
 
     // 捕手の選手選択ボタンをクリック
     const catcherButton = page.getByRole("button", { name: "捕手の選手を選択" });
@@ -31,7 +31,7 @@ test.describe("スタメン作成", () => {
   });
 
   test("リセットで全てクリアされる", async ({ page }) => {
-    await page.goto("/lineup-maker/2025");
+    await page.goto("/lineup-maker/2026");
 
     // 捕手に選手を割り当て
     await page.getByRole("button", { name: "捕手の選手を選択" }).click();
@@ -45,7 +45,7 @@ test.describe("スタメン作成", () => {
   });
 
   test("設定パネルの DH 切替", async ({ page }) => {
-    await page.goto("/lineup-maker/2025");
+    await page.goto("/lineup-maker/2026");
 
     // 設定パネルを開く
     await page.getByRole("button", { name: "設定" }).click();
@@ -59,7 +59,7 @@ test.describe("スタメン作成", () => {
 
   test("URLパラメータからラインナップが復元される", async ({ page }) => {
     // 背番号2=捕手・1番, 先発投手=背番号11
-    await page.goto("/lineup-maker/2025?lineup=1c2&sp=11");
+    await page.goto("/lineup-maker/2026?lineup=1c2&sp=11");
 
     // スターティングメンバーに行がある
     await expect(page.getByText("打順が設定されていません")).not.toBeAttached();
