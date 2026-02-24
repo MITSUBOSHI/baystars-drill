@@ -64,7 +64,10 @@ export default function NumberCounter({ players }: Props) {
 
     for (let i = 1; i <= countLimit; i++) {
       const disp = String(i);
-      result.push({ displayNumber: disp, player: playerByDisp.get(disp) ?? null });
+      result.push({
+        displayNumber: disp,
+        player: playerByDisp.get(disp) ?? null,
+      });
     }
 
     if (direction === "down") {
