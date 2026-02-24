@@ -126,10 +126,7 @@ jest.mock("@/components/ui/number-input", () => ({
   }: {
     children: React.ReactNode;
     value?: string;
-    onValueChange?: (details: {
-      value: string;
-      valueAsNumber: number;
-    }) => void;
+    onValueChange?: (details: { value: string; valueAsNumber: number }) => void;
   }) => (
     <div>
       {React.Children.map(children, (child) => {

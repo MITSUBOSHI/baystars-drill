@@ -87,9 +87,7 @@ describe("lineupUrl", () => {
 
     it("打順未設定は order=0 でエンコードする", () => {
       const state: LineupUrlState = {
-        lineup: [
-          { order: null, player: allPlayers[0], position: "投手" },
-        ],
+        lineup: [{ order: null, player: allPlayers[0], position: "投手" }],
         startingPitcher: null,
         hasDH: false,
         isFarmMode: false,
@@ -157,9 +155,7 @@ describe("lineupUrl", () => {
     });
 
     it("lineup 文字列をデコードする", () => {
-      const params = new URLSearchParams(
-        "lineup=1c50.2s3.3f2&sp=11",
-      );
+      const params = new URLSearchParams("lineup=1c50.2s3.3f2&sp=11");
       const result = decodeLineupParams(params, allPlayers)!;
       expect(result).not.toBeNull();
 

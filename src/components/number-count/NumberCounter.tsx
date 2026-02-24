@@ -50,7 +50,7 @@ export default function NumberCounter({ players }: Props) {
     setCurrentNumber(startNumber);
     setState("idle");
     stopInterval();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startNumber, direction, countLimit]);
 
   const currentPlayer = playerMap.get(currentNumber) ?? null;
@@ -182,7 +182,15 @@ export default function NumberCounter({ players }: Props) {
     });
     setState("counting");
     intervalRef.current = setInterval(tick, intervalMs);
-  }, [countLimit, currentNumber, direction, intervalMs, speechEnabled, speakCurrentNumber, tick]);
+  }, [
+    countLimit,
+    currentNumber,
+    direction,
+    intervalMs,
+    speechEnabled,
+    speakCurrentNumber,
+    tick,
+  ]);
 
   // 再開
   const resume = useCallback(() => {

@@ -35,10 +35,7 @@ export default async function Page({
   return (
     <VStack justify={"center"} w="100%" gap={6} py={4}>
       <Heading size="4xl">ユニフォームビュー</Heading>
-      <YearSelector
-        currentYear={currentYear}
-        baseUrl="/uniform-view"
-      />
+      <YearSelector currentYear={currentYear} baseUrl="/uniform-view" />
       <Box w="100%" maxW={{ base: "100%", md: "500px" }} px={4}>
         <Suspense>
           <UniformViewer players={players} />

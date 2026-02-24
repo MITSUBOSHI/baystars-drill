@@ -141,12 +141,8 @@ jest.mock("@chakra-ui/react", () => ({
   ),
   Collapsible: {
     Root: ({ children }: { children: ReactNode }) => <div>{children}</div>,
-    Trigger: ({ children }: { children: ReactNode }) => (
-      <div>{children}</div>
-    ),
-    Content: ({ children }: { children: ReactNode }) => (
-      <div>{children}</div>
-    ),
+    Trigger: ({ children }: { children: ReactNode }) => <div>{children}</div>,
+    Content: ({ children }: { children: ReactNode }) => <div>{children}</div>,
   },
   HStack: ({
     children,

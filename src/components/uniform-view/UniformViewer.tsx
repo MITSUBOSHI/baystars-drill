@@ -59,9 +59,7 @@ export default function UniformViewer({ players }: Props) {
   const handleNumberSelect = useCallback(
     (value: string) => {
       setNumberSelectValue(value);
-      const index = filteredPlayers.findIndex(
-        (p) => p.number_disp === value,
-      );
+      const index = filteredPlayers.findIndex((p) => p.number_disp === value);
       if (index !== -1) {
         setCurrentIndex(index);
       }
@@ -153,19 +151,15 @@ export default function UniformViewer({ players }: Props) {
               onChange={(e) => handleNumberSelect(e.target.value)}
               onFocus={() => setNumberSelectValue("")}
               onClick={() => setNumberSelectValue("")}
-              onBlur={() =>
-                setNumberSelectValue(currentPlayer.number_disp)
-              }
+              onBlur={() => setNumberSelectValue(currentPlayer.number_disp)}
               aria-label="背番号を選択"
               style={{
                 width: "48px",
                 fontSize: "14px",
                 padding: "1px 4px",
-                border:
-                  "1px solid var(--chakra-colors-border-card, #ccc)",
+                border: "1px solid var(--chakra-colors-border-card, #ccc)",
                 borderRadius: "4px",
-                background:
-                  "var(--chakra-colors-surface-card-subtle, white)",
+                background: "var(--chakra-colors-surface-card-subtle, white)",
                 color: "var(--chakra-colors-text-primary, #000)",
                 textAlign: "center",
               }}

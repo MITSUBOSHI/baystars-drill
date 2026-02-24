@@ -1,7 +1,11 @@
 "use client";
 
 import { PlayerType, Role } from "@/types/Player";
-import { type NameDisplayMode, type Position, NAME_DISPLAY_OPTIONS } from "@/types/common";
+import {
+  type NameDisplayMode,
+  type Position,
+  NAME_DISPLAY_OPTIONS,
+} from "@/types/common";
 export type { Position } from "@/types/common";
 import { sendGAEvent } from "@next/third-parties/google";
 import { getDisplayName as getDisplayNameBase } from "@/lib/nameUtils";
@@ -16,7 +20,13 @@ import {
   Input,
   Collapsible,
 } from "@chakra-ui/react";
-import { FiChevronDown, FiChevronRight, FiDownload, FiLink, FiCheck } from "react-icons/fi";
+import {
+  FiChevronDown,
+  FiChevronRight,
+  FiDownload,
+  FiLink,
+  FiCheck,
+} from "react-icons/fi";
 import { useSearchParams } from "next/navigation";
 import OptionGroup from "@/components/common/OptionGroup";
 import { Switch } from "@/components/ui/switch";
@@ -333,7 +343,15 @@ export default function LineupCreator({ players }: Props) {
       player_count: orderedPlayers.length,
       has_dh: hasDH,
     });
-  }, [lineup, startingPitcher, hasDH, isFarmMode, nameDisplay, customTitle, orderedPlayers.length]);
+  }, [
+    lineup,
+    startingPitcher,
+    hasDH,
+    isFarmMode,
+    nameDisplay,
+    customTitle,
+    orderedPlayers.length,
+  ]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap="8">
@@ -357,8 +375,14 @@ export default function LineupCreator({ players }: Props) {
               cursor="pointer"
               fontWeight="bold"
               fontSize="md"
-              _open={{ "& > .chevron-down": { display: "inline" }, "& > .chevron-right": { display: "none" } }}
-              _closed={{ "& > .chevron-down": { display: "none" }, "& > .chevron-right": { display: "inline" } }}
+              _open={{
+                "& > .chevron-down": { display: "inline" },
+                "& > .chevron-right": { display: "none" },
+              }}
+              _closed={{
+                "& > .chevron-down": { display: "none" },
+                "& > .chevron-right": { display: "inline" },
+              }}
             >
               設定
               <FiChevronRight className="chevron-right" />
@@ -367,7 +391,10 @@ export default function LineupCreator({ players }: Props) {
           </Collapsible.Trigger>
           <Collapsible.Content>
             <Stack gap={4} px={6} pb={6}>
-              <Switch checked={hasDH} onCheckedChange={(e) => setHasDH(e.checked)}>
+              <Switch
+                checked={hasDH}
+                onCheckedChange={(e) => setHasDH(e.checked)}
+              >
                 DHあり
               </Switch>
 

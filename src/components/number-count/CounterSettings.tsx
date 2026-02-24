@@ -90,8 +90,7 @@ export default function CounterSettings({
                     width: "64px",
                     fontSize: "14px",
                     padding: "4px 8px",
-                    border:
-                      "1px solid var(--chakra-colors-border-card, #ccc)",
+                    border: "1px solid var(--chakra-colors-border-card, #ccc)",
                     borderRadius: "4px",
                     background:
                       "var(--chakra-colors-surface-card-subtle, white)",
@@ -118,9 +117,7 @@ export default function CounterSettings({
                   { value: "down", label: "カウントダウン" },
                 ]}
                 selectedValues={[direction]}
-                onChange={(value) =>
-                  onDirectionChange(value as CountDirection)
-                }
+                onChange={(value) => onDirectionChange(value as CountDirection)}
                 gap="8px"
               />
             </Box>

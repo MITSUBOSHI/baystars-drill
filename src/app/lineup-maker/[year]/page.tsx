@@ -35,10 +35,7 @@ export default async function Page({
   return (
     <VStack justify={"center"} w="100%" gap={6} py={4}>
       <Heading size="4xl">スタメン作成</Heading>
-      <YearSelector
-        currentYear={currentYear}
-        baseUrl="/lineup-maker"
-      />
+      <YearSelector currentYear={currentYear} baseUrl="/lineup-maker" />
       <Box w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
         <Suspense>
           <LineupCreator players={players} />

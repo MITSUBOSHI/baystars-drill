@@ -39,8 +39,14 @@ export default function DrillSettings({ mode, onModeChange }: Props) {
             cursor="pointer"
             fontWeight="bold"
             fontSize="md"
-            _open={{ "& > .chevron-down": { display: "inline" }, "& > .chevron-right": { display: "none" } }}
-            _closed={{ "& > .chevron-down": { display: "none" }, "& > .chevron-right": { display: "inline" } }}
+            _open={{
+              "& > .chevron-down": { display: "inline" },
+              "& > .chevron-right": { display: "none" },
+            }}
+            _closed={{
+              "& > .chevron-down": { display: "none" },
+              "& > .chevron-right": { display: "inline" },
+            }}
           >
             設定
             <FiChevronRight className="chevron-right" />

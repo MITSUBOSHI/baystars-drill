@@ -55,7 +55,10 @@ export default function DrillQuestion({
             min={0}
             max={2000}
             value={inputValue}
-            onValueChange={(details: { value: string; valueAsNumber: number }) => {
+            onValueChange={(details: {
+              value: string;
+              valueAsNumber: number;
+            }) => {
               onInputChange(details.value, details.valueAsNumber);
             }}
           >

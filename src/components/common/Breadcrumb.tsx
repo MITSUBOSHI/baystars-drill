@@ -40,7 +40,9 @@ export default function AppBreadcrumb() {
 
       // 年度セグメントの場合は「XXXX年」と表示
       const segment = pathSegments[i];
-      const label = pathMap[segment] || (/^\d{4}$/.test(segment) ? `${segment}年` : segment);
+      const label =
+        pathMap[segment] ||
+        (/^\d{4}$/.test(segment) ? `${segment}年` : segment);
 
       items.push({
         label,
