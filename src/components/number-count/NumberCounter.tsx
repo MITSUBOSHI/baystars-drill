@@ -25,6 +25,7 @@ export default function NumberCounter({ players }: Props) {
   const [currentNumber, setCurrentNumber] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
   const [speechEnabled, setSpeechEnabled] = useState(false);
+  const [includeZero, setIncludeZero] = useState(false);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
@@ -41,9 +42,9 @@ export default function NumberCounter({ players }: Props) {
     return map;
   }, [players]);
 
-  // カウント範囲: 1 〜 countLimit
-  const startNumber = direction === "up" ? 1 : countLimit;
-  const endNumber = direction === "up" ? countLimit : 1;
+  // カウント範囲: includeZero ? 0〜countLimit : 1〜countLimit
+  const startNumber = direction === "up" ? (includeZero ? 0 : 1) : countLimit;
+  const endNumber = direction === "up" ? countLimit : includeZero ? 0 : 1;
 
   // 初期値設定
   useEffect(() => {
@@ -294,6 +295,8 @@ export default function NumberCounter({ players }: Props) {
           onCountLimitBlur={() => setCountLimitInput(String(countLimit))}
           speechEnabled={speechEnabled}
           onSpeechEnabledChange={setSpeechEnabled}
+          includeZero={includeZero}
+          onIncludeZeroChange={setIncludeZero}
           disabled={state === "counting"}
         />
       </Box>

@@ -14,6 +14,8 @@ type Props = {
   onCountLimitBlur: () => void;
   speechEnabled: boolean;
   onSpeechEnabledChange: (enabled: boolean) => void;
+  includeZero: boolean;
+  onIncludeZeroChange: (includeZero: boolean) => void;
   disabled: boolean;
 };
 
@@ -36,6 +38,8 @@ export default function CounterSettings({
   onCountLimitBlur,
   speechEnabled,
   onSpeechEnabledChange,
+  includeZero,
+  onIncludeZeroChange,
   disabled,
 }: Props) {
   return (
@@ -104,6 +108,22 @@ export default function CounterSettings({
                   ))}
                 </datalist>
               </Flex>
+            </Box>
+
+            <Box>
+              <Text fontWeight="bold" mb={2}>
+                0を含める
+              </Text>
+              <OptionGroup
+                name="includeZero"
+                options={[
+                  { value: "on", label: "ON" },
+                  { value: "off", label: "OFF" },
+                ]}
+                selectedValues={[includeZero ? "on" : "off"]}
+                onChange={(value) => onIncludeZeroChange(value === "on")}
+                gap="8px"
+              />
             </Box>
 
             <Box>

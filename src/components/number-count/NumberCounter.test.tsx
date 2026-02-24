@@ -212,6 +212,23 @@ const mockPlayers: PlayerType[] = [
   },
 ];
 
+const mockPlayersWithZero: PlayerType[] = [
+  ...mockPlayers,
+  {
+    year: 2026,
+    name: "林 琢真",
+    name_kana: "はやし たくま",
+    uniform_name: "HAYASHI",
+    number_calc: 0,
+    number_disp: "00",
+    role: Role.Roster,
+    url: "",
+    date_of_birth: "2001-08-10",
+    height_cm: 173,
+    weight_kg: 72,
+  },
+];
+
 describe("NumberCounter", () => {
   it("初期表示: idle状態で番号1が表示される（歯抜け）", () => {
     render(<NumberCounter players={mockPlayers} />);
@@ -249,10 +266,10 @@ describe("NumberCounter", () => {
 
   it("再生ボタンでカウント開始、音声ONなら音声が呼ばれる", () => {
     render(<NumberCounter players={mockPlayers} />);
-    // デフォルトは音声OFF。ONに切り替える
-    const onButton = screen.getByText("ON");
+    // デフォルトは音声OFF。ONに切り替える（2つ目のONボタンが音声用）
+    const onButtons = screen.getAllByText("ON");
     act(() => {
-      fireEvent.click(onButton);
+      fireEvent.click(onButtons[1]);
     });
     const playButton = screen.getByLabelText("再生");
     act(() => {
@@ -343,5 +360,37 @@ describe("NumberCounter", () => {
     const input = screen.getByLabelText("カウント数");
     fireEvent.change(input, { target: { value: "10" } });
     expect(screen.getByText("1 / 10")).toBeInTheDocument();
+  });
+
+  it("「0を含める」ONで番号0から開始する", () => {
+    render(<NumberCounter players={mockPlayersWithZero} />);
+    // デフォルトは番号1から
+    expect(screen.getByTestId("uniform-back")).toHaveTextContent("BAYSTARS #1");
+
+    // 「0を含める」のONボタンをクリック（最初のONボタン）
+    const onButtons = screen.getAllByText("ON");
+    act(() => {
+      fireEvent.click(onButtons[0]);
+    });
+
+    // 番号0から開始
+    expect(screen.getByText("林 琢真")).toBeInTheDocument();
+    expect(screen.getByTestId("uniform-back")).toHaveTextContent("HAYASHI #00");
+    expect(screen.getByText("0 / 30")).toBeInTheDocument();
+  });
+
+  it("「0を含める」ONでカウントダウン時に0まで到達する", () => {
+    render(<NumberCounter players={mockPlayersWithZero} />);
+    // 「0を含める」ON
+    const onButtons = screen.getAllByText("ON");
+    act(() => {
+      fireEvent.click(onButtons[0]);
+    });
+    // カウントダウンに変更
+    act(() => {
+      fireEvent.click(screen.getByText("カウントダウン"));
+    });
+    // countLimit(30) から開始、0まで
+    expect(screen.getByText("30 / 0")).toBeInTheDocument();
   });
 });
