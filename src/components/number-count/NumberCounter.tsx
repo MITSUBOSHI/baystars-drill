@@ -16,13 +16,18 @@ type Props = {
 type CountState = "idle" | "counting" | "paused" | "finished";
 export type CountDirection = "up" | "down";
 
+type Step = {
+  displayNumber: string;
+  player: PlayerType | null;
+};
+
 export default function NumberCounter({ players }: Props) {
   const [state, setState] = useState<CountState>("idle");
   const [direction, setDirection] = useState<CountDirection>("up");
   const [intervalMs, setIntervalMs] = useState(1000);
   const [countLimit, setCountLimit] = useState(30);
   const [countLimitInput, setCountLimitInput] = useState("30");
-  const [currentNumber, setCurrentNumber] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
   const [speechEnabled, setSpeechEnabled] = useState(false);
   const [includeZero, setIncludeZero] = useState(false);
@@ -31,30 +36,54 @@ export default function NumberCounter({ players }: Props) {
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const speakTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 選手マップを構築（支配下選手・育成選手）
-  const playerMap = useMemo(() => {
-    const map = new Map<number, PlayerType>();
+  // number_disp → 選手のマップを構築（支配下選手・育成選手）
+  const playerByDisp = useMemo(() => {
+    const map = new Map<string, PlayerType>();
     for (const player of players.filter(
       (p) => p.role === Role.Roster || p.role === Role.Training,
     )) {
-      map.set(player.number_calc, player);
+      map.set(player.number_disp, player);
     }
     return map;
   }, [players]);
 
-  // カウント範囲: includeZero ? 0〜countLimit : 1〜countLimit
-  const startNumber = direction === "up" ? (includeZero ? 0 : 1) : countLimit;
-  const endNumber = direction === "up" ? countLimit : includeZero ? 0 : 1;
+  // カウントするステップのリストを構築
+  const steps = useMemo(() => {
+    const result: Step[] = [];
+
+    if (includeZero) {
+      result.push({
+        displayNumber: "0",
+        player: playerByDisp.get("0") ?? null,
+      });
+      result.push({
+        displayNumber: "00",
+        player: playerByDisp.get("00") ?? null,
+      });
+    }
+
+    for (let i = 1; i <= countLimit; i++) {
+      const disp = String(i);
+      result.push({ displayNumber: disp, player: playerByDisp.get(disp) ?? null });
+    }
+
+    if (direction === "down") {
+      result.reverse();
+    }
+
+    return result;
+  }, [playerByDisp, includeZero, countLimit, direction]);
 
   // 初期値設定
   useEffect(() => {
-    setCurrentNumber(startNumber);
+    setCurrentIndex(0);
     setState("idle");
     stopInterval();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startNumber, direction, countLimit]);
+  }, [steps]);
 
-  const currentPlayer = playerMap.get(currentNumber) ?? null;
+  const currentStep = steps[currentIndex] ?? null;
+  const currentPlayer = currentStep?.player ?? null;
 
   // 日本語音声の取得・キャッシュ
   const jaVoiceRef = useRef<SpeechSynthesisVoice | null>(null);
@@ -116,16 +145,16 @@ export default function NumberCounter({ players }: Props) {
     }
   }, []);
 
-  const speakCurrentNumber = useCallback(
-    (num: number) => {
-      const player = playerMap.get(num);
-      if (player) {
-        speak(extractFamilyNameKana(player.name_kana));
+  const speakStep = useCallback(
+    (index: number) => {
+      const step = steps[index];
+      if (step?.player) {
+        speak(extractFamilyNameKana(step.player.name_kana));
       } else {
         speak("べいすたーず");
       }
     },
-    [playerMap, speak],
+    [steps, speak],
   );
 
   const stopInterval = useCallback(() => {
@@ -135,30 +164,17 @@ export default function NumberCounter({ players }: Props) {
     }
   }, []);
 
-  // 次の番号を計算（副作用なし）
-  const getNextNumber = useCallback(
-    (prev: number) => {
-      return direction === "up" ? prev + 1 : prev - 1;
-    },
-    [direction],
-  );
-
   const isAtEnd = useCallback(
-    (num: number) => {
-      return (
-        (direction === "up" && num > endNumber) ||
-        (direction === "down" && num < endNumber)
-      );
-    },
-    [direction, endNumber],
+    (index: number) => index >= steps.length,
+    [steps.length],
   );
 
   // カウント1ステップ進める
   const tick = useCallback(() => {
     setFadeIn(false);
     setTimeout(() => {
-      setCurrentNumber((prev) => {
-        const next = getNextNumber(prev);
+      setCurrentIndex((prev) => {
+        const next = prev + 1;
         if (isAtEnd(next)) {
           stopInterval();
           setState("finished");
@@ -169,13 +185,13 @@ export default function NumberCounter({ players }: Props) {
       });
       setFadeIn(true);
     }, 150);
-  }, [getNextNumber, isAtEnd, stopInterval]);
+  }, [isAtEnd, stopInterval]);
 
   // 再生開始
   const start = useCallback(() => {
     // iOS Safari 対策: ユーザーアクション内で初回speak
     if (speechEnabled) {
-      speakCurrentNumber(currentNumber);
+      speakStep(currentIndex);
     }
     sendGAEvent("event", "number_count_start", {
       direction,
@@ -185,11 +201,11 @@ export default function NumberCounter({ players }: Props) {
     intervalRef.current = setInterval(tick, intervalMs);
   }, [
     countLimit,
-    currentNumber,
+    currentIndex,
     direction,
     intervalMs,
     speechEnabled,
-    speakCurrentNumber,
+    speakStep,
     tick,
   ]);
 
@@ -212,25 +228,25 @@ export default function NumberCounter({ players }: Props) {
   const reset = useCallback(() => {
     stopInterval();
     setState("idle");
-    setCurrentNumber(startNumber);
+    setCurrentIndex(0);
     setFadeIn(true);
     if (typeof window !== "undefined" && window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
-  }, [stopInterval, startNumber]);
+  }, [stopInterval]);
 
-  // カウント中に番号が変わったら音声を発声
-  const prevNumberRef = useRef(currentNumber);
+  // カウント中にステップが変わったら音声を発声
+  const prevIndexRef = useRef(currentIndex);
   useEffect(() => {
     if (
       speechEnabled &&
       state === "counting" &&
-      currentNumber !== prevNumberRef.current
+      currentIndex !== prevIndexRef.current
     ) {
-      speakCurrentNumber(currentNumber);
+      speakStep(currentIndex);
     }
-    prevNumberRef.current = currentNumber;
-  }, [currentNumber, state, speechEnabled, speakCurrentNumber]);
+    prevIndexRef.current = currentIndex;
+  }, [currentIndex, state, speechEnabled, speakStep]);
 
   // Chrome: speechSynthesis が長時間連続使用時に自動停止するバグへの対策
   useEffect(() => {
@@ -268,9 +284,10 @@ export default function NumberCounter({ players }: Props) {
 
   // 表示情報
   const uniformName = currentPlayer?.uniform_name ?? "BAYSTARS";
-  const numberDisp = currentPlayer?.number_disp ?? String(currentNumber);
+  const numberDisp = currentStep?.displayNumber ?? "1";
   const displayName = currentPlayer?.name ?? "ベイスターズ";
   const displayKana = currentPlayer ? currentPlayer.name_kana : "べいすたーず";
+  const lastStep = steps[steps.length - 1];
 
   const handleCountLimitSelect = useCallback((value: string) => {
     setCountLimitInput(value);
@@ -327,7 +344,7 @@ export default function NumberCounter({ players }: Props) {
 
       {/* 進捗 */}
       <Text textAlign="center" mb={4} fontSize="sm" color="text.secondary">
-        {currentNumber} / {endNumber}
+        {currentStep?.displayNumber} / {lastStep?.displayNumber}
       </Text>
 
       {/* 操作ボタン */}

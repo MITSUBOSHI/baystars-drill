@@ -216,6 +216,19 @@ const mockPlayersWithZero: PlayerType[] = [
   ...mockPlayers,
   {
     year: 2026,
+    name: "J.デュプランティエ",
+    name_kana: "じょん・でゅぷらんてぃえ",
+    uniform_name: "DUPLANTIER",
+    number_calc: 0,
+    number_disp: "0",
+    role: Role.Roster,
+    url: "",
+    date_of_birth: "1994-07-11",
+    height_cm: 193,
+    weight_kg: 103,
+  },
+  {
+    year: 2026,
     name: "林 琢真",
     name_kana: "はやし たくま",
     uniform_name: "HAYASHI",
@@ -362,7 +375,7 @@ describe("NumberCounter", () => {
     expect(screen.getByText("1 / 10")).toBeInTheDocument();
   });
 
-  it("「0を含める」ONで番号0から開始する", () => {
+  it("「0を含める」ONで背番号0から開始し、0→00の順に表示される", () => {
     render(<NumberCounter players={mockPlayersWithZero} />);
     // デフォルトは番号1から
     expect(screen.getByTestId("uniform-back")).toHaveTextContent("BAYSTARS #1");
@@ -373,13 +386,28 @@ describe("NumberCounter", () => {
       fireEvent.click(onButtons[0]);
     });
 
-    // 番号0から開始
+    // 背番号0（デュプランティエ）から開始
+    expect(screen.getByText("J.デュプランティエ")).toBeInTheDocument();
+    expect(screen.getByTestId("uniform-back")).toHaveTextContent(
+      "DUPLANTIER #0",
+    );
+    expect(screen.getByText("0 / 30")).toBeInTheDocument();
+
+    // 再生して1ステップ進む → 背番号00（林）
+    act(() => {
+      fireEvent.click(screen.getByLabelText("再生"));
+    });
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    act(() => {
+      jest.advanceTimersByTime(150);
+    });
     expect(screen.getByText("林 琢真")).toBeInTheDocument();
     expect(screen.getByTestId("uniform-back")).toHaveTextContent("HAYASHI #00");
-    expect(screen.getByText("0 / 30")).toBeInTheDocument();
   });
 
-  it("「0を含める」ONでカウントダウン時に0まで到達する", () => {
+  it("「0を含める」ONでカウントダウン時に00→0まで到達する", () => {
     render(<NumberCounter players={mockPlayersWithZero} />);
     // 「0を含める」ON
     const onButtons = screen.getAllByText("ON");
@@ -390,7 +418,7 @@ describe("NumberCounter", () => {
     act(() => {
       fireEvent.click(screen.getByText("カウントダウン"));
     });
-    // countLimit(30) から開始、0まで
+    // countLimit(30) から開始、0まで（最終ステップは "0"）
     expect(screen.getByText("30 / 0")).toBeInTheDocument();
   });
 });
