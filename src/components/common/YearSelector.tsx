@@ -11,6 +11,7 @@ interface YearSelectorProps {
   baseUrl: string; // 例: '/uniform-number/lineup'
   label?: string;
   isInline?: boolean; // 横並び表示用のプロパティを追加
+  years?: readonly number[]; // カスタム年リスト（未指定時はregisteredYears）
 }
 
 export default function YearSelector({
@@ -18,6 +19,7 @@ export default function YearSelector({
   baseUrl,
   label = "年を選択",
   isInline = false, // デフォルトはfalse
+  years,
 }: YearSelectorProps) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -27,8 +29,8 @@ export default function YearSelector({
 
   // 降順でソートした年のリスト
   const sortedYears = useMemo(() => {
-    return [...registeredYears].sort((a, b) => b - a);
-  }, []);
+    return [...(years ?? registeredYears)].sort((a, b) => b - a);
+  }, [years]);
 
   // ドロップダウンの開閉を切り替える
   const toggleDropdown = () => setIsOpen(!isOpen);

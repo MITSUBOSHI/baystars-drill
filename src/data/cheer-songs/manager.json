@@ -1,0 +1,32 @@
+[
+  {
+    "id": "manager-aikawa-home",
+    "title": "相川 亮二 監督（ホーム）",
+    "category": "manager",
+    "year": 2026,
+    "lyrics": [
+      "{勝利|しょうり}の{女神|めがみ}が　{惚|ほ}れたベイスターズ",
+      "{打|う}てよかっとばせ　ハマの{空|そら}へ",
+      "（{絶対|ぜったい}{勝|か}つぞ　ベイスターズ！）"
+    ],
+    "playerName": "相川 亮二",
+    "playerNumber": "81",
+    "url": "https://www.youtube.com/watch?v=5ED7TnYolug",
+    "isCommon": false
+  },
+  {
+    "id": "manager-aikawa-visitor",
+    "title": "相川 亮二 監督（ビジター）",
+    "category": "manager",
+    "year": 2026,
+    "lyrics": [
+      "{大志|たいし}を{抱|いだ}く{男|おとこ}　{内|うち}に{秘|ひ}める{魂|たましい}を",
+      "{今|いま}このグラウンドに　いざ{解|と}き{放|はな}て",
+      "（{絶対|ぜったい}{勝|か}つぞ　ベイスターズ！）"
+    ],
+    "playerName": "相川 亮二",
+    "playerNumber": "81",
+    "url": "https://www.youtube.com/watch?v=x7vM795RguU",
+    "isCommon": false
+  }
+]

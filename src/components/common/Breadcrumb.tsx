@@ -17,6 +17,7 @@ const pathMap: Record<string, string> = {
   "lineup-maker": "スタメン作成",
   "uniform-view": "ユニフォームビュー",
   "number-count": "背番号タイマー",
+  "cheer-songs": "応援歌",
   "uniform-number": "背番号",
   drill: "計算ドリル",
   gallery: "選手名鑑",

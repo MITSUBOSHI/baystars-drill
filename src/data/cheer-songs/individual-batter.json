@@ -1,0 +1,301 @@
+[
+  {
+    "id": "individual-hayashi",
+    "title": "林 琢真",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "シャープに{打|う}ち{返|かえ}し",
+      "{勝利|しょうり}へ{導|みちび}け",
+      "{強|つよ}く{速|はや}く{風|かぜ}のように",
+      "{走|はし}り{抜|ぬ}け{琢真|たくま}",
+      "かっとばせー！{琢真|たくま}！"
+    ],
+    "playerName": "林 琢真",
+    "playerNumber": "0",
+    "isCommon": false
+  },
+  {
+    "id": "individual-maki",
+    "title": "牧 秀悟",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "オオオオーオオ　マキシュウゴ！",
+      "オオオオオ　オオオオオ",
+      "{届|とど}け　{我|われ}らの{声|こえ}",
+      "{鍛|きた}えた　そのパワー",
+      "かっとばせ",
+      "{勝利|しょうり}を　さぁ{目指|めざ}せ",
+      "ホームラン",
+      "かっとばせー！{秀悟|しゅうご}！"
+    ],
+    "playerName": "牧 秀悟",
+    "playerNumber": "2",
+    "isCommon": false
+  },
+  {
+    "id": "individual-watarai",
+    "title": "度会 隆輝",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{煌|きら}めく　この{空|そら}に",
+      "{夢|ゆめ}の{軌道|きどう}　{描|えが}け",
+      "{今|いま}　この{歓声|かんせい}",
+      "{打|う}てよ　{勝利|しょうり}のために",
+      "かっとばせー！{隆輝|りゅうき}！"
+    ],
+    "playerName": "度会 隆輝",
+    "playerNumber": "5",
+    "isCommon": false
+  },
+  {
+    "id": "individual-matsuo",
+    "title": "松尾 汐恩",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{覚悟|かくご}を{決|き}めて{振|ふ}りぬけ",
+      "{打球|だきゅう}が{風|かぜ}を{切|き}り{裂|さ}き",
+      "{夢|ゆめ}{運|はこ}ぶ",
+      "{打|う}てよ{勝利|しょうり}への{一打|いちだ}",
+      "かっとばせー！{汐恩|しおん}！"
+    ],
+    "playerName": "松尾 汐恩",
+    "playerNumber": "10",
+    "isCommon": false
+  },
+  {
+    "id": "individual-mori",
+    "title": "森 敬斗",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "スタジアムのヒーロー",
+      "{輝|かがや}く{星|ほし}となれ",
+      "{歓声|かんせい}{背|せ}に{受|う}け",
+      "ダイヤモンド{駆|か}け{抜|ぬ}けろ",
+      "かっとばせー！{森|もり} {敬斗|けいと}！"
+    ],
+    "playerName": "森 敬斗",
+    "playerNumber": "4",
+    "isCommon": false
+  },
+  {
+    "id": "individual-sano",
+    "title": "佐野 恵太",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{蒼|あお}き{戦士|せんし}の{闘志|とうし}　{果敢|かかん}に{突|つ}き{進|すす}め",
+      "ハマの{空|そら}に{弧|こ}を{描|えが}け　{進|すす}め　{Shiny Road|シャイニー ロード}",
+      "かっとばせー！{佐野|さの} {恵太|けいた}！"
+    ],
+    "playerName": "佐野 恵太",
+    "playerNumber": "7",
+    "isCommon": false
+  },
+  {
+    "id": "individual-kamisato",
+    "title": "神里 和毅",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{琉球|りゅうきゅう}の{波|なみ}に{乗|の}って",
+      "{潮風|しおかぜ}を{背|せ}に{受|う}け",
+      "{冴|さ}えわたる{神業|かみわざ}",
+      "オーーー{島人|しまんちゅ}の{星|ほし}",
+      "イーヤーサーサー！{神里|かみざと}！"
+    ],
+    "playerName": "神里 和毅",
+    "playerNumber": "8",
+    "isCommon": false
+  },
+  {
+    "id": "individual-kyoda",
+    "title": "京田 陽太",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "さあ {走|はし}り{出|だ}せ　{浜風|はまかぜ}{背|せ}に{受|う}け",
+      "{秘|ひ}めた{想|おも}いつないで",
+      "{輝|かがや}け {京田|きょうだ}",
+      "かっとばせー！{京田|きょうだ}！"
+    ],
+    "playerName": "京田 陽太",
+    "playerNumber": "6",
+    "isCommon": false
+  },
+  {
+    "id": "individual-tobashira",
+    "title": "戸柱 恭孝",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{奮|ふる}い{立|た}て　{横浜|よこはま}の{大黒柱|だいこくばしら}よ",
+      "さあ{打|う}て{飛|と}ばせ{勝利|しょうり}への　{扉|とびら}を{開|ひら}け",
+      "かっとばせー！{戸柱|とばしら}！"
+    ],
+    "playerName": "戸柱 恭孝",
+    "playerNumber": "9",
+    "isCommon": false
+  },
+  {
+    "id": "individual-tsutsugo",
+    "title": "筒香 嘉智",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{横浜|よこはま}の{空|そら}{高|たか}く",
+      "ホームランかっ{飛|と}ばせ",
+      "{筒香|つつごう}ー！",
+      "さあ　{打|う}て{筒香|つつごう}",
+      "{飛|と}ばせ　{空|そら}の{彼方|かなた}",
+      "{横浜|よこはま}に{輝|かがや}く　{大砲|たいほう}",
+      "かっ{飛|と}ばせ　ホームラン",
+      "GO！GO！{筒香|つつごう}！"
+    ],
+    "playerName": "筒香 嘉智",
+    "playerNumber": "25",
+    "isCommon": false
+  },
+  {
+    "id": "individual-mitsumori",
+    "title": "三森 大貴",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{誇|ほこ}らしきひと{振|ふ}りは",
+      "{努力|どりょく}の{証|あかし}",
+      "{揺|ゆ}るがぬ{志|こころざし}で",
+      "{今|いま}{突|つ}き{進|すす}め",
+      "かっとばせー！{三森|みもり}！"
+    ],
+    "playerName": "三森 大貴",
+    "playerNumber": "31",
+    "isCommon": false
+  },
+  {
+    "id": "individual-shibata",
+    "title": "柴田 竜拓",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{狙|ねら}い{澄|す}ました　ミートと",
+      "{巧|たく}みな　グラブ{捌|さば}きは",
+      "{努力|どりょく}という　かけらの",
+      "{結晶|けっしょう}の　{証|あかし}だ",
+      "かっとばせー！{柴田|しばた}！"
+    ],
+    "playerName": "柴田 竜拓",
+    "playerNumber": "36",
+    "isCommon": false
+  },
+  {
+    "id": "individual-yamamoto",
+    "title": "山本 祐大",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{期待|きたい}を{背負|せお}い",
+      "{頂|いただ}き{目指|めざ}し",
+      "ハマの{未来|みらい}を{担|にな}え",
+      "{山本|やまもと}{祐大|ゆうだい}",
+      "かっとばせー！{祐大|ゆうだい}！"
+    ],
+    "playerName": "山本 祐大",
+    "playerNumber": "50",
+    "isCommon": false
+  },
+  {
+    "id": "individual-miyazaki",
+    "title": "宮﨑 敏郎",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "さあ{振|ふ}り{抜|ぬ}け{宮﨑|みやざき}　{気迫|きはく}あふれるパワーで",
+      "{夢|ゆめ}{描|えが}け{鮮|あざ}やかに　{空|そら}{高|たか}く",
+      "かっとばせー！{宮﨑|みやざき}！"
+    ],
+    "playerName": "宮﨑 敏郎",
+    "playerNumber": "51",
+    "isCommon": false
+  },
+  {
+    "id": "individual-kajiwara",
+    "title": "梶原 昂希",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{颯爽|さっそう}と{駆|か}けろ　{蒼|あお}く{湧|わ}く{横浜|よこはま}の",
+      "{突|つ}き{進|すす}め{勝利|しょうり}への{道|みち}　{星|ほし}をつかめ",
+      "（かっとばせー　{梶原|かじわら}！）"
+    ],
+    "playerName": "梶原 昂希",
+    "playerNumber": "58",
+    "url": "https://www.youtube.com/watch?v=tGT4DbSmqhE",
+    "isCommon": false
+  },
+  {
+    "id": "individual-sekine",
+    "title": "関根 大気",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "うちに{秘|ひ}めた{想|おも}い",
+      "{一打|いちだ}に{懸|か}けろ",
+      "{走|はし}り{出|だ}す　その{先|さき}には",
+      "{大気|たいき}の{夢|ゆめ}がある",
+      "かっとばせー！{関根|せきね}！"
+    ],
+    "playerName": "関根 大気",
+    "playerNumber": "56",
+    "isCommon": false
+  },
+  {
+    "id": "individual-ishigami",
+    "title": "石上 泰輝",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{今|いま}その{一打|いちだ}に　{勝|か}ちへの{想|おも}い{込|こ}め",
+      "{燃|も}えさかれ{石上|いしがみ}　この{港|みなと}で",
+      "（かっとばせ　{石上|いしがみ}！）"
+    ],
+    "playerName": "石上 泰輝",
+    "playerNumber": "44",
+    "url": "https://www.youtube.com/watch?v=j7iTgVN3Y8E",
+    "isCommon": false
+  },
+  {
+    "id": "individual-ebina",
+    "title": "蝦名 達夫",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "スタンドの{期待|きたい}を{背|せ}に　{打|う}て{永遠|とわ}の{星|ほし}へ",
+      "{確信|かくしん}の{一打|いちだ}を　{魅|み}せてくれ",
+      "（かっとばせ　{蝦名|えびな}！）"
+    ],
+    "playerName": "蝦名 達夫",
+    "playerNumber": "61",
+    "url": "https://www.youtube.com/watch?v=mKOSHiCIAb0",
+    "isCommon": false
+  },
+  {
+    "id": "individual-hummel",
+    "title": "C.ヒュンメル",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{打|う}て{打|う}て{打|う}て{打|う}て　{一発|いっぱつ}クーパー",
+      "{打|う}て{打|う}て{打|う}て{打|う}て　{勝利|しょうり}を{目指|めざ}せ",
+      "（Go Go クーパー！）"
+    ],
+    "playerName": "C.ヒュンメル",
+    "playerNumber": "99",
+    "url": "https://www.youtube.com/watch?v=LaTDXXO18UI",
+    "isCommon": false
+  }
+]

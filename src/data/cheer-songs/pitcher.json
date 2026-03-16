@@ -1,0 +1,62 @@
+[
+  {
+    "id": "common-right-pitcher",
+    "title": "右投手共通応援歌",
+    "category": "right_pitcher",
+    "year": 2026,
+    "lyrics": [
+      "たたかうぞ {闘志|とうし}みなぎらせて",
+      "{力|ちから}の{限|かぎ}り {投|な}げろ {{name}}",
+      "{三振|さんしん}の{山|やま}を{築|きず}いてゆけ",
+      "ゆけゆけそれゆけ {{name}}"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      { "name": "東 克樹", "callName": "カツキ", "number": "11" },
+      { "name": "伊勢 大夢", "callName": "ヒロム", "number": "13" },
+      { "name": "石田 健大", "callName": "ケンタ", "number": "14" },
+      { "name": "山﨑 康晃", "callName": "ヤスアキ", "number": "19" },
+      { "name": "佐々木 千隼", "callName": "チハヤ", "number": "41" },
+      { "name": "中川 颯", "callName": "ハヤテ", "number": "53" },
+      { "name": "石田 裕太郎", "callName": "ユウタロウ", "number": "54" }
+    ]
+  },
+  {
+    "id": "common-left-pitcher",
+    "title": "左投手共通応援歌",
+    "category": "left_pitcher",
+    "year": 2026,
+    "lyrics": [
+      "{左腕|ひだりうで}がうなれば",
+      "{嵐|あらし}を{呼|よ}ぶぜ {{name}}",
+      "{渾身|こんしん}の{一球|いっきゅう}で",
+      "{打者|だしゃ}をねじ{伏|ふ}せろ"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      { "name": "坂本 裕哉", "callName": "ユウヤ", "number": "20" },
+      { "name": "武田 陸玖", "callName": "タケダリク", "number": "33" }
+    ]
+  },
+  {
+    "id": "common-foreign-pitcher",
+    "title": "外国人投手共通応援歌",
+    "category": "foreign_pitcher",
+    "year": 2026,
+    "lyrics": [
+      "オイ！オイ！",
+      "{{name}} {{name}} {{name}}",
+      "{気迫|きはく}の{投球|とうきゅう}",
+      "オイ！オイ！",
+      "{{name}} {{name}} {{name}}",
+      "{勝利|しょうり}をつかめ"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      { "name": "H.マルセリーノ", "callName": "ハンセル", "number": "98" }
+    ]
+  }
+]

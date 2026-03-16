@@ -43,6 +43,12 @@ const features = [
     href: `/number-count/${maxYear}`,
     icon: "🔢",
   },
+  {
+    title: "応援歌",
+    description: "選手の応援歌の歌詞を閲覧（ふりがな付き）",
+    href: `/cheer-songs/${maxYear}`,
+    icon: "🎵",
+  },
 ];
 
 export default function Home() {
