@@ -13,13 +13,41 @@
     "namePlaceholder": "{{name}}",
     "isCommon": true,
     "applicablePlayers": [
-      { "name": "東 克樹", "callName": "カツキ", "number": "11" },
-      { "name": "伊勢 大夢", "callName": "ヒロム", "number": "13" },
-      { "name": "石田 健大", "callName": "ケンタ", "number": "14" },
-      { "name": "山﨑 康晃", "callName": "ヤスアキ", "number": "19" },
-      { "name": "佐々木 千隼", "callName": "チハヤ", "number": "41" },
-      { "name": "中川 颯", "callName": "ハヤテ", "number": "53" },
-      { "name": "石田 裕太郎", "callName": "ユウタロウ", "number": "54" }
+      {
+        "name": "東 克樹",
+        "callName": "カツキ",
+        "number": "11"
+      },
+      {
+        "name": "伊勢 大夢",
+        "callName": "ヒロム",
+        "number": "13"
+      },
+      {
+        "name": "石田 健大",
+        "callName": "ケンタ",
+        "number": "14"
+      },
+      {
+        "name": "山﨑 康晃",
+        "callName": "ヤスアキ",
+        "number": "19"
+      },
+      {
+        "name": "佐々木 千隼",
+        "callName": "チハヤ",
+        "number": "41"
+      },
+      {
+        "name": "中川 颯",
+        "callName": "ハヤテ",
+        "number": "53"
+      },
+      {
+        "name": "石田 裕太郎",
+        "callName": "ユウタロウ",
+        "number": "54"
+      }
     ]
   },
   {
@@ -36,8 +64,16 @@
     "namePlaceholder": "{{name}}",
     "isCommon": true,
     "applicablePlayers": [
-      { "name": "坂本 裕哉", "callName": "ユウヤ", "number": "20" },
-      { "name": "武田 陸玖", "callName": "タケダリク", "number": "33" }
+      {
+        "name": "坂本 裕哉",
+        "callName": "ユウヤ",
+        "number": "20"
+      },
+      {
+        "name": "武田 陸玖",
+        "callName": "タケダリク",
+        "number": "33"
+      }
     ]
   },
   {
@@ -56,7 +92,11 @@
     "namePlaceholder": "{{name}}",
     "isCommon": true,
     "applicablePlayers": [
-      { "name": "H.マルセリーノ", "callName": "ハンセル", "number": "98" }
+      {
+        "name": "H.マルセリーノ",
+        "callName": "ハンセル",
+        "number": "98"
+      }
     ]
   },
   {
@@ -72,13 +112,41 @@
     "namePlaceholder": "{{name}}",
     "isCommon": true,
     "applicablePlayers": [
-      { "name": "東 克樹", "callName": "カツキ", "number": "11" },
-      { "name": "伊勢 大夢", "callName": "ヒロム", "number": "13" },
-      { "name": "石田 健大", "callName": "ケンタ", "number": "14" },
-      { "name": "山﨑 康晃", "callName": "ヤスアキ", "number": "19" },
-      { "name": "佐々木 千隼", "callName": "チハヤ", "number": "41" },
-      { "name": "中川 颯", "callName": "ハヤテ", "number": "53" },
-      { "name": "石田 裕太郎", "callName": "ユウタロウ", "number": "54" }
+      {
+        "name": "東 克樹",
+        "callName": "カツキ",
+        "number": "11"
+      },
+      {
+        "name": "伊勢 大夢",
+        "callName": "ヒロム",
+        "number": "13"
+      },
+      {
+        "name": "石田 健大",
+        "callName": "ケンタ",
+        "number": "14"
+      },
+      {
+        "name": "山﨑 康晃",
+        "callName": "ヤスアキ",
+        "number": "19"
+      },
+      {
+        "name": "佐々木 千隼",
+        "callName": "チハヤ",
+        "number": "41"
+      },
+      {
+        "name": "中川 颯",
+        "callName": "ハヤテ",
+        "number": "53"
+      },
+      {
+        "name": "石田 裕太郎",
+        "callName": "ユウタロウ",
+        "number": "54"
+      }
     ]
   },
   {
@@ -94,7 +162,11 @@
     "namePlaceholder": "{{name}}",
     "isCommon": true,
     "applicablePlayers": [
-      { "name": "坂本 裕哉", "callName": "ユウヤ", "number": "20" }
+      {
+        "name": "坂本 裕哉",
+        "callName": "ユウヤ",
+        "number": "20"
+      }
     ]
   },
   {
@@ -111,9 +183,21 @@
     "namePlaceholder": "{{name}}",
     "isCommon": true,
     "applicablePlayers": [
-      { "name": "森 唯斗", "callName": "モリユイト", "number": "38" },
-      { "name": "A.ケイ", "callName": "エーケー", "number": "69" },
-      { "name": "H.マルセリーノ", "callName": "ハンセル", "number": "107" }
+      {
+        "name": "森 唯斗",
+        "callName": "モリユイト",
+        "number": "38"
+      },
+      {
+        "name": "A.ケイ",
+        "callName": "エーケー",
+        "number": "69"
+      },
+      {
+        "name": "H.マルセリーノ",
+        "callName": "ハンセル",
+        "number": "107"
+      }
     ]
   },
   {
@@ -129,17 +213,61 @@
     "namePlaceholder": "{{name}}",
     "isCommon": true,
     "applicablePlayers": [
-      { "name": "東 克樹", "callName": "カツキ", "number": "11" },
-      { "name": "伊勢 大夢", "callName": "ヒロム", "number": "13" },
-      { "name": "石田 健大", "callName": "ケンタ", "number": "14" },
-      { "name": "山﨑 康晃", "callName": "ヤスアキ", "number": "19" },
-      { "name": "坂本 裕哉", "callName": "ユウヤ", "number": "20" },
-      { "name": "濵口 遥大", "callName": "ハルヒロ", "number": "26" },
-      { "name": "三浦 銀二", "callName": "ギンジ", "number": "30" },
-      { "name": "佐々木 千隼", "callName": "チハヤ", "number": "41" },
-      { "name": "石川 達也", "callName": "タツヤ", "number": "46" },
-      { "name": "中川 颯", "callName": "ハヤテ", "number": "53" },
-      { "name": "石田 裕太郎", "callName": "ユウタロウ", "number": "54" }
+      {
+        "name": "東 克樹",
+        "callName": "カツキ",
+        "number": "11"
+      },
+      {
+        "name": "伊勢 大夢",
+        "callName": "ヒロム",
+        "number": "13"
+      },
+      {
+        "name": "石田 健大",
+        "callName": "ケンタ",
+        "number": "14"
+      },
+      {
+        "name": "山﨑 康晃",
+        "callName": "ヤスアキ",
+        "number": "19"
+      },
+      {
+        "name": "坂本 裕哉",
+        "callName": "ユウヤ",
+        "number": "20"
+      },
+      {
+        "name": "濵口 遥大",
+        "callName": "ハルヒロ",
+        "number": "26"
+      },
+      {
+        "name": "三浦 銀二",
+        "callName": "ギンジ",
+        "number": "30"
+      },
+      {
+        "name": "佐々木 千隼",
+        "callName": "チハヤ",
+        "number": "41"
+      },
+      {
+        "name": "石川 達也",
+        "callName": "タツヤ",
+        "number": "46"
+      },
+      {
+        "name": "中川 颯",
+        "callName": "ハヤテ",
+        "number": "53"
+      },
+      {
+        "name": "石田 裕太郎",
+        "callName": "ユウタロウ",
+        "number": "54"
+      }
     ]
   },
   {
@@ -170,10 +298,142 @@
     "namePlaceholder": "{{name}}",
     "isCommon": true,
     "applicablePlayers": [
-      { "name": "J.B.ウェンデルケン", "callName": "ジェイビー", "number": "49" },
-      { "name": "A.ケイ", "callName": "エーケー", "number": "69" },
-      { "name": "森 唯斗", "callName": "モリユイト", "number": "38" },
-      { "name": "H.マルセリーノ", "callName": "ハンセル", "number": "107" }
+      {
+        "name": "J.B.ウェンデルケン",
+        "callName": "ジェイビー",
+        "number": "49"
+      },
+      {
+        "name": "A.ケイ",
+        "callName": "エーケー",
+        "number": "69"
+      },
+      {
+        "name": "森 唯斗",
+        "callName": "モリユイト",
+        "number": "38"
+      },
+      {
+        "name": "H.マルセリーノ",
+        "callName": "ハンセル",
+        "number": "107"
+      }
+    ]
+  },
+  {
+    "id": "common-right-pitcher-2023",
+    "title": "右投手共通応援歌",
+    "category": "right_pitcher",
+    "year": 2023,
+    "lyrics": [
+      "たたかうぞ　{闘志|とうし}みなぎらせて",
+      "{勝利|しょうり}の{海|うみ}　ゆくぞベイスターズ",
+      "かっとばせー　{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      {
+        "name": "東 克樹",
+        "callName": "カツキ",
+        "number": "11"
+      },
+      {
+        "name": "伊勢 大夢",
+        "callName": "ヒロム",
+        "number": "13"
+      },
+      {
+        "name": "石田 健大",
+        "callName": "ケンタ",
+        "number": "14"
+      },
+      {
+        "name": "山﨑 康晃",
+        "callName": "ヤスアキ",
+        "number": "19"
+      },
+      {
+        "name": "坂本 裕哉",
+        "callName": "ユウヤ",
+        "number": "20"
+      },
+      {
+        "name": "今永 昇太",
+        "callName": "ショウタ",
+        "number": "21"
+      },
+      {
+        "name": "濵口 遥大",
+        "callName": "ハルヒロ",
+        "number": "26"
+      },
+      {
+        "name": "三浦 銀二",
+        "callName": "ギンジ",
+        "number": "30"
+      }
+    ]
+  },
+  {
+    "id": "common-left-pitcher-2023",
+    "title": "先発投手のテーマ",
+    "category": "left_pitcher",
+    "year": 2023,
+    "lyrics": [
+      "{左腕|さわん}がうなれば　{狙|ねら}いははずさない",
+      "ピンポイントの{技|わざ}　{攻|せ}めて{攻|せ}めろ{{name}}！",
+      "かっとばせー　{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      {
+        "name": "櫻井 周斗",
+        "callName": "シュウト",
+        "number": "41"
+      },
+      {
+        "name": "田中 健二朗",
+        "callName": "ケンジロウ",
+        "number": "46"
+      }
+    ]
+  },
+  {
+    "id": "common-foreign-pitcher-2023",
+    "title": "外国人投手共通応援歌",
+    "category": "foreign_pitcher",
+    "year": 2023,
+    "lyrics": [
+      "オイ！オイ！",
+      "{{name}} {{name}}",
+      "オイ！オイ！オイオイ",
+      "ゴー！ゴー！{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      {
+        "name": "J.B.ウェンデルケン",
+        "callName": "ジェイビー",
+        "number": "49"
+      },
+      {
+        "name": "E.エスコバー",
+        "callName": "エスコバー",
+        "number": "62"
+      },
+      {
+        "name": "H.マルセリーノ",
+        "callName": "ハンセル",
+        "number": "107"
+      },
+      {
+        "name": "Y.ディアス",
+        "callName": "ディアス",
+        "number": "109"
+      }
     ]
   }
 ]
