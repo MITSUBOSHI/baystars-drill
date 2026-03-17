@@ -47,45 +47,69 @@ export default function CheerSongViewer({ songs }: CheerSongViewerProps) {
   const filteredSongs = filterByTab(songs, activeTab);
 
   return (
-    <VStack gap={4} w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
-      <HStack justify="space-between" w="100%" flexWrap="wrap" gap={3}>
-        <HStack gap={1}>
-          {tabs.map((tab) => (
-            <Box
-              key={tab.key}
-              as="button"
-              px={4}
-              py={2}
-              borderRadius="md"
-              fontWeight={activeTab === tab.key ? "bold" : "normal"}
-              bg={activeTab === tab.key ? "surface.brand" : "transparent"}
-              color={activeTab === tab.key ? "white" : "text.secondary"}
-              borderWidth="1px"
-              borderColor={
-                activeTab === tab.key ? "border.brand" : "border.card"
-              }
-              cursor="pointer"
-              transition="all 0.2s"
-              _hover={{
-                borderColor: "interactive.primary",
-              }}
-              onClick={() => setActiveTab(tab.key)}
+    <VStack gap={4} w="100%">
+      <Box
+        position="sticky"
+        top={0}
+        zIndex={10}
+        bg="surface.card"
+        w="100%"
+        py={3}
+        borderBottomWidth="1px"
+        borderColor="border.card"
+      >
+        <VStack gap={3} w="100%">
+          <Box
+            w="100%"
+            overflowX="auto"
+            css={{
+              WebkitOverflowScrolling: "touch",
+              scrollbarWidth: "none",
+              "&::-webkit-scrollbar": { display: "none" },
+            }}
+          >
+            <HStack gap={2} minW="max-content">
+              {tabs.map((tab) => (
+                <Box
+                  key={tab.key}
+                  as="button"
+                  px={4}
+                  py={3}
+                  borderRadius="md"
+                  fontWeight={activeTab === tab.key ? "bold" : "normal"}
+                  bg={activeTab === tab.key ? "surface.brand" : "transparent"}
+                  color={activeTab === tab.key ? "white" : "text.secondary"}
+                  borderWidth="1px"
+                  borderColor={
+                    activeTab === tab.key ? "border.brand" : "border.card"
+                  }
+                  cursor="pointer"
+                  transition="all 0.2s"
+                  whiteSpace="nowrap"
+                  _hover={{
+                    borderColor: "interactive.primary",
+                  }}
+                  onClick={() => setActiveTab(tab.key)}
+                >
+                  <Text fontSize="sm">{tab.label}</Text>
+                </Box>
+              ))}
+            </HStack>
+          </Box>
+
+          <HStack justify="flex-end" w="100%">
+            <Switch
+              checked={showRuby}
+              onCheckedChange={(e) => setShowRuby(e.checked)}
+              colorPalette="blue"
             >
-              <Text fontSize="sm">{tab.label}</Text>
-            </Box>
-          ))}
-        </HStack>
+              ふりがなをつける
+            </Switch>
+          </HStack>
+        </VStack>
+      </Box>
 
-        <Switch
-          checked={showRuby}
-          onCheckedChange={(e) => setShowRuby(e.checked)}
-          colorPalette="blue"
-        >
-          ふりがなをつける
-        </Switch>
-      </HStack>
-
-      <VStack gap={3} w="100%">
+      <VStack gap={4} w="100%">
         {filteredSongs.map((song) => (
           <CheerSongCard key={song.id} song={song} showRuby={showRuby} />
         ))}

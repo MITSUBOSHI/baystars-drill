@@ -10,7 +10,7 @@ export default function LyricLine({ line, showRuby }: LyricLineProps) {
   const segments = parseLyricLine(line);
 
   return (
-    <Text fontSize="lg" lineHeight="2.2">
+    <Text fontSize={{ base: "md", md: "lg" }} lineHeight={showRuby ? "1.9" : "1.6"}>
       {segments.map((segment, i) => {
         if (segment.type === "text") {
           return <span key={i}>{segment.content}</span>;

@@ -14,3 +14,8 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+rt {
+  font-size: 0.4em;
+  line-height: 1;
+}

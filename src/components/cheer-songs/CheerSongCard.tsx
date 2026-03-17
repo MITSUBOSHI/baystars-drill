@@ -48,6 +48,7 @@ export default function CheerSongCard({
 
   return (
     <Box
+      w="100%"
       borderWidth="1px"
       borderRadius="lg"
       borderColor="border.card"

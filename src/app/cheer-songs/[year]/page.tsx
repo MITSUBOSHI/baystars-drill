@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Year } from "@/types/Player";
-import { Heading, VStack, Text } from "@chakra-ui/react";
+import { Heading, VStack, Text, Box } from "@chakra-ui/react";
 import YearSelector from "@/components/common/YearSelector";
 import CheerSongViewer from "@/components/cheer-songs/CheerSongViewer";
 import { cheerSongsByYear, cheerSongYears } from "@/lib/cheerSongs";
@@ -38,13 +38,15 @@ export default async function Page({
         baseUrl="/cheer-songs"
         years={cheerSongYears}
       />
-      {songs.length > 0 ? (
-        <CheerSongViewer songs={songs} />
-      ) : (
-        <Text color="text.secondary" fontSize="lg">
-          {currentYear}年の応援歌データはまだありません。
-        </Text>
-      )}
+      <Box w="100%" maxW={{ base: "100%", md: "800px" }} mx="auto" px={4}>
+        {songs.length > 0 ? (
+          <CheerSongViewer songs={songs} />
+        ) : (
+          <Text color="text.secondary" fontSize="lg">
+            {currentYear}年の応援歌データはまだありません。
+          </Text>
+        )}
+      </Box>
     </VStack>
   );
 }
