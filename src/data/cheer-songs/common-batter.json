@@ -54,5 +54,61 @@
     ],
     "namePlaceholder": "{{name}}",
     "isCommon": true
+  },
+  {
+    "id": "common-pinch-hitter-2025",
+    "title": "代打のテーマ",
+    "category": "pinch_hitter",
+    "year": 2025,
+    "lyrics": [
+      "{港|みなと}{男|おとこ}は{誰|だれ}も　みんな",
+      "{答|こた}えが{出|だ}せるさ　{Go Go Let's Go！|ゴーゴーレッツゴー！}",
+      "かっとばせー　{{name}}！",
+      "（※2コーラス{目|め}から{各|かく}{応援歌|おうえんか}へ）"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true
+  },
+  {
+    "id": "common-catcher-2025",
+    "title": "捕手のテーマ",
+    "category": "catcher",
+    "year": 2025,
+    "lyrics": [
+      "（※{代打|だいだ}での{打席|だせき}では{使用|しよう}しません）",
+      "いざ{進|すす}め　その{手|て}で{舵|かじ}をとれ",
+      "{幾多|いくた}の{試練|しれん} {乗|の}り{越|こ}え　{戦|たたか}え{{name}}！",
+      "かっとばせー　{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true
+  },
+  {
+    "id": "common-right-batter-2025",
+    "title": "その他の右打者",
+    "category": "right_batter",
+    "year": 2025,
+    "lyrics": [
+      "ここで{一発|いっぱつ}{{name}}！",
+      "ここで{一発|いっぱつ}{{name}}！",
+      "ライトへレフトへホームラン",
+      "それゆけ それゆけ それゆけ{{name}}！",
+      "かっとばせー　{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true
+  },
+  {
+    "id": "common-left-batter-2025",
+    "title": "その他の左打者",
+    "category": "left_batter",
+    "year": 2025,
+    "lyrics": [
+      "{出|で}た{出|で}たついに　{必殺|ひっさつ}バットマン",
+      "{白|しろ}い{弾丸|だんがん}{打|う}ち{込|こ}んで　ガッツポーズだ",
+      "かっとばせー　{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true
   }
 ]

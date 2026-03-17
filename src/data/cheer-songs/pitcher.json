@@ -58,5 +58,62 @@
     "applicablePlayers": [
       { "name": "H.マルセリーノ", "callName": "ハンセル", "number": "98" }
     ]
+  },
+  {
+    "id": "common-right-pitcher-2025",
+    "title": "右投手共通応援歌",
+    "category": "right_pitcher",
+    "year": 2025,
+    "lyrics": [
+      "たたかうぞ　{闘志|とうし}みなぎらせて",
+      "{勝利|しょうり}の{海|うみ}　ゆくぞベイスターズ",
+      "かっとばせー　{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      { "name": "東 克樹", "callName": "カツキ", "number": "11" },
+      { "name": "伊勢 大夢", "callName": "ヒロム", "number": "13" },
+      { "name": "石田 健大", "callName": "ケンタ", "number": "14" },
+      { "name": "山﨑 康晃", "callName": "ヤスアキ", "number": "19" },
+      { "name": "佐々木 千隼", "callName": "チハヤ", "number": "41" },
+      { "name": "中川 颯", "callName": "ハヤテ", "number": "53" },
+      { "name": "石田 裕太郎", "callName": "ユウタロウ", "number": "54" }
+    ]
+  },
+  {
+    "id": "common-left-pitcher-2025",
+    "title": "左投手共通応援歌",
+    "category": "left_pitcher",
+    "year": 2025,
+    "lyrics": [
+      "{左腕|さわん}がうなれば　{狙|ねら}いははずさない",
+      "ピンポイントの{技|わざ}　{攻|せ}めて{攻|せ}めろ{{name}}！",
+      "かっとばせー　{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      { "name": "坂本 裕哉", "callName": "ユウヤ", "number": "20" }
+    ]
+  },
+  {
+    "id": "common-foreign-pitcher-2025",
+    "title": "外国人投手共通応援歌",
+    "category": "foreign_pitcher",
+    "year": 2025,
+    "lyrics": [
+      "オイ！オイ！",
+      "{{name}} {{name}}",
+      "オイ！オイ！オイオイ",
+      "ゴー！ゴー！{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "applicablePlayers": [
+      { "name": "森 唯斗", "callName": "モリユイト", "number": "38" },
+      { "name": "A.ケイ", "callName": "エーケー", "number": "69" },
+      { "name": "H.マルセリーノ", "callName": "ハンセル", "number": "107" }
+    ]
   }
 ]
