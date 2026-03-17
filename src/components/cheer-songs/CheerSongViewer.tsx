@@ -51,7 +51,7 @@ export default function CheerSongViewer({ songs }: CheerSongViewerProps) {
       <Box
         position="sticky"
         top={0}
-        zIndex={10}
+        zIndex={5}
         bg="surface.card"
         w="100%"
         py={3}
