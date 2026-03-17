@@ -24,8 +24,11 @@ test.describe("背番号計算ドリル", () => {
     await page.goto("/number-drill/2026");
 
     const input = page.getByTestId("number-input");
-    await input.fill("999");
-    await page.getByRole("button", { name: "解答する" }).click();
+    await input.click();
+    await input.pressSequentially("999");
+    const answerBtn = page.getByRole("button", { name: "解答する" });
+    await expect(answerBtn).toBeEnabled();
+    await answerBtn.click();
 
     // 結果が表示される（Next.js route announcer も alert ロールを持つため filter で絞る）
     const result = page.getByRole("alert").filter({ hasText: /正解/ });
@@ -40,8 +43,12 @@ test.describe("背番号計算ドリル", () => {
     await page.goto("/number-drill/2026");
 
     // 解答する
-    await page.getByTestId("number-input").fill("1");
-    await page.getByRole("button", { name: "解答する" }).click();
+    const input = page.getByTestId("number-input");
+    await input.click();
+    await input.pressSequentially("1");
+    const answerBtn = page.getByRole("button", { name: "解答する" });
+    await expect(answerBtn).toBeEnabled();
+    await answerBtn.click();
     const result = page.getByRole("alert").filter({ hasText: /正解/ });
     await expect(result).toBeVisible();
 
