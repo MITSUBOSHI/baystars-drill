@@ -20,16 +20,19 @@ type CheerSongCardProps = {
   selectedPlayerName?: string;
 };
 
-const categoryLabel: Record<string, string> = {
-  right_pitcher: "右投手共通",
-  left_pitcher: "左投手共通",
-  foreign_pitcher: "外国人投手共通",
-  individual_batter: "野手個人",
-  pinch_hitter: "代打",
-  catcher: "捕手",
-  right_batter: "右打者共通",
-  left_batter: "左打者共通",
-  manager: "監督",
+const categoryLabel: Record<string, { text: string; kana: string }> = {
+  right_pitcher: { text: "右投手共通", kana: "みぎとうしゅきょうつう" },
+  left_pitcher: { text: "左投手共通", kana: "ひだりとうしゅきょうつう" },
+  foreign_pitcher: {
+    text: "外国人投手共通",
+    kana: "がいこくじんとうしゅきょうつう",
+  },
+  individual_batter: { text: "野手個人", kana: "やしゅこじん" },
+  pinch_hitter: { text: "代打", kana: "だいだ" },
+  catcher: { text: "捕手", kana: "ほしゅ" },
+  right_batter: { text: "右打者共通", kana: "みぎだしゃきょうつう" },
+  left_batter: { text: "左打者共通", kana: "ひだりだしゃきょうつう" },
+  manager: { text: "監督", kana: "かんとく" },
 };
 
 export default function CheerSongCard({
@@ -70,12 +73,40 @@ export default function CheerSongCard({
                   #{song.playerNumber}
                 </Text>
               )}
-              {song.title}
+              {showRuby && song.playerNameKana ? (
+                <>
+                  {song.title.split(/\s+/).map((part, i, arr) => {
+                    const kanaWords = song.playerNameKana!.split(/\s+/);
+                    return (
+                      <span key={i}>
+                        <ruby>
+                          {part}
+                          <rt style={{ fontSize: "0.6em", lineHeight: 1 }}>
+                            {kanaWords[i] || ""}
+                          </rt>
+                        </ruby>
+                        {i < arr.length - 1 ? " " : ""}
+                      </span>
+                    );
+                  })}
+                </>
+              ) : (
+                song.title
+              )}
             </Heading>
           </VStack>
           <HStack gap={2}>
             <Badge colorPalette="blue" variant="subtle">
-              {categoryLabel[song.category] || song.category}
+              {showRuby && categoryLabel[song.category] ? (
+                <ruby>
+                  {categoryLabel[song.category].text}
+                  <rt style={{ fontSize: "0.6em", lineHeight: 1 }}>
+                    {categoryLabel[song.category].kana}
+                  </rt>
+                </ruby>
+              ) : (
+                categoryLabel[song.category]?.text || song.category
+              )}
             </Badge>
             <Text
               fontSize="xl"

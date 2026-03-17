@@ -4,6 +4,7 @@ import { Heading, VStack, Text, Box } from "@chakra-ui/react";
 import YearSelector from "@/components/common/YearSelector";
 import CheerSongViewer from "@/components/cheer-songs/CheerSongViewer";
 import { cheerSongsByYear, cheerSongYears } from "@/lib/cheerSongs";
+import { playersByYear } from "@/lib/players";
 
 export async function generateMetadata({
   params,
@@ -28,7 +29,16 @@ export default async function Page({
 }) {
   const { year } = await params;
   const currentYear = Number(year) as Year;
-  const songs = cheerSongsByYear(currentYear);
+  const players = playersByYear(currentYear);
+  const songs = cheerSongsByYear(currentYear).map((song) => {
+    if (song.playerNumber) {
+      const player = players.find((p) => p.number_disp === song.playerNumber);
+      if (player) {
+        return { ...song, playerNameKana: player.name_kana };
+      }
+    }
+    return song;
+  });
 
   return (
     <VStack justify={"center"} w="100%" gap={6} py={4}>

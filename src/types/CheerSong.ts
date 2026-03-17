@@ -22,6 +22,7 @@ export type CheerSongType = {
   year: number;
   lyrics: string[];
   playerName?: string;
+  playerNameKana?: string;
   playerNumber?: string;
   namePlaceholder?: string;
   applicablePlayers?: ApplicablePlayer[];
