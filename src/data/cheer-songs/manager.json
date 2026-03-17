@@ -42,5 +42,19 @@
     "playerName": "三浦 大輔",
     "playerNumber": "81",
     "isCommon": false
+  },
+  {
+    "id": "manager-miura-2024",
+    "title": "三浦 大輔 監督",
+    "category": "manager",
+    "year": 2024,
+    "lyrics": [
+      "Go!　Go!　Let's　Go　{跳|は}ねろマウンド　{三振|さんしん}{奪取|だっしゅ}",
+      "{決|き}まってるぜ　リーゼント　{勝利|しょうり}だ{三浦|みうら}",
+      "{絶対|ぜったい}{勝|か}つぞ！　ベイスターズ"
+    ],
+    "playerName": "三浦 大輔",
+    "playerNumber": "81",
+    "isCommon": false
   }
 ]
