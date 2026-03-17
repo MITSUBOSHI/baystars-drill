@@ -19,6 +19,7 @@ test.describe("トップページ", () => {
       { name: "スタメン作成", href: "/lineup-maker/2026" },
       { name: "ユニフォームビュー", href: "/uniform-view/2026" },
       { name: "背番号タイマー", href: "/number-count/2026" },
+      { name: "応援歌", href: "/cheer-songs/2026" },
     ];
 
     for (const feature of features) {
