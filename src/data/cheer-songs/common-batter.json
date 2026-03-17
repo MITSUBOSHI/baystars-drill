@@ -25,7 +25,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=o6PvKMRpwbg"
   },
   {
     "id": "common-right-batter",
@@ -81,7 +82,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=o6PvKMRpwbg"
   },
   {
     "id": "common-right-batter-2025",
@@ -137,7 +139,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=o6PvKMRpwbg"
   },
   {
     "id": "common-right-batter-2024",
@@ -193,7 +196,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=o6PvKMRpwbg"
   },
   {
     "id": "common-right-batter-2023",
