@@ -99,5 +99,20 @@
     "lyrics": [],
     "isCommon": false,
     "url": "https://www.youtube.com/watch?v=HuRcdR75GSI"
+  },
+  {
+    "id": "anthem-bay-blue",
+    "title": "Bay Blue Anthem",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [
+      "オオオオー",
+      "オオオオー",
+      "オオオオー",
+      "オオオオー",
+      "ヨコハマー"
+    ],
+    "isCommon": false,
+    "url": "https://www.youtube.com/shorts/0EwUqvfWod8"
   }
 ]
