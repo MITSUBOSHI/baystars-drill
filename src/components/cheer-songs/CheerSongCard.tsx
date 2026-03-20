@@ -48,6 +48,7 @@ export default function CheerSongCard({
   selectedPlayerName,
 }: CheerSongCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
 
   const displayName =
     selectedPlayerName && song.namePlaceholder ? selectedPlayerName : undefined;
@@ -164,25 +165,44 @@ export default function CheerSongCard({
           </VStack>
           {song.url && (() => {
             const videoId = extractYouTubeVideoId(song.url);
-            return videoId ? (
-              <Box mt={3} position="relative" w="100%" pt="56.25%">
-                <iframe
-                  src={`https://www.youtube.com/embed/${videoId}`}
-                  title={`${song.title} 応援歌`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    border: "none",
-                    borderRadius: "8px",
-                  }}
-                />
-              </Box>
-            ) : null;
+            if (!videoId) return null;
+            return (
+              <>
+                <Box
+                  as="button"
+                  mt={3}
+                  display="inline-flex"
+                  alignItems="center"
+                  gap={1}
+                  color="interactive.primary"
+                  fontSize="sm"
+                  cursor="pointer"
+                  _hover={{ textDecoration: "underline" }}
+                  onClick={() => setShowVideo(!showVideo)}
+                >
+                  {showVideo ? "▲ 動画を閉じる" : "▶ 動画を見る"}
+                </Box>
+                {showVideo && (
+                  <Box mt={2} position="relative" w="100%" pt="56.25%">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${videoId}`}
+                      title={`${song.title} 応援歌`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        border: "none",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </Box>
+                )}
+              </>
+            );
           })()}
         </Box>
       )}
