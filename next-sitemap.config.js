@@ -5,7 +5,7 @@ module.exports = {
   sitemapSize: 7000,
   autoLastmod: false,
   generateIndexSitemap: false,
-  outDir: './public', // routingの問題回避のためout dirではなくpublic dirに出力する
+  outDir: './out',
   robotsTxtOptions: {
     policies: [
       {
