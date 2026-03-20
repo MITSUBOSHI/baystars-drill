@@ -96,7 +96,12 @@
     "title": "チャンステーマ: 押せ！押せ！ヨコハマ",
     "category": "chance",
     "year": 2026,
-    "lyrics": [],
+    "lyrics": [
+      "{押|お}せ{押|お}せヨコハマ",
+      "{押|お}せ{押|お}せヨコハマ",
+      "オイ！オイ！オイ！",
+      "{押|お}せ {押|お}せ ヨコハマ"
+    ],
     "isCommon": false,
     "url": "https://www.youtube.com/watch?v=7T0JkIzqMVk"
   },
