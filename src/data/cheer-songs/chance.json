@@ -40,9 +40,16 @@
     "title": "チャンステーマ2",
     "category": "chance",
     "year": 2026,
-    "lyrics": [],
-    "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=A9uU1Op9rIs"
+    "lyrics": [
+      "Let's Go! ×4{回|かい}",
+      "{打|う}て！{打|う}て！{{name}} ×2{回|かい}",
+      "",
+      "{{name}}！{{name}}！",
+      "かっとばせー！{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "url": "https://www.youtube.com/shorts/ePf-nPYnpTk"
   },
   {
     "id": "chance-sememakure",
