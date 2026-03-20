@@ -6,7 +6,13 @@ import { Switch } from "@/components/ui/switch";
 import { CheerSongType } from "@/types/CheerSong";
 import CheerSongCard from "./CheerSongCard";
 
-type CategoryTab = "pitcher" | "individual" | "other" | "manager" | "chance" | "anthem";
+type CategoryTab =
+  | "pitcher"
+  | "individual"
+  | "other"
+  | "manager"
+  | "chance"
+  | "anthem";
 
 const tabs: { key: CategoryTab; label: string }[] = [
   { key: "pitcher", label: "投手共通" },
