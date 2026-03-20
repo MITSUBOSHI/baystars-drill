@@ -8,7 +8,8 @@ export type SongCategory =
   | "right_batter"
   | "left_batter"
   | "manager"
-  | "anthem";
+  | "anthem"
+  | "chance";
 
 export type ApplicablePlayer = {
   name: string;
@@ -18,6 +19,7 @@ export type ApplicablePlayer = {
 
 export type YouTubeUrl =
   | `https://www.youtube.com/watch?v=${string}`
+  | `https://www.youtube.com/shorts/${string}`
   | `https://youtu.be/${string}`;
 
 export type CheerSongType = {

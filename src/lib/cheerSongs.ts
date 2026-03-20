@@ -3,6 +3,7 @@ import individualBatterSongs from "@/data/cheer-songs/individual-batter.json";
 import commonBatterSongs from "@/data/cheer-songs/common-batter.json";
 import managerSongs from "@/data/cheer-songs/manager.json";
 import anthemSongs from "@/data/cheer-songs/anthem.json";
+import chanceSongs from "@/data/cheer-songs/chance.json";
 import { CheerSongType } from "@/types/CheerSong";
 
 const allSongs: CheerSongType[] = [
@@ -10,6 +11,7 @@ const allSongs: CheerSongType[] = [
   ...(individualBatterSongs as CheerSongType[]),
   ...(commonBatterSongs as CheerSongType[]),
   ...(managerSongs as CheerSongType[]),
+  ...(chanceSongs as CheerSongType[]),
   ...(anthemSongs as CheerSongType[]),
 ];
 

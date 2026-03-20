@@ -1,0 +1,65 @@
+[
+  {
+    "id": "chance-theme-0",
+    "title": "チャンステーマ0",
+    "category": "chance",
+    "year": 2026,
+    "lyrics": [
+      "オイ！オイ！オイ！{{name}}",
+      "ララララ〜さぁ{燃|も}え{上|あ}がれ",
+      "{我|われ}らの {期待|きたい}のせて",
+      "",
+      "オーオオオー",
+      "オーオーオー {今|いま}",
+      "{鋭|するど}く{放|はな}て この{一打|いちだ}",
+      "オイ！オイ！オイ！{{name}}"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "url": "https://www.youtube.com/shorts/PaVWpSRr6ps"
+  },
+  {
+    "id": "chance-theme-1",
+    "title": "チャンステーマ1",
+    "category": "chance",
+    "year": 2026,
+    "lyrics": [
+      "オー（メロディに{合|あ}わせて）",
+      "Let's Go Baystars!",
+      "オイ！オイ！Get the chance! ×2{回|かい}",
+      "",
+      "Let's Go Baystars!",
+      "オイ！オイ！そーれいけいけ{{name}}！{{name}}！{{name}}！"
+    ],
+    "namePlaceholder": "{{name}}",
+    "isCommon": true,
+    "url": "https://www.youtube.com/shorts/ZOYl63ssEdI"
+  },
+  {
+    "id": "chance-theme-2",
+    "title": "チャンステーマ2",
+    "category": "chance",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=A9uU1Op9rIs"
+  },
+  {
+    "id": "chance-sememakure",
+    "title": "チャンステーマ: 攻めまくれ",
+    "category": "chance",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=326HFjJernc"
+  },
+  {
+    "id": "chance-fight-oh",
+    "title": "チャンステーマ: Fight oh! YOKOHAMA",
+    "category": "chance",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=Mv-1DLIR-PQ"
+  }
+]

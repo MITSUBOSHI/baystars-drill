@@ -83,15 +83,6 @@
     "url": "https://www.youtube.com/watch?v=7T0JkIzqMVk"
   },
   {
-    "id": "anthem-chance-theme-2",
-    "title": "チャンステーマ2",
-    "category": "anthem",
-    "year": 2026,
-    "lyrics": [],
-    "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=A9uU1Op9rIs"
-  },
-  {
     "id": "anthem-fourball",
     "title": "フォアボールのテーマ",
     "category": "anthem",
@@ -108,23 +99,5 @@
     "lyrics": [],
     "isCommon": false,
     "url": "https://www.youtube.com/watch?v=HuRcdR75GSI"
-  },
-  {
-    "id": "anthem-chance-sememakure",
-    "title": "チャンステーマ: 攻めまくれ",
-    "category": "anthem",
-    "year": 2026,
-    "lyrics": [],
-    "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=326HFjJernc"
-  },
-  {
-    "id": "anthem-chance-fight-oh",
-    "title": "チャンステーマ: Fight oh! YOKOHAMA",
-    "category": "anthem",
-    "year": 2026,
-    "lyrics": [],
-    "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=Mv-1DLIR-PQ"
   }
 ]

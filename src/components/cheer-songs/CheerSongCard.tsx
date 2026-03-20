@@ -16,6 +16,8 @@ import LyricLine from "./LyricLine";
 function extractYouTubeVideoId(url: YouTubeUrl): string | null {
   const longMatch = url.match(/[?&]v=([^&]+)/);
   if (longMatch) return longMatch[1];
+  const shortsMatch = url.match(/youtube\.com\/shorts\/([^?&]+)/);
+  if (shortsMatch) return shortsMatch[1];
   const shortMatch = url.match(/youtu\.be\/([^?&]+)/);
   if (shortMatch) return shortMatch[1];
   return null;
@@ -41,6 +43,7 @@ const categoryLabel: Record<string, { text: string; kana: string }> = {
   left_batter: { text: "左打者共通", kana: "ひだりだしゃきょうつう" },
   manager: { text: "監督", kana: "かんとく" },
   anthem: { text: "球団歌", kana: "きゅうだんか" },
+  chance: { text: "チャンステーマ", kana: "ちゃんすてーま" },
 };
 
 export default function CheerSongCard({
