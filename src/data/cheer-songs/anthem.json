@@ -103,22 +103,14 @@
     "title": "勝利のファンファーレ",
     "category": "anthem",
     "year": 2026,
-    "lyrics": [],
-    "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=HuRcdR75GSI"
-  },
-  {
-    "id": "anthem-yokohama-fanfare",
-    "title": "横浜のファンファーレ",
-    "category": "anthem",
-    "year": 2026,
     "lyrics": [
       "※{横浜|よこはま}{市歌|しか}の{一部|いちぶ}",
       "",
       "されば{港|みなと}の{数多|かずおお}かれど",
       "この{横浜|よこはま}にまさるあらめや"
     ],
-    "isCommon": false
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=HuRcdR75GSI"
   },
   {
     "id": "anthem-bay-blue",
