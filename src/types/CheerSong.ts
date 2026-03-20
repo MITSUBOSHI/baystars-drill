@@ -15,6 +15,10 @@ export type ApplicablePlayer = {
   number: string;
 };
 
+export type YouTubeUrl =
+  | `https://www.youtube.com/watch?v=${string}`
+  | `https://youtu.be/${string}`;
+
 export type CheerSongType = {
   id: string;
   title: string;
@@ -26,6 +30,6 @@ export type CheerSongType = {
   playerNumber?: string;
   namePlaceholder?: string;
   applicablePlayers?: ApplicablePlayer[];
-  url?: string;
+  url?: YouTubeUrl;
   isCommon: boolean;
 };
