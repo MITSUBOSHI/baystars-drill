@@ -3,7 +3,6 @@
     "id": "chance-theme-0",
     "title": "チャンステーマ0",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "オイ！オイ！オイ！{{name}}",
       "ララララ〜さぁ{燃|も}え{上|あ}がれ",
@@ -22,7 +21,6 @@
     "id": "chance-theme-1",
     "title": "チャンステーマ1",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "オー（メロディに{合|あ}わせて）",
       "Let's Go Baystars!",
@@ -39,7 +37,6 @@
     "id": "chance-theme-2",
     "title": "チャンステーマ2",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "Let's Go! ×4{回|かい}",
       "{打|う}て！{打|う}て！{{name}} ×2{回|かい}",
@@ -55,7 +52,6 @@
     "id": "chance-theme-3",
     "title": "チャンステーマ3",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "わっしょい！わっしょい！ ×3{回|かい}"
     ],
@@ -66,7 +62,6 @@
     "id": "chance-theme-4",
     "title": "チャンステーマ4",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "Hey! Hey! Hey!",
       "{勝|か}つぞ！{横浜|よこはま}！{倒|たお}せ！{{opponent}}！"
@@ -78,7 +73,6 @@
     "id": "chance-rising",
     "title": "チャンステーマ: ライジング",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "オイ！ ×{複数回|ふくすうかい}",
       "{熱|あつ}く！{熱|あつ}く！{熱|あつ}く！{立|た}ち{上|あ}がれ！",
@@ -95,7 +89,6 @@
     "id": "chance-ose-ose",
     "title": "チャンステーマ: 押せ！押せ！ヨコハマ",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "{押|お}せ{押|お}せヨコハマ",
       "{押|お}せ{押|お}せヨコハマ",
@@ -109,7 +102,6 @@
     "id": "chance-sememakure",
     "title": "チャンステーマ: 攻めまくれ",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "ララララー　ラー　ララララーラー　ララララ〜",
       "",
@@ -126,7 +118,6 @@
     "id": "chance-fight-oh",
     "title": "チャンステーマ: Fight oh! YOKOHAMA",
     "category": "chance",
-    "year": 2026,
     "lyrics": [
       "Fight oh！YOKOHAMA",
       "",

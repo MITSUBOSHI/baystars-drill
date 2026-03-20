@@ -16,13 +16,9 @@ const allSongs: CheerSongType[] = [
 ];
 
 export const cheerSongYears: number[] = [
-  ...new Set(allSongs.map((s) => s.year)),
+  ...new Set(allSongs.map((s) => s.year).filter((y): y is number => y != null)),
 ].sort((a, b) => a - b);
 
-const yearIndependentCategories: string[] = ["chance", "anthem"];
-
 export function cheerSongsByYear(year: number): CheerSongType[] {
-  return allSongs.filter(
-    (s) => s.year === year || yearIndependentCategories.includes(s.category),
-  );
+  return allSongs.filter((s) => s.year === year || s.year == null);
 }

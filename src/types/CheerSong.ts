@@ -26,7 +26,7 @@ export type CheerSongType = {
   id: string;
   title: string;
   category: SongCategory;
-  year: number;
+  year?: number;
   lyrics: string[];
   playerName?: string;
   playerNameKana?: string;
