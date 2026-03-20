@@ -41,7 +41,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=GyekeRtJt_k"
   },
   {
     "id": "common-left-batter",
@@ -54,7 +55,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=xvrnle0r4lA"
   },
   {
     "id": "common-pinch-hitter-2025",
@@ -98,7 +100,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=GyekeRtJt_k"
   },
   {
     "id": "common-left-batter-2025",
@@ -111,7 +114,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=xvrnle0r4lA"
   },
   {
     "id": "common-pinch-hitter-2024",
@@ -155,7 +159,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=GyekeRtJt_k"
   },
   {
     "id": "common-left-batter-2024",
@@ -168,7 +173,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=xvrnle0r4lA"
   },
   {
     "id": "common-pinch-hitter-2023",
@@ -212,7 +218,8 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=GyekeRtJt_k"
   },
   {
     "id": "common-left-batter-2023",
@@ -225,6 +232,7 @@
       "かっとばせー　{{name}}！"
     ],
     "namePlaceholder": "{{name}}",
-    "isCommon": true
+    "isCommon": true,
+    "url": "https://www.youtube.com/watch?v=xvrnle0r4lA"
   }
 ]

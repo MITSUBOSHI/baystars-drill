@@ -53,5 +53,78 @@
     ],
     "isCommon": false,
     "url": "https://www.youtube.com/watch?v=9z2lXnWHquw"
+  },
+  {
+    "id": "anthem-we-can",
+    "title": "We can!",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [
+      "ヨ！コ！ハ！マ！ We can do it！×{複数回|ふくすうかい}",
+      "（ヨ！コ！ハ！マ！）{一回|いっかい}のみ",
+      "オオオオオオオオー オオオオー オオオオー オオオオー",
+      "{心|こころ}{燃|も}やせ！＊＊＊＊ ヨコハマ！",
+      "オーオオオオーオオオオー",
+      "オーオオオオーオオオオー",
+      "{想|おも}いは{一|ひと}つ",
+      "＊＊＊＊ ヨコハマ！＊＊＊ ×3{回|かい}",
+      "た！た！か！え！　ヨコハマ！"
+    ],
+    "isCommon": false,
+    "url": "https://youtu.be/Zlo6bFxmCjg?si=MstcsVMvyqjc1CNX"
+  },
+  {
+    "id": "anthem-ose-ose",
+    "title": "押せ！押せ！ヨコハマ",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=7T0JkIzqMVk"
+  },
+  {
+    "id": "anthem-chance-theme-2",
+    "title": "チャンステーマ2",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=A9uU1Op9rIs"
+  },
+  {
+    "id": "anthem-fourball",
+    "title": "フォアボールのテーマ",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=MeazanUqzYo"
+  },
+  {
+    "id": "anthem-victory-fanfare",
+    "title": "勝利のファンファーレ",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=HuRcdR75GSI"
+  },
+  {
+    "id": "anthem-chance-sememakure",
+    "title": "チャンステーマ: 攻めまくれ",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=326HFjJernc"
+  },
+  {
+    "id": "anthem-chance-fight-oh",
+    "title": "チャンステーマ: Fight oh! YOKOHAMA",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [],
+    "isCommon": false,
+    "url": "https://www.youtube.com/watch?v=Mv-1DLIR-PQ"
   }
 ]
