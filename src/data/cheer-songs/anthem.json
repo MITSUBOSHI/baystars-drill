@@ -87,7 +87,14 @@
     "title": "フォアボールのテーマ",
     "category": "anthem",
     "year": 2026,
-    "lyrics": [],
+    "lyrics": [
+      "※{横浜|よこはま}{市歌|しか}の{一部|いちぶ}",
+      "",
+      "わが{日|ひ}の{本|もと}は{島国|しまぐに}よ",
+      "{朝日|あさひ}かがよう{海|うみ}に",
+      "{連|つら}なりそばだつ{島々|しまじま}なれば",
+      "あらゆる{国|くに}より{舟|ふね}こそ{通|かよ}え"
+    ],
     "isCommon": false,
     "url": "https://www.youtube.com/watch?v=MeazanUqzYo"
   },
@@ -99,6 +106,19 @@
     "lyrics": [],
     "isCommon": false,
     "url": "https://www.youtube.com/watch?v=HuRcdR75GSI"
+  },
+  {
+    "id": "anthem-yokohama-fanfare",
+    "title": "横浜のファンファーレ",
+    "category": "anthem",
+    "year": 2026,
+    "lyrics": [
+      "※{横浜|よこはま}{市歌|しか}の{一部|いちぶ}",
+      "",
+      "されば{港|みなと}の{数多|かずおお}かれど",
+      "この{横浜|よこはま}にまさるあらめや"
+    ],
+    "isCommon": false
   },
   {
     "id": "anthem-bay-blue",
