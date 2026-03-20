@@ -6,13 +6,14 @@ import { Switch } from "@/components/ui/switch";
 import { CheerSongType } from "@/types/CheerSong";
 import CheerSongCard from "./CheerSongCard";
 
-type CategoryTab = "pitcher" | "individual" | "other" | "manager";
+type CategoryTab = "pitcher" | "individual" | "other" | "manager" | "anthem";
 
 const tabs: { key: CategoryTab; label: string }[] = [
   { key: "pitcher", label: "投手共通" },
   { key: "individual", label: "野手個人" },
   { key: "other", label: "その他共通" },
   { key: "manager", label: "監督" },
+  { key: "anthem", label: "球団歌" },
 ];
 
 function filterByTab(songs: CheerSongType[], tab: CategoryTab) {
@@ -33,6 +34,8 @@ function filterByTab(songs: CheerSongType[], tab: CategoryTab) {
       );
     case "manager":
       return songs.filter((s) => s.category === "manager");
+    case "anthem":
+      return songs.filter((s) => s.category === "anthem");
   }
 }
 

@@ -7,7 +7,8 @@ export type SongCategory =
   | "catcher"
   | "right_batter"
   | "left_batter"
-  | "manager";
+  | "manager"
+  | "anthem";
 
 export type ApplicablePlayer = {
   name: string;

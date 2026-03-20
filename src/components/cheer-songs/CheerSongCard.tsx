@@ -40,6 +40,7 @@ const categoryLabel: Record<string, { text: string; kana: string }> = {
   right_batter: { text: "右打者共通", kana: "みぎだしゃきょうつう" },
   left_batter: { text: "左打者共通", kana: "ひだりだしゃきょうつう" },
   manager: { text: "監督", kana: "かんとく" },
+  anthem: { text: "球団歌", kana: "きゅうだんか" },
 };
 
 export default function CheerSongCard({
