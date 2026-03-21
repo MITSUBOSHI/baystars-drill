@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { VStack, HStack, Text, Box } from "@chakra-ui/react";
-import { Switch } from "@/components/ui/switch";
 import { CheerSongType } from "@/types/CheerSong";
+import { useFurigana } from "@/contexts/FuriganaContext";
 import CheerSongCard from "./CheerSongCard";
 
 type CategoryTab =
@@ -22,6 +23,20 @@ const tabs: { key: CategoryTab; label: string }[] = [
   { key: "chance", label: "チャンステーマ" },
   { key: "anthem", label: "球団歌" },
 ];
+
+const categoryToTab: Record<string, CategoryTab> = {
+  right_pitcher: "pitcher",
+  left_pitcher: "pitcher",
+  foreign_pitcher: "pitcher",
+  individual_batter: "individual",
+  pinch_hitter: "other",
+  catcher: "other",
+  right_batter: "other",
+  left_batter: "other",
+  manager: "manager",
+  chance: "chance",
+  anthem: "anthem",
+};
 
 function filterByTab(songs: CheerSongType[], tab: CategoryTab) {
   switch (tab) {
@@ -50,11 +65,40 @@ function filterByTab(songs: CheerSongType[], tab: CategoryTab) {
 
 type CheerSongViewerProps = {
   songs: CheerSongType[];
+  year: number;
 };
 
-export default function CheerSongViewer({ songs }: CheerSongViewerProps) {
-  const [showRuby, setShowRuby] = useState(false);
-  const [activeTab, setActiveTab] = useState<CategoryTab>("pitcher");
+export default function CheerSongViewer({ songs, year }: CheerSongViewerProps) {
+  const { furigana: showRuby } = useFurigana();
+  const searchParams = useSearchParams();
+  const numberParam = searchParams.get("number");
+
+  // number パラメータに該当する曲を検索
+  const targetSong = numberParam
+    ? songs.find(
+        (s) =>
+          s.playerNumber === numberParam ||
+          s.applicablePlayers?.some((p) => p.number === numberParam),
+      )
+    : null;
+
+  const initialTab = targetSong
+    ? categoryToTab[targetSong.category] ?? "pitcher"
+    : "pitcher";
+
+  const [activeTab, setActiveTab] = useState<CategoryTab>(initialTab);
+
+  // number パラメータの曲にスクロール
+  useEffect(() => {
+    if (!targetSong) return;
+    const elementId = `song-${targetSong.id}`;
+    // レンダリング後にスクロール
+    const timer = setTimeout(() => {
+      const el = document.getElementById(elementId);
+      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [targetSong]);
 
   const filteredSongs = filterByTab(songs, activeTab);
 
@@ -80,16 +124,24 @@ export default function CheerSongViewer({ songs }: CheerSongViewerProps) {
               "&::-webkit-scrollbar": { display: "none" },
             }}
           >
-            <HStack gap={2} minW="max-content">
+            <HStack gap={2} minW="max-content" role="tablist" aria-label="応援歌カテゴリ">
               {tabs.map((tab) => (
                 <Box
                   key={tab.key}
                   as="button"
+                  role="tab"
+                  id={`tab-${tab.key}`}
+                  aria-selected={activeTab === tab.key}
+                  aria-controls={`tabpanel-${tab.key}`}
                   px={4}
                   py={3}
                   borderRadius="md"
                   fontWeight={activeTab === tab.key ? "bold" : "normal"}
-                  bg={activeTab === tab.key ? "surface.brand" : "transparent"}
+                  bg={
+                    activeTab === tab.key
+                      ? "interactive.primary"
+                      : "transparent"
+                  }
                   color={activeTab === tab.key ? "white" : "text.secondary"}
                   borderWidth="1px"
                   borderColor={
@@ -108,22 +160,25 @@ export default function CheerSongViewer({ songs }: CheerSongViewerProps) {
               ))}
             </HStack>
           </Box>
-
-          <HStack justify="flex-end" w="100%">
-            <Switch
-              checked={showRuby}
-              onCheckedChange={(e) => setShowRuby(e.checked)}
-              colorPalette="blue"
-            >
-              ふりがなをつける
-            </Switch>
-          </HStack>
         </VStack>
       </Box>
 
-      <VStack gap={4} w="100%">
+      <VStack
+        gap={4}
+        w="100%"
+        role="tabpanel"
+        id={`tabpanel-${activeTab}`}
+        aria-labelledby={`tab-${activeTab}`}
+      >
         {filteredSongs.map((song) => (
-          <CheerSongCard key={song.id} song={song} showRuby={showRuby} />
+          <CheerSongCard
+            key={song.id}
+            id={`song-${song.id}`}
+            song={song}
+            showRuby={showRuby}
+            defaultOpen={targetSong?.id === song.id}
+            year={year}
+          />
         ))}
       </VStack>
     </VStack>

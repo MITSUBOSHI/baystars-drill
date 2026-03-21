@@ -1,7 +1,19 @@
 "use client";
 
-import { Box, Heading, Text, VStack, HStack, Badge } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Badge,
+  IconButton,
+} from "@chakra-ui/react";
 import { useState } from "react";
+import Link from "next/link";
+import { sendGAEvent } from "@next/third-parties/google";
+import { GiClothes } from "react-icons/gi";
+import { FiBook } from "react-icons/fi";
 import { CheerSongType, YouTubeUrl } from "@/types/CheerSong";
 import { replaceNamePlaceholder } from "@/lib/rubyParser";
 import LyricLine from "./LyricLine";
@@ -20,6 +32,9 @@ type CheerSongCardProps = {
   song: CheerSongType;
   showRuby: boolean;
   selectedPlayerName?: string;
+  defaultOpen?: boolean;
+  id?: string;
+  year?: number;
 };
 
 const categoryLabel: Record<string, { text: string; kana: string }> = {
@@ -43,8 +58,11 @@ export default function CheerSongCard({
   song,
   showRuby,
   selectedPlayerName,
+  defaultOpen = false,
+  id,
+  year,
 }: CheerSongCardProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
   const [showVideo, setShowVideo] = useState(false);
 
   const displayName =
@@ -56,6 +74,7 @@ export default function CheerSongCard({
 
   return (
     <Box
+      id={id}
       w="100%"
       borderWidth="1px"
       borderRadius="lg"
@@ -66,7 +85,17 @@ export default function CheerSongCard({
       <Box
         p={4}
         cursor="pointer"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          const next = !isOpen;
+          setIsOpen(next);
+          if (next) {
+            sendGAEvent("event", "cheer_song_open", {
+              song_title: song.title,
+              category: song.category,
+              player_number: song.playerNumber ?? "",
+            });
+          }
+        }}
         _hover={{ bg: "surface.card.subtle" }}
         transition="background 0.2s"
       >
@@ -160,6 +189,36 @@ export default function CheerSongCard({
               <LyricLine key={i} line={line} showRuby={showRuby} />
             ))}
           </VStack>
+          {year && song.playerNumber && (
+            <HStack mt={3} gap={1}>
+              <Link
+                href={`/uniform-view/${year}?number=${song.playerNumber}`}
+                title="ユニフォームを見る"
+              >
+                <IconButton
+                  aria-label={`${song.title}のユニフォームを見る`}
+                  size="xs"
+                  variant="ghost"
+                  color="interactive.primary"
+                >
+                  <GiClothes />
+                </IconButton>
+              </Link>
+              <Link
+                href={`/player-directory/${year}`}
+                title="選手名鑑を見る"
+              >
+                <IconButton
+                  aria-label="選手名鑑を見る"
+                  size="xs"
+                  variant="ghost"
+                  color="interactive.primary"
+                >
+                  <FiBook />
+                </IconButton>
+              </Link>
+            </HStack>
+          )}
           {song.url &&
             (() => {
               const videoId = extractYouTubeVideoId(song.url);
@@ -176,7 +235,16 @@ export default function CheerSongCard({
                     fontSize="sm"
                     cursor="pointer"
                     _hover={{ textDecoration: "underline" }}
-                    onClick={() => setShowVideo(!showVideo)}
+                    onClick={() => {
+                      const next = !showVideo;
+                      setShowVideo(next);
+                      if (next) {
+                        sendGAEvent("event", "cheer_song_video_play", {
+                          song_title: song.title,
+                          player_number: song.playerNumber ?? "",
+                        });
+                      }
+                    }}
                   >
                     {showVideo ? "▲ 動画を閉じる" : "▶ 動画を見る"}
                   </Box>
