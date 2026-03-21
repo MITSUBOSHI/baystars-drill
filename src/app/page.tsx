@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   Heading,
@@ -8,48 +10,40 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import Logo from "./baystars_drill.png";
-import { registeredYears } from "@/constants/player";
+import { navItems } from "@/constants/navigation";
+import Ruby from "@/components/common/Ruby";
 
-const maxYear = Math.max(...registeredYears);
-
-const features = [
-  {
-    title: "選手名鑑",
+const descriptionMap: Record<string, { description: string; descReading: string }> = {
+  "選手名鑑": {
     description: "背番号・選手情報を一覧で確認",
-    href: `/player-directory/${maxYear}`,
-    icon: "📖",
+    descReading: "せばんごう・せんしゅじょうほうをいちらんでかくにん",
   },
-  {
-    title: "背番号計算ドリル",
+  "背番号計算ドリル": {
     description: "背番号を使った計算問題に挑戦",
-    href: `/number-drill/${maxYear}`,
-    icon: "🖋",
+    descReading: "せばんごうをつかったけいさんもんだいにちょうせん",
   },
-  {
-    title: "スタメン作成",
+  "スタメン作成": {
     description: "オリジナルのスタメンを組み立てよう",
-    href: `/lineup-maker/${maxYear}`,
-    icon: "⚾",
+    descReading: "おりじなるのすためんをくみたてよう",
   },
-  {
-    title: "ユニフォームビュー",
+  "ユニフォームビュー": {
     description: "ユニフォーム背面の選手名と背番号を表示",
-    href: `/uniform-view/${maxYear}`,
-    icon: "👕",
+    descReading: "ゆにふぉーむはいめんのせんしゅめいとせばんごうをひょうじ",
   },
-  {
-    title: "背番号タイマー",
+  "背番号タイマー": {
     description: "秒数を選手名で読み上げてカウント",
-    href: `/number-count/${maxYear}`,
-    icon: "🔢",
+    descReading: "びょうすうをせんしゅめいでよみあげてかうんと",
   },
-  {
-    title: "応援歌",
+  "応援歌": {
     description: "選手の応援歌の歌詞を閲覧（ふりがな付き）",
-    href: `/cheer-songs/${maxYear}`,
-    icon: "🎵",
+    descReading: "せんしゅのおうえんかのかしをえつらん（ふりがなつき）",
   },
-];
+};
+
+const features = navItems.map((item) => ({
+  ...item,
+  ...descriptionMap[item.title],
+}));
 
 export default function Home() {
   return (
@@ -58,7 +52,10 @@ export default function Home() {
       <VStack gap={2}>
         <Heading size="5xl">Baystars Drill</Heading>
         <Text color="text.secondary" fontSize="lg">
-          横浜DeNAベイスターズの背番号で遊ぼう!
+          <Ruby reading="よこはま">横浜</Ruby>DeNA
+          <Ruby reading="べいすたーず">ベイスターズ</Ruby>の
+          <Ruby reading="せばんごう">背番号</Ruby>で
+          <Ruby reading="あそ">遊</Ruby>ぼう!
         </Text>
       </VStack>
 
@@ -82,9 +79,13 @@ export default function Home() {
             >
               <VStack gap={3} align="start">
                 <Text fontSize="3xl">{feature.icon}</Text>
-                <Heading size="md">{feature.title}</Heading>
+                <Heading size="md">
+                  <Ruby reading={feature.titleReading}>{feature.title}</Ruby>
+                </Heading>
                 <Text color="text.secondary" fontSize="sm">
-                  {feature.description}
+                  <Ruby reading={feature.descReading}>
+                    {feature.description}
+                  </Ruby>
                 </Text>
               </VStack>
             </Box>
