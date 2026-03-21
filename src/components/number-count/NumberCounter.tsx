@@ -7,6 +7,8 @@ import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
 import { extractFamilyNameKana } from "@/lib/nameUtils";
 import UniformBack from "@/components/uniform-view/UniformBack";
+import { useFurigana } from "@/contexts/FuriganaContext";
+import Ruby from "@/components/common/Ruby";
 import CounterSettings from "./CounterSettings";
 
 type Props = {
@@ -22,6 +24,7 @@ type Step = {
 };
 
 export default function NumberCounter({ players }: Props) {
+  const { furigana } = useFurigana();
   const [state, setState] = useState<CountState>("idle");
   const [direction, setDirection] = useState<CountDirection>("up");
   const [intervalMs, setIntervalMs] = useState(1000);
@@ -338,11 +341,17 @@ export default function NumberCounter({ players }: Props) {
       {/* 選手情報 */}
       <Box textAlign="center" mb={4}>
         <Text fontSize="lg" fontWeight="bold" color="text.primary">
-          {displayName}
+          {furigana ? (
+            <Ruby reading={displayKana}>{displayName}</Ruby>
+          ) : (
+            displayName
+          )}
         </Text>
-        <Text fontSize="sm" color="text.secondary">
-          {displayKana}
-        </Text>
+        {!furigana && (
+          <Text fontSize="sm" color="text.secondary">
+            {displayKana}
+          </Text>
+        )}
       </Box>
 
       {/* 進捗 */}

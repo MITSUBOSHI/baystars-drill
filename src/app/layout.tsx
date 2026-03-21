@@ -32,6 +32,10 @@ export const metadata: Metadata = {
     "計算ドリル",
     "スタメン",
     "選手名鑑",
+    "応援歌",
+    "ユニフォーム",
+    "歌詞",
+    "ふりがな",
   ],
   openGraph: {
     type: "website",
@@ -40,12 +44,21 @@ export const metadata: Metadata = {
     title: "Baystars Drill",
     description:
       "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+    images: [
+      {
+        url: "/baystars_drill.png",
+        width: 512,
+        height: 512,
+        alt: "Baystars Drill Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary",
     title: "Baystars Drill",
     description:
       "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+    images: ["/baystars_drill.png"],
   },
 };
 
@@ -60,6 +73,19 @@ export default function RootLayout({
         <meta
           name="google-site-verification"
           content="vlzDVPRDmQPcycgM2kxNfnsjt5eA2wGV40ksGd7LRRI"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Baystars Drill",
+              url: siteUrl,
+              description:
+                "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+            }),
+          }}
         />
       </head>
       <GoogleAnalytics gaId={gaId} />

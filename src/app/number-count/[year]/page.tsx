@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { registeredYears } from "@/constants/player";
 import { playersByYear } from "@/lib/players";
 import { Year } from "@/types/Player";
-import { Heading, VStack, Box } from "@chakra-ui/react";
+import { VStack, Box } from "@chakra-ui/react";
 import NumberCounter from "@/components/number-count/NumberCounter";
 import YearSelector from "@/components/common/YearSelector";
+import PageTitle from "@/components/common/PageTitle";
 
 export async function generateMetadata({
   params,
@@ -33,7 +34,7 @@ export default async function Page({
 
   return (
     <VStack justify={"center"} w="100%" gap={6} py={4}>
-      <Heading size="4xl">背番号タイマー</Heading>
+      <PageTitle title="背番号タイマー" reading="せばんごうたいまー" />
       <YearSelector currentYear={currentYear} baseUrl="/number-count" />
       <Box w="100%" maxW={{ base: "100%", md: "500px" }} px={4}>
         <NumberCounter players={players} />
