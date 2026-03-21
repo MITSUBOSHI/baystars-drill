@@ -10,7 +10,12 @@ import {
   Table,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import Link from "next/link";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
+import { FiMusic } from "react-icons/fi";
+import { GiClothes } from "react-icons/gi";
+import { useFurigana } from "@/contexts/FuriganaContext";
+import Ruby from "@/components/common/Ruby";
 
 type SortOrder = "asc" | "desc" | null;
 
@@ -47,9 +52,12 @@ function sortPlayers(
 
 type Props = {
   players: PlayerType[];
+  year: number;
+  cheerSongNumbers?: Set<string>;
 };
 
-export default function PlayerTable({ players }: Props) {
+export default function PlayerTable({ players, year, cheerSongNumbers }: Props) {
+  const { furigana } = useFurigana();
   const [sortOrder, setSortOrder] = useState<SortOrder>(null);
   const [sortColumn, setSortColumn] = useState<string>("number_disp");
   const sortedPlayers = sortPlayers(players, sortOrder, sortColumn);
@@ -89,7 +97,9 @@ export default function PlayerTable({ players }: Props) {
               aria-sort={getAriaSort("number_disp")}
             >
               <HStack gap={2}>
-                <Box>背番号</Box>
+                <Box>
+                  <Ruby reading="せばんごう">背番号</Ruby>
+                </Box>
                 <IconButton
                   aria-label="背番号でソート"
                   onClick={() => handleSort("number_disp")}
@@ -101,14 +111,16 @@ export default function PlayerTable({ players }: Props) {
               </HStack>
             </Table.ColumnHeader>
             <Table.ColumnHeader width={{ base: "60%", md: "65%" }}>
-              名前
+              <Ruby reading="なまえ">名前</Ruby>
             </Table.ColumnHeader>
             <Table.ColumnHeader
               width={{ base: "20%", md: "20%" }}
               aria-sort={getAriaSort("date_of_birth")}
             >
               <HStack gap={2}>
-                <Box>生年月日</Box>
+                <Box>
+                  <Ruby reading="せいねんがっぴ">生年月日</Ruby>
+                </Box>
                 <IconButton
                   aria-label="生年月日でソート"
                   onClick={() => handleSort("date_of_birth")}
@@ -124,7 +136,9 @@ export default function PlayerTable({ players }: Props) {
               aria-sort={getAriaSort("height_cm")}
             >
               <HStack gap={2}>
-                <Box>身長</Box>
+                <Box>
+                  <Ruby reading="しんちょう">身長</Ruby>
+                </Box>
                 <IconButton
                   aria-label="身長でソート"
                   onClick={() => handleSort("height_cm")}
@@ -140,7 +154,9 @@ export default function PlayerTable({ players }: Props) {
               aria-sort={getAriaSort("weight_kg")}
             >
               <HStack gap={2}>
-                <Box>体重</Box>
+                <Box>
+                  <Ruby reading="たいじゅう">体重</Ruby>
+                </Box>
                 <IconButton
                   aria-label="体重でソート"
                   onClick={() => handleSort("weight_kg")}
@@ -151,6 +167,9 @@ export default function PlayerTable({ players }: Props) {
                 </IconButton>
               </HStack>
             </Table.ColumnHeader>
+            <Table.ColumnHeader width={{ base: "10%", md: "8%" }}>
+              リンク
+            </Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -160,6 +179,8 @@ export default function PlayerTable({ players }: Props) {
               <Table.Cell>
                 <ChakraLink
                   href={player.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   _hover={{ textDecoration: "none" }}
                 >
                   <Box
@@ -170,7 +191,13 @@ export default function PlayerTable({ players }: Props) {
                     p={2}
                     rounded="md"
                   >
-                    {player.name} ({player.name_kana})
+                    {furigana ? (
+                      <Ruby reading={player.name_kana}>{player.name}</Ruby>
+                    ) : (
+                      <>
+                        {player.name} ({player.name_kana})
+                      </>
+                    )}
                   </Box>
                 </ChakraLink>
               </Table.Cell>
@@ -180,6 +207,35 @@ export default function PlayerTable({ players }: Props) {
               </Table.Cell>
               <Table.Cell>
                 {player.weight_kg ? `${player.weight_kg}kg` : "-"}
+              </Table.Cell>
+              <Table.Cell>
+                <HStack gap={1}>
+                  <Link
+                    href={`/uniform-view/${year}?number=${player.number_disp}`}
+                    title="ユニフォームを見る"
+                  >
+                    <IconButton
+                      aria-label={`${player.name}のユニフォームを見る`}
+                      size="xs"
+                      variant="ghost"
+                      color="interactive.primary"
+                    >
+                      <GiClothes />
+                    </IconButton>
+                  </Link>
+                  {cheerSongNumbers?.has(player.number_disp) && (
+                    <Link href={`/cheer-songs/${year}?number=${player.number_disp}`} title="応援歌を見る">
+                      <IconButton
+                        aria-label={`応援歌を見る`}
+                        size="xs"
+                        variant="ghost"
+                        color="interactive.primary"
+                      >
+                        <FiMusic />
+                      </IconButton>
+                    </Link>
+                  )}
+                </HStack>
               </Table.Cell>
             </Table.Row>
           ))}

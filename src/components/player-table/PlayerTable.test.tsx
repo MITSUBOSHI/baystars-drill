@@ -46,6 +46,18 @@ jest.mock("@chakra-ui/react", () => ({
   ),
 }));
 
+jest.mock("next/link", () => {
+  const MockLink = ({
+    children,
+    href,
+  }: {
+    children: React.ReactNode;
+    href: string;
+  }) => <a href={href}>{children}</a>;
+  MockLink.displayName = "MockLink";
+  return MockLink;
+});
+
 const mockPlayers: PlayerType[] = [
   {
     name: "佐野 恵太",
@@ -88,9 +100,11 @@ const mockPlayers: PlayerType[] = [
   },
 ];
 
+const COLS = 6; // 背番号, 名前, 生年月日, 身長, 体重, リンク
+
 describe("PlayerTable", () => {
   it("renders all players correctly", () => {
-    render(<PlayerTable players={mockPlayers} />);
+    render(<PlayerTable players={mockPlayers} year={2026} />);
 
     // Check if all players are rendered
     mockPlayers.forEach((player) => {
@@ -109,110 +123,111 @@ describe("PlayerTable", () => {
     expect(screen.getByText("生年月日")).toBeInTheDocument();
     expect(screen.getByText("身長")).toBeInTheDocument();
     expect(screen.getByText("体重")).toBeInTheDocument();
+    expect(screen.getByText("リンク")).toBeInTheDocument();
   });
 
   it("should sort players by number when sort button is clicked", () => {
-    render(<PlayerTable players={mockPlayers} />);
+    render(<PlayerTable players={mockPlayers} year={2026} />);
     const sortButton = screen.getByLabelText("背番号でソート");
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
-    expect(initialCells[0]).toHaveTextContent("7");
-    expect(initialCells[5]).toHaveTextContent("2");
-    expect(initialCells[10]).toHaveTextContent("50");
+    expect(initialCells[0 * COLS]).toHaveTextContent("7");
+    expect(initialCells[1 * COLS]).toHaveTextContent("2");
+    expect(initialCells[2 * COLS]).toHaveTextContent("50");
 
     // Click sort button for ascending order
     fireEvent.click(sortButton);
     const ascCells = screen.getAllByRole("cell");
-    expect(ascCells[0]).toHaveTextContent("2");
-    expect(ascCells[5]).toHaveTextContent("7");
-    expect(ascCells[10]).toHaveTextContent("50");
+    expect(ascCells[0 * COLS]).toHaveTextContent("2");
+    expect(ascCells[1 * COLS]).toHaveTextContent("7");
+    expect(ascCells[2 * COLS]).toHaveTextContent("50");
 
     // Click sort button for descending order
     fireEvent.click(sortButton);
     const descCells = screen.getAllByRole("cell");
-    expect(descCells[0]).toHaveTextContent("50");
-    expect(descCells[5]).toHaveTextContent("7");
-    expect(descCells[10]).toHaveTextContent("2");
+    expect(descCells[0 * COLS]).toHaveTextContent("50");
+    expect(descCells[1 * COLS]).toHaveTextContent("7");
+    expect(descCells[2 * COLS]).toHaveTextContent("2");
   });
 
   it("should sort players by date_of_birth when sort button is clicked", () => {
-    render(<PlayerTable players={mockPlayers} />);
+    render(<PlayerTable players={mockPlayers} year={2026} />);
     const sortButton = screen.getByLabelText("生年月日でソート");
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
-    expect(initialCells[2]).toHaveTextContent("1994-11-28");
-    expect(initialCells[7]).toHaveTextContent("1998-04-21");
-    expect(initialCells[12]).toHaveTextContent("1998-09-11");
+    expect(initialCells[0 * COLS + 2]).toHaveTextContent("1994-11-28");
+    expect(initialCells[1 * COLS + 2]).toHaveTextContent("1998-04-21");
+    expect(initialCells[2 * COLS + 2]).toHaveTextContent("1998-09-11");
 
     // Click sort button for ascending order
     fireEvent.click(sortButton);
     const ascCells = screen.getAllByRole("cell");
-    expect(ascCells[2]).toHaveTextContent("1994-11-28");
-    expect(ascCells[7]).toHaveTextContent("1998-04-21");
-    expect(ascCells[12]).toHaveTextContent("1998-09-11");
+    expect(ascCells[0 * COLS + 2]).toHaveTextContent("1994-11-28");
+    expect(ascCells[1 * COLS + 2]).toHaveTextContent("1998-04-21");
+    expect(ascCells[2 * COLS + 2]).toHaveTextContent("1998-09-11");
 
     // Click sort button for descending order
     fireEvent.click(sortButton);
     const descCells = screen.getAllByRole("cell");
-    expect(descCells[2]).toHaveTextContent("1998-09-11");
-    expect(descCells[7]).toHaveTextContent("1998-04-21");
-    expect(descCells[12]).toHaveTextContent("1994-11-28");
+    expect(descCells[0 * COLS + 2]).toHaveTextContent("1998-09-11");
+    expect(descCells[1 * COLS + 2]).toHaveTextContent("1998-04-21");
+    expect(descCells[2 * COLS + 2]).toHaveTextContent("1994-11-28");
   });
 
   it("should sort players by height_cm when sort button is clicked", () => {
-    render(<PlayerTable players={mockPlayers} />);
+    render(<PlayerTable players={mockPlayers} year={2026} />);
     const sortButton = screen.getByLabelText("身長でソート");
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
-    expect(initialCells[3]).toHaveTextContent("178cm");
-    expect(initialCells[8]).toHaveTextContent("178cm");
-    expect(initialCells[13]).toHaveTextContent("180cm");
+    expect(initialCells[0 * COLS + 3]).toHaveTextContent("178cm");
+    expect(initialCells[1 * COLS + 3]).toHaveTextContent("178cm");
+    expect(initialCells[2 * COLS + 3]).toHaveTextContent("180cm");
 
     // Click sort button for ascending order
     fireEvent.click(sortButton);
     const ascCells = screen.getAllByRole("cell");
-    expect(ascCells[3]).toHaveTextContent("178cm");
-    expect(ascCells[8]).toHaveTextContent("178cm");
-    expect(ascCells[13]).toHaveTextContent("180cm");
+    expect(ascCells[0 * COLS + 3]).toHaveTextContent("178cm");
+    expect(ascCells[1 * COLS + 3]).toHaveTextContent("178cm");
+    expect(ascCells[2 * COLS + 3]).toHaveTextContent("180cm");
 
     // Click sort button for descending order
     fireEvent.click(sortButton);
     const descCells = screen.getAllByRole("cell");
-    expect(descCells[3]).toHaveTextContent("180cm");
-    expect(descCells[8]).toHaveTextContent("178cm");
-    expect(descCells[13]).toHaveTextContent("178cm");
+    expect(descCells[0 * COLS + 3]).toHaveTextContent("180cm");
+    expect(descCells[1 * COLS + 3]).toHaveTextContent("178cm");
+    expect(descCells[2 * COLS + 3]).toHaveTextContent("178cm");
   });
 
   it("should sort players by weight_kg when sort button is clicked", () => {
-    render(<PlayerTable players={mockPlayers} />);
+    render(<PlayerTable players={mockPlayers} year={2026} />);
     const sortButton = screen.getByLabelText("体重でソート");
 
     // Initial order check
     const initialCells = screen.getAllByRole("cell");
-    expect(initialCells[4]).toHaveTextContent("88kg");
-    expect(initialCells[9]).toHaveTextContent("97kg");
-    expect(initialCells[14]).toHaveTextContent("87kg");
+    expect(initialCells[0 * COLS + 4]).toHaveTextContent("88kg");
+    expect(initialCells[1 * COLS + 4]).toHaveTextContent("97kg");
+    expect(initialCells[2 * COLS + 4]).toHaveTextContent("87kg");
 
     // Click sort button for ascending order
     fireEvent.click(sortButton);
     const ascCells = screen.getAllByRole("cell");
-    expect(ascCells[4]).toHaveTextContent("87kg");
-    expect(ascCells[9]).toHaveTextContent("88kg");
-    expect(ascCells[14]).toHaveTextContent("97kg");
+    expect(ascCells[0 * COLS + 4]).toHaveTextContent("87kg");
+    expect(ascCells[1 * COLS + 4]).toHaveTextContent("88kg");
+    expect(ascCells[2 * COLS + 4]).toHaveTextContent("97kg");
 
     // Click sort button for descending order
     fireEvent.click(sortButton);
     const descCells = screen.getAllByRole("cell");
-    expect(descCells[4]).toHaveTextContent("97kg");
-    expect(descCells[9]).toHaveTextContent("88kg");
-    expect(descCells[14]).toHaveTextContent("87kg");
+    expect(descCells[0 * COLS + 4]).toHaveTextContent("97kg");
+    expect(descCells[1 * COLS + 4]).toHaveTextContent("88kg");
+    expect(descCells[2 * COLS + 4]).toHaveTextContent("87kg");
   });
 
   it("should render player links correctly", () => {
-    render(<PlayerTable players={mockPlayers} />);
+    render(<PlayerTable players={mockPlayers} year={2026} />);
 
     mockPlayers.forEach((player) => {
       const link = screen
