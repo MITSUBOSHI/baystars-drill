@@ -1,19 +1,32 @@
 "use client";
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Box, Text, Flex, IconButton } from "@chakra-ui/react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
-import { FiChevronLeft, FiChevronRight, FiLink, FiCheck } from "react-icons/fi";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiLink,
+  FiCheck,
+  FiMusic,
+  FiExternalLink,
+} from "react-icons/fi";
 import { Switch } from "@/components/ui/switch";
+import { useFurigana } from "@/contexts/FuriganaContext";
+import Ruby from "@/components/common/Ruby";
 import UniformBack from "./UniformBack";
 
 type Props = {
   players: PlayerType[];
+  year: number;
+  cheerSongNumbers?: Set<string>;
 };
 
-export default function UniformViewer({ players }: Props) {
+export default function UniformViewer({ players, year, cheerSongNumbers }: Props) {
+  const { furigana } = useFurigana();
   const searchParams = useSearchParams();
   const [rosterOnly, setRosterOnly] = useState(false);
   const [numberSelectValue, setNumberSelectValue] = useState("");
@@ -33,12 +46,12 @@ export default function UniformViewer({ players }: Props) {
     setCurrentIndex(0);
   }, [rosterOnly]);
 
-  const initializedRef = useRef(false);
+  const numberParam = searchParams.get("number");
+  const appliedNumberParam = useRef<string | null>(null);
   useEffect(() => {
-    if (initializedRef.current) return;
-    initializedRef.current = true;
-    const numberParam = searchParams.get("number");
-    if (numberParam && filteredPlayers.length > 0) {
+    if (!numberParam || numberParam === appliedNumberParam.current) return;
+    appliedNumberParam.current = numberParam;
+    if (filteredPlayers.length > 0) {
       const index = filteredPlayers.findIndex(
         (p) => p.number_disp === numberParam,
       );
@@ -46,7 +59,7 @@ export default function UniformViewer({ players }: Props) {
         setCurrentIndex(index);
       }
     }
-  }, [searchParams, filteredPlayers]);
+  }, [numberParam, filteredPlayers]);
 
   const currentPlayer = filteredPlayers[currentIndex];
 
@@ -138,7 +151,11 @@ export default function UniformViewer({ players }: Props) {
 
       <Box textAlign="center" mb={4}>
         <Text fontSize="lg" fontWeight="bold" color="text.primary">
-          {currentPlayer.name}
+          {furigana ? (
+            <Ruby reading={currentPlayer.name_kana}>{currentPlayer.name}</Ruby>
+          ) : (
+            currentPlayer.name
+          )}
         </Text>
         <Flex justify="center" align="center" gap={2}>
           <Flex align="center" gap={1}>
@@ -192,6 +209,41 @@ export default function UniformViewer({ players }: Props) {
               <FiLink size={16} color="#004B98" style={{ opacity: 0.6 }} />
             )}
           </button>
+          {cheerSongNumbers?.has(currentPlayer.number_disp) && (
+            <Link
+              href={`/cheer-songs/${year}?number=${currentPlayer.number_disp}`}
+              title="応援歌を見る"
+            >
+              <IconButton
+                aria-label={`${currentPlayer.name}の応援歌を見る`}
+                size="xs"
+                variant="ghost"
+                color="interactive.primary"
+              >
+                <FiMusic />
+              </IconButton>
+            </Link>
+          )}
+          {currentPlayer.url && (
+            <a
+              href={currentPlayer.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="NPB選手ページ"
+            >
+              <IconButton
+                aria-label={`${currentPlayer.name}のNPBページを開く`}
+                size="xs"
+                variant="ghost"
+                color="interactive.primary"
+                asChild
+              >
+                <span>
+                  <FiExternalLink />
+                </span>
+              </IconButton>
+            </a>
+          )}
         </Flex>
       </Box>
 
@@ -211,15 +263,27 @@ export default function UniformViewer({ players }: Props) {
           h="100%"
           align="center"
           justify="flex-start"
-          pl={1}
+          pl={2}
           onClick={handlePrev}
           aria-label="前の選手"
           role="button"
-          _hover={{ bg: "blackAlpha.50" }}
+          _hover={{ "& > .nav-arrow": { opacity: 1, bg: "blackAlpha.200" } }}
           transition="background 0.15s"
           borderRadius="md"
         >
-          <FiChevronLeft size={28} color="#004B98" opacity={0.5} />
+          <Box
+            className="nav-arrow"
+            bg="blackAlpha.100"
+            borderRadius="full"
+            p={1}
+            opacity={0.7}
+            transition="all 0.2s"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <FiChevronLeft size={32} color="#004B98" />
+          </Box>
         </Flex>
 
         {/* 右半分タップ領域 */}
@@ -231,15 +295,27 @@ export default function UniformViewer({ players }: Props) {
           h="100%"
           align="center"
           justify="flex-end"
-          pr={1}
+          pr={2}
           onClick={handleNext}
           aria-label="次の選手"
           role="button"
-          _hover={{ bg: "blackAlpha.50" }}
+          _hover={{ "& > .nav-arrow": { opacity: 1, bg: "blackAlpha.200" } }}
           transition="background 0.15s"
           borderRadius="md"
         >
-          <FiChevronRight size={28} color="#004B98" opacity={0.5} />
+          <Box
+            className="nav-arrow"
+            bg="blackAlpha.100"
+            borderRadius="full"
+            p={1}
+            opacity={0.7}
+            transition="all 0.2s"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <FiChevronRight size={32} color="#004B98" />
+          </Box>
         </Flex>
       </Box>
 

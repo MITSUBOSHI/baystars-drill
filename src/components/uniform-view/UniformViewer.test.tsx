@@ -138,25 +138,25 @@ const mockPlayers: PlayerType[] = [
 
 describe("UniformViewer", () => {
   it("renders first player sorted by number", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     expect(screen.getByText("牧 秀悟")).toBeInTheDocument();
     expect(screen.getByTestId("uniform-back")).toHaveTextContent("MAKI #2");
   });
 
   it("shows all players by default including coaches", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     expect(screen.getByText("1 / 3")).toBeInTheDocument();
   });
 
   it("filters to roster only when switch is toggled", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     const checkbox = screen.getByRole("checkbox");
     fireEvent.click(checkbox);
     expect(screen.getByText("1 / 2")).toBeInTheDocument();
   });
 
   it("navigates to next player on right arrow click", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     const nextButton = screen.getByLabelText("次の選手");
     fireEvent.click(nextButton);
     expect(screen.getByText("東 克樹")).toBeInTheDocument();
@@ -164,14 +164,14 @@ describe("UniformViewer", () => {
   });
 
   it("navigates to previous player on left arrow click", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     const prevButton = screen.getByLabelText("前の選手");
     fireEvent.click(prevButton);
     expect(screen.getByText("三浦 大輔")).toBeInTheDocument();
   });
 
   it("wraps around at the end of the list", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     const nextButton = screen.getByLabelText("次の選手");
     fireEvent.click(nextButton);
     fireEvent.click(nextButton);
@@ -180,12 +180,12 @@ describe("UniformViewer", () => {
   });
 
   it("shows empty message when no players", () => {
-    render(<UniformViewer players={[]} />);
+    render(<UniformViewer players={[]} year={2026} />);
     expect(screen.getByText("選手データがありません")).toBeInTheDocument();
   });
 
   it("displays searchable number input with current value and kana", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     const input = screen.getByLabelText("背番号を選択") as HTMLInputElement;
     expect(input.value).toBe("2");
     expect(input.getAttribute("list")).toBe("player-numbers");
@@ -193,7 +193,7 @@ describe("UniformViewer", () => {
   });
 
   it("jumps to player when number is typed into searchable input", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     const input = screen.getByLabelText("背番号を選択");
     fireEvent.change(input, { target: { value: "81" } });
     expect(screen.getByText("三浦 大輔")).toBeInTheDocument();
@@ -204,13 +204,13 @@ describe("UniformViewer", () => {
     (useSearchParams as jest.Mock).mockReturnValue(
       new URLSearchParams("number=81"),
     );
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     expect(screen.getByText("三浦 大輔")).toBeInTheDocument();
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams(""));
   });
 
   it("renders copy link button", () => {
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     expect(screen.getByLabelText("URLをコピー")).toBeInTheDocument();
     expect(screen.getByTestId("icon-link")).toBeInTheDocument();
   });
@@ -221,7 +221,7 @@ describe("UniformViewer", () => {
       clipboard: { writeText },
     });
 
-    render(<UniformViewer players={mockPlayers} />);
+    render(<UniformViewer players={mockPlayers} year={2026} />);
     fireEvent.click(screen.getByLabelText("URLをコピー"));
 
     await waitFor(() => {
