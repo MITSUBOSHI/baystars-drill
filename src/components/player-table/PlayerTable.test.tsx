@@ -3,47 +3,29 @@ import "@testing-library/jest-dom";
 import PlayerTable from "./PlayerTable";
 import { PlayerType, Role } from "@/types/Player";
 
-jest.mock("@chakra-ui/react", () => ({
-  Table: {
-    ScrollArea: ({ children }: { children: React.ReactNode }) => (
-      <div data-testid="table-scroll-area">{children}</div>
-    ),
-    Root: ({ children }: { children: React.ReactNode }) => (
-      <table>{children}</table>
-    ),
-    Header: ({ children }: { children: React.ReactNode }) => (
-      <thead>{children}</thead>
-    ),
-    Body: ({ children }: { children: React.ReactNode }) => (
-      <tbody>{children}</tbody>
-    ),
-    Row: ({ children }: { children: React.ReactNode }) => <tr>{children}</tr>,
-    Cell: ({ children }: { children: React.ReactNode }) => <td>{children}</td>,
-    ColumnHeader: ({ children }: { children: React.ReactNode }) => (
-      <th>{children}</th>
-    ),
-  },
-  Box: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  HStack: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid="hstack">{children}</div>
+jest.mock("@/contexts/FuriganaContext", () => ({
+  useFurigana: () => ({ furigana: false, setFurigana: () => {} }),
+}));
+
+jest.mock("@/components/common/Ruby", () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode; reading: string }) => (
+    <>{children}</>
   ),
-  IconButton: ({
-    children,
-    "aria-label": ariaLabel,
-    onClick,
-  }: {
-    children: React.ReactNode;
-    "aria-label": string;
-    onClick: () => void;
-  }) => (
-    <button data-testid="sort-button" aria-label={ariaLabel} onClick={onClick}>
-      {children}
-    </button>
-  ),
-  Icon: ({ as: Icon }: { as: React.ComponentType }) => <Icon />,
-  Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
-  ),
+}));
+
+jest.mock("react-icons/fa", () => ({
+  FaSort: () => <span>sort</span>,
+  FaSortUp: () => <span>sort-up</span>,
+  FaSortDown: () => <span>sort-down</span>,
+}));
+
+jest.mock("react-icons/fi", () => ({
+  FiMusic: () => <span>music</span>,
+}));
+
+jest.mock("react-icons/gi", () => ({
+  GiClothes: () => <span>clothes</span>,
 }));
 
 jest.mock("next/link", () => {

@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { registeredYears } from "@/constants/player";
 import { playersByYear } from "@/lib/players";
 import { Year } from "@/types/Player";
-import { VStack, Box } from "@chakra-ui/react";
 import LineupCreator from "@/components/lineup/LineupCreator";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
@@ -34,14 +33,14 @@ export default async function Page({
   const players = playersByYear(currentYear);
 
   return (
-    <VStack justify={"center"} w="100%" gap={6} py={4}>
+    <div className="flex flex-col items-center w-full gap-6 py-4">
       <PageTitle title="スタメン作成" reading="すためんさくせい" />
       <YearSelector currentYear={currentYear} baseUrl="/lineup-maker" />
-      <Box w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
+      <div className="w-full max-w-full md:max-w-[800px] px-4">
         <Suspense>
           <LineupCreator players={players} />
         </Suspense>
-      </Box>
-    </VStack>
+      </div>
+    </div>
   );
 }

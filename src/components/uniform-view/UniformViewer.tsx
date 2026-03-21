@@ -1,7 +1,13 @@
 "use client";
 
-import { useState, useCallback, useEffect, useMemo, useRef } from "react";
-import { Box, Text, Flex, IconButton } from "@chakra-ui/react";
+import {
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  type TouchEvent,
+} from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
@@ -25,7 +31,11 @@ type Props = {
   cheerSongNumbers?: Set<string>;
 };
 
-export default function UniformViewer({ players, year, cheerSongNumbers }: Props) {
+export default function UniformViewer({
+  players,
+  year,
+  cheerSongNumbers,
+}: Props) {
   const { furigana } = useFurigana();
   const searchParams = useSearchParams();
   const [rosterOnly, setRosterOnly] = useState(false);
@@ -123,6 +133,27 @@ export default function UniformViewer({ players, year, cheerSongNumbers }: Props
     }
   }, [currentPlayer]);
 
+  const touchStartX = useRef<number | null>(null);
+
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (e: TouchEvent) => {
+      if (touchStartX.current === null) return;
+      const diff = e.changedTouches[0].clientX - touchStartX.current;
+      const SWIPE_THRESHOLD = 50;
+      if (diff > SWIPE_THRESHOLD) {
+        handlePrev();
+      } else if (diff < -SWIPE_THRESHOLD) {
+        handleNext();
+      }
+      touchStartX.current = null;
+    },
+    [handlePrev, handleNext],
+  );
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) return;
@@ -134,12 +165,14 @@ export default function UniformViewer({ players, year, cheerSongNumbers }: Props
   }, [handlePrev, handleNext]);
 
   if (filteredPlayers.length === 0) {
-    return <Text color="text.secondary">選手データがありません</Text>;
+    return (
+      <p style={{ color: "var(--text-secondary)" }}>選手データがありません</p>
+    );
   }
 
   return (
-    <Box w="100%" maxW="400px" mx="auto" userSelect="none">
-      <Flex justify="center" align="center" gap={4} mb={4}>
+    <div className="w-full max-w-[400px] mx-auto select-none">
+      <div className="flex justify-center items-center gap-4 mb-4">
         <Switch
           checked={rosterOnly}
           onCheckedChange={(e) => setRosterOnly(e.checked)}
@@ -147,21 +180,27 @@ export default function UniformViewer({ players, year, cheerSongNumbers }: Props
         >
           支配下のみ
         </Switch>
-      </Flex>
+      </div>
 
-      <Box textAlign="center" mb={4}>
-        <Text fontSize="lg" fontWeight="bold" color="text.primary">
+      <div className="text-center mb-4">
+        <p
+          className="text-lg font-bold"
+          style={{ color: "var(--text-primary)" }}
+        >
           {furigana ? (
             <Ruby reading={currentPlayer.name_kana}>{currentPlayer.name}</Ruby>
           ) : (
             currentPlayer.name
           )}
-        </Text>
-        <Flex justify="center" align="center" gap={2}>
-          <Flex align="center" gap={1}>
-            <Text fontSize="sm" color="text.secondary">
+        </p>
+        <div className="flex justify-center items-center gap-2">
+          <div className="flex items-center gap-1">
+            <span
+              className="text-sm"
+              style={{ color: "var(--text-secondary)" }}
+            >
               No.
-            </Text>
+            </span>
             <input
               list="player-numbers"
               value={numberSelectValue}
@@ -170,15 +209,11 @@ export default function UniformViewer({ players, year, cheerSongNumbers }: Props
               onClick={() => setNumberSelectValue("")}
               onBlur={() => setNumberSelectValue(currentPlayer.number_disp)}
               aria-label="背番号を選択"
+              className="w-12 text-sm px-1 py-0.5 border rounded text-center"
               style={{
-                width: "48px",
-                fontSize: "14px",
-                padding: "1px 4px",
-                border: "1px solid var(--chakra-colors-border-card, #ccc)",
-                borderRadius: "4px",
-                background: "var(--chakra-colors-surface-card-subtle, white)",
-                color: "var(--chakra-colors-text-primary, #000)",
-                textAlign: "center",
+                borderColor: "var(--border-card)",
+                backgroundColor: "var(--surface-card-subtle)",
+                color: "var(--text-primary)",
               }}
             />
             <datalist id="player-numbers">
@@ -186,10 +221,13 @@ export default function UniformViewer({ players, year, cheerSongNumbers }: Props
                 <option key={p.number_disp} value={p.number_disp} />
               ))}
             </datalist>
-            <Text fontSize="sm" color="text.secondary">
+            <span
+              className="text-sm"
+              style={{ color: "var(--text-secondary)" }}
+            >
               / {currentPlayer.name_kana}
-            </Text>
-          </Flex>
+            </span>
+          </div>
           <button
             onClick={handleCopyLink}
             aria-label="URLをコピー"
@@ -214,14 +252,13 @@ export default function UniformViewer({ players, year, cheerSongNumbers }: Props
               href={`/cheer-songs/${year}?number=${currentPlayer.number_disp}`}
               title="応援歌を見る"
             >
-              <IconButton
+              <button
                 aria-label={`${currentPlayer.name}の応援歌を見る`}
-                size="xs"
-                variant="ghost"
-                color="interactive.primary"
+                className="p-1 rounded hover:bg-gray-100"
+                style={{ color: "var(--interactive-primary)" }}
               >
                 <FiMusic />
-              </IconButton>
+              </button>
             </Link>
           )}
           {currentPlayer.url && (
@@ -231,97 +268,60 @@ export default function UniformViewer({ players, year, cheerSongNumbers }: Props
               rel="noopener noreferrer"
               title="NPB選手ページ"
             >
-              <IconButton
+              <button
                 aria-label={`${currentPlayer.name}のNPBページを開く`}
-                size="xs"
-                variant="ghost"
-                color="interactive.primary"
-                asChild
+                className="p-1 rounded hover:bg-gray-100"
+                style={{ color: "var(--interactive-primary)" }}
               >
-                <span>
-                  <FiExternalLink />
-                </span>
-              </IconButton>
+                <FiExternalLink />
+              </button>
             </a>
           )}
-        </Flex>
-      </Box>
+        </div>
+      </div>
 
       {/* ユニフォーム + 左右タップ領域 */}
-      <Box position="relative" cursor="pointer">
+      <div
+        className="relative cursor-pointer"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <UniformBack
           uniformName={currentPlayer.uniform_name}
           numberDisp={currentPlayer.number_disp}
         />
 
         {/* 左半分タップ領域 */}
-        <Flex
-          position="absolute"
-          top="0"
-          left="0"
-          w="50%"
-          h="100%"
-          align="center"
-          justify="flex-start"
-          pl={2}
+        <div
+          className="absolute top-0 left-0 w-1/2 h-full flex items-center justify-start pl-2 rounded-md group"
           onClick={handlePrev}
           aria-label="前の選手"
           role="button"
-          _hover={{ "& > .nav-arrow": { opacity: 1, bg: "blackAlpha.200" } }}
-          transition="background 0.15s"
-          borderRadius="md"
         >
-          <Box
-            className="nav-arrow"
-            bg="blackAlpha.100"
-            borderRadius="full"
-            p={1}
-            opacity={0.7}
-            transition="all 0.2s"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
+          <div className="bg-black/10 rounded-full p-1 opacity-70 transition-all duration-200 flex items-center justify-center group-hover:opacity-100 group-hover:bg-black/20">
             <FiChevronLeft size={32} color="#004B98" />
-          </Box>
-        </Flex>
+          </div>
+        </div>
 
         {/* 右半分タップ領域 */}
-        <Flex
-          position="absolute"
-          top="0"
-          right="0"
-          w="50%"
-          h="100%"
-          align="center"
-          justify="flex-end"
-          pr={2}
+        <div
+          className="absolute top-0 right-0 w-1/2 h-full flex items-center justify-end pr-2 rounded-md group"
           onClick={handleNext}
           aria-label="次の選手"
           role="button"
-          _hover={{ "& > .nav-arrow": { opacity: 1, bg: "blackAlpha.200" } }}
-          transition="background 0.15s"
-          borderRadius="md"
         >
-          <Box
-            className="nav-arrow"
-            bg="blackAlpha.100"
-            borderRadius="full"
-            p={1}
-            opacity={0.7}
-            transition="all 0.2s"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
+          <div className="bg-black/10 rounded-full p-1 opacity-70 transition-all duration-200 flex items-center justify-center group-hover:opacity-100 group-hover:bg-black/20">
             <FiChevronRight size={32} color="#004B98" />
-          </Box>
-        </Flex>
-      </Box>
+          </div>
+        </div>
+      </div>
 
-      <Text textAlign="center" mt={4} fontSize="sm" color="text.secondary">
+      <p
+        className="text-center mt-4 text-sm"
+        style={{ color: "var(--text-secondary)" }}
+      >
         {currentIndex + 1} / {filteredPlayers.length}
-      </Text>
-    </Box>
+      </p>
+    </div>
   );
 }

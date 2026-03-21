@@ -1,7 +1,5 @@
 "use client";
 
-import { Box } from "@chakra-ui/react";
-
 type UniformBackProps = {
   uniformName: string;
   numberDisp: string;
@@ -78,7 +76,7 @@ export default function UniformBack({
   clipPathId = "uniformClip",
 }: UniformBackProps) {
   return (
-    <Box position="relative" w="100%" maxW="320px" mx="auto">
+    <div className="relative w-full max-w-[320px] mx-auto">
       <svg
         viewBox="0 0 480 370"
         xmlns="http://www.w3.org/2000/svg"
@@ -172,6 +170,6 @@ export default function UniformBack({
           {numberDisp}
         </text>
       </svg>
-    </Box>
+    </div>
   );
 }

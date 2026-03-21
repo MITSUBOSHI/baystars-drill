@@ -28,56 +28,14 @@ jest.mock("@next/third-parties/google", () => ({
   sendGAEvent: jest.fn(),
 }));
 
-jest.mock("@chakra-ui/react", () => ({
-  Box: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  VStack: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  HStack: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  Text: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <span {...props}>{children}</span>,
-  Heading: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <h2 {...props}>{children}</h2>,
-  Badge: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <span {...props}>{children}</span>,
-  IconButton: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <button {...props}>{children}</button>,
+jest.mock("react-icons/fi", () => ({
+  FiSearch: () => <span>search</span>,
+  FiBook: () => <span>book</span>,
+  FiMusic: () => <span>music</span>,
+}));
+
+jest.mock("react-icons/gi", () => ({
+  GiClothes: () => <span>clothes</span>,
 }));
 
 const makeSong = (

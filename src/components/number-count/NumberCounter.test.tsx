@@ -4,71 +4,19 @@ import NumberCounter from "./NumberCounter";
 import { PlayerType, Role } from "@/types/Player";
 import { ReactNode } from "react";
 
-jest.mock("@chakra-ui/react", () => ({
-  Box: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="box" {...props}>
-      {children}
-    </div>
+jest.mock("@/contexts/FuriganaContext", () => ({
+  useFurigana: () => ({ furigana: false, setFurigana: () => {} }),
+}));
+
+jest.mock("@/components/common/Ruby", () => ({
+  __esModule: true,
+  default: ({ children }: { children: ReactNode; reading: string }) => (
+    <>{children}</>
   ),
-  Text: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <span data-testid="text" {...props}>
-      {children}
-    </span>
-  ),
-  Flex: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="flex" {...props}>
-      {children}
-    </div>
-  ),
-  VStack: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="vstack" {...props}>
-      {children}
-    </div>
-  ),
-  Button: ({
-    children,
-    onClick,
-    disabled,
-    ...props
-  }: {
-    children?: ReactNode;
-    onClick?: () => void;
-    disabled?: boolean;
-    [key: string]: unknown;
-  }) => (
-    <button onClick={onClick} disabled={disabled} {...props}>
-      {children}
-    </button>
-  ),
-  Collapsible: {
-    Root: ({ children }: { children: ReactNode }) => <div>{children}</div>,
-    Trigger: ({ children }: { children: ReactNode }) => <div>{children}</div>,
-    Content: ({ children }: { children: ReactNode }) => <div>{children}</div>,
-  },
+}));
+
+jest.mock("@next/third-parties/google", () => ({
+  sendGAEvent: jest.fn(),
 }));
 
 jest.mock("@/components/common/OptionGroup", () => ({
@@ -243,6 +191,10 @@ const mockPlayersWithZero: PlayerType[] = [
 ];
 
 describe("NumberCounter", () => {
+  const openSettings = () => {
+    fireEvent.click(screen.getByText("設定"));
+  };
+
   it("初期表示: idle状態で番号1が表示される（歯抜け）", () => {
     render(<NumberCounter players={mockPlayers} />);
     // 番号1には選手がいないのでベイスターズ表示
@@ -252,6 +204,7 @@ describe("NumberCounter", () => {
 
   it("カウント数のデフォルトは30", () => {
     render(<NumberCounter players={mockPlayers} />);
+    openSettings();
     const input = screen.getByLabelText("カウント数") as HTMLInputElement;
     expect(input.value).toBe("30");
     // 進捗: 1 / 30
@@ -279,6 +232,7 @@ describe("NumberCounter", () => {
 
   it("再生ボタンでカウント開始、音声ONなら音声が呼ばれる", () => {
     render(<NumberCounter players={mockPlayers} />);
+    openSettings();
     // デフォルトは音声OFF。ONに切り替える（2つ目のONボタンが音声用）
     const onButtons = screen.getAllByText("ON");
     act(() => {
@@ -350,6 +304,7 @@ describe("NumberCounter", () => {
 
   it("方向切替でカウントダウンに変更", () => {
     render(<NumberCounter players={mockPlayers} />);
+    openSettings();
     // デフォルトはカウントアップが選択されている
     expect(screen.getByText("カウントアップ")).toBeInTheDocument();
     // カウントダウンボタンをクリック
@@ -363,6 +318,7 @@ describe("NumberCounter", () => {
 
   it("速度選択オプションが表示される", () => {
     render(<NumberCounter players={mockPlayers} />);
+    openSettings();
     expect(screen.getByText("ゆっくり (2秒)")).toBeInTheDocument();
     expect(screen.getByText("ふつう (1秒)")).toBeInTheDocument();
     expect(screen.getByText("はやい (0.5秒)")).toBeInTheDocument();
@@ -370,6 +326,7 @@ describe("NumberCounter", () => {
 
   it("カウント数を変更すると進捗が更新される", () => {
     render(<NumberCounter players={mockPlayers} />);
+    openSettings();
     const input = screen.getByLabelText("カウント数");
     fireEvent.change(input, { target: { value: "10" } });
     expect(screen.getByText("1 / 10")).toBeInTheDocument();
@@ -380,6 +337,7 @@ describe("NumberCounter", () => {
     // デフォルトは番号1から
     expect(screen.getByTestId("uniform-back")).toHaveTextContent("BAYSTARS #1");
 
+    openSettings();
     // 「0を含める」のONボタンをクリック（最初のONボタン）
     const onButtons = screen.getAllByText("ON");
     act(() => {
@@ -409,6 +367,7 @@ describe("NumberCounter", () => {
 
   it("「0を含める」ONでカウントダウン時に00→0まで到達する", () => {
     render(<NumberCounter players={mockPlayersWithZero} />);
+    openSettings();
     // 「0を含める」ON
     const onButtons = screen.getAllByText("ON");
     act(() => {

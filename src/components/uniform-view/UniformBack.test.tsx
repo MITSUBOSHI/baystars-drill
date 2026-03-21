@@ -3,20 +3,6 @@ import "@testing-library/jest-dom";
 import UniformBack from "./UniformBack";
 import { ReactNode } from "react";
 
-jest.mock("@chakra-ui/react", () => ({
-  Box: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="box" {...props}>
-      {children}
-    </div>
-  ),
-}));
-
 describe("UniformBack", () => {
   it("renders uniform name and number", () => {
     const { container } = render(

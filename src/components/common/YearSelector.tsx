@@ -2,23 +2,22 @@
 
 import { registeredYears } from "@/constants/player";
 import { sendGAEvent } from "@next/third-parties/google";
-import { Text, Box, Button, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, useRef, useEffect, useCallback } from "react";
 
 interface YearSelectorProps {
   currentYear: number;
-  baseUrl: string; // 例: '/uniform-number/lineup'
+  baseUrl: string;
   label?: string;
-  isInline?: boolean; // 横並び表示用のプロパティを追加
-  years?: readonly number[]; // カスタム年リスト（未指定時はregisteredYears）
+  isInline?: boolean;
+  years?: readonly number[];
 }
 
 export default function YearSelector({
   currentYear,
   baseUrl,
   label = "年を選択",
-  isInline = false, // デフォルトはfalse
+  isInline = false,
   years,
 }: YearSelectorProps) {
   const router = useRouter();
@@ -27,15 +26,12 @@ export default function YearSelector({
   const containerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // 降順でソートした年のリスト
   const sortedYears = useMemo(() => {
     return [...(years ?? registeredYears)].sort((a, b) => b - a);
   }, [years]);
 
-  // ドロップダウンの開閉を切り替える
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  // 年を選択したときの処理
   const handleYearChange = useCallback(
     (year: number) => {
       if (year !== currentYear) {
@@ -51,14 +47,12 @@ export default function YearSelector({
     [currentYear, baseUrl, router],
   );
 
-  // ハイライトをリセット
   useEffect(() => {
     if (!isOpen) {
       setHighlightedIndex(-1);
     }
   }, [isOpen]);
 
-  // クリック外で閉じる
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -76,7 +70,6 @@ export default function YearSelector({
     };
   }, [isOpen]);
 
-  // キーボードナビゲーション
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (!isOpen) {
@@ -117,7 +110,6 @@ export default function YearSelector({
     [isOpen, sortedYears, highlightedIndex, handleYearChange],
   );
 
-  // ハイライト中の項目をスクロールに追従
   useEffect(() => {
     if (highlightedIndex >= 0 && listRef.current) {
       const items = listRef.current.querySelectorAll('[role="option"]');
@@ -125,110 +117,57 @@ export default function YearSelector({
     }
   }, [highlightedIndex]);
 
-  // 横並び表示用のスタイル調整
-  const containerStyle = isInline
-    ? {
-        maxW: "150px",
-        display: "inline-block",
-        verticalAlign: "middle",
-        ml: 3,
-      }
-    : {
-        maxW: "220px",
-      };
-
-  // ボタンのスタイル調整
-  const buttonStyle = isInline
-    ? {
-        height: "36px",
-        fontSize: "1.2rem",
-        px: 3,
-      }
-    : {
-        height: "44px",
-        fontSize: "18px",
-      };
-
   return (
-    <Box position="relative" ref={containerRef} {...containerStyle}>
-      {!isInline && (
-        <Text fontSize="sm" mb={2} fontWeight="500">
-          {label}
-        </Text>
-      )}
+    <div
+      className={`relative ${isInline ? "inline-block align-middle ml-3 max-w-[150px]" : "max-w-[220px]"}`}
+      ref={containerRef}
+    >
+      {!isInline && <p className="text-sm mb-2 font-medium">{label}</p>}
 
-      {/* 選択ボタン */}
-      <Button
-        w="100%"
+      <button
+        className={`w-full flex items-center justify-between bg-[var(--surface-brand)] border border-[var(--border-brand)] rounded-md cursor-pointer hover:bg-[var(--interactive-primary-hover)] hover:text-white transition-colors ${
+          isInline ? "h-9 text-lg px-3" : "h-11 text-lg px-4"
+        }`}
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
-        colorPalette="blue"
-        variant="outline"
-        justifyContent="space-between"
-        alignItems="center"
-        bg="surface.brand"
-        borderColor="border.brand"
-        _hover={{ bg: "interactive.primary.hover", color: "white" }}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-label={`${label}: ${currentYear}`}
-        {...buttonStyle}
       >
-        <Text>{currentYear}</Text>
-        <Box
-          as="span"
-          transform={isOpen ? "rotate(180deg)" : "none"}
-          transition="transform 0.2s"
-          color="blue.600"
-          ml={2}
+        <span>{currentYear}</span>
+        <span
+          className={`ml-2 text-blue-600 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
         >
           ▼
-        </Box>
-      </Button>
+        </span>
+      </button>
 
-      {/* ドロップダウンメニュー */}
       {isOpen && (
-        <Box
-          position="absolute"
-          w="100%"
-          maxH="300px"
-          overflowY="auto"
-          mt={2}
-          bgColor="surface.card.subtle"
-          borderWidth="1px"
-          borderColor="border.brand"
-          borderRadius="md"
-          boxShadow="md"
-          zIndex={10}
+        <div
+          className="absolute w-full max-h-[300px] overflow-y-auto mt-2 bg-[var(--surface-card-subtle)] border border-[var(--border-brand)] rounded-md shadow-md z-10"
           role="listbox"
           ref={listRef}
           aria-label={label}
         >
           {sortedYears.map((year, index) => (
-            <Box
+            <div
               key={year}
               role="option"
               aria-selected={year === currentYear}
-              p={isInline ? 2 : 3}
-              cursor="pointer"
-              bg={
-                index === highlightedIndex
-                  ? "surface.brand"
-                  : year === currentYear
-                    ? "surface.brand"
-                    : "surface.card.subtle"
-              }
-              fontWeight={year === currentYear ? "bold" : "normal"}
-              _hover={{ bg: "surface.brand" }}
+              className={`cursor-pointer hover:bg-[var(--surface-brand)] ${
+                isInline ? "p-2" : "p-3"
+              } ${
+                index === highlightedIndex || year === currentYear
+                  ? "bg-[var(--surface-brand)]"
+                  : "bg-[var(--surface-card-subtle)]"
+              } ${year === currentYear ? "font-bold" : ""}`}
               onClick={() => handleYearChange(year)}
             >
-              <Flex align="center">
-                <Text fontSize={isInline ? "sm" : "md"}>{year}</Text>
-              </Flex>
-            </Box>
+              <span className={isInline ? "text-sm" : "text-base"}>{year}</span>
+            </div>
           ))}
-        </Box>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }

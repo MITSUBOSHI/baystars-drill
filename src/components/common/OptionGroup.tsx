@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Box, HStack, Input } from "@chakra-ui/react";
 
 type Option = {
   value: string;
@@ -23,34 +22,27 @@ export default function OptionGroup({
   selectedValues,
   onChange,
   multiple = false,
-  gap: gapProp = "24px",
 }: OptionGroupProps) {
   return (
-    <HStack
-      gap={gapProp}
-      flexWrap="wrap"
+    <div
+      className="flex flex-wrap gap-6"
       role={multiple ? "group" : "radiogroup"}
       aria-label={name}
     >
       {options.map((option) => {
         const isSelected = selectedValues.includes(option.value);
         return (
-          <Box
+          <label
             key={option.value}
-            as="label"
-            p={2}
-            borderWidth="1px"
-            borderRadius="md"
-            borderColor={isSelected ? "interactive.primary" : "border.card"}
-            bg={isSelected ? "interactive.primary" : "surface.card.subtle"}
-            color={isSelected ? "white" : "text.primary"}
-            cursor="pointer"
-            transition="all 0.15s"
-            _hover={{ borderColor: "interactive.primary.hover" }}
+            className={`p-2 border rounded-md cursor-pointer transition-all duration-150 hover:border-[var(--interactive-primary-hover)] ${
+              isSelected
+                ? "border-[var(--interactive-primary)] bg-[var(--interactive-primary)] text-white"
+                : "border-[var(--border-card)] bg-[var(--surface-card-subtle)] text-[var(--text-primary)]"
+            }`}
             role={multiple ? "checkbox" : "radio"}
             aria-checked={isSelected}
           >
-            <Input
+            <input
               type={multiple ? "checkbox" : "radio"}
               name={name}
               value={option.value}
@@ -59,9 +51,9 @@ export default function OptionGroup({
               hidden
             />
             {option.label}
-          </Box>
+          </label>
         );
       })}
-    </HStack>
+    </div>
   );
 }

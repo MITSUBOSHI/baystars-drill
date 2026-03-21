@@ -1,14 +1,5 @@
 "use client";
 
-import {
-  Box,
-  Heading,
-  Text,
-  VStack,
-  HStack,
-  Badge,
-  IconButton,
-} from "@chakra-ui/react";
 import { useState } from "react";
 import Link from "next/link";
 import { sendGAEvent } from "@next/third-parties/google";
@@ -73,18 +64,12 @@ export default function CheerSongCard({
   );
 
   return (
-    <Box
+    <div
       id={id}
-      w="100%"
-      borderWidth="1px"
-      borderRadius="lg"
-      borderColor="border.card"
-      bg="surface.card"
-      overflow="hidden"
+      className="w-full border border-[var(--border-card)] rounded-lg bg-[var(--surface-card)] overflow-hidden"
     >
-      <Box
-        p={4}
-        cursor="pointer"
+      <div
+        className="p-4 cursor-pointer hover:bg-[var(--surface-card-subtle)] transition-colors duration-200"
         onClick={() => {
           const next = !isOpen;
           setIsOpen(next);
@@ -96,16 +81,14 @@ export default function CheerSongCard({
             });
           }
         }}
-        _hover={{ bg: "surface.card.subtle" }}
-        transition="background 0.2s"
       >
-        <HStack justify="space-between" align="center">
-          <VStack align="start" gap={1}>
-            <Heading size="md">
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col gap-1 items-start">
+            <h3 className="text-lg font-bold">
               {song.playerNumber && (
-                <Text as="span" color="interactive.primary" mr={2}>
+                <span className="text-[var(--interactive-primary)] mr-2">
                   #{song.playerNumber}
-                </Text>
+                </span>
               )}
               {showRuby && song.playerNameKana ? (
                 <>
@@ -127,10 +110,10 @@ export default function CheerSongCard({
               ) : (
                 song.title
               )}
-            </Heading>
-          </VStack>
-          <HStack gap={2}>
-            <Badge colorPalette="blue" variant="subtle">
+            </h3>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
               {showRuby && categoryLabel[song.category] ? (
                 <ruby>
                   {categoryLabel[song.category].text}
@@ -141,83 +124,73 @@ export default function CheerSongCard({
               ) : (
                 categoryLabel[song.category]?.text || song.category
               )}
-            </Badge>
-            <Text
-              fontSize="xl"
-              color="text.secondary"
-              transform={isOpen ? "rotate(180deg)" : "rotate(0deg)"}
-              transition="transform 0.2s"
+            </span>
+            <span
+              className={`text-xl text-[var(--text-secondary)] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
             >
               ▼
-            </Text>
-          </HStack>
-        </HStack>
+            </span>
+          </div>
+        </div>
         {song.isCommon && song.applicablePlayers && !isOpen && (
-          <HStack mt={2} gap={1} flexWrap="wrap">
+          <div className="flex mt-2 gap-1 flex-wrap">
             {song.applicablePlayers.map((p) => (
-              <Badge key={p.number} variant="outline" size="sm">
+              <span
+                key={p.number}
+                className="inline-flex items-center px-1.5 py-0.5 rounded border text-xs"
+              >
                 {p.callName}
-              </Badge>
+              </span>
             ))}
-          </HStack>
+          </div>
         )}
-      </Box>
+      </div>
 
       {isOpen && (
-        <Box px={4} pb={4}>
+        <div className="px-4 pb-4">
           {song.isCommon && song.applicablePlayers && (
-            <HStack mb={3} gap={2} flexWrap="wrap">
+            <div className="flex mb-3 gap-2 flex-wrap">
               {song.applicablePlayers.map((p) => (
-                <Badge
+                <span
                   key={p.number}
-                  variant={
-                    selectedPlayerName === p.callName ? "solid" : "outline"
-                  }
-                  colorPalette={
-                    selectedPlayerName === p.callName ? "blue" : "gray"
-                  }
-                  cursor="pointer"
-                  size="sm"
+                  className={`inline-flex items-center px-1.5 py-0.5 rounded text-xs cursor-pointer ${
+                    selectedPlayerName === p.callName
+                      ? "bg-blue-600 text-white"
+                      : "border"
+                  }`}
                 >
                   #{p.number} {p.callName}
-                </Badge>
+                </span>
               ))}
-            </HStack>
+            </div>
           )}
-          <VStack align="start" gap={0}>
+          <div className="flex flex-col">
             {lyricsToDisplay.map((line, i) => (
               <LyricLine key={i} line={line} showRuby={showRuby} />
             ))}
-          </VStack>
+          </div>
           {year && song.playerNumber && (
-            <HStack mt={3} gap={1}>
+            <div className="flex mt-3 gap-1">
               <Link
                 href={`/uniform-view/${year}?number=${song.playerNumber}`}
                 title="ユニフォームを見る"
               >
-                <IconButton
+                <button
                   aria-label={`${song.title}のユニフォームを見る`}
-                  size="xs"
-                  variant="ghost"
-                  color="interactive.primary"
+                  className="p-1 text-[var(--interactive-primary)] hover:bg-[var(--surface-card-subtle)] rounded"
                 >
                   <GiClothes />
-                </IconButton>
+                </button>
               </Link>
-              <Link
-                href={`/player-directory/${year}`}
-                title="選手名鑑を見る"
-              >
-                <IconButton
+              <Link href={`/player-directory/${year}`} title="選手名鑑を見る">
+                <button
                   aria-label="選手名鑑を見る"
-                  size="xs"
-                  variant="ghost"
-                  color="interactive.primary"
+                  className="p-1 text-[var(--interactive-primary)] hover:bg-[var(--surface-card-subtle)] rounded"
                 >
                   <FiBook />
-                </IconButton>
+                </button>
               </Link>
-            </HStack>
+            </div>
           )}
           {song.url &&
             (() => {
@@ -225,16 +198,8 @@ export default function CheerSongCard({
               if (!videoId) return null;
               return (
                 <>
-                  <Box
-                    as="button"
-                    mt={3}
-                    display="inline-flex"
-                    alignItems="center"
-                    gap={1}
-                    color="interactive.primary"
-                    fontSize="sm"
-                    cursor="pointer"
-                    _hover={{ textDecoration: "underline" }}
+                  <button
+                    className="mt-3 inline-flex items-center gap-1 text-[var(--interactive-primary)] text-sm cursor-pointer hover:underline bg-transparent border-none"
                     onClick={() => {
                       const next = !showVideo;
                       setShowVideo(next);
@@ -247,9 +212,9 @@ export default function CheerSongCard({
                     }}
                   >
                     {showVideo ? "▲ 動画を閉じる" : "▶ 動画を見る"}
-                  </Box>
+                  </button>
                   {showVideo && (
-                    <Box mt={2} position="relative" w="100%" pt="56.25%">
+                    <div className="mt-2 relative w-full pt-[56.25%]">
                       <iframe
                         src={`https://www.youtube.com/embed/${videoId}`}
                         title={`${song.title} 応援歌`}
@@ -265,13 +230,13 @@ export default function CheerSongCard({
                           borderRadius: "8px",
                         }}
                       />
-                    </Box>
+                    </div>
                   )}
                 </>
               );
             })()}
-        </Box>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }

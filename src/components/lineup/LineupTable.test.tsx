@@ -5,147 +5,6 @@ import { LineupSpot } from "./LineupCreator";
 import { PlayerType, Role } from "@/types/Player";
 import { ReactNode } from "react";
 
-// Chakra UIコンポーネントのモック
-jest.mock("@chakra-ui/react", () => ({
-  __esModule: true,
-  Box: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="box" {...props}>
-      {children}
-    </div>
-  ),
-  Flex: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="flex" {...props}>
-      {children}
-    </div>
-  ),
-  Text: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <span data-testid="text" {...props}>
-      {children}
-    </span>
-  ),
-  Badge: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <span data-testid="badge" {...props}>
-      {children}
-    </span>
-  ),
-  Table: Object.assign(
-    ({
-      children,
-      ...props
-    }: {
-      children?: ReactNode;
-      [key: string]: unknown;
-    }) => (
-      <table data-testid="table" {...props}>
-        {children}
-      </table>
-    ),
-    {
-      Root: ({
-        children,
-        ...props
-      }: {
-        children?: ReactNode;
-        [key: string]: unknown;
-      }) => (
-        <table data-testid="table" {...props}>
-          {children}
-        </table>
-      ),
-      Header: ({
-        children,
-        ...props
-      }: {
-        children?: ReactNode;
-        [key: string]: unknown;
-      }) => (
-        <thead data-testid="thead" {...props}>
-          {children}
-        </thead>
-      ),
-      Body: ({
-        children,
-        ...props
-      }: {
-        children?: ReactNode;
-        [key: string]: unknown;
-      }) => (
-        <tbody data-testid="tbody" {...props}>
-          {children}
-        </tbody>
-      ),
-      Row: ({
-        children,
-        ...props
-      }: {
-        children?: ReactNode;
-        [key: string]: unknown;
-      }) => (
-        <tr data-testid="tr" {...props}>
-          {children}
-        </tr>
-      ),
-      ColumnHeader: ({
-        children,
-        ...props
-      }: {
-        children?: ReactNode;
-        [key: string]: unknown;
-      }) => (
-        <th data-testid="th" {...props}>
-          {children}
-        </th>
-      ),
-      Cell: ({
-        children,
-        ...props
-      }: {
-        children?: ReactNode;
-        [key: string]: unknown;
-      }) => (
-        <td data-testid="td" {...props}>
-          {children}
-        </td>
-      ),
-    },
-  ),
-  Heading: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <h2 data-testid="heading" {...props}>
-      {children}
-    </h2>
-  ),
-}));
-
 // Node.js環境では利用できないがブラウザ環境で利用可能なstructuredCloneをモック
 if (typeof structuredClone === "undefined") {
   global.structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
@@ -215,7 +74,7 @@ describe("LineupTable", () => {
   });
 
   test("先発投手が表示される", () => {
-    const { container } = render(
+    render(
       <LineupTable
         lineup={[]}
         startingPitcher={mockPlayer}
@@ -226,10 +85,7 @@ describe("LineupTable", () => {
     expect(screen.getByText("先発投手:")).toBeInTheDocument();
 
     // 先発投手の名前が表示されていることを確認
-    // Badge内に表示されている佐野 恵太を探す
-    const badgeElement = container.querySelector('[data-testid="badge"]');
-    expect(badgeElement).toBeInTheDocument();
-    expect(badgeElement?.textContent).toBe("佐野 恵太");
+    expect(screen.getByText("佐野 恵太")).toBeInTheDocument();
   });
 
   test("打順が設定されていない場合のメッセージが表示される", () => {

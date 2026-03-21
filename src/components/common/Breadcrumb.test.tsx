@@ -15,12 +15,9 @@ jest.mock("@/contexts/FuriganaContext", () => ({
 
 jest.mock("@/components/common/Ruby", () => ({
   __esModule: true,
-  default: ({
-    children,
-  }: {
-    children: React.ReactNode;
-    reading: string;
-  }) => <>{children}</>,
+  default: ({ children }: { children: React.ReactNode; reading: string }) => (
+    <>{children}</>
+  ),
 }));
 
 jest.mock("next/link", () => ({
@@ -39,73 +36,6 @@ jest.mock("react-icons/fi", () => ({
   FiX: () => <span data-testid="close-icon">close</span>,
   FiChevronDown: () => <span>down</span>,
   FiChevronRight: () => <span>right</span>,
-}));
-
-jest.mock("@chakra-ui/react", () => ({
-  Box: ({
-    children,
-    display,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    display?: unknown;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  VStack: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  HStack: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  Flex: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  Text: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <span {...props}>{children}</span>,
-  Button: ({
-    children,
-    onClick,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    onClick?: () => void;
-    [key: string]: unknown;
-  }) => (
-    <button onClick={onClick} {...props}>
-      {children}
-    </button>
-  ),
-  Link: ({
-    children,
-    href,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    href?: string;
-    as?: unknown;
-    [key: string]: unknown;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
 }));
 
 describe("AppBreadcrumb", () => {

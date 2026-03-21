@@ -1,39 +1,50 @@
-import { Switch as ChakraSwitch } from "@chakra-ui/react";
+"use client";
+
 import * as React from "react";
 
-export interface SwitchProps extends ChakraSwitch.RootProps {
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
-  rootRef?: React.Ref<HTMLLabelElement>;
-  trackLabel?: { on: React.ReactNode; off: React.ReactNode };
-  thumbLabel?: { on: React.ReactNode; off: React.ReactNode };
+export interface SwitchProps {
+  checked?: boolean;
+  onCheckedChange?: (details: { checked: boolean }) => void;
+  children?: React.ReactNode;
+  size?: "sm" | "md" | "lg";
 }
 
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
   function Switch(props, ref) {
-    const { inputProps, children, rootRef, trackLabel, thumbLabel, ...rest } =
-      props;
+    const { checked = false, onCheckedChange, children, size = "md" } = props;
+
+    const sizeClasses = {
+      sm: { track: "w-8 h-4", thumb: "w-3 h-3", translate: "translate-x-4" },
+      md: { track: "w-10 h-5", thumb: "w-4 h-4", translate: "translate-x-5" },
+      lg: { track: "w-12 h-6", thumb: "w-5 h-5", translate: "translate-x-6" },
+    };
+
+    const s = sizeClasses[size];
 
     return (
-      <ChakraSwitch.Root ref={rootRef} {...rest}>
-        <ChakraSwitch.HiddenInput ref={ref} {...inputProps} />
-        <ChakraSwitch.Control>
-          <ChakraSwitch.Thumb>
-            {thumbLabel && (
-              <ChakraSwitch.ThumbIndicator fallback={thumbLabel?.off}>
-                {thumbLabel?.on}
-              </ChakraSwitch.ThumbIndicator>
-            )}
-          </ChakraSwitch.Thumb>
-          {trackLabel && (
-            <ChakraSwitch.Indicator fallback={trackLabel.off}>
-              {trackLabel.on}
-            </ChakraSwitch.Indicator>
-          )}
-        </ChakraSwitch.Control>
+      <label className="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input
+          ref={ref}
+          type="checkbox"
+          className="sr-only"
+          checked={checked}
+          onChange={(e) => onCheckedChange?.({ checked: e.target.checked })}
+        />
+        <span
+          className={`${s.track} relative inline-flex items-center rounded-full transition-colors ${
+            checked ? "bg-[var(--interactive-primary)]" : "bg-gray-300"
+          }`}
+        >
+          <span
+            className={`${s.thumb} rounded-full bg-white shadow transform transition-transform ${
+              checked ? s.translate : "translate-x-0.5"
+            }`}
+          />
+        </span>
         {children != null && (
-          <ChakraSwitch.Label>{children}</ChakraSwitch.Label>
+          <span className="text-sm text-[var(--text-primary)]">{children}</span>
         )}
-      </ChakraSwitch.Root>
+      </label>
     );
   },
 );

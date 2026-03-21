@@ -1,4 +1,3 @@
-import { Box, VStack, Text, Flex, Badge } from "@chakra-ui/react";
 import Ruby from "@/components/common/Ruby";
 import type { QuestionType } from "@/lib/drill";
 
@@ -9,18 +8,22 @@ type Props = {
 
 export default function DrillResult({ isCorrected, question }: Props) {
   return (
-    <Box
-      bg={isCorrected ? "surface.success" : "surface.error"}
-      p={6}
-      borderRadius="lg"
-      borderWidth="1px"
-      borderColor={isCorrected ? "border.success" : "border.error"}
+    <div
+      className="p-6 rounded-lg border"
+      style={{
+        backgroundColor: isCorrected
+          ? "var(--surface-success)"
+          : "var(--surface-error)",
+        borderColor: isCorrected
+          ? "var(--border-success)"
+          : "var(--border-error)",
+      }}
       role="alert"
       aria-live="polite"
     >
-      <VStack gap={4} align="stretch">
-        <Flex align="center">
-          <Text fontSize="xl" fontWeight="bold">
+      <div className="flex flex-col gap-4 items-stretch">
+        <div className="flex items-center">
+          <span className="text-xl font-bold">
             {isCorrected ? (
               <>
                 🎉 <Ruby reading="せいかい">正解</Ruby>！
@@ -30,34 +33,38 @@ export default function DrillResult({ isCorrected, question }: Props) {
                 😢 <Ruby reading="ふせいかい">不正解</Ruby>...
               </>
             )}
-          </Text>
-          <Box flex="1" />
-          <Badge
-            colorPalette={isCorrected ? "green" : "red"}
-            fontSize="md"
-            px={3}
-            py={1}
+          </span>
+          <div className="flex-1" />
+          <span
+            className={`text-base px-3 py-1 rounded-md font-semibold ${
+              isCorrected
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }`}
           >
             {isCorrected ? (
               <Ruby reading="せいかい">正解</Ruby>
             ) : (
               <Ruby reading="ふせいかい">不正解</Ruby>
             )}
-          </Badge>
-        </Flex>
-        <Box
-          borderTopWidth="1px"
-          borderColor={isCorrected ? "border.success" : "border.error"}
-          pt={4}
+          </span>
+        </div>
+        <div
+          className="border-t pt-4"
+          style={{
+            borderColor: isCorrected
+              ? "var(--border-success)"
+              : "var(--border-error)",
+          }}
         >
-          <Text fontWeight="bold" mb={2}>
+          <p className="font-bold mb-2">
             <Ruby reading="かいせつ">解説</Ruby>：
-          </Text>
-          <Text fontSize="lg">
+          </p>
+          <p className="text-lg">
             {question.correctNumber} = {question.explanationSentence}
-          </Text>
-        </Box>
-      </VStack>
-    </Box>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

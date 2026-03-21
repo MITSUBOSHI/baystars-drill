@@ -2,7 +2,6 @@
 
 import { PlayerType } from "@/types/Player";
 import { Position } from "./LineupCreator";
-import { Box, Button, Flex, Text, Badge, Input } from "@chakra-ui/react";
 import { useState, useRef, useEffect, useCallback } from "react";
 
 type Props = {
@@ -130,104 +129,117 @@ export default function PlayerSelector({
   }, [highlightedIndex]);
 
   return (
-    <Box position="relative" ref={containerRef}>
+    <div className="relative" ref={containerRef}>
       {/* 選択済みの場合は選手情報を表示 */}
       {selectedPlayer ? (
-        <Flex align="center" justify="space-between">
-          <Flex align="center">
-            <Badge colorPalette="blue" fontSize="md" mr={2}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <span className="text-base px-2 py-0.5 rounded mr-2 bg-blue-100 text-blue-800 font-semibold">
               {selectedPlayer.number_disp}
-            </Badge>
-            <Text>{getDisplayName(selectedPlayer)}</Text>
-          </Flex>
-          <Button size="xs" colorPalette="red" onClick={handleClearSelection}>
+            </span>
+            <span>{getDisplayName(selectedPlayer)}</span>
+          </div>
+          <button
+            className="text-xs px-2 py-1 text-red-600 hover:bg-red-50 rounded border border-red-300"
+            onClick={handleClearSelection}
+          >
             クリア
-          </Button>
-        </Flex>
+          </button>
+        </div>
       ) : (
         // 未選択の場合はドロップダウンボタンを表示
-        <Button
-          w="100%"
+        <button
+          className="w-full flex items-center justify-between px-4 py-2 border rounded-md bg-[var(--surface-card-subtle)] cursor-pointer"
+          style={{
+            borderColor: "var(--border-card)",
+            color: "var(--text-primary)",
+          }}
           onClick={toggleDropdown}
           onKeyDown={handleKeyDown}
-          colorPalette="gray"
-          variant="outline"
-          justifyContent="space-between"
-          alignItems="center"
           aria-expanded={isOpen}
           aria-haspopup="listbox"
           aria-label={`${position}の選手を選択`}
         >
-          <Text>{position}の選手を選択</Text>
-          <Box
-            as="span"
-            transform={isOpen ? "rotate(180deg)" : "none"}
-            transition="transform 0.2s"
+          <span>{position}の選手を選択</span>
+          <span
+            className="transition-transform duration-200"
+            style={{
+              transform: isOpen ? "rotate(180deg)" : "none",
+            }}
           >
             ▼
-          </Box>
-        </Button>
+          </span>
+        </button>
       )}
 
       {/* ドロップダウンメニュー */}
       {isOpen && (
-        <Box
-          position="absolute"
-          w="100%"
-          maxH="300px"
-          overflowY="auto"
-          mt={2}
-          bgColor="surface.card.subtle"
-          borderWidth="1px"
-          borderRadius="md"
-          boxShadow="md"
-          zIndex={10}
+        <div
+          className="absolute w-full max-h-[300px] overflow-y-auto mt-2 border rounded-md shadow-md z-10"
+          style={{
+            backgroundColor: "var(--surface-card-subtle)",
+            borderColor: "var(--border-card)",
+          }}
         >
-          <Box p={2}>
-            <Input
+          <div className="p-2">
+            <input
               placeholder="検索..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={handleKeyDown}
-              mb={2}
+              className="w-full mb-2 px-3 py-1.5 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[var(--interactive-primary)]"
+              style={{
+                borderColor: "var(--border-card)",
+                backgroundColor: "var(--surface-card-subtle)",
+                color: "var(--text-primary)",
+              }}
               ref={searchInputRef}
               aria-label="選手を検索"
             />
 
-            <Box role="listbox" ref={listRef} aria-label={`${position}の選手`}>
+            <div role="listbox" ref={listRef} aria-label={`${position}の選手`}>
               {filteredPlayers.length > 0 ? (
                 filteredPlayers.map((player, index) => (
-                  <Box
+                  <div
                     key={`${player.year}-${player.number_disp}`}
                     role="option"
                     aria-selected={index === highlightedIndex}
-                    p={2}
-                    cursor="pointer"
-                    bg={
-                      index === highlightedIndex
-                        ? "surface.brand"
-                        : "transparent"
+                    className="p-2 cursor-pointer rounded"
+                    style={{
+                      backgroundColor:
+                        index === highlightedIndex
+                          ? "var(--surface-brand)"
+                          : "transparent",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor =
+                        "var(--surface-brand)")
                     }
-                    _hover={{ bg: "surface.brand" }}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor =
+                        index === highlightedIndex
+                          ? "var(--surface-brand)"
+                          : "transparent")
+                    }
                     onClick={() => handleSelectPlayer(player)}
                   >
-                    <Flex align="center">
-                      <Badge colorPalette="blue" fontSize="sm" mr={2}>
+                    <div className="flex items-center">
+                      <span className="text-sm px-2 py-0.5 rounded mr-2 bg-blue-100 text-blue-800 font-semibold">
                         {player.number_disp}
-                      </Badge>
-                      <Text>{getDisplayName(player)}</Text>
-                    </Flex>
-                  </Box>
+                      </span>
+                      <span>{getDisplayName(player)}</span>
+                    </div>
+                  </div>
                 ))
               ) : (
-                <Text p={2} color="text.secondary">
+                <p className="p-2" style={{ color: "var(--text-secondary)" }}>
                   選手が見つかりません
-                </Text>
+                </p>
               )}
-            </Box>
-          </Box>
-        </Box>
+            </div>
+          </div>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }

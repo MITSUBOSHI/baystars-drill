@@ -1,14 +1,5 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState, useEffect, useRef } from "react";
@@ -60,12 +51,10 @@ export default function AppBreadcrumb() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // パス変更時にメニューを閉じる
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
 
-  // メニュー外クリックで閉じる
   useEffect(() => {
     if (!menuOpen) return;
     function handleClick(e: MouseEvent) {
@@ -119,147 +108,111 @@ export default function AppBreadcrumb() {
   }, [pathname]);
 
   return (
-    <Box position="relative" ref={menuRef}>
-      <Flex
-        w="100%"
-        maxW="1200px"
-        mx="auto"
-        mb={4}
-        px={4}
-        pt={4}
-        justify="space-between"
-        align="center"
-      >
-        <HStack gap={2}>
-          <Button
-            display={{ base: "flex", md: "none" }}
-            variant="ghost"
-            size="sm"
+    <div className="relative" ref={menuRef}>
+      <div className="flex w-full max-w-[1200px] mx-auto mb-4 px-4 pt-4 justify-between items-center">
+        <div className="flex items-center gap-2">
+          <button
+            className="flex md:hidden p-1 bg-transparent border-none cursor-pointer"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="メニューを開く"
             aria-expanded={menuOpen}
-            p={1}
           >
             {menuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
-          </Button>
+          </button>
 
           {breadcrumbItems.length > 1 ? (
             <nav aria-label="パンくずリスト">
-              <HStack as="ol" gap="8px" listStyleType="none">
+              <ol className="flex items-center gap-2 list-none">
                 {breadcrumbItems.map((item, index) => (
-                  <Box as="li" key={index} display="flex" alignItems="center">
+                  <li key={index} className="flex items-center">
                     {index > 0 && (
-                      <Text mx={2} color="text.secondary" aria-hidden="true">
+                      <span
+                        className="mx-2 text-[var(--text-secondary)]"
+                        aria-hidden="true"
+                      >
                         &gt;
-                      </Text>
+                      </span>
                     )}
                     {item.isCurrentPage ? (
-                      <Text
-                        fontWeight="bold"
-                        color="interactive.primary"
+                      <span
+                        className="font-bold text-[var(--interactive-primary)]"
                         aria-current="page"
                       >
                         <BreadcrumbLabel
                           label={item.label}
                           reading={item.reading}
                         />
-                      </Text>
+                      </span>
                     ) : (
-                      <ChakraLink
-                        as={Link}
+                      <Link
                         href={item.href}
-                        color="text.secondary"
-                        _hover={{
-                          color: "interactive.primary",
-                          textDecoration: "underline",
-                        }}
+                        className="text-[var(--text-secondary)] hover:text-[var(--interactive-primary)] hover:underline"
                       >
                         <BreadcrumbLabel
                           label={item.label}
                           reading={item.reading}
                         />
-                      </ChakraLink>
+                      </Link>
                     )}
-                  </Box>
+                  </li>
                 ))}
-              </HStack>
+              </ol>
             </nav>
           ) : (
-            <Box />
+            <div />
           )}
-        </HStack>
+        </div>
 
-        <Button
-          size="xs"
-          variant={furigana ? "solid" : "outline"}
-          colorPalette="blue"
+        <button
+          className={`text-xs rounded-full px-3 py-1 border cursor-pointer transition-colors ${
+            furigana
+              ? "bg-[var(--interactive-primary)] text-white border-[var(--interactive-primary)]"
+              : "bg-transparent text-[var(--interactive-primary)] border-[var(--interactive-primary)]"
+          }`}
           onClick={() => setFurigana(!furigana)}
           aria-pressed={furigana}
           aria-label="ふりがなモード切り替え"
-          borderRadius="full"
-          px={3}
         >
           ふりがな{furigana ? "ON" : "OFF"}
-        </Button>
-      </Flex>
+        </button>
+      </div>
 
       {menuOpen && (
-        <Box
-          display={{ base: "block", md: "none" }}
-          position="absolute"
-          top="100%"
-          left={0}
-          right={0}
-          zIndex={50}
-          bg="surface.card"
-          borderBottomWidth="1px"
-          borderColor="border.card"
-          boxShadow="md"
-        >
-          <VStack as="nav" aria-label="メニュー" gap={0} align="stretch">
-            <ChakraLink
-              as={Link}
+        <div className="block md:hidden absolute top-full left-0 right-0 z-50 bg-[var(--surface-card)] border-b border-[var(--border-card)] shadow-md">
+          <nav aria-label="メニュー" className="flex flex-col">
+            <Link
               href="/"
-              display="flex"
-              alignItems="center"
-              gap={3}
-              px={6}
-              py={3}
-              _hover={{ bg: "surface.card.subtle" }}
-              fontWeight={pathname === "/" ? "bold" : "normal"}
-              color={pathname === "/" ? "interactive.primary" : "text.primary"}
-              textDecoration="none"
+              className={`flex items-center gap-3 px-6 py-3 hover:bg-[var(--surface-card-subtle)] no-underline ${
+                pathname === "/"
+                  ? "font-bold text-[var(--interactive-primary)]"
+                  : "text-[var(--text-primary)]"
+              }`}
             >
-              <Text fontSize="lg">🏠</Text>
+              <span className="text-lg">🏠</span>
               <Ruby reading="とっぷ">トップ</Ruby>
-            </ChakraLink>
+            </Link>
             {navItems.map((item) => {
               const isActive = pathname.startsWith(
                 item.href.replace(/\/\d{4}$/, ""),
               );
               return (
-                <ChakraLink
+                <Link
                   key={item.href}
-                  as={Link}
                   href={item.href}
-                  display="flex"
-                  alignItems="center"
-                  gap={3}
-                  px={6}
-                  py={3}
-                  _hover={{ bg: "surface.card.subtle" }}
-                  fontWeight={isActive ? "bold" : "normal"}
-                  color={isActive ? "interactive.primary" : "text.primary"}
-                  textDecoration="none"
+                  className={`flex items-center gap-3 px-6 py-3 hover:bg-[var(--surface-card-subtle)] no-underline ${
+                    isActive
+                      ? "font-bold text-[var(--interactive-primary)]"
+                      : "text-[var(--text-primary)]"
+                  }`}
                 >
-                  <Text fontSize="lg">{item.icon}</Text>
+                  <span className="text-lg">{item.icon}</span>
                   <Ruby reading={item.titleReading}>{item.title}</Ruby>
-                </ChakraLink>
+                </Link>
               );
             })}
-          </VStack>
-        </Box>
+          </nav>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }

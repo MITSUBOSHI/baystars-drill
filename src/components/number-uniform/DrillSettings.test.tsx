@@ -10,85 +10,14 @@ jest.mock("@/contexts/FuriganaContext", () => ({
 
 jest.mock("@/components/common/Ruby", () => ({
   __esModule: true,
-  default: ({
-    children,
-  }: {
-    children: React.ReactNode;
-    reading: string;
-  }) => <>{children}</>,
+  default: ({ children }: { children: React.ReactNode; reading: string }) => (
+    <>{children}</>
+  ),
 }));
 
-jest.mock("@chakra-ui/react", () => ({
-  Box: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  VStack: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  HStack: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  Text: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <span {...props}>{children}</span>,
-  Flex: ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  Input: ({
-    type,
-    name,
-    value,
-    checked,
-    onChange,
-    hidden,
-  }: {
-    type?: string;
-    name?: string;
-    value?: string;
-    checked?: boolean;
-    onChange?: () => void;
-    hidden?: boolean;
-  }) => (
-    <input
-      type={type || "text"}
-      name={name}
-      value={value || ""}
-      checked={checked}
-      onChange={onChange}
-      hidden={hidden}
-    />
-  ),
-  Collapsible: {
-    Root: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-    Trigger: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-    Content: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-  },
+jest.mock("react-icons/fi", () => ({
+  FiChevronDown: () => <span>down</span>,
+  FiChevronRight: () => <span>right</span>,
 }));
 
 const defaultMode: Mode = {
@@ -98,21 +27,28 @@ const defaultMode: Mode = {
 };
 
 describe("DrillSettings", () => {
+  const openSettings = () => {
+    fireEvent.click(screen.getByText("設定"));
+  };
+
   it("設定ラベルが表示される", () => {
     render(<DrillSettings mode={defaultMode} onModeChange={() => {}} />);
     expect(screen.getByText("設定")).toBeInTheDocument();
+    openSettings();
     expect(screen.getByText("対象選手")).toBeInTheDocument();
     expect(screen.getByText("難易度")).toBeInTheDocument();
   });
 
   it("対象選手の選択肢が表示される", () => {
     render(<DrillSettings mode={defaultMode} onModeChange={() => {}} />);
+    openSettings();
     expect(screen.getByText("支配下選手のみ")).toBeInTheDocument();
     expect(screen.getByText("すべて")).toBeInTheDocument();
   });
 
   it("難易度の選択肢が表示される", () => {
     render(<DrillSettings mode={defaultMode} onModeChange={() => {}} />);
+    openSettings();
     expect(screen.getByText("Easy")).toBeInTheDocument();
     expect(screen.getByText("Normal")).toBeInTheDocument();
     expect(screen.getByText("Hard")).toBeInTheDocument();
@@ -120,6 +56,7 @@ describe("DrillSettings", () => {
 
   it("演算子の選択肢が表示される", () => {
     render(<DrillSettings mode={defaultMode} onModeChange={() => {}} />);
+    openSettings();
     expect(screen.getByText(/足し算/)).toBeInTheDocument();
     expect(screen.getByText(/引き算/)).toBeInTheDocument();
     expect(screen.getByText(/掛け算/)).toBeInTheDocument();
@@ -129,6 +66,7 @@ describe("DrillSettings", () => {
   it("演算子のトグルで onModeChange が呼ばれる", () => {
     const onModeChange = jest.fn();
     render(<DrillSettings mode={defaultMode} onModeChange={onModeChange} />);
+    openSettings();
 
     // 引き算の checkbox input をクリック
     const checkboxes = screen.getAllByRole("checkbox", { hidden: true });
@@ -145,6 +83,7 @@ describe("DrillSettings", () => {
   it("最後の演算子を外そうとすると + にフォールバックする", () => {
     const onModeChange = jest.fn();
     render(<DrillSettings mode={defaultMode} onModeChange={onModeChange} />);
+    openSettings();
 
     // 足し算（唯一の演算子）の checkbox input をクリック
     const checkboxes = screen.getAllByRole("checkbox", { hidden: true });

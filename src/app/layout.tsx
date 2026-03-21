@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Oswald } from "next/font/google";
-import { Box, Text } from "@chakra-ui/react";
 import Provider from "./provider";
 import AppBreadcrumb from "@/components/common/Breadcrumb";
+import "./globals.css";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -68,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={oswald.variable}>
+    <html lang="ja" className={oswald.variable} suppressHydrationWarning>
       <head>
         <meta
           name="google-site-verification"
@@ -93,11 +93,11 @@ export default function RootLayout({
         <Provider>
           <AppBreadcrumb />
           {children}
-          <Box as="footer" py={4} px={6} textAlign="center">
-            <Text fontSize="xs" color="text.secondary">
+          <footer className="py-4 px-6 text-center">
+            <p className="text-xs text-[var(--text-secondary)]">
               本サイトは個人が運営するファンサイトであり、株式会社横浜DeNAベイスターズとは一切関係ありません。
-            </Text>
-          </Box>
+            </p>
+          </footer>
         </Provider>
       </body>
     </html>

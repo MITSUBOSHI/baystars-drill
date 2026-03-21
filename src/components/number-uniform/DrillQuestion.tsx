@@ -1,4 +1,3 @@
-import { Box, VStack, Text, Heading, Button, Flex } from "@chakra-ui/react";
 import {
   NumberInputField,
   NumberInputRoot,
@@ -24,34 +23,32 @@ export default function DrillQuestion({
   onRetry,
 }: Props) {
   return (
-    <Box
-      bg="surface.card"
-      p={6}
-      borderRadius="lg"
-      borderWidth="1px"
-      borderColor="border.card"
+    <div
+      className="p-6 rounded-lg border"
+      style={{
+        backgroundColor: "var(--surface-card)",
+        borderColor: "var(--border-card)",
+      }}
     >
-      <Heading size="md" mb={4}>
+      <h3 className="text-lg font-semibold mb-4">
         <Ruby reading="もんだい">問題</Ruby>
-      </Heading>
-      <VStack gap={4} align="stretch">
-        <Box
-          p={3}
-          bg="surface.card.subtle"
-          borderRadius="md"
-          borderWidth="1px"
-          borderColor="border.card"
+      </h3>
+      <div className="flex flex-col gap-4 items-stretch">
+        <div
+          className="p-3 rounded-md border"
+          style={{
+            backgroundColor: "var(--surface-card-subtle)",
+            borderColor: "var(--border-card)",
+          }}
           aria-live="polite"
         >
-          <Text fontSize="md" fontWeight="bold">
-            {question.questionSentence}
-          </Text>
-        </Box>
-        <Box>
-          <Text mb={2} fontWeight="bold">
+          <p className="text-base font-bold">{question.questionSentence}</p>
+        </div>
+        <div>
+          <p className="mb-2 font-bold">
             <Ruby reading="こた">答</Ruby>えを
             <Ruby reading="にゅうりょく">入力</Ruby>してください：
-          </Text>
+          </p>
           <NumberInputRoot
             size="lg"
             width="100%"
@@ -69,38 +66,48 @@ export default function DrillQuestion({
               disabled={!!showResult}
               placeholder="背番号の合計を入力..."
               aria-label="答えの入力欄"
-              bg="surface.card.subtle"
               data-testid="number-input"
-              _placeholder={{
-                color: "text.secondary",
-              }}
             />
           </NumberInputRoot>
-        </Box>
-      </VStack>
-      <Flex gap={4} mt={6}>
-        <Button
-          fontWeight="bold"
-          color="white"
-          bg="interactive.primary"
-          _hover={{ bg: "interactive.primary.hover" }}
+        </div>
+      </div>
+      <div className="flex gap-4 mt-6">
+        <button
+          className="flex-1 font-bold text-white py-2 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border-none"
+          style={{
+            backgroundColor: "var(--interactive-primary)",
+          }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor =
+              "var(--interactive-primary-hover)")
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor =
+              "var(--interactive-primary)")
+          }
           onClick={onAnswer}
-          flex="1"
           disabled={showResult || inputValue === ""}
         >
           <Ruby reading="かいとう">解答</Ruby>する
-        </Button>
-        <Button
-          fontWeight="bold"
-          color="white"
-          bg="interactive.primary"
-          _hover={{ bg: "interactive.primary.hover" }}
+        </button>
+        <button
+          className="flex-1 font-bold text-white py-2 px-4 rounded-md transition-colors cursor-pointer border-none"
+          style={{
+            backgroundColor: "var(--interactive-primary)",
+          }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor =
+              "var(--interactive-primary-hover)")
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor =
+              "var(--interactive-primary)")
+          }
           onClick={onRetry}
-          flex="1"
         >
           <Ruby reading="さいちょうせん">再挑戦</Ruby>
-        </Button>
-      </Flex>
-    </Box>
+        </button>
+      </div>
+    </div>
   );
 }

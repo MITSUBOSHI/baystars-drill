@@ -9,62 +9,21 @@ jest.mock("next/navigation", () => ({
   useSearchParams: jest.fn(() => new URLSearchParams("")),
 }));
 
-jest.mock("@chakra-ui/react", () => ({
-  Box: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="box" {...props}>
-      {children}
-    </div>
-  ),
-  Text: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <span data-testid="text" {...props}>
-      {children}
-    </span>
-  ),
-  Flex: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="flex" {...props}>
-      {children}
-    </div>
+jest.mock("@/contexts/FuriganaContext", () => ({
+  useFurigana: () => ({ furigana: false, setFurigana: () => {} }),
+}));
+
+jest.mock("@/components/common/Ruby", () => ({
+  __esModule: true,
+  default: ({ children }: { children: ReactNode; reading: string }) => (
+    <>{children}</>
   ),
 }));
 
-jest.mock("@/components/ui/switch", () => ({
-  Switch: ({
-    children,
-    checked,
-    onCheckedChange,
-    ...props
-  }: {
-    children?: ReactNode;
-    checked?: boolean;
-    onCheckedChange?: (e: { checked: boolean }) => void;
-    [key: string]: unknown;
-  }) => (
-    <label data-testid="switch" {...props}>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(e) => onCheckedChange?.({ checked: e.target.checked })}
-      />
-      {children}
-    </label>
+jest.mock("next/link", () => ({
+  __esModule: true,
+  default: ({ children, href }: { children: ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
   ),
 }));
 

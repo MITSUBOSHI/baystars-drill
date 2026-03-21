@@ -4,188 +4,19 @@ import Question from "./Question";
 import { PlayerType, Role } from "@/types/Player";
 import React from "react";
 
-// Mock Chakra UI components
-jest.mock("@chakra-ui/react", () => ({
-  Box: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  VStack: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  HStack: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  Text: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => <span {...props}>{children}</span>,
-  Container: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  Flex: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => <div {...props}>{children}</div>,
-  Badge: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => <span {...props}>{children}</span>,
-  Heading: ({
-    children,
-    ...props
-  }: {
-    children: React.ReactNode;
-    [key: string]: unknown;
-  }) => <h2 {...props}>{children}</h2>,
-  Collapsible: {
-    Root: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-    Trigger: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-    Content: ({ children }: { children: React.ReactNode }) => (
-      <div>{children}</div>
-    ),
-  },
-  Button: ({
-    children,
-    onClick,
-    disabled,
-    ...props
-  }: {
-    children: React.ReactNode;
-    onClick?: () => void;
-    disabled?: boolean;
-    [key: string]: unknown;
-  }) => (
-    <button onClick={onClick} disabled={disabled} {...props}>
-      {children}
-    </button>
-  ),
-  Input: ({
-    type,
-    name,
-    value,
-    checked,
-    onChange,
-    hidden,
-    ...props
-  }: {
-    type?: string;
-    name?: string;
-    value?: string;
-    checked?: boolean;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    hidden?: boolean;
-    [key: string]: unknown;
-  }) => (
-    <input
-      type={type || "text"}
-      role="button"
-      name={name}
-      value={value || ""}
-      checked={checked}
-      onChange={onChange}
-      hidden={hidden}
-      {...props}
-    />
-  ),
-}));
-
 jest.mock("@/components/common/Ruby", () => ({
   __esModule: true,
-  default: ({
-    children,
-  }: {
-    children: React.ReactNode;
-    reading: string;
-  }) => <>{children}</>,
+  default: ({ children }: { children: React.ReactNode; reading: string }) => (
+    <>{children}</>
+  ),
 }));
 
 jest.mock("@/contexts/FuriganaContext", () => ({
   useFurigana: () => ({ furigana: false, setFurigana: () => {} }),
 }));
 
-jest.mock("@/components/ui/number-input", () => ({
-  NumberInputRoot: ({
-    children,
-    value,
-    onValueChange,
-  }: {
-    children: React.ReactNode;
-    value?: string;
-    onValueChange?: (details: { value: string; valueAsNumber: number }) => void;
-  }) => (
-    <div>
-      {React.Children.map(children, (child) => {
-        if (
-          React.isValidElement<{
-            value?: string;
-            onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-          }>(child)
-        ) {
-          return React.cloneElement(child, {
-            value,
-            onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-              onValueChange?.({
-                value: e.target.value,
-                valueAsNumber: Number(e.target.value),
-              });
-            },
-          });
-        }
-        return child;
-      })}
-    </div>
-  ),
-  NumberInputField: ({
-    disabled,
-    placeholder,
-    value,
-    onChange,
-  }: {
-    disabled?: boolean;
-    placeholder?: string;
-    value?: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  }) => (
-    <input
-      type="text"
-      inputMode="numeric"
-      pattern="[0-9]*"
-      disabled={disabled}
-      placeholder={placeholder}
-      value={value || ""}
-      onChange={onChange}
-      data-testid="number-input"
-    />
-  ),
+jest.mock("@next/third-parties/google", () => ({
+  sendGAEvent: jest.fn(),
 }));
 
 const mockPlayers: PlayerType[] = [
@@ -254,6 +85,9 @@ describe("Question Component", () => {
   it("renders initial state correctly", () => {
     render(<Question players={mockPlayers} />);
 
+    // Open settings
+    fireEvent.click(screen.getByText("設定"));
+
     // Check if settings are displayed
     expect(screen.getByText("対象選手")).toBeInTheDocument();
     expect(screen.getByText("難易度")).toBeInTheDocument();
@@ -280,7 +114,7 @@ describe("Question Component", () => {
     render(<Question players={mockPlayers} />);
     const input = screen.getByTestId("number-input");
     fireEvent.change(input, { target: { value: "42" } });
-    expect(input).toHaveValue("42");
+    expect(input).toHaveValue(42);
   });
 
   it("shows result when answer is submitted", () => {
@@ -399,14 +233,14 @@ describe("Question Component", () => {
     fireEvent.change(input, { target: { value: "999" } });
     fireEvent.click(submitButton);
 
-    expect(input).toHaveValue("999");
+    expect(input).toHaveValue(999);
     expect(input).toBeDisabled();
     const resultBox = screen.queryByText("😢 不正解...");
     expect(resultBox).toBeInTheDocument();
 
     fireEvent.click(retryButton);
 
-    expect(input).toHaveValue("");
+    expect(input).toHaveValue(null);
     expect(input).not.toBeDisabled();
     expect(resultBox).not.toBeInTheDocument();
   });
@@ -454,39 +288,110 @@ describe("Question Component", () => {
     });
 
     it("should handle multiplication correctly", () => {
-      render(<Question players={mockPlayers} />);
+      // 掛け算が確実に動くよう、割り切れる組み合わせの選手を使用
+      const playersForMult: PlayerType[] = [
+        {
+          name: "選手A",
+          name_kana: "せんしゅえー",
+          uniform_name: "A",
+          number_disp: "3",
+          number_calc: 3,
+          role: Role.Roster,
+          year: 2026,
+          url: "https://dummy/",
+          date_of_birth: "2000-01-01",
+          height_cm: 180,
+          weight_kg: 80,
+        },
+        {
+          name: "選手B",
+          name_kana: "せんしゅびー",
+          uniform_name: "B",
+          number_disp: "4",
+          number_calc: 4,
+          role: Role.Roster,
+          year: 2026,
+          url: "https://dummy/",
+          date_of_birth: "2000-01-01",
+          height_cm: 180,
+          weight_kg: 80,
+        },
+      ];
+      render(<Question players={playersForMult} />);
 
-      // 掛け算のチェックボックスをクリックして有効化
-      const multCheckboxLabel = screen.getByText(/掛け算/);
-      fireEvent.click(multCheckboxLabel);
+      // Open settings, 足し算を無効化して掛け算のみ有効化
+      fireEvent.click(screen.getByText("設定"));
+      const addLabel = screen.getByText(/足し算/).closest("label")!;
+      fireEvent.click(addLabel.querySelector("input")!);
+      const multLabel = screen.getByText(/掛け算/).closest("label")!;
+      fireEvent.click(multLabel.querySelector("input")!);
+      fireEvent.click(screen.getByText("設定"));
 
       const retryButton = screen.getByText("再挑戦");
       fireEvent.click(retryButton);
 
-      // 掛け算を使用した問題が表示されていることを確認
       expect(screen.getByText(/×/)).toBeInTheDocument();
     });
 
     it("should handle division correctly", () => {
-      render(<Question players={mockPlayers} />);
+      // 割り算が確実に割り切れる組み合わせの選手を使用
+      const playersForDiv: PlayerType[] = [
+        {
+          name: "選手C",
+          name_kana: "せんしゅしー",
+          uniform_name: "C",
+          number_disp: "12",
+          number_calc: 12,
+          role: Role.Roster,
+          year: 2026,
+          url: "https://dummy/",
+          date_of_birth: "2000-01-01",
+          height_cm: 180,
+          weight_kg: 80,
+        },
+        {
+          name: "選手D",
+          name_kana: "せんしゅでぃー",
+          uniform_name: "D",
+          number_disp: "3",
+          number_calc: 3,
+          role: Role.Roster,
+          year: 2026,
+          url: "https://dummy/",
+          date_of_birth: "2000-01-01",
+          height_cm: 180,
+          weight_kg: 80,
+        },
+      ];
+      render(<Question players={playersForDiv} />);
 
-      // 割り算のチェックボックスをクリックして有効化
-      const divCheckboxLabel = screen.getByText(/割り算/);
-      fireEvent.click(divCheckboxLabel);
+      // Open settings, 足し算を無効化して割り算のみ有効化
+      fireEvent.click(screen.getByText("設定"));
+      const addLabel = screen.getByText(/足し算/).closest("label")!;
+      fireEvent.click(addLabel.querySelector("input")!);
+      const divLabel = screen.getByText(/割り算/).closest("label")!;
+      fireEvent.click(divLabel.querySelector("input")!);
+      fireEvent.click(screen.getByText("設定"));
 
       const retryButton = screen.getByText("再挑戦");
       fireEvent.click(retryButton);
 
-      // 割り算を使用した問題が表示されていることを確認
       expect(screen.getByText(/÷/)).toBeInTheDocument();
     });
 
     it("should handle subtraction correctly", () => {
       render(<Question players={mockPlayers} />);
 
-      // 引き算のチェックボックスをクリックして有効化
-      const subCheckboxLabel = screen.getByText(/引き算/);
-      fireEvent.click(subCheckboxLabel);
+      // Open settings
+      fireEvent.click(screen.getByText("設定"));
+
+      // 引き算のlabel内のhidden inputを直接操作して有効化
+      const subLabel = screen.getByText(/引き算/).closest("label")!;
+      const subInput = subLabel.querySelector("input")!;
+      fireEvent.click(subInput);
+
+      // Close settings to avoid duplicate text matches
+      fireEvent.click(screen.getByText("設定"));
 
       const retryButton = screen.getByText("再挑戦");
       fireEvent.click(retryButton);
@@ -497,6 +402,9 @@ describe("Question Component", () => {
 
     it("should maintain selected operators after retry", () => {
       render(<Question players={mockPlayers} />);
+
+      // Open settings
+      fireEvent.click(screen.getByText("設定"));
 
       // Enable multiplication and division
       const multiplyCheckbox = screen.getByText(/掛け算/)
@@ -514,5 +422,4 @@ describe("Question Component", () => {
       expect(screen.getByText(/割り算/)).toBeInTheDocument();
     });
   });
-
 });

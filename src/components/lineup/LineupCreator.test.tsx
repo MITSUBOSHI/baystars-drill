@@ -8,255 +8,21 @@ jest.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
-// Chakra UIコンポーネントのモック
-jest.mock("@chakra-ui/react", () => ({
-  __esModule: true,
-  Box: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="box" {...props}>
-      {children}
-    </div>
-  ),
-  Flex: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="flex" {...props}>
-      {children}
-    </div>
-  ),
-  Text: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <span data-testid="text" {...props}>
-      {children}
-    </span>
-  ),
-  Badge: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <span data-testid="badge" {...props}>
-      {children}
-    </span>
-  ),
-  Button: ({
-    children,
-    onClick,
-    ...props
-  }: {
-    children?: ReactNode;
-    onClick?: () => void;
-    [key: string]: unknown;
-  }) => (
-    <button onClick={onClick} data-testid="button" {...props}>
-      {children}
-    </button>
-  ),
-  Input: ({
-    type,
-    checked,
-    onChange,
-    value,
-    placeholder,
-    ...props
-  }: {
-    type?: string;
-    checked?: boolean;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    value?: string;
-    placeholder?: string;
-    [key: string]: unknown;
-  }) => {
-    if (type === "checkbox") {
-      return (
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={onChange}
-          data-testid="checkbox-input"
-          {...props}
-        />
-      );
-    }
-    if (type === "radio") {
-      return (
-        <input
-          type="radio"
-          checked={checked}
-          onChange={onChange}
-          value={value}
-          data-testid={`radio-${value}`}
-          {...props}
-        />
-      );
-    }
-    return (
-      <input
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        data-testid="text-input"
-        {...props}
-      />
-    );
-  },
-  Heading: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <h2 data-testid="heading" {...props}>
-      {children}
-    </h2>
-  ),
-  Stack: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="stack" {...props}>
-      {children}
-    </div>
-  ),
-  Collapsible: {
-    Root: ({ children }: { children: ReactNode }) => <div>{children}</div>,
-    Trigger: ({ children }: { children: ReactNode }) => <div>{children}</div>,
-    Content: ({ children }: { children: ReactNode }) => <div>{children}</div>,
-  },
-  HStack: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="hstack" {...props}>
-      {children}
-    </div>
-  ),
-  VStack: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="vstack" {...props}>
-      {children}
-    </div>
-  ),
-  FormControl: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="form-control" {...props}>
-      {children}
-    </div>
-  ),
-  FormLabel: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <label data-testid="form-label" {...props}>
-      {children}
-    </label>
-  ),
-  Radio: ({
-    children,
-    ...props
-  }: {
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="radio" {...props}>
-      {children}
-    </div>
-  ),
-  RadioGroup: ({
-    children,
-    value,
-    ...props
-  }: {
-    children?: ReactNode;
-    value?: string;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="radio-group" data-value={value} {...props}>
-      {children}
-    </div>
-  ),
-  Switch: ({
-    onChange,
-    isChecked,
-    ...props
-  }: {
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    isChecked?: boolean;
-    [key: string]: unknown;
-  }) => (
-    <input
-      type="checkbox"
-      checked={isChecked}
-      onChange={onChange}
-      data-testid="switch"
-      {...props}
-    />
-  ),
-  useBoolean: () => [false, { toggle: jest.fn() }],
+jest.mock("react-icons/fi", () => ({
+  FiChevronDown: () => <span>down</span>,
+  FiChevronRight: () => <span>right</span>,
+  FiDownload: () => <span>download</span>,
+  FiLink: () => <span>link</span>,
+  FiCheck: () => <span>check</span>,
+  FiShare2: () => <span>share</span>,
 }));
 
-// Switch UIコンポーネントのモック
-jest.mock("@/components/ui/switch", () => ({
-  __esModule: true,
-  Switch: ({
-    checked,
-    onCheckedChange,
-    children,
-    ...props
-  }: {
-    checked?: boolean;
-    onCheckedChange?: (e: { checked: boolean }) => void;
-    children?: ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <label data-testid="switch-label">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(e) => onCheckedChange?.({ checked: e.target.checked })}
-        data-testid="switch"
-        {...props}
-      />
-      {children}
-    </label>
-  ),
+jest.mock("react-icons/fa6", () => ({
+  FaXTwitter: () => <span>twitter</span>,
+}));
+
+jest.mock("@next/third-parties/google", () => ({
+  sendGAEvent: jest.fn(),
 }));
 
 // OptionGroupコンポーネントのモック
@@ -504,6 +270,7 @@ describe("LineupCreator", () => {
 
     // 設定セクションが表示されることを確認
     expect(screen.getByText("設定")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("設定"));
     expect(screen.getAllByText("DHあり")[0]).toBeInTheDocument();
     expect(
       screen.getAllByText("育成枠含む(ファーム対応)")[0],
@@ -545,8 +312,11 @@ describe("LineupCreator", () => {
   test("DHありの設定を切り替える", () => {
     render(<LineupCreator players={mockPlayers} />);
 
+    // 設定を開く
+    fireEvent.click(screen.getByText("設定"));
+
     // すべてのSwitchを取得
-    const switches = screen.getAllByTestId("switch");
+    const switches = screen.getAllByRole("checkbox");
 
     // DHスイッチは最初のもの
     const dhSwitch = switches[0];
@@ -561,8 +331,11 @@ describe("LineupCreator", () => {
   test("ファームモードの設定を切り替える", () => {
     render(<LineupCreator players={mockPlayers} />);
 
+    // 設定を開く
+    fireEvent.click(screen.getByText("設定"));
+
     // すべてのSwitchを取得
-    const switches = screen.getAllByTestId("switch");
+    const switches = screen.getAllByRole("checkbox");
 
     // ファームモードスイッチは2番目のもの
     const farmModeSwitch = switches[1];
@@ -615,8 +388,11 @@ describe("LineupCreator", () => {
     expect(capturedPlayers.length).toBe(4); // ロースター選手の数
     expect(capturedPlayers.some((p) => p.role === Role.Training)).toBe(false);
 
+    // 設定を開く
+    fireEvent.click(screen.getByText("設定"));
+
     // ファームモードをオンにする
-    const farmModeSwitch = screen.getAllByTestId("switch")[1];
+    const farmModeSwitch = screen.getAllByRole("checkbox")[1];
     fireEvent.click(farmModeSwitch);
 
     // 再レンダリングさせる
@@ -632,6 +408,9 @@ describe("LineupCreator", () => {
 
   test("選手名表示形式を変更できる", () => {
     render(<LineupCreator players={mockPlayers} />);
+
+    // 設定を開く
+    fireEvent.click(screen.getByText("設定"));
 
     // ひらがなのみのラジオボタンをクリック
     const kanaRadioButton = screen.getByTestId("radio-kana");

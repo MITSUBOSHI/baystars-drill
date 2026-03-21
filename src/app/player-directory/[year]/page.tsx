@@ -3,7 +3,6 @@ import { registeredYears } from "@/constants/player";
 import { playersByYear } from "@/lib/players";
 import { cheerSongsByYear } from "@/lib/cheerSongs";
 import { Year } from "@/types/Player";
-import { VStack, Box } from "@chakra-ui/react";
 import PlayerTable from "@/components/player-table/PlayerTable";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
@@ -42,16 +41,16 @@ export default async function Page({
   }
 
   return (
-    <VStack justify={"center"} w="100%" gap={6} py={4}>
+    <div className="flex flex-col items-center w-full gap-6 py-4">
       <PageTitle title="選手名鑑" reading="せんしゅめいかん" />
       <YearSelector currentYear={currentYear} baseUrl="/player-directory" />
-      <Box w="100%" maxW={{ base: "100%", md: "800px" }} px={4}>
+      <div className="w-full max-w-full md:max-w-[800px] px-4">
         <PlayerTable
           players={players}
           year={currentYear}
           cheerSongNumbers={cheerSongNumbers}
         />
-      </Box>
-    </VStack>
+      </div>
+    </div>
   );
 }

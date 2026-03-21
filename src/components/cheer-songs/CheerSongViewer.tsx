@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { VStack, HStack, Text, Box } from "@chakra-ui/react";
+import { FiSearch } from "react-icons/fi";
 import { CheerSongType } from "@/types/CheerSong";
 import { useFurigana } from "@/contexts/FuriganaContext";
 import CheerSongCard from "./CheerSongCard";
@@ -83,10 +83,11 @@ export default function CheerSongViewer({ songs, year }: CheerSongViewerProps) {
     : null;
 
   const initialTab = targetSong
-    ? categoryToTab[targetSong.category] ?? "pitcher"
+    ? (categoryToTab[targetSong.category] ?? "pitcher")
     : "pitcher";
 
   const [activeTab, setActiveTab] = useState<CategoryTab>(initialTab);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // number パラメータの曲にスクロール
   useEffect(() => {
@@ -100,72 +101,104 @@ export default function CheerSongViewer({ songs, year }: CheerSongViewerProps) {
     return () => clearTimeout(timer);
   }, [targetSong]);
 
-  const filteredSongs = filterByTab(songs, activeTab);
+  const isSearching = searchQuery.trim().length > 0;
+  const query = searchQuery.trim().toLowerCase();
+
+  const filteredSongs = useMemo(() => {
+    if (isSearching) {
+      return songs.filter(
+        (s) =>
+          s.title.toLowerCase().includes(query) ||
+          s.playerNumber?.includes(query) ||
+          s.playerNameKana?.includes(query) ||
+          s.applicablePlayers?.some(
+            (p) =>
+              p.callName.toLowerCase().includes(query) ||
+              p.name.toLowerCase().includes(query),
+          ),
+      );
+    }
+    return filterByTab(songs, activeTab);
+  }, [songs, activeTab, isSearching, query]);
 
   return (
-    <VStack gap={4} w="100%">
-      <Box
-        position="sticky"
-        top={0}
-        zIndex={5}
-        bg="surface.card"
-        w="100%"
-        py={3}
-        borderBottomWidth="1px"
-        borderColor="border.card"
+    <div className="flex flex-col gap-4 w-full">
+      <div
+        className="sticky top-0 z-5 w-full py-3 border-b"
+        style={{
+          backgroundColor: "var(--surface-card)",
+          borderColor: "var(--border-card)",
+        }}
       >
-        <VStack gap={3} w="100%">
-          <Box
-            w="100%"
-            overflowX="auto"
-            css={{
+        <div className="flex flex-col gap-3 w-full">
+          <div className="flex items-center w-full px-2 gap-2">
+            <div
+              className="shrink-0"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              <FiSearch />
+            </div>
+            <input
+              placeholder="選手名で検索..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="応援歌を検索"
+              className="w-full px-3 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--interactive-primary)]"
+              style={{
+                backgroundColor: "var(--surface-card-subtle)",
+                borderColor: "var(--border-card)",
+                color: "var(--text-primary)",
+              }}
+            />
+          </div>
+          <div
+            className="w-full overflow-x-auto"
+            style={{
               WebkitOverflowScrolling: "touch",
               scrollbarWidth: "none",
-              "&::-webkit-scrollbar": { display: "none" },
             }}
           >
-            <HStack gap={2} minW="max-content" role="tablist" aria-label="応援歌カテゴリ">
+            <div
+              className="flex items-center gap-2 min-w-max"
+              role="tablist"
+              aria-label="応援歌カテゴリ"
+            >
               {tabs.map((tab) => (
-                <Box
+                <button
                   key={tab.key}
-                  as="button"
                   role="tab"
                   id={`tab-${tab.key}`}
                   aria-selected={activeTab === tab.key}
                   aria-controls={`tabpanel-${tab.key}`}
-                  px={4}
-                  py={3}
-                  borderRadius="md"
-                  fontWeight={activeTab === tab.key ? "bold" : "normal"}
-                  bg={
+                  className={`px-4 py-3 rounded-md border whitespace-nowrap cursor-pointer transition-all duration-200 hover:border-[var(--interactive-primary)] ${
                     activeTab === tab.key
-                      ? "interactive.primary"
-                      : "transparent"
-                  }
-                  color={activeTab === tab.key ? "white" : "text.secondary"}
-                  borderWidth="1px"
-                  borderColor={
-                    activeTab === tab.key ? "border.brand" : "border.card"
-                  }
-                  cursor="pointer"
-                  transition="all 0.2s"
-                  whiteSpace="nowrap"
-                  _hover={{
-                    borderColor: "interactive.primary",
+                      ? "font-bold text-white"
+                      : "font-normal"
+                  }`}
+                  style={{
+                    backgroundColor:
+                      activeTab === tab.key
+                        ? "var(--interactive-primary)"
+                        : "transparent",
+                    color:
+                      activeTab === tab.key ? "white" : "var(--text-secondary)",
+                    borderColor:
+                      activeTab === tab.key
+                        ? "var(--border-brand)"
+                        : "var(--border-card)",
                   }}
                   onClick={() => setActiveTab(tab.key)}
                 >
-                  <Text fontSize="sm">{tab.label}</Text>
-                </Box>
+                  <span className="text-sm">{tab.label}</span>
+                </button>
               ))}
-            </HStack>
-          </Box>
-        </VStack>
-      </Box>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <VStack
-        gap={4}
-        w="100%"
+      <div
+        className="flex flex-col gap-4 w-full"
         role="tabpanel"
         id={`tabpanel-${activeTab}`}
         aria-labelledby={`tab-${activeTab}`}
@@ -180,7 +213,7 @@ export default function CheerSongViewer({ songs, year }: CheerSongViewerProps) {
             year={year}
           />
         ))}
-      </VStack>
-    </VStack>
+      </div>
+    </div>
   );
 }

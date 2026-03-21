@@ -4,7 +4,6 @@ import { registeredYears } from "@/constants/player";
 import { playersByYear } from "@/lib/players";
 import { cheerSongsByYear } from "@/lib/cheerSongs";
 import { Year } from "@/types/Player";
-import { VStack, Box } from "@chakra-ui/react";
 import UniformViewer from "@/components/uniform-view/UniformViewer";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
@@ -43,10 +42,10 @@ export default async function Page({
   }
 
   return (
-    <VStack justify={"center"} w="100%" gap={6} py={4}>
+    <div className="flex flex-col items-center w-full gap-6 py-4">
       <PageTitle title="ユニフォームビュー" reading="ゆにふぉーむびゅー" />
       <YearSelector currentYear={currentYear} baseUrl="/uniform-view" />
-      <Box w="100%" maxW={{ base: "100%", md: "500px" }} px={4}>
+      <div className="w-full max-w-full md:max-w-[500px] px-4">
         <Suspense>
           <UniformViewer
             players={players}
@@ -54,7 +53,7 @@ export default async function Page({
             cheerSongNumbers={cheerSongNumbers}
           />
         </Suspense>
-      </Box>
-    </VStack>
+      </div>
+    </div>
   );
 }

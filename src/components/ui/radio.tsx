@@ -1,24 +1,54 @@
-import { RadioGroup as ChakraRadioGroup } from "@chakra-ui/react";
-import { forwardRef } from "react";
+"use client";
 
-export interface RadioProps extends ChakraRadioGroup.ItemProps {
-  rootRef?: React.Ref<HTMLDivElement>;
+import { forwardRef } from "react";
+import * as React from "react";
+
+export interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  rootRef?: React.Ref<HTMLLabelElement>;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  value?: string;
+  children?: React.ReactNode;
 }
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   function Radio(props, ref) {
-    const { children, inputProps, rootRef, ...rest } = props;
+    const { children, inputProps, rootRef, value, name, ...rest } = props;
     return (
-      <ChakraRadioGroup.Item ref={rootRef} {...rest}>
-        <ChakraRadioGroup.ItemHiddenInput ref={ref} {...inputProps} />
-        <ChakraRadioGroup.ItemIndicator />
+      <label
+        ref={rootRef}
+        className="inline-flex items-center gap-2 cursor-pointer"
+      >
+        <input
+          ref={ref}
+          type="radio"
+          name={name}
+          value={value}
+          className="accent-[var(--interactive-primary)]"
+          {...inputProps}
+          {...rest}
+        />
         {children && (
-          <ChakraRadioGroup.ItemText>{children}</ChakraRadioGroup.ItemText>
+          <span className="text-sm text-[var(--text-primary)]">{children}</span>
         )}
-      </ChakraRadioGroup.Item>
+      </label>
     );
   },
 );
 
-export const RadioGroup = ChakraRadioGroup.Root;
+export interface RadioGroupProps {
+  children?: React.ReactNode;
+  value?: string;
+  onValueChange?: (details: { value: string }) => void;
+  name?: string;
+}
+
+export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
+  function RadioGroup(props, ref) {
+    const { children, ...rest } = props;
+    return (
+      <div ref={ref} role="radiogroup" {...rest}>
+        {children}
+      </div>
+    );
+  },
+);

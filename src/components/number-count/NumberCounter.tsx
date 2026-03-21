@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
-import { Box, Text, Flex, Button } from "@chakra-ui/react";
 import { FiPlay, FiPause, FiRotateCcw } from "react-icons/fi";
 import { sendGAEvent } from "@next/third-parties/google";
 import { PlayerType, Role } from "@/types/Player";
@@ -304,9 +303,9 @@ export default function NumberCounter({ players }: Props) {
   }, []);
 
   return (
-    <Box w="100%" maxW="400px" mx="auto" userSelect="none">
+    <div className="w-full max-w-[400px] mx-auto select-none">
       {/* 設定 */}
-      <Box mb={6}>
+      <div className="mb-6">
         <CounterSettings
           direction={direction}
           onDirectionChange={setDirection}
@@ -322,10 +321,10 @@ export default function NumberCounter({ players }: Props) {
           onIncludeZeroChange={setIncludeZero}
           disabled={state === "counting"}
         />
-      </Box>
+      </div>
 
       {/* ユニフォーム表示 */}
-      <Box
+      <div
         style={{
           opacity: fadeIn ? 1 : 0,
           transition: "opacity 0.15s ease-in-out",
@@ -336,71 +335,70 @@ export default function NumberCounter({ players }: Props) {
           numberDisp={numberDisp}
           clipPathId="countUniformClip"
         />
-      </Box>
+      </div>
 
       {/* 選手情報 */}
-      <Box textAlign="center" mb={4}>
-        <Text fontSize="lg" fontWeight="bold" color="text.primary">
+      <div className="text-center mb-4">
+        <p
+          className="text-lg font-bold"
+          style={{ color: "var(--text-primary)" }}
+        >
           {furigana ? (
             <Ruby reading={displayKana}>{displayName}</Ruby>
           ) : (
             displayName
           )}
-        </Text>
+        </p>
         {!furigana && (
-          <Text fontSize="sm" color="text.secondary">
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
             {displayKana}
-          </Text>
+          </p>
         )}
-      </Box>
+      </div>
 
       {/* 進捗 */}
-      <Text textAlign="center" mb={4} fontSize="sm" color="text.secondary">
+      <p
+        className="text-center mb-4 text-sm"
+        style={{ color: "var(--text-secondary)" }}
+      >
         {currentStep?.displayNumber} / {lastStep?.displayNumber}
-      </Text>
+      </p>
 
       {/* 操作ボタン */}
-      <Flex justify="center" align="center" gap={4} mb={6}>
+      <div className="flex justify-center items-center gap-4 mb-6">
         {/* リセット */}
-        <Button
+        <button
           onClick={reset}
-          variant="outline"
-          size="sm"
-          borderRadius="full"
+          className="p-2 rounded-full border text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{ borderColor: "var(--border-card)" }}
           aria-label="リセット"
           disabled={state === "idle"}
         >
           <FiRotateCcw />
-        </Button>
+        </button>
 
         {/* 再生/停止 */}
         {state === "counting" ? (
-          <Button
+          <button
             onClick={pause}
-            colorPalette="blue"
-            size="lg"
-            borderRadius="full"
+            className="w-14 h-14 rounded-full flex items-center justify-center text-white"
+            style={{ backgroundColor: "var(--interactive-primary)" }}
             aria-label="停止"
-            w="56px"
-            h="56px"
           >
             <FiPause size={24} />
-          </Button>
+          </button>
         ) : (
-          <Button
+          <button
             onClick={state === "paused" ? resume : start}
-            colorPalette="blue"
-            size="lg"
-            borderRadius="full"
+            className="w-14 h-14 rounded-full flex items-center justify-center text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ backgroundColor: "var(--interactive-primary)" }}
             aria-label="再生"
-            w="56px"
-            h="56px"
             disabled={state === "finished"}
           >
             <FiPlay size={24} />
-          </Button>
+          </button>
         )}
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 }

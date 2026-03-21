@@ -1,14 +1,6 @@
 "use client";
 
 import { PlayerType } from "@/types/Player";
-import {
-  Box,
-  HStack,
-  IconButton,
-  Link as ChakraLink,
-  Icon,
-  Table,
-} from "@chakra-ui/react";
 import { useState } from "react";
 import Link from "next/link";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
@@ -56,7 +48,11 @@ type Props = {
   cheerSongNumbers?: Set<string>;
 };
 
-export default function PlayerTable({ players, year, cheerSongNumbers }: Props) {
+export default function PlayerTable({
+  players,
+  year,
+  cheerSongNumbers,
+}: Props) {
   const { furigana } = useFurigana();
   const [sortOrder, setSortOrder] = useState<SortOrder>(null);
   const [sortColumn, setSortColumn] = useState<string>("number_disp");
@@ -84,113 +80,125 @@ export default function PlayerTable({ players, year, cheerSongNumbers }: Props) 
   };
 
   return (
-    <Table.ScrollArea
-      borderWidth="1px"
-      rounded="md"
-      height={{ base: 600, md: 900 }}
+    <div
+      className="border rounded-md overflow-auto h-[600px] md:h-[900px]"
+      style={{ borderColor: "var(--border-card)" }}
     >
-      <Table.Root striped stickyHeader>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader
-              width={{ base: "20%", md: "15%" }}
+      <table className="w-full text-sm border-collapse min-w-[640px]">
+        <thead
+          className="sticky top-0 z-10"
+          style={{ backgroundColor: "var(--surface-card)" }}
+        >
+          <tr className="border-b border-[var(--border-card)]">
+            <th
+              className="text-left px-3 py-2 whitespace-nowrap w-16"
               aria-sort={getAriaSort("number_disp")}
             >
-              <HStack gap={2}>
-                <Box>
+              <div className="flex items-center gap-1">
+                <span>
                   <Ruby reading="せばんごう">背番号</Ruby>
-                </Box>
-                <IconButton
+                </span>
+                <button
                   aria-label="背番号でソート"
                   onClick={() => handleSort("number_disp")}
-                  size="sm"
-                  variant="ghost"
+                  className="p-1 rounded hover:bg-[var(--surface-brand)] bg-transparent border-none cursor-pointer"
                 >
-                  <Icon as={getSortIcon("number_disp")} />
-                </IconButton>
-              </HStack>
-            </Table.ColumnHeader>
-            <Table.ColumnHeader width={{ base: "60%", md: "65%" }}>
+                  {(() => {
+                    const Icon = getSortIcon("number_disp");
+                    return <Icon />;
+                  })()}
+                </button>
+              </div>
+            </th>
+            <th className="text-left px-3 py-2 whitespace-nowrap">
               <Ruby reading="なまえ">名前</Ruby>
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              width={{ base: "20%", md: "20%" }}
+            </th>
+            <th
+              className="text-left px-3 py-2 whitespace-nowrap w-28"
               aria-sort={getAriaSort("date_of_birth")}
             >
-              <HStack gap={2}>
-                <Box>
+              <div className="flex items-center gap-1">
+                <span>
                   <Ruby reading="せいねんがっぴ">生年月日</Ruby>
-                </Box>
-                <IconButton
+                </span>
+                <button
                   aria-label="生年月日でソート"
                   onClick={() => handleSort("date_of_birth")}
-                  size="sm"
-                  variant="ghost"
+                  className="p-1 rounded hover:bg-[var(--surface-brand)] bg-transparent border-none cursor-pointer"
                 >
-                  <Icon as={getSortIcon("date_of_birth")} />
-                </IconButton>
-              </HStack>
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              width={{ base: "20%", md: "10%" }}
+                  {(() => {
+                    const Icon = getSortIcon("date_of_birth");
+                    return <Icon />;
+                  })()}
+                </button>
+              </div>
+            </th>
+            <th
+              className="text-left px-3 py-2 whitespace-nowrap w-20"
               aria-sort={getAriaSort("height_cm")}
             >
-              <HStack gap={2}>
-                <Box>
+              <div className="flex items-center gap-1">
+                <span>
                   <Ruby reading="しんちょう">身長</Ruby>
-                </Box>
-                <IconButton
+                </span>
+                <button
                   aria-label="身長でソート"
                   onClick={() => handleSort("height_cm")}
-                  size="sm"
-                  variant="ghost"
+                  className="p-1 rounded hover:bg-[var(--surface-brand)] bg-transparent border-none cursor-pointer"
                 >
-                  <Icon as={getSortIcon("height_cm")} />
-                </IconButton>
-              </HStack>
-            </Table.ColumnHeader>
-            <Table.ColumnHeader
-              width={{ base: "20%", md: "10%" }}
+                  {(() => {
+                    const Icon = getSortIcon("height_cm");
+                    return <Icon />;
+                  })()}
+                </button>
+              </div>
+            </th>
+            <th
+              className="text-left px-3 py-2 whitespace-nowrap w-20"
               aria-sort={getAriaSort("weight_kg")}
             >
-              <HStack gap={2}>
-                <Box>
+              <div className="flex items-center gap-1">
+                <span>
                   <Ruby reading="たいじゅう">体重</Ruby>
-                </Box>
-                <IconButton
+                </span>
+                <button
                   aria-label="体重でソート"
                   onClick={() => handleSort("weight_kg")}
-                  size="sm"
-                  variant="ghost"
+                  className="p-1 rounded hover:bg-[var(--surface-brand)] bg-transparent border-none cursor-pointer"
                 >
-                  <Icon as={getSortIcon("weight_kg")} />
-                </IconButton>
-              </HStack>
-            </Table.ColumnHeader>
-            <Table.ColumnHeader width={{ base: "10%", md: "8%" }}>
+                  {(() => {
+                    const Icon = getSortIcon("weight_kg");
+                    return <Icon />;
+                  })()}
+                </button>
+              </div>
+            </th>
+            <th className="text-left px-3 py-2 whitespace-nowrap w-16">
               リンク
-            </Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {sortedPlayers.map((player) => (
-            <Table.Row key={player.number_disp}>
-              <Table.Cell>{player.number_disp}</Table.Cell>
-              <Table.Cell>
-                <ChakraLink
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedPlayers.map((player, index) => (
+            <tr
+              key={player.number_disp}
+              className="border-b border-[var(--border-card)]"
+              style={{
+                backgroundColor:
+                  index % 2 === 0
+                    ? "var(--surface-card-subtle)"
+                    : "var(--surface-card)",
+              }}
+            >
+              <td className="px-3 py-2 font-medium">{player.number_disp}</td>
+              <td className="px-3 py-2">
+                <a
                   href={player.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  _hover={{ textDecoration: "none" }}
+                  className="no-underline"
                 >
-                  <Box
-                    _hover={{
-                      bg: "surface.brand",
-                      transition: "background-color 0.2s",
-                    }}
-                    p={2}
-                    rounded="md"
-                  >
+                  <span className="hover:text-[var(--interactive-primary)] transition-colors">
                     {furigana ? (
                       <Ruby reading={player.name_kana}>{player.name}</Ruby>
                     ) : (
@@ -198,49 +206,52 @@ export default function PlayerTable({ players, year, cheerSongNumbers }: Props) 
                         {player.name} ({player.name_kana})
                       </>
                     )}
-                  </Box>
-                </ChakraLink>
-              </Table.Cell>
-              <Table.Cell>{player.date_of_birth}</Table.Cell>
-              <Table.Cell>
+                  </span>
+                </a>
+              </td>
+              <td className="px-3 py-2 whitespace-nowrap">
+                {player.date_of_birth}
+              </td>
+              <td className="px-3 py-2 whitespace-nowrap">
                 {player.height_cm ? `${player.height_cm}cm` : "-"}
-              </Table.Cell>
-              <Table.Cell>
+              </td>
+              <td className="px-3 py-2 whitespace-nowrap">
                 {player.weight_kg ? `${player.weight_kg}kg` : "-"}
-              </Table.Cell>
-              <Table.Cell>
-                <HStack gap={1}>
+              </td>
+              <td className="px-3 py-2">
+                <div className="flex items-center gap-1">
                   <Link
                     href={`/uniform-view/${year}?number=${player.number_disp}`}
                     title="ユニフォームを見る"
                   >
-                    <IconButton
+                    <button
                       aria-label={`${player.name}のユニフォームを見る`}
-                      size="xs"
-                      variant="ghost"
-                      color="interactive.primary"
+                      className="p-1 rounded hover:bg-[var(--surface-brand)] bg-transparent border-none cursor-pointer"
+                      style={{ color: "var(--interactive-primary)" }}
                     >
                       <GiClothes />
-                    </IconButton>
+                    </button>
                   </Link>
                   {cheerSongNumbers?.has(player.number_disp) && (
-                    <Link href={`/cheer-songs/${year}?number=${player.number_disp}`} title="応援歌を見る">
-                      <IconButton
+                    <Link
+                      href={`/cheer-songs/${year}?number=${player.number_disp}`}
+                      title="応援歌を見る"
+                    >
+                      <button
                         aria-label={`応援歌を見る`}
-                        size="xs"
-                        variant="ghost"
-                        color="interactive.primary"
+                        className="p-1 rounded hover:bg-[var(--surface-brand)] bg-transparent border-none cursor-pointer"
+                        style={{ color: "var(--interactive-primary)" }}
                       >
                         <FiMusic />
-                      </IconButton>
+                      </button>
                     </Link>
                   )}
-                </HStack>
-              </Table.Cell>
-            </Table.Row>
+                </div>
+              </td>
+            </tr>
           ))}
-        </Table.Body>
-      </Table.Root>
-    </Table.ScrollArea>
+        </tbody>
+      </table>
+    </div>
   );
 }

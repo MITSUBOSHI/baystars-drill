@@ -4,108 +4,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { PlayerType, Role } from "../../types/Player";
 
-// Create a mock focus function that we can access in tests
-const mockInputFocus = jest.fn();
-
-// Mock Chakra UI components completely to avoid structuredClone issue
-jest.mock("@chakra-ui/react", () => {
-  const MockBox = ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="box" {...props}>
-      {children}
-    </div>
-  );
-  MockBox.displayName = "MockBox";
-
-  const MockButton = ({
-    children,
-    onClick,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    onClick?: () => void;
-    [key: string]: unknown;
-  }) => (
-    <button data-testid="button" onClick={onClick} {...props}>
-      {children}
-    </button>
-  );
-  MockButton.displayName = "MockButton";
-
-  const MockBadge = ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <span data-testid="badge" {...props}>
-      {children}
-    </span>
-  );
-  MockBadge.displayName = "MockBadge";
-
-  const MockText = ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <span data-testid="text" {...props}>
-      {children}
-    </span>
-  );
-  MockText.displayName = "MockText";
-
-  const MockFlex = ({
-    children,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    [key: string]: unknown;
-  }) => (
-    <div data-testid="flex" {...props}>
-      {children}
-    </div>
-  );
-  MockFlex.displayName = "MockFlex";
-
-  const MockInput = React.forwardRef(
-    (
-      {
-        onChange,
-        ...props
-      }: {
-        onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-        [key: string]: unknown;
-      },
-      ref,
-    ) => {
-      // Create a proper forwarded ref element that can be focused
-      React.useImperativeHandle(ref, () => ({
-        focus: mockInputFocus,
-      }));
-      return <input data-testid="input" onChange={onChange} {...props} />;
-    },
-  );
-  MockInput.displayName = "MockInput";
-
-  return {
-    Box: MockBox,
-    Button: MockButton,
-    Badge: MockBadge,
-    Text: MockText,
-    Flex: MockFlex,
-    Input: MockInput,
-  };
-});
-
 // Mock structuredClone
 global.structuredClone = jest.fn((obj) => JSON.parse(JSON.stringify(obj)));
 
@@ -160,16 +58,18 @@ describe("PlayerSelector", () => {
 
   test("選手が選択されていない場合、ドロップダウンボタンが表示される", () => {
     render(<PlayerSelector {...defaultProps} />);
-    expect(screen.getByTestId("button")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "投手の選手を選択" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("投手の選手を選択")).toBeInTheDocument();
   });
 
   test("ドロップダウンボタンをクリックするとドロップダウンメニューが表示される", () => {
     render(<PlayerSelector {...defaultProps} />);
-    fireEvent.click(screen.getByTestId("button"));
+    fireEvent.click(screen.getByRole("button", { name: "投手の選手を選択" }));
 
     // ドロップダウンメニューが表示されていることを確認
-    expect(screen.getByTestId("input")).toBeInTheDocument();
+    expect(screen.getByLabelText("選手を検索")).toBeInTheDocument();
     expect(screen.getByText("佐野 恵太")).toBeInTheDocument();
     expect(screen.getByText("牧 秀悟")).toBeInTheDocument();
   });
@@ -179,13 +79,14 @@ describe("PlayerSelector", () => {
     jest.useFakeTimers();
 
     render(<PlayerSelector {...defaultProps} />);
-    fireEvent.click(screen.getByTestId("button"));
+    fireEvent.click(screen.getByRole("button", { name: "投手の選手を選択" }));
 
     // Run the setTimeout callback
     jest.runAllTimers();
 
     // useEffectによってfocusが呼ばれることをテスト
-    expect(mockInputFocus).toHaveBeenCalled();
+    const searchInput = screen.getByLabelText("選手を検索");
+    expect(document.activeElement).toBe(searchInput);
 
     // Restore timers
     jest.useRealTimers();
@@ -193,10 +94,10 @@ describe("PlayerSelector", () => {
 
   test("検索フィールドに入力すると、選手がフィルタリングされる", () => {
     render(<PlayerSelector {...defaultProps} />);
-    fireEvent.click(screen.getByTestId("button"));
+    fireEvent.click(screen.getByRole("button", { name: "投手の選手を選択" }));
 
     // 検索フィールドに「佐野」と入力
-    fireEvent.change(screen.getByTestId("input"), {
+    fireEvent.change(screen.getByLabelText("選手を検索"), {
       target: { value: "佐野" },
     });
 
@@ -207,7 +108,7 @@ describe("PlayerSelector", () => {
 
   test("選手を選択すると、onSelectPlayerが呼び出される", () => {
     render(<PlayerSelector {...defaultProps} />);
-    fireEvent.click(screen.getByTestId("button"));
+    fireEvent.click(screen.getByRole("button", { name: "投手の選手を選択" }));
 
     // 選手を選択
     fireEvent.click(screen.getByText("佐野 恵太"));

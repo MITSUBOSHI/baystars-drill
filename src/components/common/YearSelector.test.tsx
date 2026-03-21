@@ -8,35 +8,8 @@ jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
 
-// Chakra UIのモック
-jest.mock("@chakra-ui/react", () => ({
-  Text: ({ children, ...props }: { children: React.ReactNode }) => (
-    <span data-testid="text" {...props}>
-      {children}
-    </span>
-  ),
-  Box: ({ children, ...props }: { children: React.ReactNode }) => (
-    <div data-testid="box" {...props}>
-      {children}
-    </div>
-  ),
-  Button: ({
-    children,
-    onClick,
-    ...props
-  }: {
-    children: React.ReactNode;
-    onClick?: () => void;
-  }) => (
-    <button data-testid="button" onClick={onClick} {...props}>
-      {children}
-    </button>
-  ),
-  Flex: ({ children, ...props }: { children: React.ReactNode }) => (
-    <div data-testid="flex" {...props}>
-      {children}
-    </div>
-  ),
+jest.mock("@next/third-parties/google", () => ({
+  sendGAEvent: jest.fn(),
 }));
 
 // 定数のモック
@@ -70,7 +43,9 @@ describe("YearSelector", () => {
     expect(screen.getByText("2024")).toBeInTheDocument();
 
     // ドロップダウンボタンが表示されることを確認
-    expect(screen.getByTestId("button")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "テスト用ラベル: 2024" }),
+    ).toBeInTheDocument();
 
     // 初期状態ではドロップダウンメニューは非表示
     expect(screen.queryByText("2025")).not.toBeInTheDocument();
@@ -92,45 +67,32 @@ describe("YearSelector", () => {
     render(<YearSelector currentYear={2024} baseUrl="/test/url" />);
 
     // ボタンをクリックしてドロップダウンを開く
-    fireEvent.click(screen.getByTestId("button"));
+    fireEvent.click(screen.getByRole("button", { name: "年を選択: 2024" }));
 
     // ドロップダウンが開き、すべての年が表示されることを確認
-    const yearBoxes = screen.getAllByTestId("box");
-    const dropdownItems = yearBoxes.filter(
-      (box) =>
-        box.getAttribute("cursor") === "pointer" ||
-        box.textContent?.match(/202[345]/),
-    );
+    const options = screen.getAllByRole("option");
 
     // 年度が表示されていることを確認
-    expect(
-      dropdownItems.some((item) => item.textContent?.includes("2025")),
-    ).toBe(true);
-    expect(
-      dropdownItems.some((item) => item.textContent?.includes("2024")),
-    ).toBe(true);
-    expect(
-      dropdownItems.some((item) => item.textContent?.includes("2023")),
-    ).toBe(true);
+    expect(options.some((item) => item.textContent?.includes("2025"))).toBe(
+      true,
+    );
+    expect(options.some((item) => item.textContent?.includes("2024"))).toBe(
+      true,
+    );
+    expect(options.some((item) => item.textContent?.includes("2023"))).toBe(
+      true,
+    );
   });
 
   it("navigates to new year when year is selected", () => {
     render(<YearSelector currentYear={2024} baseUrl="/test/url" />);
 
     // ボタンをクリックしてドロップダウンを開く
-    fireEvent.click(screen.getByTestId("button"));
-
-    // ドロップダウンアイテムを取得
-    const yearBoxes = screen.getAllByTestId("box");
-    const dropdownItems = yearBoxes.filter(
-      (box) =>
-        box.getAttribute("cursor") === "pointer" ||
-        (box.textContent?.includes("2025") &&
-          !box.textContent?.includes("2024")),
-    );
+    fireEvent.click(screen.getByRole("button", { name: "年を選択: 2024" }));
 
     // 2025年を選択
-    const yearItem2025 = dropdownItems.find((item) =>
+    const options = screen.getAllByRole("option");
+    const yearItem2025 = options.find((item) =>
       item.textContent?.includes("2025"),
     );
     expect(yearItem2025).toBeTruthy();
@@ -146,18 +108,11 @@ describe("YearSelector", () => {
     render(<YearSelector currentYear={2024} baseUrl="/test/url" />);
 
     // ボタンをクリックしてドロップダウンを開く
-    fireEvent.click(screen.getByTestId("button"));
-
-    // ドロップダウンアイテムを取得
-    const yearBoxes = screen.getAllByTestId("box");
-    const dropdownItems = yearBoxes.filter(
-      (box) =>
-        box.getAttribute("cursor") === "pointer" ||
-        box.textContent?.includes("2024"),
-    );
+    fireEvent.click(screen.getByRole("button", { name: "年を選択: 2024" }));
 
     // 現在の年（2024）を選択
-    const yearItem2024 = dropdownItems.find(
+    const options = screen.getAllByRole("option");
+    const yearItem2024 = options.find(
       (item) =>
         item.textContent?.includes("2024") &&
         !item.textContent?.includes("2025") &&

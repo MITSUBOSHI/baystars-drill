@@ -11,22 +11,14 @@ import { sendGAEvent } from "@next/third-parties/google";
 import { getDisplayName as getDisplayNameBase } from "@/lib/nameUtils";
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import {
-  Box,
-  Button,
-  Heading,
-  Text,
-  Flex,
-  Stack,
-  Input,
-  Collapsible,
-} from "@chakra-ui/react";
-import {
   FiChevronDown,
   FiChevronRight,
   FiDownload,
   FiLink,
   FiCheck,
+  FiShare2,
 } from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
 import OptionGroup from "@/components/common/OptionGroup";
 import { Switch } from "@/components/ui/switch";
@@ -79,6 +71,7 @@ export default function LineupCreator({ players }: Props) {
   const lineupTableRef = useRef<HTMLDivElement>(null);
   const [isForImage, setIsForImage] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const initializedRef = useRef(false);
   const isRestoringRef = useRef(false);
@@ -353,86 +346,121 @@ export default function LineupCreator({ players }: Props) {
     orderedPlayers.length,
   ]);
 
+  const getShareUrl = useCallback(() => {
+    const params = encodeLineupParams({
+      lineup,
+      startingPitcher,
+      hasDH,
+      isFarmMode,
+      nameDisplay,
+      customTitle,
+    });
+    return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }, [lineup, startingPitcher, hasDH, isFarmMode, nameDisplay, customTitle]);
+
+  const getShareText = useCallback(() => {
+    const title = customTitle || "ベイスターズ スタメン";
+    const lines = orderedPlayers.map(
+      (spot) =>
+        `${spot.order}. ${getDisplayName(spot.player)} (${spot.position})`,
+    );
+    const pitcher = startingPitcher
+      ? `先発: ${getDisplayName(startingPitcher)}`
+      : "";
+    return [title, ...lines, pitcher].filter(Boolean).join("\n");
+  }, [orderedPlayers, startingPitcher, customTitle, getDisplayName]);
+
+  const handleShareTwitter = useCallback(() => {
+    const text = getShareText();
+    const url = getShareUrl();
+    const twitterUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+    window.open(twitterUrl, "_blank", "noopener,noreferrer");
+    sendGAEvent("event", "lineup_share_twitter", {
+      player_count: orderedPlayers.length,
+    });
+  }, [getShareText, getShareUrl, orderedPlayers.length]);
+
+  const handleNativeShare = useCallback(async () => {
+    const text = getShareText();
+    const url = getShareUrl();
+    try {
+      await navigator.share({
+        title: customTitle || "ベイスターズ スタメン",
+        text,
+        url,
+      });
+      sendGAEvent("event", "lineup_share_native", {
+        player_count: orderedPlayers.length,
+      });
+    } catch {
+      // user cancelled or not supported
+    }
+  }, [getShareText, getShareUrl, customTitle, orderedPlayers.length]);
+
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" gap="8">
-      <Box
-        w="100%"
-        maxW="800px"
-        bg="surface.brand"
-        borderWidth="1px"
-        borderRadius="lg"
-        borderColor="border.brand"
-        mb={4}
+    <div className="flex flex-col items-center gap-8">
+      <div
+        className="w-full max-w-[800px] border rounded-lg mb-4"
+        style={{
+          backgroundColor: "var(--surface-brand)",
+          borderColor: "var(--border-brand)",
+        }}
       >
-        <Collapsible.Root>
-          <Collapsible.Trigger asChild>
-            <Flex
-              as="button"
-              w="100%"
-              p={4}
-              align="center"
-              justify="space-between"
-              cursor="pointer"
-              fontWeight="bold"
-              fontSize="md"
-              _open={{
-                "& > .chevron-down": { display: "inline" },
-                "& > .chevron-right": { display: "none" },
-              }}
-              _closed={{
-                "& > .chevron-down": { display: "none" },
-                "& > .chevron-right": { display: "inline" },
-              }}
+        <button
+          className="flex items-center justify-between w-full p-4 cursor-pointer font-bold text-base bg-transparent border-none text-[var(--text-primary)]"
+          onClick={() => setSettingsOpen(!settingsOpen)}
+        >
+          設定
+          {settingsOpen ? <FiChevronDown /> : <FiChevronRight />}
+        </button>
+        {settingsOpen && (
+          <div className="flex flex-col gap-4 px-6 pb-6">
+            <Switch
+              checked={hasDH}
+              onCheckedChange={(e) => setHasDH(e.checked)}
             >
-              設定
-              <FiChevronRight className="chevron-right" />
-              <FiChevronDown className="chevron-down" />
-            </Flex>
-          </Collapsible.Trigger>
-          <Collapsible.Content>
-            <Stack gap={4} px={6} pb={6}>
-              <Switch
-                checked={hasDH}
-                onCheckedChange={(e) => setHasDH(e.checked)}
-              >
-                DHあり
-              </Switch>
+              DHあり
+            </Switch>
 
-              <Switch
-                checked={isFarmMode}
-                onCheckedChange={(e) => setIsFarmMode(e.checked)}
-              >
-                育成枠含む(ファーム対応)
-              </Switch>
+            <Switch
+              checked={isFarmMode}
+              onCheckedChange={(e) => setIsFarmMode(e.checked)}
+            >
+              育成枠含む(ファーム対応)
+            </Switch>
 
-              <Box>
-                <Text mb={2}>選手名の表示</Text>
-                <OptionGroup
-                  name="nameDisplay"
-                  options={[...NAME_DISPLAY_OPTIONS]}
-                  selectedValues={[nameDisplay]}
-                  onChange={(value) => setNameDisplay(value as NameDisplayMode)}
-                />
-              </Box>
+            <div>
+              <p className="mb-2">選手名の表示</p>
+              <OptionGroup
+                name="nameDisplay"
+                options={[...NAME_DISPLAY_OPTIONS]}
+                selectedValues={[nameDisplay]}
+                onChange={(value) => setNameDisplay(value as NameDisplayMode)}
+              />
+            </div>
 
-              <Box>
-                <Text mb={2}>スタメン表の名前</Text>
-                <Input
-                  value={customTitle}
-                  onChange={(e) => setCustomTitle(e.target.value)}
-                  placeholder="表のタイトルを入力"
-                  maxW="500px"
-                />
-              </Box>
-            </Stack>
-          </Collapsible.Content>
-        </Collapsible.Root>
-      </Box>
+            <div>
+              <p className="mb-2">スタメン表の名前</p>
+              <input
+                value={customTitle}
+                onChange={(e) => setCustomTitle(e.target.value)}
+                placeholder="表のタイトルを入力"
+                className="w-full max-w-[500px] px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--interactive-primary)]"
+                style={{
+                  borderColor: "var(--border-card)",
+                  backgroundColor: "var(--surface-card-subtle)",
+                  color: "var(--text-primary)",
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
 
-      <Box w="100%" maxW="800px">
-        <Flex justifyContent="space-between" alignItems="center" mb={4}>
-          <Heading size="md">スターティングメンバー</Heading>
-          <Flex gap={2}>
+      <div className="w-full max-w-[800px]">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold">スターティングメンバー</h3>
+          <div className="flex gap-2">
             <button
               onClick={handleShareLink}
               aria-label="URLをコピー"
@@ -449,15 +477,43 @@ export default function LineupCreator({ players }: Props) {
                 <FiLink size={16} color="#004B98" style={{ opacity: 0.6 }} />
               )}
             </button>
-            <Button colorPalette="teal" onClick={saveAsImage}>
-              <Flex align="center" gap={2}>
-                <FiDownload />
-                <Text>画像として保存</Text>
-              </Flex>
-            </Button>
-          </Flex>
-        </Flex>
-        <Box ref={lineupTableRef}>
+            <button
+              onClick={handleShareTwitter}
+              aria-label="Xで共有"
+              style={{
+                background: "none",
+                border: "none",
+                padding: "4px",
+                cursor: "pointer",
+              }}
+            >
+              <FaXTwitter size={16} color="#004B98" style={{ opacity: 0.6 }} />
+            </button>
+            {typeof navigator !== "undefined" && "share" in navigator && (
+              <button
+                onClick={handleNativeShare}
+                aria-label="共有"
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: "4px",
+                  cursor: "pointer",
+                }}
+              >
+                <FiShare2 size={16} color="#004B98" style={{ opacity: 0.6 }} />
+              </button>
+            )}
+            <button
+              className="flex items-center gap-2 px-3 py-1.5 rounded-md text-white text-sm border-none cursor-pointer"
+              style={{ backgroundColor: "var(--interactive-primary)" }}
+              onClick={saveAsImage}
+            >
+              <FiDownload />
+              <span>画像として保存</span>
+            </button>
+          </div>
+        </div>
+        <div ref={lineupTableRef}>
           <LineupTable
             lineup={getSortedLineup()}
             startingPitcher={startingPitcher}
@@ -465,27 +521,27 @@ export default function LineupCreator({ players }: Props) {
             title={customTitle}
             isForImage={isForImage}
           />
-        </Box>
-      </Box>
+        </div>
+      </div>
 
       {showDragDropUI && isMounted && (
-        <Box w="100%" maxW="800px" mb={4}>
-          <Heading size="md" mb={4}>
+        <div className="w-full max-w-[800px] mb-4">
+          <h3 className="text-lg font-semibold mb-4">
             打順（ドラッグ＆ドロップで並べ替え）
-          </Heading>
+          </h3>
           <DraggableLineup
             orderedPlayers={orderedPlayers}
             onDragEnd={handleDragEnd}
             removePlayerFromOrder={removePlayerFromOrder}
             getDisplayName={getDisplayName}
           />
-        </Box>
+        </div>
       )}
 
-      <Box w="100%" maxW="800px">
-        <Box display="flex" flexDirection="column" gap="4">
+      <div className="w-full max-w-[800px]">
+        <div className="flex flex-col gap-4">
           {/* 先発投手選択は常に表示 */}
-          <Heading size="md">投手選択</Heading>
+          <h3 className="text-lg font-semibold">投手選択</h3>
           <PlayerSelector
             players={filterPlayersByMode(players)}
             onSelectPlayer={handleSelectPitcher}
@@ -494,39 +550,42 @@ export default function LineupCreator({ players }: Props) {
             getDisplayName={getDisplayName}
           />
 
-          <Heading size="md">ポジション別選手設定</Heading>
+          <h3 className="text-lg font-semibold">ポジション別選手設定</h3>
           {lineup.map((spot) => (
-            <Box key={spot.position} p={3} borderWidth="1px" borderRadius="md">
-              <Flex align="center" justify="space-between" mb={2}>
-                <Text fontWeight="bold">{spot.position}</Text>
+            <div
+              key={spot.position}
+              className="p-3 border rounded-md"
+              style={{ borderColor: "var(--border-card)" }}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-bold">{spot.position}</span>
                 {spot.order !== null ? (
-                  <Flex align="center">
-                    <Text fontWeight="bold" color="interactive.primary">
+                  <div className="flex items-center">
+                    <span
+                      className="font-bold"
+                      style={{ color: "var(--interactive-primary)" }}
+                    >
                       {spot.order}番
-                    </Text>
-                    <Button
-                      size="xs"
-                      ml={2}
-                      colorPalette="red"
-                      variant="ghost"
+                    </span>
+                    <button
+                      className="text-xs ml-2 px-2 py-1 text-red-600 hover:bg-red-50 rounded"
                       onClick={() => removePlayerFromOrder(spot.position)}
                     >
                       打順を解除
-                    </Button>
-                  </Flex>
+                    </button>
+                  </div>
                 ) : (
                   spot.player && (
-                    <Button
-                      size="xs"
-                      colorPalette="blue"
+                    <button
+                      className="text-xs px-2 py-1 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                       onClick={() => addPlayerToOrder(spot.position)}
                       disabled={orderedPlayers.length >= 9}
                     >
                       打順に追加
-                    </Button>
+                    </button>
                   )
                 )}
-              </Flex>
+              </div>
               <PlayerSelector
                 players={filterPlayersByMode(players)}
                 onSelectPlayer={(player: PlayerType | null) =>
@@ -536,14 +595,18 @@ export default function LineupCreator({ players }: Props) {
                 position={spot.position}
                 getDisplayName={getDisplayName}
               />
-            </Box>
+            </div>
           ))}
-        </Box>
-      </Box>
+        </div>
+      </div>
 
-      <Button colorPalette="red" onClick={resetLineup}>
+      <button
+        className="px-4 py-2 text-white rounded-md border-none cursor-pointer"
+        style={{ backgroundColor: "#dc2626" }}
+        onClick={resetLineup}
+      >
         リセット
-      </Button>
-    </Box>
+      </button>
+    </div>
   );
 }

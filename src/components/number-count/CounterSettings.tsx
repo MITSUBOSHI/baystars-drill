@@ -1,4 +1,6 @@
-import { Box, VStack, Text, Flex, Collapsible } from "@chakra-ui/react";
+"use client";
+
+import { useState } from "react";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import OptionGroup from "@/components/common/OptionGroup";
 import type { CountDirection } from "./NumberCounter";
@@ -42,137 +44,106 @@ export default function CounterSettings({
   onIncludeZeroChange,
   disabled,
 }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Box
-      bg="surface.brand"
-      borderRadius="lg"
-      borderWidth="1px"
-      borderColor="border.brand"
+    <div
+      className="rounded-lg border"
+      style={{
+        backgroundColor: "var(--surface-brand)",
+        borderColor: "var(--border-brand)",
+      }}
     >
-      <Collapsible.Root>
-        <Collapsible.Trigger asChild>
-          <Flex
-            as="button"
-            w="100%"
-            p={4}
-            align="center"
-            justify="space-between"
-            cursor="pointer"
-            fontWeight="bold"
-            fontSize="md"
-            _open={{
-              "& > .chevron-down": { display: "inline" },
-              "& > .chevron-right": { display: "none" },
-            }}
-            _closed={{
-              "& > .chevron-down": { display: "none" },
-              "& > .chevron-right": { display: "inline" },
-            }}
-          >
-            設定
-            <FiChevronRight className="chevron-right" />
-            <FiChevronDown className="chevron-down" />
-          </Flex>
-        </Collapsible.Trigger>
-        <Collapsible.Content>
-          <VStack gap={4} align="stretch" px={6} pb={6}>
-            <Box>
-              <Text fontWeight="bold" mb={2}>
-                カウント数
-              </Text>
-              <Flex align="center" gap={2}>
-                <input
-                  list="count-limit-options"
-                  value={countLimitInput}
-                  onChange={(e) => onCountLimitSelect(e.target.value)}
-                  onFocus={onCountLimitFocus}
-                  onClick={onCountLimitFocus}
-                  onBlur={onCountLimitBlur}
-                  disabled={disabled}
-                  aria-label="カウント数"
-                  style={{
-                    width: "64px",
-                    fontSize: "14px",
-                    padding: "4px 8px",
-                    border: "1px solid var(--chakra-colors-border-card, #ccc)",
-                    borderRadius: "4px",
-                    background:
-                      "var(--chakra-colors-surface-card-subtle, white)",
-                    color: "var(--chakra-colors-text-primary, #000)",
-                    textAlign: "center",
-                  }}
-                />
-                <datalist id="count-limit-options">
-                  {countLimitPresets.map((n) => (
-                    <option key={n} value={n} />
-                  ))}
-                </datalist>
-              </Flex>
-            </Box>
-
-            <Box>
-              <Text fontWeight="bold" mb={2}>
-                0を含める
-              </Text>
-              <OptionGroup
-                name="includeZero"
-                options={[
-                  { value: "on", label: "ON" },
-                  { value: "off", label: "OFF" },
-                ]}
-                selectedValues={[includeZero ? "on" : "off"]}
-                onChange={(value) => onIncludeZeroChange(value === "on")}
-                gap="8px"
+      <button
+        className="flex items-center justify-between w-full p-4 cursor-pointer font-bold text-base bg-transparent border-none text-[var(--text-primary)]"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        設定
+        {isOpen ? <FiChevronDown /> : <FiChevronRight />}
+      </button>
+      {isOpen && (
+        <div className="flex flex-col gap-4 items-stretch px-6 pb-6">
+          <div>
+            <p className="font-bold mb-2">カウント数</p>
+            <div className="flex items-center gap-2">
+              <input
+                list="count-limit-options"
+                value={countLimitInput}
+                onChange={(e) => onCountLimitSelect(e.target.value)}
+                onFocus={onCountLimitFocus}
+                onClick={onCountLimitFocus}
+                onBlur={onCountLimitBlur}
+                disabled={disabled}
+                aria-label="カウント数"
+                className="w-16 text-sm px-2 py-1 border rounded text-center"
+                style={{
+                  borderColor: "var(--border-card)",
+                  backgroundColor: "var(--surface-card-subtle)",
+                  color: "var(--text-primary)",
+                }}
               />
-            </Box>
+              <datalist id="count-limit-options">
+                {countLimitPresets.map((n) => (
+                  <option key={n} value={n} />
+                ))}
+              </datalist>
+            </div>
+          </div>
 
-            <Box>
-              <Text fontWeight="bold" mb={2}>
-                方向
-              </Text>
-              <OptionGroup
-                name="direction"
-                options={[
-                  { value: "up", label: "カウントアップ" },
-                  { value: "down", label: "カウントダウン" },
-                ]}
-                selectedValues={[direction]}
-                onChange={(value) => onDirectionChange(value as CountDirection)}
-                gap="8px"
-              />
-            </Box>
+          <div>
+            <p className="font-bold mb-2">0を含める</p>
+            <OptionGroup
+              name="includeZero"
+              options={[
+                { value: "on", label: "ON" },
+                { value: "off", label: "OFF" },
+              ]}
+              selectedValues={[includeZero ? "on" : "off"]}
+              onChange={(value) => onIncludeZeroChange(value === "on")}
+              gap="8px"
+            />
+          </div>
 
-            <Box>
-              <Text fontWeight="bold" mb={2}>
-                速度
-              </Text>
-              <OptionGroup
-                name="speed"
-                options={speedOptions}
-                selectedValues={[String(intervalMs)]}
-                onChange={(value) => onIntervalMsChange(Number(value))}
-                gap="8px"
-              />
-            </Box>
+          <div>
+            <p className="font-bold mb-2">方向</p>
+            <OptionGroup
+              name="direction"
+              options={[
+                { value: "up", label: "カウントアップ" },
+                { value: "down", label: "カウントダウン" },
+              ]}
+              selectedValues={[direction]}
+              onChange={(value) => onDirectionChange(value as CountDirection)}
+              gap="8px"
+            />
+          </div>
 
-            <Box>
-              <Text fontWeight="bold" mb={2}>
-                音声
-              </Text>
-              <OptionGroup
-                name="speech"
-                options={[
-                  { value: "on", label: "ON" },
-                  { value: "off", label: "OFF" },
-                ]}
-                selectedValues={[speechEnabled ? "on" : "off"]}
-                onChange={(value) => onSpeechEnabledChange(value === "on")}
-                gap="8px"
-              />
-            </Box>
-          </VStack>
-        </Collapsible.Content>
-      </Collapsible.Root>
-    </Box>
+          <div>
+            <p className="font-bold mb-2">速度</p>
+            <OptionGroup
+              name="speed"
+              options={speedOptions}
+              selectedValues={[String(intervalMs)]}
+              onChange={(value) => onIntervalMsChange(Number(value))}
+              gap="8px"
+            />
+          </div>
+
+          <div>
+            <p className="font-bold mb-2">音声</p>
+            <OptionGroup
+              name="speech"
+              options={[
+                { value: "on", label: "ON" },
+                { value: "off", label: "OFF" },
+              ]}
+              selectedValues={[speechEnabled ? "on" : "off"]}
+              onChange={(value) => onSpeechEnabledChange(value === "on")}
+              gap="8px"
+            />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
