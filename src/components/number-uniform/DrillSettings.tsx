@@ -1,7 +1,7 @@
 import { Box, VStack, Text, Collapsible, Flex } from "@chakra-ui/react";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import OptionGroup from "@/components/common/OptionGroup";
-import { type NameDisplayMode, NAME_DISPLAY_OPTIONS } from "@/types/common";
+import Ruby from "@/components/common/Ruby";
 import type { Mode, Operator, ModeRoleType } from "@/lib/drill";
 
 type Props = {
@@ -48,7 +48,7 @@ export default function DrillSettings({ mode, onModeChange }: Props) {
               "& > .chevron-right": { display: "inline" },
             }}
           >
-            設定
+            <Ruby reading="せってい">設定</Ruby>
             <FiChevronRight className="chevron-right" />
             <FiChevronDown className="chevron-down" />
           </Flex>
@@ -57,28 +57,20 @@ export default function DrillSettings({ mode, onModeChange }: Props) {
           <VStack gap={4} align="stretch" px={6} pb={6}>
             <Box>
               <Text fontWeight="bold" mb={2}>
-                選手名の表示
-              </Text>
-              <OptionGroup
-                name="nameDisplay"
-                options={[...NAME_DISPLAY_OPTIONS]}
-                selectedValues={[mode.nameDisplay]}
-                onChange={(value) => {
-                  onModeChange({
-                    ...mode,
-                    nameDisplay: value as NameDisplayMode,
-                  });
-                }}
-              />
-            </Box>
-            <Box>
-              <Text fontWeight="bold" mb={2}>
-                対象選手
+                <Ruby reading="たいしょうせんしゅ">対象選手</Ruby>
               </Text>
               <OptionGroup
                 name="role"
                 options={[
-                  { value: "roster", label: "支配下選手のみ" },
+                  {
+                    value: "roster",
+                    label: (
+                      <>
+                        <Ruby reading="しはいか">支配下</Ruby>
+                        <Ruby reading="せんしゅ">選手</Ruby>のみ
+                      </>
+                    ),
+                  },
                   { value: "all", label: "すべて" },
                 ]}
                 selectedValues={[mode.role]}
@@ -92,7 +84,7 @@ export default function DrillSettings({ mode, onModeChange }: Props) {
             </Box>
             <Box>
               <Text fontWeight="bold" mb={2}>
-                難易度
+                <Ruby reading="なんいど">難易度</Ruby>
               </Text>
               <OptionGroup
                 name="playerNum"
@@ -112,15 +104,44 @@ export default function DrillSettings({ mode, onModeChange }: Props) {
             </Box>
             <Box>
               <Text fontWeight="bold" mb={2}>
-                使用する演算子
+                <Ruby reading="しようする">使用する</Ruby>
+                <Ruby reading="えんざんし">演算子</Ruby>
               </Text>
               <OptionGroup
                 name="operators"
                 options={[
-                  { value: "+", label: "足し算（＋）" },
-                  { value: "-", label: "引き算（－）" },
-                  { value: "*", label: "掛け算（×）" },
-                  { value: "/", label: "割り算（÷）" },
+                  {
+                    value: "+",
+                    label: (
+                      <>
+                        <Ruby reading="た">足</Ruby>し<Ruby reading="ざん">算</Ruby>（＋）
+                      </>
+                    ),
+                  },
+                  {
+                    value: "-",
+                    label: (
+                      <>
+                        <Ruby reading="ひ">引</Ruby>き<Ruby reading="ざん">算</Ruby>（－）
+                      </>
+                    ),
+                  },
+                  {
+                    value: "*",
+                    label: (
+                      <>
+                        <Ruby reading="か">掛</Ruby>け<Ruby reading="ざん">算</Ruby>（×）
+                      </>
+                    ),
+                  },
+                  {
+                    value: "/",
+                    label: (
+                      <>
+                        <Ruby reading="わ">割</Ruby>り<Ruby reading="ざん">算</Ruby>（÷）
+                      </>
+                    ),
+                  },
                 ]}
                 selectedValues={mode.operators}
                 onChange={(value) => handleOperatorChange(value as Operator)}

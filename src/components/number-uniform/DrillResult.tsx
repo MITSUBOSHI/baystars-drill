@@ -1,4 +1,5 @@
 import { Box, VStack, Text, Flex, Badge } from "@chakra-ui/react";
+import Ruby from "@/components/common/Ruby";
 import type { QuestionType } from "@/lib/drill";
 
 type Props = {
@@ -20,7 +21,15 @@ export default function DrillResult({ isCorrected, question }: Props) {
       <VStack gap={4} align="stretch">
         <Flex align="center">
           <Text fontSize="xl" fontWeight="bold">
-            {isCorrected ? "🎉 正解！" : "😢 不正解..."}
+            {isCorrected ? (
+              <>
+                🎉 <Ruby reading="せいかい">正解</Ruby>！
+              </>
+            ) : (
+              <>
+                😢 <Ruby reading="ふせいかい">不正解</Ruby>...
+              </>
+            )}
           </Text>
           <Box flex="1" />
           <Badge
@@ -29,7 +38,11 @@ export default function DrillResult({ isCorrected, question }: Props) {
             px={3}
             py={1}
           >
-            {isCorrected ? "正解" : "不正解"}
+            {isCorrected ? (
+              <Ruby reading="せいかい">正解</Ruby>
+            ) : (
+              <Ruby reading="ふせいかい">不正解</Ruby>
+            )}
           </Badge>
         </Flex>
         <Box
@@ -38,7 +51,7 @@ export default function DrillResult({ isCorrected, question }: Props) {
           pt={4}
         >
           <Text fontWeight="bold" mb={2}>
-            解説：
+            <Ruby reading="かいせつ">解説</Ruby>：
           </Text>
           <Text fontSize="lg">
             {question.correctNumber} = {question.explanationSentence}

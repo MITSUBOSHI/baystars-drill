@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Question from "./Question";
 import { PlayerType, Role } from "@/types/Player";
-import React, { act } from "react";
+import React from "react";
 
 // Mock Chakra UI components
 jest.mock("@chakra-ui/react", () => ({
@@ -116,6 +116,20 @@ jest.mock("@chakra-ui/react", () => ({
       {...props}
     />
   ),
+}));
+
+jest.mock("@/components/common/Ruby", () => ({
+  __esModule: true,
+  default: ({
+    children,
+  }: {
+    children: React.ReactNode;
+    reading: string;
+  }) => <>{children}</>,
+}));
+
+jest.mock("@/contexts/FuriganaContext", () => ({
+  useFurigana: () => ({ furigana: false, setFurigana: () => {} }),
 }));
 
 jest.mock("@/components/ui/number-input", () => ({
@@ -243,8 +257,6 @@ describe("Question Component", () => {
     // Check if settings are displayed
     expect(screen.getByText("対象選手")).toBeInTheDocument();
     expect(screen.getByText("難易度")).toBeInTheDocument();
-    expect(screen.getByText("選手名の表示")).toBeInTheDocument();
-    expect(screen.getByText("使用する演算子")).toBeInTheDocument();
 
     // Check if radio buttons are present
     expect(screen.getByText("支配下選手のみ")).toBeInTheDocument();
@@ -252,9 +264,6 @@ describe("Question Component", () => {
     expect(screen.getByText("Easy")).toBeInTheDocument();
     expect(screen.getByText("Normal")).toBeInTheDocument();
     expect(screen.getByText("Hard")).toBeInTheDocument();
-    expect(screen.getByText("漢字のみ")).toBeInTheDocument();
-    expect(screen.getByText("ひらがなのみ")).toBeInTheDocument();
-    expect(screen.getByText("両方")).toBeInTheDocument();
 
     // Check if operator checkboxes are present
     expect(screen.getByText(/足し算/)).toBeInTheDocument();
@@ -402,120 +411,6 @@ describe("Question Component", () => {
     expect(resultBox).not.toBeInTheDocument();
   });
 
-  describe.skip("name display setting", () => {
-    it("should display names in both modes", () => {
-      render(<Question players={mockPlayers} />);
-
-      // 問題要素が存在するか確認
-      const questionBox = screen.getByTestId("number-input").closest("div")
-        ?.parentElement?.previousElementSibling as HTMLElement;
-      expect(questionBox).toBeInTheDocument();
-
-      // 両方モードでは漢字とひらがなの両方が表示されていることを確認
-      expect(questionBox).toHaveTextContent(/佐野|牧|山本|宮﨑/);
-      expect(questionBox).toHaveTextContent(/さの|まき|やまもと|みやざき/);
-    });
-
-    it("should display names in kanji only mode", () => {
-      render(<Question players={mockPlayers} />);
-
-      // 漢字表記のみが表示されること
-      fireEvent.click(screen.getByText("漢字のみ"));
-      //fireEvent.click(screen.getByText("再挑戦"));
-
-      // 問題要素が存在するか確認
-      const questionBox = screen.getByTestId("number-input").closest("div")
-        ?.parentElement?.previousElementSibling as HTMLElement;
-      expect(questionBox).toBeInTheDocument();
-
-      // 漢字のみが表示されていることを確認
-      expect(questionBox).toHaveTextContent(/佐野|牧|山本|宮﨑/);
-      expect(questionBox).not.toHaveTextContent(/さの|まき|やまもと|みやざき/);
-    });
-
-    it("should display names in hiragana only mode", async () => {
-      render(<Question players={mockPlayers} />);
-
-      await act(async () => {
-        fireEvent.click(screen.getByText("ひらがなのみ"));
-      });
-
-      // 問題要素が存在するか確認
-      const questionBox = screen.getByTestId("number-input").closest("div")
-        ?.parentElement?.previousElementSibling as HTMLElement;
-      expect(questionBox).toBeInTheDocument();
-
-      // ひらがなのみが表示されていることを確認
-      expect(questionBox).toHaveTextContent(/さの|まき|やまもと|みやざき/);
-      expect(questionBox).not.toHaveTextContent(/佐野|牧|山本|宮﨑/);
-    });
-
-    it("should maintain name display mode after retry", () => {
-      render(<Question players={mockPlayers} />);
-
-      // ひらがなのみモードに設定
-      fireEvent.click(screen.getByText("ひらがなのみ"));
-
-      // 再挑戦ボタンをクリック
-      fireEvent.click(screen.getByText("再挑戦"));
-
-      // 問題要素が存在するか確認
-      const questionBox = screen.getByTestId("number-input").closest("div")
-        ?.parentElement?.previousElementSibling as HTMLElement;
-      expect(questionBox).toBeInTheDocument();
-
-      // ひらがなのみモードが維持されていることを確認
-      expect(questionBox).toHaveTextContent(/さの|まき|やまもと|みやざき/);
-      expect(questionBox).not.toHaveTextContent(/佐野|牧|山本|宮﨑/);
-    });
-
-    it("should display names in both mode after changing settings", () => {
-      render(<Question players={mockPlayers} />);
-
-      // 「漢字のみ」から「両方」モードへ変更
-      fireEvent.click(screen.getByText("漢字のみ"));
-      fireEvent.click(screen.getByText("両方"));
-
-      // 再挑戦ボタンをクリック
-      fireEvent.click(screen.getByText("再挑戦"));
-
-      // 問題ボックス内の要素を取得
-      const questionBox = screen.getByTestId("number-input").closest("div")
-        ?.parentElement?.previousElementSibling as HTMLElement;
-      expect(questionBox).toBeInTheDocument();
-
-      // 両方モードでは漢字とひらがなの両方が表示されていることを確認
-      expect(questionBox).toHaveTextContent(/佐野|牧|山本|宮﨑/);
-      expect(questionBox).toHaveTextContent(/さの|まき|やまもと|みやざき/);
-    });
-
-    it("should maintain all settings after answering", () => {
-      render(<Question players={mockPlayers} />);
-
-      // ひらがなのみモードに設定
-      fireEvent.click(screen.getByText("ひらがなのみ"));
-
-      // 回答を入力して送信
-      const input = screen.getByTestId("number-input");
-      fireEvent.change(input, { target: { value: "42" } });
-      fireEvent.click(screen.getByText("解答する"));
-
-      // 入力が無効化されていることを確認
-      expect(input).toBeDisabled();
-
-      // 説明テキストにはひらがなのみが含まれていることを確認
-      const explanation = screen.getByText(/正解|不正解/);
-      expect(explanation).toBeInTheDocument();
-
-      // 問題ボックス内ではひらがなのみモードが維持されていることを確認
-      const questionBox = screen.getByTestId("number-input").closest("div")
-        ?.parentElement?.previousElementSibling as HTMLElement;
-      expect(questionBox).toBeInTheDocument();
-      expect(questionBox).toHaveTextContent(/さの|まき|やまもと|みやざき/);
-      expect(questionBox).not.toHaveTextContent(/佐野|牧|山本|宮﨑/);
-    });
-  });
-
   describe("when using arithmetic operators", () => {
     const mockPlayers: PlayerType[] = [
       {
@@ -620,69 +515,4 @@ describe("Question Component", () => {
     });
   });
 
-  describe("when changing settings", () => {
-    it("should display names in both modes", () => {
-      render(<Question players={mockPlayers} />);
-
-      // 「両方」ラジオボタンをクリック
-      fireEvent.click(screen.getByText("両方"));
-
-      // 再挑戦ボタンをクリック
-      fireEvent.click(screen.getByText("再挑戦"));
-
-      // 問題要素が存在するか確認
-      const questionBox = screen.getByTestId("number-input").closest("div")
-        ?.parentElement?.previousElementSibling as HTMLElement;
-      expect(questionBox).toBeInTheDocument();
-
-      // 漢字＋ひらがなが表示されていることを確認
-      expect(questionBox.textContent).toMatch(/佐野|牧|宮﨑|山本/);
-      expect(questionBox.textContent).toMatch(/さの|まき|みやざき|やまもと/);
-    });
-
-    it("should maintain name display mode after retry", () => {
-      render(<Question players={mockPlayers} />);
-
-      // 「両方」ラジオボタンをクリック
-      fireEvent.click(screen.getByText("両方"));
-
-      // 再挑戦ボタンをクリック
-      fireEvent.click(screen.getByText("再挑戦"));
-
-      // 問題要素が存在するか確認
-      const questionBox = screen.getByTestId("number-input").closest("div")
-        ?.parentElement?.previousElementSibling as HTMLElement;
-      expect(questionBox).toBeInTheDocument();
-
-      // 漢字＋ひらがなが表示されていることを確認
-      expect(questionBox.textContent).toMatch(/佐野|牧|宮﨑|山本/);
-      expect(questionBox.textContent).toMatch(/さの|まき|みやざき|やまもと/);
-    });
-
-    it("should maintain all settings after answering", () => {
-      render(<Question players={mockPlayers} />);
-
-      // ひらがなのみモードを選択
-      fireEvent.click(screen.getByText("ひらがなのみ"));
-
-      // 解答するために入力
-      const input = screen.getByTestId("number-input");
-      fireEvent.change(input, { target: { value: "9" } });
-
-      // 解答するボタンをクリック
-      fireEvent.click(screen.getByText("解答する"));
-
-      // 入力フィールドが無効化されていることを確認
-      const inputField = screen.getByTestId("number-input");
-      expect(inputField).toBeDisabled();
-
-      // 解説セクションが表示されていることを確認
-      const resultArea = screen.queryByText(/解説：/);
-      expect(resultArea).toBeInTheDocument();
-
-      // 何らかの結果が表示されていることを確認（具体的なテキストはテストで固定しない）
-      const screenText = screen.getByText(/解説：/).textContent || "";
-      expect(screenText).toBeTruthy();
-    });
-  });
 });

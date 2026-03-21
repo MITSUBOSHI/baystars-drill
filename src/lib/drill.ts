@@ -1,6 +1,4 @@
 import { PlayerType, Role } from "@/types/Player";
-import type { NameDisplayMode } from "@/types/common";
-import { getDisplayName } from "@/lib/nameUtils";
 
 export const DEFAULT_PLAYER_SELECTION_NUMBER = 2;
 export type ModeRoleType = "roster" | "all";
@@ -15,7 +13,6 @@ export type Mode = {
   role: ModeRoleType;
   playerNum: 2 | 3 | 4;
   operators: Operator[];
-  nameDisplay: NameDisplayMode;
 };
 export type Action =
   | {
@@ -55,8 +52,7 @@ export const initDrillState: DrillStateType = {
     role: "roster",
     playerNum: DEFAULT_PLAYER_SELECTION_NUMBER,
     operators: ["+"],
-    nameDisplay: "both" as NameDisplayMode,
-  } as Mode,
+  },
   currentOperatorSequence: [],
 };
 export const reducer = (
@@ -143,12 +139,9 @@ function calculateResult(
   }
 }
 
-export { getDisplayName } from "@/lib/nameUtils";
-
 function calculateExpression(
   players: PlayerType[],
   operators: Operator[],
-  nameDisplay: NameDisplayMode,
 ): {
   result: number;
   expression: string;
@@ -157,15 +150,15 @@ function calculateExpression(
   if (players.length === 1) {
     return {
       result: players[0].number_calc,
-      expression: getDisplayName(players[0], nameDisplay),
-      explanationExpression: `${players[0].number_disp}（${getDisplayName(players[0], nameDisplay)}）`,
+      expression: players[0].name,
+      explanationExpression: `${players[0].number_disp}（${players[0].name}）`,
     };
   }
 
   // 左から右へ順番に計算
   let result = players[0].number_calc;
-  let expression = getDisplayName(players[0], nameDisplay);
-  let explanationExpression = `${players[0].number_disp}（${getDisplayName(players[0], nameDisplay)}）`;
+  let expression = players[0].name;
+  let explanationExpression = `${players[0].number_disp}（${players[0].name}）`;
 
   for (let i = 0; i < operators.length; i++) {
     const nextNumber = players[i + 1].number_calc;
@@ -175,8 +168,8 @@ function calculateExpression(
     const effectiveOperator = calculatedResult !== null ? operators[i] : "+";
     result = calculatedResult !== null ? calculatedResult : result + nextNumber;
 
-    expression += ` ${OPERATORS[effectiveOperator]} ${getDisplayName(players[i + 1], nameDisplay)}`;
-    explanationExpression += ` ${OPERATORS[effectiveOperator]} ${players[i + 1].number_disp}（${getDisplayName(players[i + 1], nameDisplay)}）`;
+    expression += ` ${OPERATORS[effectiveOperator]} ${players[i + 1].name}`;
+    explanationExpression += ` ${OPERATORS[effectiveOperator]} ${players[i + 1].number_disp}（${players[i + 1].name}）`;
   }
 
   return { result, expression, explanationExpression };
@@ -185,7 +178,6 @@ function calculateExpression(
 export function generateQuestionWithOperators(
   players: PlayerType[],
   operators: Operator[],
-  nameDisplay: NameDisplayMode,
   fixedOperatorSequence?: Operator[],
 ): QuestionType & { operatorSequence: Operator[] } {
   if (
@@ -195,7 +187,6 @@ export function generateQuestionWithOperators(
     const { result, expression, explanationExpression } = calculateExpression(
       players,
       fixedOperatorSequence,
-      nameDisplay,
     );
 
     return {
@@ -238,7 +229,6 @@ export function generateQuestionWithOperators(
   const { result, expression, explanationExpression } = calculateExpression(
     players,
     operatorSequence,
-    nameDisplay,
   );
 
   return {
@@ -259,7 +249,6 @@ export function generateDrillQuestion(
     const { operatorSequence } = generateQuestionWithOperators(
       selectedPlayers,
       mode.operators,
-      mode.nameDisplay,
     );
     // 生成された演算子がすべてユーザー選択の演算子に含まれているか確認
     if (operatorSequence.every((op) => mode.operators.includes(op))) {
@@ -271,7 +260,6 @@ export function generateDrillQuestion(
   const { operatorSequence } = generateQuestionWithOperators(
     selectedPlayers,
     mode.operators,
-    mode.nameDisplay,
   );
   return { selectedPlayers, operatorSequence };
 }

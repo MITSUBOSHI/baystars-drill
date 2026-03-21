@@ -37,7 +37,6 @@ const Question: React.FC<Props> = ({ players }) => {
   const question = generateQuestionWithOperators(
     drillState.currentDrillPlayers,
     drillState.mode.operators,
-    drillState.mode.nameDisplay,
     drillState.currentOperatorSequence,
   );
   const isCorrected = question.correctNumber === drillState.answeredNumber;

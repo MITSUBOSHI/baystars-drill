@@ -3,6 +3,7 @@ import {
   NumberInputField,
   NumberInputRoot,
 } from "@/components/ui/number-input";
+import Ruby from "@/components/common/Ruby";
 import type { QuestionType } from "@/lib/drill";
 
 type Props = {
@@ -31,7 +32,7 @@ export default function DrillQuestion({
       borderColor="border.card"
     >
       <Heading size="md" mb={4}>
-        問題
+        <Ruby reading="もんだい">問題</Ruby>
       </Heading>
       <VStack gap={4} align="stretch">
         <Box
@@ -40,6 +41,7 @@ export default function DrillQuestion({
           borderRadius="md"
           borderWidth="1px"
           borderColor="border.card"
+          aria-live="polite"
         >
           <Text fontSize="md" fontWeight="bold">
             {question.questionSentence}
@@ -47,12 +49,13 @@ export default function DrillQuestion({
         </Box>
         <Box>
           <Text mb={2} fontWeight="bold">
-            答えを入力してください：
+            <Ruby reading="こた">答</Ruby>えを
+            <Ruby reading="にゅうりょく">入力</Ruby>してください：
           </Text>
           <NumberInputRoot
             size="lg"
             width="100%"
-            min={0}
+            min={-2000}
             max={2000}
             value={inputValue}
             onValueChange={(details: {
@@ -65,6 +68,7 @@ export default function DrillQuestion({
             <NumberInputField
               disabled={!!showResult}
               placeholder="背番号の合計を入力..."
+              aria-label="答えの入力欄"
               bg="surface.card.subtle"
               data-testid="number-input"
               _placeholder={{
@@ -84,7 +88,7 @@ export default function DrillQuestion({
           flex="1"
           disabled={showResult || inputValue === ""}
         >
-          解答する
+          <Ruby reading="かいとう">解答</Ruby>する
         </Button>
         <Button
           fontWeight="bold"
@@ -94,7 +98,7 @@ export default function DrillQuestion({
           onClick={onRetry}
           flex="1"
         >
-          再挑戦
+          <Ruby reading="さいちょうせん">再挑戦</Ruby>
         </Button>
       </Flex>
     </Box>

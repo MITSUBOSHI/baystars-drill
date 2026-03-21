@@ -1,10 +1,11 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { Box, HStack, Input } from "@chakra-ui/react";
 
 type Option = {
   value: string;
-  label: string;
+  label: ReactNode;
 };
 
 type OptionGroupProps = {
