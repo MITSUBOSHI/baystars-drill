@@ -115,10 +115,18 @@ export function selectRandomizedPlayers(
 
   return shuffledPlayers.slice(0, count);
 }
+export type QuestionPlayer = {
+  name: string;
+  nameKana: string;
+  numberDisp: string;
+};
+
 export type QuestionType = {
   questionSentence: string;
   correctNumber: number;
   explanationSentence: string;
+  players: QuestionPlayer[];
+  operatorSymbols: string[];
 };
 
 function calculateResult(
@@ -146,12 +154,14 @@ function calculateExpression(
   result: number;
   expression: string;
   explanationExpression: string;
+  effectiveOperatorSymbols: string[];
 } {
   if (players.length === 1) {
     return {
       result: players[0].number_calc,
       expression: players[0].name,
       explanationExpression: `${players[0].number_disp}（${players[0].name}）`,
+      effectiveOperatorSymbols: [],
     };
   }
 
@@ -159,6 +169,7 @@ function calculateExpression(
   let result = players[0].number_calc;
   let expression = players[0].name;
   let explanationExpression = `${players[0].number_disp}（${players[0].name}）`;
+  const effectiveOperatorSymbols: string[] = [];
 
   for (let i = 0; i < operators.length; i++) {
     const nextNumber = players[i + 1].number_calc;
@@ -167,12 +178,18 @@ function calculateExpression(
     // 割り切れない場合は加算にフォールバックし、表示も加算にする
     const effectiveOperator = calculatedResult !== null ? operators[i] : "+";
     result = calculatedResult !== null ? calculatedResult : result + nextNumber;
+    effectiveOperatorSymbols.push(OPERATORS[effectiveOperator]);
 
     expression += ` ${OPERATORS[effectiveOperator]} ${players[i + 1].name}`;
     explanationExpression += ` ${OPERATORS[effectiveOperator]} ${players[i + 1].number_disp}（${players[i + 1].name}）`;
   }
 
-  return { result, expression, explanationExpression };
+  return {
+    result,
+    expression,
+    explanationExpression,
+    effectiveOperatorSymbols,
+  };
 }
 
 export function generateQuestionWithOperators(
@@ -184,15 +201,23 @@ export function generateQuestionWithOperators(
     fixedOperatorSequence &&
     fixedOperatorSequence.length === players.length - 1
   ) {
-    const { result, expression, explanationExpression } = calculateExpression(
-      players,
-      fixedOperatorSequence,
-    );
+    const {
+      result,
+      expression,
+      explanationExpression,
+      effectiveOperatorSymbols,
+    } = calculateExpression(players, fixedOperatorSequence);
 
     return {
       questionSentence: expression,
       correctNumber: result,
       explanationSentence: explanationExpression,
+      players: players.map((p) => ({
+        name: p.name,
+        nameKana: p.name_kana,
+        numberDisp: p.number_disp,
+      })),
+      operatorSymbols: effectiveOperatorSymbols,
       operatorSequence: fixedOperatorSequence,
     };
   }
@@ -226,15 +251,23 @@ export function generateQuestionWithOperators(
     }
   }
 
-  const { result, expression, explanationExpression } = calculateExpression(
-    players,
-    operatorSequence,
-  );
+  const {
+    result,
+    expression,
+    explanationExpression,
+    effectiveOperatorSymbols,
+  } = calculateExpression(players, operatorSequence);
 
   return {
     questionSentence: expression,
     correctNumber: result,
     explanationSentence: explanationExpression,
+    players: players.map((p) => ({
+      name: p.name,
+      nameKana: p.name_kana,
+      numberDisp: p.number_disp,
+    })),
+    operatorSymbols: effectiveOperatorSymbols,
     operatorSequence,
   };
 }

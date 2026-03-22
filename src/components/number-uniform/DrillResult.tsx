@@ -1,4 +1,5 @@
 import Ruby from "@/components/common/Ruby";
+import { useFurigana } from "@/contexts/FuriganaContext";
 import type { QuestionType } from "@/lib/drill";
 
 type Props = {
@@ -7,6 +8,8 @@ type Props = {
 };
 
 export default function DrillResult({ isCorrected, question }: Props) {
+  const { furigana } = useFurigana();
+
   return (
     <div
       className="p-6 rounded-lg border"
@@ -61,7 +64,15 @@ export default function DrillResult({ isCorrected, question }: Props) {
             <Ruby reading="かいせつ">解説</Ruby>：
           </p>
           <p className="text-lg">
-            {question.correctNumber} = {question.explanationSentence}
+            {question.correctNumber} ={" "}
+            {furigana
+              ? question.players.map((p, i) => (
+                  <span key={i}>
+                    {i > 0 && ` ${question.operatorSymbols[i - 1]} `}
+                    {p.numberDisp}（<Ruby reading={p.nameKana}>{p.name}</Ruby>）
+                  </span>
+                ))
+              : question.explanationSentence}
           </p>
         </div>
       </div>
