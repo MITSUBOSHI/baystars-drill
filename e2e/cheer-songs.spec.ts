@@ -6,7 +6,7 @@ test.describe("応援歌", () => {
 
     await expect(page.getByRole("heading", { name: "応援歌", exact: true })).toBeVisible();
     await expect(page.getByRole("button", { name: /年を選択/ })).toBeVisible();
-    await expect(page.getByText("ふりがなをつける")).toBeVisible();
+    await expect(page.getByText(/ふりがな(ON|OFF)/)).toBeVisible();
   });
 
   test("カテゴリタブで絞り込みができる", async ({ page }) => {
@@ -16,15 +16,15 @@ test.describe("応援歌", () => {
     await expect(page.getByText("右投手共通応援歌")).toBeVisible();
 
     // 野手個人タブ
-    await page.getByRole("button", { name: "野手個人" }).click();
+    await page.getByRole("tab", { name: "野手個人" }).click();
     await expect(page.getByText("牧 秀悟")).toBeVisible();
 
     // その他共通タブ
-    await page.getByRole("button", { name: "その他共通" }).click();
+    await page.getByRole("tab", { name: "その他共通" }).click();
     await expect(page.getByText("代打のテーマ")).toBeVisible();
 
     // 監督タブ
-    await page.getByRole("button", { name: "監督" }).click();
+    await page.getByRole("tab", { name: "監督" }).click();
     await expect(page.getByText("相川 亮二 監督（ホーム）")).toBeVisible();
   });
 
@@ -32,7 +32,7 @@ test.describe("応援歌", () => {
     await page.goto("/cheer-songs/2026");
 
     // 野手個人タブへ
-    await page.getByRole("button", { name: "野手個人" }).click();
+    await page.getByRole("tab", { name: "野手個人" }).click();
 
     // 牧のカードをクリック
     await page.getByText("牧 秀悟").click();

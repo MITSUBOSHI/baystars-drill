@@ -66,10 +66,8 @@ test.describe("背番号計算ドリル", () => {
     // 設定パネルを開く
     await page.getByText("設定").click();
 
-    await expect(page.getByText("選手名の表示")).toBeVisible();
-    await expect(page.getByText("漢字のみ")).toBeVisible();
-    await expect(page.getByText("ひらがなのみ")).toBeVisible();
     await expect(page.getByText("対象選手")).toBeVisible();
     await expect(page.getByText("難易度")).toBeVisible();
+    await expect(page.getByText(/使用する演算子/)).toBeVisible();
   });
 });

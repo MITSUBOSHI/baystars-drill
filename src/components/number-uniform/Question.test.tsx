@@ -319,12 +319,12 @@ describe("Question Component", () => {
       ];
       render(<Question players={playersForMult} />);
 
-      // Open settings, 足し算を無効化して掛け算のみ有効化
+      // Open settings, 掛け算を有効化してから足し算を無効化（先に足し算を外すとフォールバックで戻るため）
       fireEvent.click(screen.getByText("設定"));
-      const addLabel = screen.getByText(/足し算/).closest("label")!;
-      fireEvent.click(addLabel.querySelector("input")!);
       const multLabel = screen.getByText(/掛け算/).closest("label")!;
       fireEvent.click(multLabel.querySelector("input")!);
+      const addLabel = screen.getByText(/足し算/).closest("label")!;
+      fireEvent.click(addLabel.querySelector("input")!);
       fireEvent.click(screen.getByText("設定"));
 
       const retryButton = screen.getByText("再挑戦");
@@ -365,12 +365,12 @@ describe("Question Component", () => {
       ];
       render(<Question players={playersForDiv} />);
 
-      // Open settings, 足し算を無効化して割り算のみ有効化
+      // Open settings, 割り算を有効化してから足し算を無効化（先に足し算を外すとフォールバックで戻るため）
       fireEvent.click(screen.getByText("設定"));
-      const addLabel = screen.getByText(/足し算/).closest("label")!;
-      fireEvent.click(addLabel.querySelector("input")!);
       const divLabel = screen.getByText(/割り算/).closest("label")!;
       fireEvent.click(divLabel.querySelector("input")!);
+      const addLabel = screen.getByText(/足し算/).closest("label")!;
+      fireEvent.click(addLabel.querySelector("input")!);
       fireEvent.click(screen.getByText("設定"));
 
       const retryButton = screen.getByText("再挑戦");
@@ -382,13 +382,15 @@ describe("Question Component", () => {
     it("should handle subtraction correctly", () => {
       render(<Question players={mockPlayers} />);
 
-      // Open settings
+      // Open settings, 引き算を有効化してから足し算を無効化（先に足し算を外すとフォールバックで戻るため）
       fireEvent.click(screen.getByText("設定"));
 
-      // 引き算のlabel内のhidden inputを直接操作して有効化
       const subLabel = screen.getByText(/引き算/).closest("label")!;
       const subInput = subLabel.querySelector("input")!;
       fireEvent.click(subInput);
+
+      const addLabel = screen.getByText(/足し算/).closest("label")!;
+      fireEvent.click(addLabel.querySelector("input")!);
 
       // Close settings to avoid duplicate text matches
       fireEvent.click(screen.getByText("設定"));
