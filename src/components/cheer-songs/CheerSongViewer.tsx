@@ -105,20 +105,28 @@ export default function CheerSongViewer({ songs, year }: CheerSongViewerProps) {
   const query = searchQuery.trim().toLowerCase();
 
   const filteredSongs = useMemo(() => {
+    const sortByNumber = (list: CheerSongType[]) =>
+      [...list].sort(
+        (a, b) =>
+          (parseInt(a.playerNumber ?? "9999") || 9999) -
+          (parseInt(b.playerNumber ?? "9999") || 9999),
+      );
     if (isSearching) {
-      return songs.filter(
-        (s) =>
-          s.title.toLowerCase().includes(query) ||
-          s.playerNumber?.includes(query) ||
-          s.playerNameKana?.includes(query) ||
-          s.applicablePlayers?.some(
-            (p) =>
-              p.callName.toLowerCase().includes(query) ||
-              p.name.toLowerCase().includes(query),
-          ),
+      return sortByNumber(
+        songs.filter(
+          (s) =>
+            s.title.toLowerCase().includes(query) ||
+            s.playerNumber?.includes(query) ||
+            s.playerNameKana?.includes(query) ||
+            s.applicablePlayers?.some(
+              (p) =>
+                p.callName.toLowerCase().includes(query) ||
+                p.name.toLowerCase().includes(query),
+            ),
+        ),
       );
     }
-    return filterByTab(songs, activeTab);
+    return sortByNumber(filterByTab(songs, activeTab));
   }, [songs, activeTab, isSearching, query]);
 
   return (
