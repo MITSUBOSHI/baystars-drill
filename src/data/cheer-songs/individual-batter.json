@@ -315,6 +315,20 @@
     "isCommon": false
   },
   {
+    "id": "individual-viciedo",
+    "title": "D.ビシエド",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{儚|はかな}き{夢|ゆめ}{追|お}いこの{地|ち}へ　{導|みちび}かれ　{青|あお}の{誇|ほこ}り{胸|むね}に　{空|そら}に{花|はな}{咲|さ}かせろ",
+      "（バモス　バモス　ビシエド！）"
+    ],
+    "playerName": "D.ビシエド",
+    "playerNumber": "66",
+    "url": "https://youtu.be/ZHucni0jbAA?si=Zd6P7SKSn0JHxY0m",
+    "isCommon": false
+  },
+  {
     "id": "individual-hayashi-2025",
     "title": "林 琢真",
     "category": "individual_batter",
