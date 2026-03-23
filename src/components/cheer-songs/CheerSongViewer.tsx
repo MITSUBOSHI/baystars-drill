@@ -108,8 +108,8 @@ export default function CheerSongViewer({ songs, year }: CheerSongViewerProps) {
     const sortByNumber = (list: CheerSongType[]) =>
       [...list].sort(
         (a, b) =>
-          (parseInt(a.playerNumber ?? "9999") || 9999) -
-          (parseInt(b.playerNumber ?? "9999") || 9999),
+          (a.playerNumber != null ? parseInt(a.playerNumber) : 9999) -
+          (b.playerNumber != null ? parseInt(b.playerNumber) : 9999),
       );
     if (isSearching) {
       return sortByNumber(
