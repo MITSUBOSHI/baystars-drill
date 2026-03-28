@@ -1,6 +1,8 @@
 import { registeredYears } from "@/constants/player";
+import { draftYears } from "@/constants/draft";
 
 const maxYear = Math.max(...registeredYears);
+const maxDraftYear = Math.max(...draftYears);
 
 export const navItems = [
   {
@@ -38,5 +40,11 @@ export const navItems = [
     titleReading: "おうえんか",
     href: `/cheer-songs/${maxYear}`,
     icon: "🎵",
+  },
+  {
+    title: "ドラフト一覧",
+    titleReading: "どらふといちらん",
+    href: `/draft/${maxDraftYear}`,
+    icon: "📋",
   },
 ] as const;

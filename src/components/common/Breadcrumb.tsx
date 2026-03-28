@@ -32,6 +32,7 @@ const pathMap: Record<string, { label: string; reading: string }> = {
   drill: { label: "計算ドリル", reading: "けいさんどりる" },
   gallery: { label: "選手名鑑", reading: "せんしゅめいかん" },
   lineup: { label: "スタメン作成", reading: "すためんさくせい" },
+  draft: { label: "ドラフト一覧", reading: "どらふといちらん" },
 };
 
 function BreadcrumbLabel({

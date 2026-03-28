@@ -1,0 +1,12 @@
+[
+  { "year": 2017, "category": "regular", "round": 1, "name": "東克樹", "position": "投手", "team": "立命館大", "isLotteryLoss": false },
+  { "year": 2017, "category": "regular", "round": 2, "name": "神里和毅", "position": "外野手", "team": "日本生命", "isLotteryLoss": false },
+  { "year": 2017, "category": "regular", "round": 3, "name": "阪口皓亮", "position": "投手", "team": "北海高", "isLotteryLoss": false },
+  { "year": 2017, "category": "regular", "round": 4, "name": "齋藤俊介", "position": "投手", "team": "JX-ENEOS", "isLotteryLoss": false },
+  { "year": 2017, "category": "regular", "round": 5, "name": "櫻井周斗", "position": "投手", "team": "日大三高", "isLotteryLoss": false },
+  { "year": 2017, "category": "regular", "round": 6, "name": "寺田光輝", "position": "投手", "team": "石川ミリオンスターズ", "isLotteryLoss": false },
+  { "year": 2017, "category": "regular", "round": 7, "name": "宮本秀明", "position": "内野手", "team": "パナソニック", "isLotteryLoss": false },
+  { "year": 2017, "category": "regular", "round": 8, "name": "楠本泰史", "position": "外野手", "team": "東北福祉大", "isLotteryLoss": false },
+  { "year": 2017, "category": "regular", "round": 9, "name": "山本祐大", "position": "捕手", "team": "滋賀ユナイテッドBC", "isLotteryLoss": false },
+  { "year": 2017, "category": "development", "round": 1, "name": "中川虎大", "position": "投手", "team": "箕島高", "isLotteryLoss": false }
+]

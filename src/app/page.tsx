@@ -34,6 +34,10 @@ const descriptionMap: Record<
     description: "選手の応援歌の歌詞を閲覧（ふりがな付き）",
     descReading: "せんしゅのおうえんかのかしをえつらん（ふりがなつき）",
   },
+  ドラフト一覧: {
+    description: "年別ドラフト指名選手を一覧で確認",
+    descReading: "ねんべつどらふとしめいせんしゅをいちらんでかくにん",
+  },
 };
 
 const features = navItems.map((item) => ({

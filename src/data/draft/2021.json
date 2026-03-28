@@ -1,0 +1,11 @@
+[
+  { "year": 2021, "category": "regular", "round": 1, "name": "小園健太", "position": "投手", "team": "市立和歌山高", "isLotteryLoss": false },
+  { "year": 2021, "category": "regular", "round": 2, "name": "徳山壮磨", "position": "投手", "team": "早稲田大", "isLotteryLoss": false },
+  { "year": 2021, "category": "regular", "round": 3, "name": "粟飯原龍之介", "position": "内野手", "team": "東京学館高", "isLotteryLoss": false },
+  { "year": 2021, "category": "regular", "round": 4, "name": "三浦銀二", "position": "投手", "team": "法政大", "isLotteryLoss": false },
+  { "year": 2021, "category": "regular", "round": 5, "name": "深沢鳳介", "position": "投手", "team": "専修大学松戸高", "isLotteryLoss": false },
+  { "year": 2021, "category": "regular", "round": 6, "name": "梶原昂希", "position": "外野手", "team": "神奈川大", "isLotteryLoss": false },
+  { "year": 2021, "category": "development", "round": 1, "name": "村川凪", "position": "外野手", "team": "徳島インディゴソックス", "isLotteryLoss": false },
+  { "year": 2021, "category": "development", "round": 2, "name": "東出直也", "position": "捕手", "team": "小松大谷高", "isLotteryLoss": false },
+  { "year": 2021, "category": "development", "round": 3, "name": "大橋武尊", "position": "外野手", "team": "茨城アストロプラネッツ", "isLotteryLoss": false }
+]

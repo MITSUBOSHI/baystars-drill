@@ -1,0 +1,12 @@
+[
+  { "year": 2022, "category": "regular", "round": 1, "name": "松尾汐恩", "position": "捕手", "team": "大阪桐蔭高", "isLotteryLoss": false },
+  { "year": 2022, "category": "regular", "round": 2, "name": "吉野光樹", "position": "投手", "team": "トヨタ自動車", "isLotteryLoss": false },
+  { "year": 2022, "category": "regular", "round": 3, "name": "林琢真", "position": "内野手", "team": "駒澤大", "isLotteryLoss": false },
+  { "year": 2022, "category": "regular", "round": 4, "name": "森下瑠大", "position": "投手", "team": "京都国際高", "isLotteryLoss": false },
+  { "year": 2022, "category": "regular", "round": 5, "name": "橋本達弥", "position": "投手", "team": "慶應義塾大", "isLotteryLoss": false },
+  { "year": 2022, "category": "development", "round": 1, "name": "上甲凌大", "position": "捕手", "team": "愛媛マンダリンパイレーツ", "isLotteryLoss": false },
+  { "year": 2022, "category": "development", "round": 2, "name": "鈴木蓮", "position": "内野手", "team": "滋賀学園高", "isLotteryLoss": false },
+  { "year": 2022, "category": "development", "round": 3, "name": "今野瑠斗", "position": "投手", "team": "東京都市大学塩尻高", "isLotteryLoss": false },
+  { "year": 2022, "category": "development", "round": 4, "name": "渡辺明貴", "position": "投手", "team": "茨城アストロプラネッツ", "isLotteryLoss": false },
+  { "year": 2022, "category": "development", "round": 5, "name": "草野陽斗", "position": "投手", "team": "東日本国際大学附属昌平高", "isLotteryLoss": false }
+]
