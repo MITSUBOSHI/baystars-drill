@@ -54,7 +54,7 @@ export default function DraftTable({ picks, showYearColumn }: DraftTableProps) {
                       : "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
                   }`}
                 >
-                  {pick.category === "regular" ? "新人" : "育成"}
+                  {pick.category === "regular" ? "支配下" : "育成"}
                 </span>
               </td>
               <td className="px-3 py-2 whitespace-nowrap">

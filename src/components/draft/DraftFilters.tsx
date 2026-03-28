@@ -25,7 +25,7 @@ const roundOptions = [
 
 const categoryOptions = [
   { value: "all", label: "全て" },
-  { value: "regular", label: "新人" },
+  { value: "regular", label: "支配下" },
   { value: "development", label: "育成" },
 ];
 
