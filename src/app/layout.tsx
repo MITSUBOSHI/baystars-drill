@@ -13,6 +13,7 @@ const oswald = Oswald({
 });
 
 const gaId = "G-EW129H86JD";
+const basePath = process.env.CAPACITOR === "true" ? "" : "/baystars-drill";
 const siteUrl = "https://mitsuboshi.github.io/baystars-drill";
 
 export const metadata: Metadata = {
@@ -74,10 +75,10 @@ export default function RootLayout({
           name="google-site-verification"
           content="vlzDVPRDmQPcycgM2kxNfnsjt5eA2wGV40ksGd7LRRI"
         />
-        <link rel="manifest" href="/baystars-drill/manifest.json" />
+        <link rel="manifest" href={`${basePath}/manifest.json`} />
         <link
           rel="apple-touch-icon"
-          href="/baystars-drill/icons/apple-touch-icon.png"
+          href={`${basePath}/icons/apple-touch-icon.png`}
         />
         <meta name="theme-color" content="#0046AB" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -106,7 +107,7 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/baystars-drill/sw.js');
+                  navigator.serviceWorker.register('${basePath}/sw.js');
                 });
               }
             `,

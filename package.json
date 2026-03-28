@@ -5,16 +5,24 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap && node scripts/generate-pwa-assets.mjs",
     "start": "next start",
     "lint": "prettier --check 'src/**/*.{ts,tsx}' && next lint --no-cache",
     "fix": "prettier --write 'src/**/*.{ts,tsx}' && next lint --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "clean": "rm -rf .next out",
-    "test:e2e": "npm run clean && npm run build && playwright test"
+    "test:e2e": "npm run clean && npm run build && playwright test",
+    "cap:build": "CAPACITOR=true npm run build",
+    "cap:sync": "npm run cap:build && npx cap sync",
+    "cap:open:ios": "npx cap open ios",
+    "cap:open:android": "npx cap open android"
   },
   "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/ios": "^8.3.0",
     "@hello-pangea/dnd": "^18.0.1",
     "@next/third-parties": "^15.1.7",
     "html2canvas": "^1.4.1",
