@@ -113,10 +113,18 @@ export default function RootLayout({
         <Provider>
           <AppBreadcrumb />
           {children}
-          <footer className="py-4 px-6 text-center">
+          <footer className="py-4 px-6 text-center flex flex-col items-center gap-1">
             <p className="text-xs text-[var(--text-secondary)]">
               本サイトは個人が運営するファンサイトであり、株式会社横浜DeNAベイスターズとは一切関係ありません。
             </p>
+            <a
+              href="https://buymeacoffee.com/MITSUBOSHI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-[var(--text-secondary)] hover:underline"
+            >
+              ☕ 開発者を応援する
+            </a>
           </footer>
         </Provider>
       </body>
