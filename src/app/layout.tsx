@@ -74,6 +74,17 @@ export default function RootLayout({
           name="google-site-verification"
           content="vlzDVPRDmQPcycgM2kxNfnsjt5eA2wGV40ksGd7LRRI"
         />
+        <link rel="manifest" href="/baystars-drill/manifest.json" />
+        <link
+          rel="apple-touch-icon"
+          href="/baystars-drill/icons/apple-touch-icon.png"
+        />
+        <meta name="theme-color" content="#0046AB" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="default"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -90,6 +101,17 @@ export default function RootLayout({
       </head>
       <GoogleAnalytics gaId={gaId} />
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/baystars-drill/sw.js');
+                });
+              }
+            `,
+          }}
+        />
         <Provider>
           <AppBreadcrumb />
           {children}
