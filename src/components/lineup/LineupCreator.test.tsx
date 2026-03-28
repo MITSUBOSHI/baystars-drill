@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import LineupCreator from "./LineupCreator";
 import { PlayerType, Role } from "@/types/Player";
-import { ReactNode } from "react";
 
 jest.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),

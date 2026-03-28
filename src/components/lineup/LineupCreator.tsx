@@ -263,10 +263,13 @@ export default function LineupCreator({ players }: Props) {
   const showDragDropUI = orderedPlayers.length > 0 && isMounted;
 
   // 選手名表示関数
-  const getDisplayName = (player: PlayerType | null): string => {
-    if (!player) return "未選択";
-    return getDisplayNameBase(player, nameDisplay);
-  };
+  const getDisplayName = useCallback(
+    (player: PlayerType | null): string => {
+      if (!player) return "未選択";
+      return getDisplayNameBase(player, nameDisplay);
+    },
+    [nameDisplay],
+  );
 
   // 選手フィルター関数
   const filterPlayersByMode = useCallback(

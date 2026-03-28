@@ -3,7 +3,6 @@ import "@testing-library/jest-dom";
 import LineupTable from "./LineupTable";
 import { LineupSpot } from "./LineupCreator";
 import { PlayerType, Role } from "@/types/Player";
-import { ReactNode } from "react";
 
 // Node.js環境では利用できないがブラウザ環境で利用可能なstructuredCloneをモック
 if (typeof structuredClone === "undefined") {

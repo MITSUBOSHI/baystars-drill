@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import UniformBack from "./UniformBack";
-import { ReactNode } from "react";
 
 describe("UniformBack", () => {
   it("renders uniform name and number", () => {
