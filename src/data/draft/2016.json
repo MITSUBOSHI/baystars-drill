@@ -1,5 +1,5 @@
 [
-  { "year": 2016, "category": "regular", "round": 1, "name": "濱口遥大", "position": "投手", "team": "神奈川大", "isLotteryLoss": true },
+  { "year": 2016, "category": "regular", "round": 1, "name": "濱口遥大", "position": "投手", "team": "神奈川大", "isLotteryLoss": true, "lotteryTarget": "柳裕也" },
   { "year": 2016, "category": "regular", "round": 2, "name": "水野滉也", "position": "投手", "team": "東海大北海道キャンパス", "isLotteryLoss": false },
   { "year": 2016, "category": "regular", "round": 3, "name": "松尾大河", "position": "内野手", "team": "秀岳館高", "isLotteryLoss": false },
   { "year": 2016, "category": "regular", "round": 4, "name": "京山将弥", "position": "投手", "team": "近江高", "isLotteryLoss": false },

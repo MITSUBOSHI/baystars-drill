@@ -1,5 +1,5 @@
 [
-  { "year": 2013, "category": "regular", "round": 1, "name": "柿田裕太", "position": "投手", "team": "日本生命", "isLotteryLoss": true },
+  { "year": 2013, "category": "regular", "round": 1, "name": "柿田裕太", "position": "投手", "team": "日本生命", "isLotteryLoss": true, "lotteryTarget": "松井裕樹" },
   { "year": 2013, "category": "regular", "round": 2, "name": "平田真吾", "position": "投手", "team": "Honda熊本", "isLotteryLoss": false },
   { "year": 2013, "category": "regular", "round": 3, "name": "嶺井博希", "position": "捕手", "team": "亜細亜大", "isLotteryLoss": false },
   { "year": 2013, "category": "regular", "round": 4, "name": "三上朋也", "position": "投手", "team": "JX-ENEOS", "isLotteryLoss": false },

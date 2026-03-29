@@ -1,5 +1,5 @@
 [
-  { "year": 2012, "category": "regular", "round": 1, "name": "白崎浩之", "position": "内野手", "team": "駒沢大", "isLotteryLoss": true },
+  { "year": 2012, "category": "regular", "round": 1, "name": "白崎浩之", "position": "内野手", "team": "駒沢大", "isLotteryLoss": true, "lotteryTarget": "東浜巨" },
   { "year": 2012, "category": "regular", "round": 2, "name": "三嶋一輝", "position": "投手", "team": "法政大", "isLotteryLoss": false },
   { "year": 2012, "category": "regular", "round": 3, "name": "井納翔一", "position": "投手", "team": "NTT東日本", "isLotteryLoss": false },
   { "year": 2012, "category": "regular", "round": 4, "name": "赤堀大智", "position": "外野手", "team": "セガサミー", "isLotteryLoss": false },

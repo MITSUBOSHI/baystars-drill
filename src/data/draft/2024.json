@@ -1,5 +1,5 @@
 [
-  { "year": 2024, "category": "regular", "round": 1, "name": "竹田祐", "position": "投手", "team": "三菱重工West", "isLotteryLoss": true },
+  { "year": 2024, "category": "regular", "round": 1, "name": "竹田祐", "position": "投手", "team": "三菱重工West", "isLotteryLoss": true, "lotteryTarget": "金丸夢斗" },
   { "year": 2024, "category": "regular", "round": 2, "name": "篠木健太郎", "position": "投手", "team": "法政大", "isLotteryLoss": false },
   { "year": 2024, "category": "regular", "round": 3, "name": "加藤響", "position": "内野手", "team": "徳島インディゴソックス", "isLotteryLoss": false },
   { "year": 2024, "category": "regular", "round": 4, "name": "若松尚輝", "position": "投手", "team": "高知ファイティングドッグス", "isLotteryLoss": false },

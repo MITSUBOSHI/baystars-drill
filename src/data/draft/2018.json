@@ -1,5 +1,5 @@
 [
-  { "year": 2018, "category": "regular", "round": 1, "name": "上茶谷大河", "position": "投手", "team": "東洋大", "isLotteryLoss": true },
+  { "year": 2018, "category": "regular", "round": 1, "name": "上茶谷大河", "position": "投手", "team": "東洋大", "isLotteryLoss": true, "lotteryTarget": "小園海斗" },
   { "year": 2018, "category": "regular", "round": 2, "name": "伊藤裕季也", "position": "内野手", "team": "立正大", "isLotteryLoss": false },
   { "year": 2018, "category": "regular", "round": 3, "name": "大貫晋一", "position": "投手", "team": "新日鐵住金鹿島", "isLotteryLoss": false },
   { "year": 2018, "category": "regular", "round": 4, "name": "勝又温史", "position": "投手", "team": "日本大学鶴ヶ丘高", "isLotteryLoss": false },

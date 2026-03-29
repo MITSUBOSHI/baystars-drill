@@ -1,5 +1,5 @@
 [
-  { "year": 2025, "category": "regular", "round": 1, "name": "小田康一郎", "position": "内野手", "team": "青山学院大", "isLotteryLoss": true },
+  { "year": 2025, "category": "regular", "round": 1, "name": "小田康一郎", "position": "内野手", "team": "青山学院大", "isLotteryLoss": true, "lotteryTarget": "佐々木麟太郎" },
   { "year": 2025, "category": "regular", "round": 2, "name": "島田舜也", "position": "投手", "team": "東洋大", "isLotteryLoss": false },
   { "year": 2025, "category": "regular", "round": 3, "name": "宮下朝陽", "position": "内野手", "team": "東洋大", "isLotteryLoss": false },
   { "year": 2025, "category": "regular", "round": 4, "name": "片山皓心", "position": "投手", "team": "Honda", "isLotteryLoss": false },

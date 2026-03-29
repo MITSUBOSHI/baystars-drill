@@ -10,4 +10,5 @@ export type DraftPick = {
   position: string;
   team: string;
   isLotteryLoss: boolean;
+  lotteryTarget?: string;
 };

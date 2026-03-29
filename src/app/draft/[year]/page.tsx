@@ -41,7 +41,11 @@ export default async function Page({
         years={draftYears}
       />
       <div className="w-full max-w-full md:max-w-[800px] px-4">
-        <DraftPageClient singleYearPicks={picks} allPicks={allPicks} />
+        <DraftPageClient
+          singleYearPicks={picks}
+          allPicks={allPicks}
+          year={currentYear}
+        />
       </div>
     </div>
   );
