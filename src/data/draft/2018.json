@@ -1,9 +1,9 @@
 [
-  { "year": 2018, "category": "regular", "round": 1, "name": "上茶谷大河", "position": "投手", "team": "東洋大", "isLotteryLoss": true, "lotteryTarget": "小園海斗" },
-  { "year": 2018, "category": "regular", "round": 2, "name": "伊藤裕季也", "position": "内野手", "team": "立正大", "isLotteryLoss": false },
-  { "year": 2018, "category": "regular", "round": 3, "name": "大貫晋一", "position": "投手", "team": "新日鐵住金鹿島", "isLotteryLoss": false },
-  { "year": 2018, "category": "regular", "round": 4, "name": "勝又温史", "position": "投手", "team": "日本大学鶴ヶ丘高", "isLotteryLoss": false },
-  { "year": 2018, "category": "regular", "round": 5, "name": "益子京右", "position": "捕手", "team": "青藍泰斗高", "isLotteryLoss": false },
-  { "year": 2018, "category": "regular", "round": 6, "name": "知野直人", "position": "内野手", "team": "新潟アルビレックスBC", "isLotteryLoss": false },
-  { "year": 2018, "category": "development", "round": 1, "name": "宮城滝太", "position": "投手", "team": "滋賀学園高", "isLotteryLoss": false }
+  { "year": 2018, "category": "regular", "round": 1, "name": "上茶谷大河", "name_kana": "かみちゃたにたいが", "position": "投手", "team": "東洋大", "team_kana": "とうようだい", "isLotteryLoss": true, "lotteryTarget": "小園海斗" },
+  { "year": 2018, "category": "regular", "round": 2, "name": "伊藤裕季也", "name_kana": "いとうゆきや", "position": "内野手", "team": "立正大", "team_kana": "りっしょうだい", "isLotteryLoss": false },
+  { "year": 2018, "category": "regular", "round": 3, "name": "大貫晋一", "name_kana": "おおぬきしんいち", "position": "投手", "team": "新日鐵住金鹿島", "team_kana": "しんにってつすみきんかしま", "isLotteryLoss": false },
+  { "year": 2018, "category": "regular", "round": 4, "name": "勝又温史", "name_kana": "かつまたあつし", "position": "投手", "team": "日本大学鶴ヶ丘高", "team_kana": "にほんだいがくつるがおかこう", "isLotteryLoss": false },
+  { "year": 2018, "category": "regular", "round": 5, "name": "益子京右", "name_kana": "ましこきょうすけ", "position": "捕手", "team": "青藍泰斗高", "team_kana": "せいらんたいとこう", "isLotteryLoss": false },
+  { "year": 2018, "category": "regular", "round": 6, "name": "知野直人", "name_kana": "ちのなおと", "position": "内野手", "team": "新潟アルビレックスBC", "team_kana": "にいがたあるびれっくすびーしー", "isLotteryLoss": false },
+  { "year": 2018, "category": "development", "round": 1, "name": "宮城滝太", "name_kana": "みやぎりゅうた", "position": "投手", "team": "滋賀学園高", "team_kana": "しががくえんこう", "isLotteryLoss": false }
 ]

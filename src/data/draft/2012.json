@@ -1,9 +1,9 @@
 [
-  { "year": 2012, "category": "regular", "round": 1, "name": "白崎浩之", "position": "内野手", "team": "駒沢大", "isLotteryLoss": true, "lotteryTarget": "東浜巨" },
-  { "year": 2012, "category": "regular", "round": 2, "name": "三嶋一輝", "position": "投手", "team": "法政大", "isLotteryLoss": false },
-  { "year": 2012, "category": "regular", "round": 3, "name": "井納翔一", "position": "投手", "team": "NTT東日本", "isLotteryLoss": false },
-  { "year": 2012, "category": "regular", "round": 4, "name": "赤堀大智", "position": "外野手", "team": "セガサミー", "isLotteryLoss": false },
-  { "year": 2012, "category": "regular", "round": 5, "name": "安部建輝", "position": "投手", "team": "NTT西日本", "isLotteryLoss": false },
-  { "year": 2012, "category": "regular", "round": 6, "name": "宮﨑敏郎", "position": "内野手", "team": "セガサミー", "isLotteryLoss": false },
-  { "year": 2012, "category": "development", "round": 1, "name": "今井金太", "position": "投手", "team": "広島国際学院高", "isLotteryLoss": false }
+  { "year": 2012, "category": "regular", "round": 1, "name": "白崎浩之", "name_kana": "しらさきひろゆき", "position": "内野手", "team": "駒沢大", "team_kana": "こまざわだい", "isLotteryLoss": true, "lotteryTarget": "東浜巨" },
+  { "year": 2012, "category": "regular", "round": 2, "name": "三嶋一輝", "name_kana": "みしまかずき", "position": "投手", "team": "法政大", "team_kana": "ほうせいだい", "isLotteryLoss": false },
+  { "year": 2012, "category": "regular", "round": 3, "name": "井納翔一", "name_kana": "いのうしょういち", "position": "投手", "team": "NTT東日本", "team_kana": "エヌティーティーひがしにほん", "isLotteryLoss": false },
+  { "year": 2012, "category": "regular", "round": 4, "name": "赤堀大智", "name_kana": "あかほりだいち", "position": "外野手", "team": "セガサミー", "team_kana": "せがさみー", "isLotteryLoss": false },
+  { "year": 2012, "category": "regular", "round": 5, "name": "安部建輝", "name_kana": "あべたつき", "position": "投手", "team": "NTT西日本", "team_kana": "エヌティーティーにしにほん", "isLotteryLoss": false },
+  { "year": 2012, "category": "regular", "round": 6, "name": "宮﨑敏郎", "name_kana": "みやざきとしろう", "position": "内野手", "team": "セガサミー", "team_kana": "せがさみー", "isLotteryLoss": false },
+  { "year": 2012, "category": "development", "round": 1, "name": "今井金太", "name_kana": "いまいきんた", "position": "投手", "team": "広島国際学院高", "team_kana": "ひろしまこくさいがくいんこう", "isLotteryLoss": false }
 ]

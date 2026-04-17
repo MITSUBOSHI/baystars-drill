@@ -7,3 +7,10 @@ export const categoryLabels = {
   regular: "新人選手選択会議",
   development: "育成選手選択会議",
 } as const;
+
+export const positionKanaMap: Record<string, string> = {
+  投手: "とうしゅ",
+  捕手: "ほしゅ",
+  内野手: "ないやしゅ",
+  外野手: "がいやしゅ",
+};

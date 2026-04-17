@@ -1,12 +1,12 @@
 [
-  { "year": 2015, "category": "regular", "round": 1, "name": "今永昇太", "position": "投手", "team": "駒澤大", "isLotteryLoss": false },
-  { "year": 2015, "category": "regular", "round": 2, "name": "熊原健人", "position": "投手", "team": "仙台大", "isLotteryLoss": false },
-  { "year": 2015, "category": "regular", "round": 3, "name": "柴田竜拓", "position": "内野手", "team": "國學院大", "isLotteryLoss": false },
-  { "year": 2015, "category": "regular", "round": 4, "name": "戸柱恭孝", "position": "捕手", "team": "NTT西日本", "isLotteryLoss": false },
-  { "year": 2015, "category": "regular", "round": 5, "name": "綾部翔", "position": "投手", "team": "霞ケ浦高", "isLotteryLoss": false },
-  { "year": 2015, "category": "regular", "round": 6, "name": "青柳昴樹", "position": "外野手", "team": "大阪桐蔭高", "isLotteryLoss": false },
-  { "year": 2015, "category": "regular", "round": 7, "name": "野川拓斗", "position": "投手", "team": "鷺宮製作所", "isLotteryLoss": false },
-  { "year": 2015, "category": "development", "round": 1, "name": "網谷圭将", "position": "捕手", "team": "千葉英和高", "isLotteryLoss": false },
-  { "year": 2015, "category": "development", "round": 2, "name": "山本武白志", "position": "内野手", "team": "九州国際大付高", "isLotteryLoss": false },
-  { "year": 2015, "category": "development", "round": 3, "name": "田村丈", "position": "投手", "team": "関西学院大", "isLotteryLoss": false }
+  { "year": 2015, "category": "regular", "round": 1, "name": "今永昇太", "name_kana": "いまながしょうた", "position": "投手", "team": "駒澤大", "team_kana": "こまざわだい", "isLotteryLoss": false },
+  { "year": 2015, "category": "regular", "round": 2, "name": "熊原健人", "name_kana": "くまはらけんと", "position": "投手", "team": "仙台大", "team_kana": "せんだいだい", "isLotteryLoss": false },
+  { "year": 2015, "category": "regular", "round": 3, "name": "柴田竜拓", "name_kana": "しばたりゅうたく", "position": "内野手", "team": "國學院大", "team_kana": "こくがくいんだい", "isLotteryLoss": false },
+  { "year": 2015, "category": "regular", "round": 4, "name": "戸柱恭孝", "name_kana": "とばしらやすたか", "position": "捕手", "team": "NTT西日本", "team_kana": "エヌティーティーにしにほん", "isLotteryLoss": false },
+  { "year": 2015, "category": "regular", "round": 5, "name": "綾部翔", "name_kana": "あやべしょう", "position": "投手", "team": "霞ケ浦高", "team_kana": "かすみがうらこう", "isLotteryLoss": false },
+  { "year": 2015, "category": "regular", "round": 6, "name": "青柳昴樹", "name_kana": "あおやぎこうき", "position": "外野手", "team": "大阪桐蔭高", "team_kana": "おおさかとういんこう", "isLotteryLoss": false },
+  { "year": 2015, "category": "regular", "round": 7, "name": "野川拓斗", "name_kana": "のがわたくと", "position": "投手", "team": "鷺宮製作所", "team_kana": "さぎのみやせいさくしょ", "isLotteryLoss": false },
+  { "year": 2015, "category": "development", "round": 1, "name": "網谷圭将", "name_kana": "あみやけいすけ", "position": "捕手", "team": "千葉英和高", "team_kana": "ちばえいわこう", "isLotteryLoss": false },
+  { "year": 2015, "category": "development", "round": 2, "name": "山本武白志", "name_kana": "やまもとぶはくし", "position": "内野手", "team": "九州国際大付高", "team_kana": "きゅうしゅうこくさいだいふこう", "isLotteryLoss": false },
+  { "year": 2015, "category": "development", "round": 3, "name": "田村丈", "name_kana": "たむらじょう", "position": "投手", "team": "関西学院大", "team_kana": "かんせいがくいんだい", "isLotteryLoss": false }
 ]

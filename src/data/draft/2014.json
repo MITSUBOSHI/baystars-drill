@@ -1,10 +1,10 @@
 [
-  { "year": 2014, "category": "regular", "round": 1, "name": "山崎康晃", "position": "投手", "team": "亜細亜大", "isLotteryLoss": false },
-  { "year": 2014, "category": "regular", "round": 2, "name": "石田健大", "position": "投手", "team": "法政大", "isLotteryLoss": false },
-  { "year": 2014, "category": "regular", "round": 3, "name": "倉本寿彦", "position": "内野手", "team": "日本新薬", "isLotteryLoss": false },
-  { "year": 2014, "category": "regular", "round": 4, "name": "福地元春", "position": "投手", "team": "三菱日立パワーシステムズ", "isLotteryLoss": false },
-  { "year": 2014, "category": "regular", "round": 5, "name": "山下幸輝", "position": "内野手", "team": "国学院大", "isLotteryLoss": false },
-  { "year": 2014, "category": "regular", "round": 6, "name": "百瀬大騎", "position": "内野手", "team": "松本第一高", "isLotteryLoss": false },
-  { "year": 2014, "category": "regular", "round": 7, "name": "飯塚悟史", "position": "投手", "team": "日本文理高", "isLotteryLoss": false },
-  { "year": 2014, "category": "development", "round": 1, "name": "亀井塔生", "position": "捕手", "team": "日星高", "isLotteryLoss": false }
+  { "year": 2014, "category": "regular", "round": 1, "name": "山崎康晃", "name_kana": "やまさきやすあき", "position": "投手", "team": "亜細亜大", "team_kana": "あじあだい", "isLotteryLoss": false },
+  { "year": 2014, "category": "regular", "round": 2, "name": "石田健大", "name_kana": "いしだけんた", "position": "投手", "team": "法政大", "team_kana": "ほうせいだい", "isLotteryLoss": false },
+  { "year": 2014, "category": "regular", "round": 3, "name": "倉本寿彦", "name_kana": "くらもととしひこ", "position": "内野手", "team": "日本新薬", "team_kana": "にほんしんやく", "isLotteryLoss": false },
+  { "year": 2014, "category": "regular", "round": 4, "name": "福地元春", "name_kana": "ふくちもとはる", "position": "投手", "team": "三菱日立パワーシステムズ", "team_kana": "みつびしひたちぱわーしすてむず", "isLotteryLoss": false },
+  { "year": 2014, "category": "regular", "round": 5, "name": "山下幸輝", "name_kana": "やましたこうき", "position": "内野手", "team": "国学院大", "team_kana": "こくがくいんだい", "isLotteryLoss": false },
+  { "year": 2014, "category": "regular", "round": 6, "name": "百瀬大騎", "name_kana": "ももせだいき", "position": "内野手", "team": "松本第一高", "team_kana": "まつもとだいいちこう", "isLotteryLoss": false },
+  { "year": 2014, "category": "regular", "round": 7, "name": "飯塚悟史", "name_kana": "いいづかさとし", "position": "投手", "team": "日本文理高", "team_kana": "にほんぶんりこう", "isLotteryLoss": false },
+  { "year": 2014, "category": "development", "round": 1, "name": "亀井塔生", "name_kana": "かめいとうい", "position": "捕手", "team": "日星高", "team_kana": "にっせいこう", "isLotteryLoss": false }
 ]

@@ -1,8 +1,8 @@
 [
-  { "year": 2025, "category": "regular", "round": 1, "name": "小田康一郎", "position": "内野手", "team": "青山学院大", "isLotteryLoss": true, "lotteryTarget": "佐々木麟太郎" },
-  { "year": 2025, "category": "regular", "round": 2, "name": "島田舜也", "position": "投手", "team": "東洋大", "isLotteryLoss": false },
-  { "year": 2025, "category": "regular", "round": 3, "name": "宮下朝陽", "position": "内野手", "team": "東洋大", "isLotteryLoss": false },
-  { "year": 2025, "category": "regular", "round": 4, "name": "片山皓心", "position": "投手", "team": "Honda", "isLotteryLoss": false },
-  { "year": 2025, "category": "regular", "round": 5, "name": "成瀬脩人", "position": "内野手", "team": "NTT西日本", "isLotteryLoss": false },
-  { "year": 2025, "category": "development", "round": 1, "name": "清水詩太", "position": "内野手", "team": "京都国際高", "isLotteryLoss": false }
+  { "year": 2025, "category": "regular", "round": 1, "name": "小田康一郎", "name_kana": "おだこういちろう", "position": "内野手", "team": "青山学院大", "team_kana": "あおやまがくいんだい", "isLotteryLoss": true, "lotteryTarget": "佐々木麟太郎" },
+  { "year": 2025, "category": "regular", "round": 2, "name": "島田舜也", "name_kana": "しまだしゅんや", "position": "投手", "team": "東洋大", "team_kana": "とうようだい", "isLotteryLoss": false },
+  { "year": 2025, "category": "regular", "round": 3, "name": "宮下朝陽", "name_kana": "みやしたあさひ", "position": "内野手", "team": "東洋大", "team_kana": "とうようだい", "isLotteryLoss": false },
+  { "year": 2025, "category": "regular", "round": 4, "name": "片山皓心", "name_kana": "かたやまこうしん", "position": "投手", "team": "Honda", "team_kana": "ほんだ", "isLotteryLoss": false },
+  { "year": 2025, "category": "regular", "round": 5, "name": "成瀬脩人", "name_kana": "なるせしゅうと", "position": "内野手", "team": "NTT西日本", "team_kana": "エヌティーティーにしにほん", "isLotteryLoss": false },
+  { "year": 2025, "category": "development", "round": 1, "name": "清水詩太", "name_kana": "しみずうた", "position": "内野手", "team": "京都国際高", "team_kana": "きょうとこくさいこう", "isLotteryLoss": false }
 ]

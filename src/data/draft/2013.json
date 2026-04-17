@@ -1,10 +1,10 @@
 [
-  { "year": 2013, "category": "regular", "round": 1, "name": "柿田裕太", "position": "投手", "team": "日本生命", "isLotteryLoss": true, "lotteryTarget": "松井裕樹" },
-  { "year": 2013, "category": "regular", "round": 2, "name": "平田真吾", "position": "投手", "team": "Honda熊本", "isLotteryLoss": false },
-  { "year": 2013, "category": "regular", "round": 3, "name": "嶺井博希", "position": "捕手", "team": "亜細亜大", "isLotteryLoss": false },
-  { "year": 2013, "category": "regular", "round": 4, "name": "三上朋也", "position": "投手", "team": "JX-ENEOS", "isLotteryLoss": false },
-  { "year": 2013, "category": "regular", "round": 5, "name": "関根大気", "position": "外野手", "team": "東邦高", "isLotteryLoss": false },
-  { "year": 2013, "category": "regular", "round": 6, "name": "山下峻", "position": "投手", "team": "松本大", "isLotteryLoss": false },
-  { "year": 2013, "category": "development", "round": 1, "name": "砂田毅樹", "position": "投手", "team": "明桜高", "isLotteryLoss": false },
-  { "year": 2013, "category": "development", "round": 2, "name": "萬谷康平", "position": "投手", "team": "ミキハウスREDS", "isLotteryLoss": false }
+  { "year": 2013, "category": "regular", "round": 1, "name": "柿田裕太", "name_kana": "かきたゆうた", "position": "投手", "team": "日本生命", "team_kana": "にほんせいめい", "isLotteryLoss": true, "lotteryTarget": "松井裕樹" },
+  { "year": 2013, "category": "regular", "round": 2, "name": "平田真吾", "name_kana": "ひらたしんご", "position": "投手", "team": "Honda熊本", "team_kana": "ほんだくまもと", "isLotteryLoss": false },
+  { "year": 2013, "category": "regular", "round": 3, "name": "嶺井博希", "name_kana": "みねいひろき", "position": "捕手", "team": "亜細亜大", "team_kana": "あじあだい", "isLotteryLoss": false },
+  { "year": 2013, "category": "regular", "round": 4, "name": "三上朋也", "name_kana": "みかみともや", "position": "投手", "team": "JX-ENEOS", "team_kana": "ジェイエックスエネオス", "isLotteryLoss": false },
+  { "year": 2013, "category": "regular", "round": 5, "name": "関根大気", "name_kana": "せきねたいき", "position": "外野手", "team": "東邦高", "team_kana": "とうほうこう", "isLotteryLoss": false },
+  { "year": 2013, "category": "regular", "round": 6, "name": "山下峻", "name_kana": "やましたしゅん", "position": "投手", "team": "松本大", "team_kana": "まつもとだい", "isLotteryLoss": false },
+  { "year": 2013, "category": "development", "round": 1, "name": "砂田毅樹", "name_kana": "すなだよしき", "position": "投手", "team": "明桜高", "team_kana": "めいおうこう", "isLotteryLoss": false },
+  { "year": 2013, "category": "development", "round": 2, "name": "萬谷康平", "name_kana": "まんたにこうへい", "position": "投手", "team": "ミキハウスREDS", "team_kana": "みきはうすれっず", "isLotteryLoss": false }
 ]

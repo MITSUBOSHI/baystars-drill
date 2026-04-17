@@ -7,8 +7,10 @@ export type DraftPick = {
   category: DraftCategory;
   round: number;
   name: string;
+  name_kana: string;
   position: string;
   team: string;
+  team_kana: string;
   isLotteryLoss: boolean;
   lotteryTarget?: string;
 };

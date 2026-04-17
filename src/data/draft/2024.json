@@ -1,11 +1,11 @@
 [
-  { "year": 2024, "category": "regular", "round": 1, "name": "竹田祐", "position": "投手", "team": "三菱重工West", "isLotteryLoss": true, "lotteryTarget": "金丸夢斗" },
-  { "year": 2024, "category": "regular", "round": 2, "name": "篠木健太郎", "position": "投手", "team": "法政大", "isLotteryLoss": false },
-  { "year": 2024, "category": "regular", "round": 3, "name": "加藤響", "position": "内野手", "team": "徳島インディゴソックス", "isLotteryLoss": false },
-  { "year": 2024, "category": "regular", "round": 4, "name": "若松尚輝", "position": "投手", "team": "高知ファイティングドッグス", "isLotteryLoss": false },
-  { "year": 2024, "category": "regular", "round": 5, "name": "田内真翔", "position": "内野手", "team": "おかやま山陽高", "isLotteryLoss": false },
-  { "year": 2024, "category": "regular", "round": 6, "name": "坂口翔颯", "position": "投手", "team": "國學院大", "isLotteryLoss": false },
-  { "year": 2024, "category": "development", "round": 1, "name": "小針大輝", "position": "外野手", "team": "日本大学鶴ヶ丘高", "isLotteryLoss": false },
-  { "year": 2024, "category": "development", "round": 2, "name": "吉岡暖", "position": "投手", "team": "阿南光高", "isLotteryLoss": false },
-  { "year": 2024, "category": "development", "round": 3, "name": "金渕光希", "position": "投手", "team": "八戸工業大第一高", "isLotteryLoss": false }
+  { "year": 2024, "category": "regular", "round": 1, "name": "竹田祐", "name_kana": "たけだたすく", "position": "投手", "team": "三菱重工West", "team_kana": "みつびしじゅうこううえすと", "isLotteryLoss": true, "lotteryTarget": "金丸夢斗" },
+  { "year": 2024, "category": "regular", "round": 2, "name": "篠木健太郎", "name_kana": "しのきけんたろう", "position": "投手", "team": "法政大", "team_kana": "ほうせいだい", "isLotteryLoss": false },
+  { "year": 2024, "category": "regular", "round": 3, "name": "加藤響", "name_kana": "かとうひびき", "position": "内野手", "team": "徳島インディゴソックス", "team_kana": "とくしまいんでぃごそっくす", "isLotteryLoss": false },
+  { "year": 2024, "category": "regular", "round": 4, "name": "若松尚輝", "name_kana": "わかまつなおき", "position": "投手", "team": "高知ファイティングドッグス", "team_kana": "こうちふぁいてぃんぐどっぐす", "isLotteryLoss": false },
+  { "year": 2024, "category": "regular", "round": 5, "name": "田内真翔", "name_kana": "たうちまさと", "position": "内野手", "team": "おかやま山陽高", "team_kana": "おかやまさんようこう", "isLotteryLoss": false },
+  { "year": 2024, "category": "regular", "round": 6, "name": "坂口翔颯", "name_kana": "さかぐちしょうそう", "position": "投手", "team": "國學院大", "team_kana": "こくがくいんだい", "isLotteryLoss": false },
+  { "year": 2024, "category": "development", "round": 1, "name": "小針大輝", "name_kana": "こばりだいき", "position": "外野手", "team": "日本大学鶴ヶ丘高", "team_kana": "にほんだいがくつるがおかこう", "isLotteryLoss": false },
+  { "year": 2024, "category": "development", "round": 2, "name": "吉岡暖", "name_kana": "よしおかだん", "position": "投手", "team": "阿南光高", "team_kana": "あなんひかりこう", "isLotteryLoss": false },
+  { "year": 2024, "category": "development", "round": 3, "name": "金渕光希", "name_kana": "かねぶちこうき", "position": "投手", "team": "八戸工業大第一高", "team_kana": "はちのへこうぎょうだいだいいちこう", "isLotteryLoss": false }
 ]

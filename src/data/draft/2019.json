@@ -1,9 +1,9 @@
 [
-  { "year": 2019, "category": "regular", "round": 1, "name": "森敬斗", "position": "内野手", "team": "桐蔭学園高", "isLotteryLoss": false },
-  { "year": 2019, "category": "regular", "round": 2, "name": "坂本裕哉", "position": "投手", "team": "立命館大", "isLotteryLoss": false },
-  { "year": 2019, "category": "regular", "round": 3, "name": "伊勢大夢", "position": "投手", "team": "明治大", "isLotteryLoss": false },
-  { "year": 2019, "category": "regular", "round": 4, "name": "東妻純平", "position": "捕手", "team": "智辯学園和歌山高", "isLotteryLoss": false },
-  { "year": 2019, "category": "regular", "round": 5, "name": "田部隼人", "position": "内野手", "team": "開星高", "isLotteryLoss": false },
-  { "year": 2019, "category": "regular", "round": 6, "name": "蝦名達夫", "position": "外野手", "team": "青森大", "isLotteryLoss": false },
-  { "year": 2019, "category": "regular", "round": 7, "name": "浅田将汰", "position": "投手", "team": "有明高", "isLotteryLoss": false }
+  { "year": 2019, "category": "regular", "round": 1, "name": "森敬斗", "name_kana": "もりけいと", "position": "内野手", "team": "桐蔭学園高", "team_kana": "とういんがくえんこう", "isLotteryLoss": false },
+  { "year": 2019, "category": "regular", "round": 2, "name": "坂本裕哉", "name_kana": "さかもとゆうや", "position": "投手", "team": "立命館大", "team_kana": "りつめいかんだい", "isLotteryLoss": false },
+  { "year": 2019, "category": "regular", "round": 3, "name": "伊勢大夢", "name_kana": "いせひろむ", "position": "投手", "team": "明治大", "team_kana": "めいじだい", "isLotteryLoss": false },
+  { "year": 2019, "category": "regular", "round": 4, "name": "東妻純平", "name_kana": "あづまじゅんぺい", "position": "捕手", "team": "智辯学園和歌山高", "team_kana": "ちべんがくえんわかやまこう", "isLotteryLoss": false },
+  { "year": 2019, "category": "regular", "round": 5, "name": "田部隼人", "name_kana": "たなべはやと", "position": "内野手", "team": "開星高", "team_kana": "かいせいこう", "isLotteryLoss": false },
+  { "year": 2019, "category": "regular", "round": 6, "name": "蝦名達夫", "name_kana": "えびなたつお", "position": "外野手", "team": "青森大", "team_kana": "あおもりだい", "isLotteryLoss": false },
+  { "year": 2019, "category": "regular", "round": 7, "name": "浅田将汰", "name_kana": "あさだまさた", "position": "投手", "team": "有明高", "team_kana": "ありあけこう", "isLotteryLoss": false }
 ]

@@ -1,10 +1,10 @@
 [
-  { "year": 2020, "category": "regular", "round": 1, "name": "入江大生", "position": "投手", "team": "明治大", "isLotteryLoss": false },
-  { "year": 2020, "category": "regular", "round": 2, "name": "牧秀悟", "position": "内野手", "team": "中央大", "isLotteryLoss": false },
-  { "year": 2020, "category": "regular", "round": 3, "name": "松本隆之介", "position": "投手", "team": "横浜高", "isLotteryLoss": false },
-  { "year": 2020, "category": "regular", "round": 4, "name": "小深田大地", "position": "内野手", "team": "履正社高", "isLotteryLoss": false },
-  { "year": 2020, "category": "regular", "round": 5, "name": "池谷蒼大", "position": "投手", "team": "ヤマハ", "isLotteryLoss": false },
-  { "year": 2020, "category": "regular", "round": 6, "name": "髙田琢登", "position": "投手", "team": "静岡商業高", "isLotteryLoss": false },
-  { "year": 2020, "category": "development", "round": 1, "name": "石川達也", "position": "投手", "team": "法政大", "isLotteryLoss": false },
-  { "year": 2020, "category": "development", "round": 2, "name": "加藤大", "position": "投手", "team": "横浜隼人高", "isLotteryLoss": false }
+  { "year": 2020, "category": "regular", "round": 1, "name": "入江大生", "name_kana": "いりえたいせい", "position": "投手", "team": "明治大", "team_kana": "めいじだい", "isLotteryLoss": false },
+  { "year": 2020, "category": "regular", "round": 2, "name": "牧秀悟", "name_kana": "まきしゅうご", "position": "内野手", "team": "中央大", "team_kana": "ちゅうおうだい", "isLotteryLoss": false },
+  { "year": 2020, "category": "regular", "round": 3, "name": "松本隆之介", "name_kana": "まつもとりゅうのすけ", "position": "投手", "team": "横浜高", "team_kana": "よこはまこう", "isLotteryLoss": false },
+  { "year": 2020, "category": "regular", "round": 4, "name": "小深田大地", "name_kana": "こぶかただいち", "position": "内野手", "team": "履正社高", "team_kana": "りせいしゃこう", "isLotteryLoss": false },
+  { "year": 2020, "category": "regular", "round": 5, "name": "池谷蒼大", "name_kana": "いけやそうた", "position": "投手", "team": "ヤマハ", "team_kana": "やまは", "isLotteryLoss": false },
+  { "year": 2020, "category": "regular", "round": 6, "name": "髙田琢登", "name_kana": "たかたたくと", "position": "投手", "team": "静岡商業高", "team_kana": "しずおかしょうぎょうこう", "isLotteryLoss": false },
+  { "year": 2020, "category": "development", "round": 1, "name": "石川達也", "name_kana": "いしかわたつや", "position": "投手", "team": "法政大", "team_kana": "ほうせいだい", "isLotteryLoss": false },
+  { "year": 2020, "category": "development", "round": 2, "name": "加藤大", "name_kana": "かとうだい", "position": "投手", "team": "横浜隼人高", "team_kana": "よこはまはやとこう", "isLotteryLoss": false }
 ]

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Ruby from "@/components/common/Ruby";
+import { positionKanaMap } from "@/constants/draft";
 import { DraftPick, DraftYear } from "@/types/DraftPick";
 
 type DraftTableProps = {
@@ -94,10 +96,16 @@ export default function DraftTable({
                   </span>
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap font-medium">
-                  {pick.name}
+                  <Ruby reading={pick.name_kana}>{pick.name}</Ruby>
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap">{pick.position}</td>
-                <td className="px-3 py-2">{pick.team}</td>
+                <td className="px-3 py-2 whitespace-nowrap">
+                  <Ruby reading={positionKanaMap[pick.position] ?? ""}>
+                    {pick.position}
+                  </Ruby>
+                </td>
+                <td className="px-3 py-2">
+                  <Ruby reading={pick.team_kana}>{pick.team}</Ruby>
+                </td>
               </tr>
             );
           })}
