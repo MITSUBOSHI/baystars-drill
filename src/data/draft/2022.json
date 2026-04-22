@@ -1,10 +1,10 @@
 [
   { "year": 2022, "category": "regular", "round": 1, "name": "松尾汐恩", "name_kana": "まつおしおん", "position": "捕手", "team": "大阪桐蔭高", "team_kana": "おおさかとういんこう", "isLotteryLoss": false },
-  { "year": 2022, "category": "regular", "round": 2, "name": "吉野光樹", "name_kana": "よしのこうき", "position": "投手", "team": "トヨタ自動車", "team_kana": "とよたじどうしゃ", "isLotteryLoss": false },
+  { "year": 2022, "category": "regular", "round": 2, "name": "吉野光樹", "name_kana": "よしのてるき", "position": "投手", "team": "トヨタ自動車", "team_kana": "とよたじどうしゃ", "isLotteryLoss": false },
   { "year": 2022, "category": "regular", "round": 3, "name": "林琢真", "name_kana": "はやしたくま", "position": "内野手", "team": "駒澤大", "team_kana": "こまざわだい", "isLotteryLoss": false },
   { "year": 2022, "category": "regular", "round": 4, "name": "森下瑠大", "name_kana": "もりしたるい", "position": "投手", "team": "京都国際高", "team_kana": "きょうとこくさいこう", "isLotteryLoss": false },
   { "year": 2022, "category": "regular", "round": 5, "name": "橋本達弥", "name_kana": "はしもとたつや", "position": "投手", "team": "慶應義塾大", "team_kana": "けいおうぎじゅくだい", "isLotteryLoss": false },
-  { "year": 2022, "category": "development", "round": 1, "name": "上甲凌大", "name_kana": "じょうこうりょうだい", "position": "捕手", "team": "愛媛マンダリンパイレーツ", "team_kana": "えひめまんだりんぱいれーつ", "isLotteryLoss": false },
+  { "year": 2022, "category": "development", "round": 1, "name": "上甲凌大", "name_kana": "じょうこうりょうた", "position": "捕手", "team": "愛媛マンダリンパイレーツ", "team_kana": "えひめまんだりんぱいれーつ", "isLotteryLoss": false },
   { "year": 2022, "category": "development", "round": 2, "name": "鈴木蓮", "name_kana": "すずきれん", "position": "内野手", "team": "滋賀学園高", "team_kana": "しががくえんこう", "isLotteryLoss": false },
   { "year": 2022, "category": "development", "round": 3, "name": "今野瑠斗", "name_kana": "こんのりゅうと", "position": "投手", "team": "東京都市大学塩尻高", "team_kana": "とうきょうとしだいがくしおじりこう", "isLotteryLoss": false },
   { "year": 2022, "category": "development", "round": 4, "name": "渡辺明貴", "name_kana": "わたなべあき", "position": "投手", "team": "茨城アストロプラネッツ", "team_kana": "いばらきあすとろぷらねっつ", "isLotteryLoss": false },

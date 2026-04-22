@@ -6,7 +6,7 @@
   { "year": 2023, "category": "regular", "round": 5, "name": "石田裕太郎", "name_kana": "いしだゆうたろう", "position": "投手", "team": "中央大", "team_kana": "ちゅうおうだい", "isLotteryLoss": false },
   { "year": 2023, "category": "regular", "round": 6, "name": "井上絢登", "name_kana": "いのうえあやと", "position": "外野手", "team": "徳島インディゴソックス", "team_kana": "とくしまいんでぃごそっくす", "isLotteryLoss": false },
   { "year": 2023, "category": "development", "round": 1, "name": "高見澤郁魅", "name_kana": "たかみざわいくみ", "position": "内野手", "team": "敦賀気比高", "team_kana": "つるがけひこう", "isLotteryLoss": false },
-  { "year": 2023, "category": "development", "round": 2, "name": "清水麻成", "name_kana": "しみずあさな", "position": "投手", "team": "樹徳高", "team_kana": "じゅとくこう", "isLotteryLoss": false },
+  { "year": 2023, "category": "development", "round": 2, "name": "清水麻成", "name_kana": "しみずまなと", "position": "投手", "team": "樹徳高", "team_kana": "じゅとくこう", "isLotteryLoss": false },
   { "year": 2023, "category": "development", "round": 3, "name": "小笠原蒼", "name_kana": "おがさわらあおい", "position": "内野手", "team": "京都翔英高", "team_kana": "きょうとしょうえいこう", "isLotteryLoss": false },
   { "year": 2023, "category": "development", "round": 4, "name": "庄司陽斗", "name_kana": "しょうじはると", "position": "投手", "team": "青森大", "team_kana": "あおもりだい", "isLotteryLoss": false },
   { "year": 2023, "category": "development", "round": 5, "name": "近藤大雅", "name_kana": "こんどうたいが", "position": "捕手", "team": "専修大学北上高", "team_kana": "せんしゅうだいがくきたかみこう", "isLotteryLoss": false }

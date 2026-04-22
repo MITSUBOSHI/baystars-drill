@@ -5,5 +5,5 @@
   { "year": 2019, "category": "regular", "round": 4, "name": "東妻純平", "name_kana": "あづまじゅんぺい", "position": "捕手", "team": "智辯学園和歌山高", "team_kana": "ちべんがくえんわかやまこう", "isLotteryLoss": false },
   { "year": 2019, "category": "regular", "round": 5, "name": "田部隼人", "name_kana": "たなべはやと", "position": "内野手", "team": "開星高", "team_kana": "かいせいこう", "isLotteryLoss": false },
   { "year": 2019, "category": "regular", "round": 6, "name": "蝦名達夫", "name_kana": "えびなたつお", "position": "外野手", "team": "青森大", "team_kana": "あおもりだい", "isLotteryLoss": false },
-  { "year": 2019, "category": "regular", "round": 7, "name": "浅田将汰", "name_kana": "あさだまさた", "position": "投手", "team": "有明高", "team_kana": "ありあけこう", "isLotteryLoss": false }
+  { "year": 2019, "category": "regular", "round": 7, "name": "浅田将汰", "name_kana": "あさだそうた", "position": "投手", "team": "有明高", "team_kana": "ありあけこう", "isLotteryLoss": false }
 ]

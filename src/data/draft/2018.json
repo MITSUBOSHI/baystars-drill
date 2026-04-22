@@ -5,5 +5,5 @@
   { "year": 2018, "category": "regular", "round": 4, "name": "勝又温史", "name_kana": "かつまたあつし", "position": "投手", "team": "日本大学鶴ヶ丘高", "team_kana": "にほんだいがくつるがおかこう", "isLotteryLoss": false },
   { "year": 2018, "category": "regular", "round": 5, "name": "益子京右", "name_kana": "ましこきょうすけ", "position": "捕手", "team": "青藍泰斗高", "team_kana": "せいらんたいとこう", "isLotteryLoss": false },
   { "year": 2018, "category": "regular", "round": 6, "name": "知野直人", "name_kana": "ちのなおと", "position": "内野手", "team": "新潟アルビレックスBC", "team_kana": "にいがたあるびれっくすびーしー", "isLotteryLoss": false },
-  { "year": 2018, "category": "development", "round": 1, "name": "宮城滝太", "name_kana": "みやぎりゅうた", "position": "投手", "team": "滋賀学園高", "team_kana": "しががくえんこう", "isLotteryLoss": false }
+  { "year": 2018, "category": "development", "round": 1, "name": "宮城滝太", "name_kana": "みやぎだいた", "position": "投手", "team": "滋賀学園高", "team_kana": "しががくえんこう", "isLotteryLoss": false }
 ]

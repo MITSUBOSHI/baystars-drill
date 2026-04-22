@@ -1,6 +1,6 @@
 [
   { "year": 2024, "category": "regular", "round": 1, "name": "竹田祐", "name_kana": "たけだたすく", "position": "投手", "team": "三菱重工West", "team_kana": "みつびしじゅうこううえすと", "isLotteryLoss": true, "lotteryTarget": "金丸夢斗" },
-  { "year": 2024, "category": "regular", "round": 2, "name": "篠木健太郎", "name_kana": "しのきけんたろう", "position": "投手", "team": "法政大", "team_kana": "ほうせいだい", "isLotteryLoss": false },
+  { "year": 2024, "category": "regular", "round": 2, "name": "篠木健太郎", "name_kana": "しのぎけんたろう", "position": "投手", "team": "法政大", "team_kana": "ほうせいだい", "isLotteryLoss": false },
   { "year": 2024, "category": "regular", "round": 3, "name": "加藤響", "name_kana": "かとうひびき", "position": "内野手", "team": "徳島インディゴソックス", "team_kana": "とくしまいんでぃごそっくす", "isLotteryLoss": false },
   { "year": 2024, "category": "regular", "round": 4, "name": "若松尚輝", "name_kana": "わかまつなおき", "position": "投手", "team": "高知ファイティングドッグス", "team_kana": "こうちふぁいてぃんぐどっぐす", "isLotteryLoss": false },
   { "year": 2024, "category": "regular", "round": 5, "name": "田内真翔", "name_kana": "たうちまさと", "position": "内野手", "team": "おかやま山陽高", "team_kana": "おかやまさんようこう", "isLotteryLoss": false },
