@@ -22,6 +22,10 @@ const pathMap: Record<string, { label: string; reading: string }> = {
     reading: "せばんごうけいさんどりる",
   },
   "lineup-maker": { label: "スタメン作成", reading: "すためんさくせい" },
+  "lineup-custom-maker": {
+    label: "スタメン作成（自由入力）",
+    reading: "すためんさくせい（じゆうにゅうりょく）",
+  },
   "uniform-view": {
     label: "ユニフォームビュー",
     reading: "ゆにふぉーむびゅー",
