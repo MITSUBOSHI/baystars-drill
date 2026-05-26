@@ -1,5 +1,5 @@
 [
-  { "year": 2014, "category": "regular", "round": 1, "name": "山崎康晃", "name_kana": "やまさきやすあき", "position": "投手", "team": "亜細亜大", "team_kana": "あじあだい", "isLotteryLoss": false },
+  { "year": 2014, "category": "regular", "round": 1, "name": "山﨑康晃", "name_kana": "やまさきやすあき", "position": "投手", "team": "亜細亜大", "team_kana": "あじあだい", "isLotteryLoss": false },
   { "year": 2014, "category": "regular", "round": 2, "name": "石田健大", "name_kana": "いしだけんた", "position": "投手", "team": "法政大", "team_kana": "ほうせいだい", "isLotteryLoss": false },
   { "year": 2014, "category": "regular", "round": 3, "name": "倉本寿彦", "name_kana": "くらもととしひこ", "position": "内野手", "team": "日本新薬", "team_kana": "にほんしんやく", "isLotteryLoss": false },
   { "year": 2014, "category": "regular", "round": 4, "name": "福地元春", "name_kana": "ふくちもとはる", "position": "投手", "team": "三菱日立パワーシステムズ", "team_kana": "みつびしひたちぱわーしすてむず", "isLotteryLoss": false },
