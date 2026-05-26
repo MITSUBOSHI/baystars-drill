@@ -2,17 +2,37 @@ import { parse } from "node-html-parser";
 
 const NPB_ORIGIN = "https://npb.jp";
 
-export async function fetchHtml(url) {
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
-    },
-  });
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status} fetching ${url}`);
+export async function fetchHtml(url, { retries = 3, retryDelayMs = 2000 } = {}) {
+  let lastErr;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status} fetching ${url}`);
+      }
+      return await res.text();
+    } catch (e) {
+      lastErr = e;
+      if (attempt < retries) {
+        await new Promise((r) => setTimeout(r, retryDelayMs * (attempt + 1)));
+      }
+    }
   }
-  return await res.text();
+  throw lastErr;
+}
+
+function originOf(url) {
+  try {
+    const u = new URL(url);
+    return `${u.protocol}//${u.host}`;
+  } catch {
+    return NPB_ORIGIN;
+  }
 }
 
 function normalizeName(raw) {
@@ -29,14 +49,11 @@ function toISODate(dateStr) {
   return `${y}-${mo.padStart(2, "0")}-${d.padStart(2, "0")}`;
 }
 
-function resolveUrl(href) {
+function resolveUrl(href, baseOrigin = NPB_ORIGIN) {
   if (!href) return "";
-  if (href.startsWith("http")) {
-    const m = href.match(/https?:\/\/[^/]*(\/.*)/);
-    return m ? `${NPB_ORIGIN}${m[1]}` : href;
-  }
-  if (href.startsWith("/")) return `${NPB_ORIGIN}${href}`;
-  return `${NPB_ORIGIN}/${href}`;
+  if (href.startsWith("http")) return href;
+  if (href.startsWith("/")) return `${baseOrigin}${href}`;
+  return `${baseOrigin}/${href}`;
 }
 
 function toInt(s) {
@@ -44,10 +61,11 @@ function toInt(s) {
   return Number.isNaN(n) ? null : n;
 }
 
-export function parseRosterHtml(html, { year }) {
+export function parseRosterHtml(html, { year, sourceUrl }) {
   const root = parse(html);
   const main = root.querySelector("#tedivmain");
   if (!main) throw new Error("No #tedivmain found");
+  const baseOrigin = sourceUrl ? originOf(sourceUrl) : NPB_ORIGIN;
 
   const players = [];
 
@@ -84,7 +102,7 @@ export function parseRosterHtml(html, { year }) {
     const nameRaw = registerCell?.text ?? tds[1]?.text ?? "";
     const name = normalizeName(nameRaw);
     const link = registerCell?.querySelector("a");
-    const url = link ? resolveUrl(link.getAttribute("href")) : "";
+    const url = link ? resolveUrl(link.getAttribute("href"), baseOrigin) : "";
     const dobRaw = tds[2]?.text.trim() ?? "";
     const dob = toISODate(dobRaw);
     const heightCm = tds.length >= 5 ? toInt(tds[3]?.text.trim()) : null;
@@ -130,7 +148,7 @@ export async function fetchPlayerKana(playerUrl) {
   }
 }
 
-export async function enrichWithKana(records, { concurrency = 6 } = {}) {
+export async function enrichWithKana(records, { concurrency = 3 } = {}) {
   const tasks = records.map((r) => r);
   const result = new Array(tasks.length);
 

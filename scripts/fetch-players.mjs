@@ -32,7 +32,7 @@ function parseArgs(argv) {
 async function processYear(year, url, withKana) {
   console.log(`[${year}] fetching ${url}`);
   const html = await fetchHtml(url);
-  let players = parseRosterHtml(html, { year });
+  let players = parseRosterHtml(html, { year, sourceUrl: url });
   console.log(`[${year}] parsed ${players.length} players`);
 
   if (withKana) {
