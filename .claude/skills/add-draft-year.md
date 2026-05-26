@@ -62,7 +62,7 @@ export const draftYears = [
 ### 5. データローダーに追加
 
 `src/lib/draft.ts` に:
-1. importを追加: `import Draft2026 from "@/data/draft/2026.json";`
+1. importを追加: `import Draft2026 from "@/data/draft/2026.jsonl.json";`
 2. mapに追加: `2026: Draft2026 as DraftPick[],`
 
 ### 6. ビルド確認

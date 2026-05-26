@@ -1,17 +1,17 @@
-import Draft2012 from "@/data/draft/2012.json";
-import Draft2013 from "@/data/draft/2013.json";
-import Draft2014 from "@/data/draft/2014.json";
-import Draft2015 from "@/data/draft/2015.json";
-import Draft2016 from "@/data/draft/2016.json";
-import Draft2017 from "@/data/draft/2017.json";
-import Draft2018 from "@/data/draft/2018.json";
-import Draft2019 from "@/data/draft/2019.json";
-import Draft2020 from "@/data/draft/2020.json";
-import Draft2021 from "@/data/draft/2021.json";
-import Draft2022 from "@/data/draft/2022.json";
-import Draft2023 from "@/data/draft/2023.json";
-import Draft2024 from "@/data/draft/2024.json";
-import Draft2025 from "@/data/draft/2025.json";
+import Draft2012 from "@/data/draft/2012.jsonl.json";
+import Draft2013 from "@/data/draft/2013.jsonl.json";
+import Draft2014 from "@/data/draft/2014.jsonl.json";
+import Draft2015 from "@/data/draft/2015.jsonl.json";
+import Draft2016 from "@/data/draft/2016.jsonl.json";
+import Draft2017 from "@/data/draft/2017.jsonl.json";
+import Draft2018 from "@/data/draft/2018.jsonl.json";
+import Draft2019 from "@/data/draft/2019.jsonl.json";
+import Draft2020 from "@/data/draft/2020.jsonl.json";
+import Draft2021 from "@/data/draft/2021.jsonl.json";
+import Draft2022 from "@/data/draft/2022.jsonl.json";
+import Draft2023 from "@/data/draft/2023.jsonl.json";
+import Draft2024 from "@/data/draft/2024.jsonl.json";
+import Draft2025 from "@/data/draft/2025.jsonl.json";
 import { DraftPick, DraftYear } from "@/types/DraftPick";
 
 const draftByYearMap: Record<DraftYear, DraftPick[]> = {
