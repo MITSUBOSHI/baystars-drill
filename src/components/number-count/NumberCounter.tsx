@@ -8,6 +8,7 @@ import { extractFamilyNameKana } from "@/lib/nameUtils";
 import UniformBack from "@/components/uniform-view/UniformBack";
 import { useFurigana } from "@/contexts/FuriganaContext";
 import Ruby from "@/components/common/Ruby";
+import { TEAM } from "@/config/team";
 import CounterSettings from "./CounterSettings";
 
 type Props = {
@@ -156,7 +157,7 @@ export default function NumberCounter({ players }: Props) {
       if (step?.player) {
         speak(extractFamilyNameKana(step.player.name_kana));
       } else {
-        speak("べいすたーず");
+        speak(TEAM.uniform.fallbackPlayerKana);
       }
     },
     [steps, speak],
@@ -288,10 +289,12 @@ export default function NumberCounter({ players }: Props) {
   }, [intervalMs, state, stopInterval, tick]);
 
   // 表示情報
-  const uniformName = currentPlayer?.uniform_name ?? "BAYSTARS";
+  const uniformName = currentPlayer?.uniform_name ?? TEAM.uniform.fallbackName;
   const numberDisp = currentStep?.displayNumber ?? "1";
-  const displayName = currentPlayer?.name ?? "ベイスターズ";
-  const displayKana = currentPlayer ? currentPlayer.name_kana : "べいすたーず";
+  const displayName = currentPlayer?.name ?? TEAM.uniform.fallbackPlayerName;
+  const displayKana = currentPlayer
+    ? currentPlayer.name_kana
+    : TEAM.uniform.fallbackPlayerKana;
   const lastStep = steps[steps.length - 1];
 
   const handleCountLimitSelect = useCallback((value: string) => {

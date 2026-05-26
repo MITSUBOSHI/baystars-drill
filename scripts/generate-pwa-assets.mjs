@@ -1,20 +1,19 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
+import team from "../src/config/team.config.json" with { type: "json" };
 
-const basePath =
-  process.env.CAPACITOR === "true" ? "" : "/baystars-drill";
+const basePath = process.env.CAPACITOR === "true" ? "" : team.basePath;
 const outDir = "out";
 
 const manifest = {
-  name: "Baystars Drill",
-  short_name: "Baystars Drill",
-  description:
-    "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+  name: team.name,
+  short_name: team.name,
+  description: team.siteDescription,
   start_url: `${basePath}/`,
   scope: `${basePath}/`,
   display: "standalone",
   background_color: "#ffffff",
-  theme_color: "#0046AB",
+  theme_color: team.colors.themeColor,
   icons: [
     {
       src: `${basePath}/icons/icon-192x192.png`,
@@ -40,7 +39,7 @@ const manifest = {
   categories: ["sports", "entertainment"],
 };
 
-const sw = `const CACHE_NAME = "baystars-drill-v1";
+const sw = `const CACHE_NAME = "${team.storage.pwaCacheKey}";
 const BASE_PATH = "${basePath}";
 
 const PRECACHE_URLS = [

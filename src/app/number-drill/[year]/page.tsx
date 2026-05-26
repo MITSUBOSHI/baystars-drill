@@ -5,6 +5,7 @@ import { Year } from "@/types/Player";
 import Question from "@/components/number-uniform/Question";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
+import { describe } from "@/config/team";
 
 export async function generateMetadata({
   params,
@@ -14,7 +15,7 @@ export async function generateMetadata({
   const { year } = await params;
   return {
     title: `${year}年 背番号計算ドリル`,
-    description: `横浜DeNAベイスターズ${year}年の選手背番号で計算ドリルに挑戦`,
+    description: describe("numberDrill", { year }),
   };
 }
 

@@ -7,6 +7,7 @@ import { Year } from "@/types/Player";
 import LineupCreator from "@/components/lineup/LineupCreator";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
+import { describe } from "@/config/team";
 
 export async function generateMetadata({
   params,
@@ -16,7 +17,7 @@ export async function generateMetadata({
   const { year } = await params;
   return {
     title: `${year}年 スタメン作成`,
-    description: `横浜DeNAベイスターズ${year}年の選手でオリジナルスタメンを作成`,
+    description: describe("lineupMaker", { year }),
   };
 }
 

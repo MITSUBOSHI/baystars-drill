@@ -5,6 +5,7 @@ import { DraftYear } from "@/types/DraftPick";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
 import DraftPageClient from "@/components/draft/DraftPageClient";
+import { describe } from "@/config/team";
 
 export async function generateMetadata({
   params,
@@ -14,7 +15,7 @@ export async function generateMetadata({
   const { year } = await params;
   return {
     title: `${year}年 ドラフト一覧`,
-    description: `横浜DeNAベイスターズ${year}年のドラフト指名選手一覧`,
+    description: describe("draft", { year }),
   };
 }
 

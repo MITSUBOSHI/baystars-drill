@@ -7,6 +7,7 @@ import { Year } from "@/types/Player";
 import UniformViewer from "@/components/uniform-view/UniformViewer";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
+import { describe, TEAM } from "@/config/team";
 
 export async function generateMetadata({
   params,
@@ -16,7 +17,7 @@ export async function generateMetadata({
   const { year } = await params;
   return {
     title: `${year}年 ユニフォームビュー`,
-    description: `横浜DeNAベイスターズ${year}年のユニフォーム背面を再現。選手のユニフォーム名と背番号を表示。`,
+    description: describe("uniformView", { year }),
   };
 }
 
@@ -32,12 +33,14 @@ export default async function Page({
   const { year } = await params;
   const currentYear = Number(year) as Year;
   const players = playersByYear(currentYear);
-  const songs = cheerSongsByYear(currentYear);
   const cheerSongNumbers = new Set<string>();
-  for (const song of songs) {
-    if (song.playerNumber) cheerSongNumbers.add(song.playerNumber);
-    if (song.applicablePlayers) {
-      for (const p of song.applicablePlayers) cheerSongNumbers.add(p.number);
+  if (TEAM.features.cheerSongs) {
+    const songs = cheerSongsByYear(currentYear);
+    for (const song of songs) {
+      if (song.playerNumber) cheerSongNumbers.add(song.playerNumber);
+      if (song.applicablePlayers) {
+        for (const p of song.applicablePlayers) cheerSongNumbers.add(p.number);
+      }
     }
   }
 

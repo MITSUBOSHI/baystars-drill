@@ -23,6 +23,7 @@ import { useSearchParams } from "next/navigation";
 import OptionGroup from "@/components/common/OptionGroup";
 import { Switch } from "@/components/ui/switch";
 import { encodeLineupParams, decodeLineupParams } from "@/lib/lineupUrl";
+import { TEAM } from "@/config/team";
 import LineupTable from "./LineupTable";
 import PlayerSelector from "./PlayerSelector";
 import dynamic from "next/dynamic";
@@ -302,7 +303,7 @@ export default function LineupCreator({ players }: Props) {
       const link = document.createElement("a");
       const fileName = customTitle
         ? `${customTitle}.png`
-        : "baystars-lineup.png";
+        : TEAM.lineup.imageFileName;
       link.download = fileName;
       link.href = canvas.toDataURL("image/png");
       link.click();
@@ -362,7 +363,7 @@ export default function LineupCreator({ players }: Props) {
   }, [lineup, startingPitcher, hasDH, isFarmMode, nameDisplay, customTitle]);
 
   const getShareText = useCallback(() => {
-    const title = customTitle || "ベイスターズ スタメン";
+    const title = customTitle || TEAM.lineup.defaultTitle;
     const lines = orderedPlayers.map(
       (spot) =>
         `${spot.order}. ${getDisplayName(spot.player)} (${spot.position})`,
@@ -388,7 +389,7 @@ export default function LineupCreator({ players }: Props) {
     const url = getShareUrl();
     try {
       await navigator.share({
-        title: customTitle || "ベイスターズ スタメン",
+        title: customTitle || TEAM.lineup.defaultTitle,
         text,
         url,
       });

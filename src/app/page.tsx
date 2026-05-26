@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "./baystars_drill.png";
+import Logo from "./logo.png";
 import { navItems } from "@/constants/navigation";
 import Ruby from "@/components/common/Ruby";
+import { TEAM } from "@/config/team";
 
 const descriptionMap: Record<
   string,
@@ -48,19 +49,19 @@ const features = navItems.map((item) => ({
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center gap-8 py-8 px-4">
-      <Image
-        src={Logo.src}
-        width={160}
-        height={160}
-        alt="Baystars Drill Logo"
-      />
+      <Image src={Logo.src} width={160} height={160} alt={TEAM.logo.alt} />
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-5xl font-bold">Baystars Drill</h1>
+        <h1 className="text-5xl font-bold">{TEAM.name}</h1>
         <p className="text-lg text-[var(--text-secondary)]">
-          <Ruby reading="よこはま">横浜</Ruby>DeNA
-          <Ruby reading="べいすたーず">ベイスターズ</Ruby>の
-          <Ruby reading="せばんごう">背番号</Ruby>で
-          <Ruby reading="あそ">遊</Ruby>ぼう!
+          {TEAM.subtitleSegments.map((seg, i) =>
+            seg.reading ? (
+              <Ruby key={i} reading={seg.reading}>
+                {seg.text}
+              </Ruby>
+            ) : (
+              <span key={i}>{seg.text}</span>
+            ),
+          )}
         </p>
       </div>
 

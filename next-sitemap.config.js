@@ -1,6 +1,7 @@
+const team = require('./src/config/team.config.json');
 
 module.exports = {
-  siteUrl: 'https://mitsuboshi.github.io/baystars-drill',
+  siteUrl: team.siteUrl,
   generateRobotsTxt: true,
   sitemapSize: 7000,
   autoLastmod: false,

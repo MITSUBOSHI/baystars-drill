@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
+import { TEAM } from "@/config/team";
 
 type FuriganaContextType = {
   furigana: boolean;
@@ -12,7 +13,7 @@ const FuriganaContext = createContext<FuriganaContextType>({
   setFurigana: () => {},
 });
 
-const STORAGE_KEY = "baystars-drill-furigana";
+const STORAGE_KEY = TEAM.storage.furiganaKey;
 
 export function FuriganaProvider({ children }: { children: React.ReactNode }) {
   const [furigana, setFuriganaState] = useState(false);

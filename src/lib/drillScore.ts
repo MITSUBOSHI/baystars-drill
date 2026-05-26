@@ -1,4 +1,6 @@
-const STORAGE_KEY = "baystars-drill-scores";
+import { TEAM } from "@/config/team";
+
+const STORAGE_KEY = TEAM.storage.drillScoreKey;
 
 export type DrillScoreRecord = {
   total: number;

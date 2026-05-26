@@ -1,13 +1,16 @@
 "use client";
 
+import { TEAM } from "@/config/team";
+
 type UniformBackProps = {
   uniformName: string;
   numberDisp: string;
   clipPathId?: string;
 };
 
-const BAYSTARS_BLUE = "#004B98";
-const GOLD = "#C9A84C";
+const PRIMARY = TEAM.uniform.svg.primaryColor;
+const ACCENT = TEAM.uniform.svg.accentColor;
+const NUMBER_FONT = TEAM.uniform.svg.numberFontFamily;
 
 /*
  * viewBox 480x340
@@ -57,15 +60,15 @@ function Stripe({
   if (goldSide === "left") {
     return (
       <>
-        <rect x={x} y={y} width="2" height={h} fill={GOLD} />
-        <rect x={x + 2} y={y} width="20" height={h} fill={BAYSTARS_BLUE} />
+        <rect x={x} y={y} width="2" height={h} fill={ACCENT} />
+        <rect x={x + 2} y={y} width="20" height={h} fill={PRIMARY} />
       </>
     );
   }
   return (
     <>
-      <rect x={x} y={y} width="20" height={h} fill={BAYSTARS_BLUE} />
-      <rect x={x + 20} y={y} width="2" height={h} fill={GOLD} />
+      <rect x={x} y={y} width="20" height={h} fill={PRIMARY} />
+      <rect x={x + 20} y={y} width="2" height={h} fill={ACCENT} />
     </>
   );
 }
@@ -102,7 +105,7 @@ export default function UniformBack({
         <path
           d="M 190,0 Q 240,20 290,0"
           fill="#FFFFFF"
-          stroke={BAYSTARS_BLUE}
+          stroke={PRIMARY}
           strokeWidth="2.5"
         />
 
@@ -143,9 +146,9 @@ export default function UniformBack({
           y="80"
           textAnchor="middle"
           dominantBaseline="central"
-          fill={BAYSTARS_BLUE}
+          fill={PRIMARY}
           style={{
-            fontFamily: "var(--font-oswald), 'Oswald', sans-serif",
+            fontFamily: NUMBER_FONT,
             fontWeight: 700,
             fontSize: getNameFontSize(uniformName),
             letterSpacing: 8,
@@ -160,9 +163,9 @@ export default function UniformBack({
           y="168"
           textAnchor="middle"
           dominantBaseline="central"
-          fill={BAYSTARS_BLUE}
+          fill={PRIMARY}
           style={{
-            fontFamily: "var(--font-oswald), 'Oswald', sans-serif",
+            fontFamily: NUMBER_FONT,
             fontWeight: 700,
             fontSize: getNumberFontSize(numberDisp),
           }}

@@ -2,7 +2,11 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import NumberCounter from "./NumberCounter";
 import { PlayerType, Role } from "@/types/Player";
+import { TEAM } from "@/config/team";
 import { ReactNode } from "react";
+
+const FALLBACK_NAME = TEAM.uniform.fallbackName;
+const FALLBACK_PLAYER_NAME = TEAM.uniform.fallbackPlayerName;
 
 jest.mock("@/contexts/FuriganaContext", () => ({
   useFurigana: () => ({ furigana: false, setFurigana: () => {} }),
@@ -197,9 +201,11 @@ describe("NumberCounter", () => {
 
   it("初期表示: idle状態で番号1が表示される（歯抜け）", () => {
     render(<NumberCounter players={mockPlayers} />);
-    // 番号1には選手がいないのでベイスターズ表示
-    expect(screen.getByText("ベイスターズ")).toBeInTheDocument();
-    expect(screen.getByTestId("uniform-back")).toHaveTextContent("BAYSTARS #1");
+    // 番号1には選手がいないのでフォールバック表示
+    expect(screen.getByText(FALLBACK_PLAYER_NAME)).toBeInTheDocument();
+    expect(screen.getByTestId("uniform-back")).toHaveTextContent(
+      `${FALLBACK_NAME} #1`,
+    );
   });
 
   it("カウント数のデフォルトは30", () => {
@@ -211,7 +217,7 @@ describe("NumberCounter", () => {
     expect(screen.getByText("1 / 30")).toBeInTheDocument();
   });
 
-  it("歯抜け番号はベイスターズと表示、選手番号では選手名を表示", () => {
+  it("歯抜け番号はフォールバック名と表示、選手番号では選手名を表示", () => {
     render(<NumberCounter players={mockPlayers} />);
     // 再生して番号2に進む（牧選手）
     const playButton = screen.getByLabelText("再生");
@@ -298,8 +304,10 @@ describe("NumberCounter", () => {
       fireEvent.click(resetButton);
     });
     // 番号1に戻る
-    expect(screen.getByText("ベイスターズ")).toBeInTheDocument();
-    expect(screen.getByTestId("uniform-back")).toHaveTextContent("BAYSTARS #1");
+    expect(screen.getByText(FALLBACK_PLAYER_NAME)).toBeInTheDocument();
+    expect(screen.getByTestId("uniform-back")).toHaveTextContent(
+      `${FALLBACK_NAME} #1`,
+    );
   });
 
   it("方向切替でカウントダウンに変更", () => {
@@ -335,7 +343,9 @@ describe("NumberCounter", () => {
   it("「0を含める」ONで背番号0から開始し、0→00の順に表示される", () => {
     render(<NumberCounter players={mockPlayersWithZero} />);
     // デフォルトは番号1から
-    expect(screen.getByTestId("uniform-back")).toHaveTextContent("BAYSTARS #1");
+    expect(screen.getByTestId("uniform-back")).toHaveTextContent(
+      `${FALLBACK_NAME} #1`,
+    );
 
     openSettings();
     // 「0を含める」のONボタンをクリック（最初のONボタン）

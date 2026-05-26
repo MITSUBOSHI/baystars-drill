@@ -5,6 +5,7 @@ import { Year } from "@/types/Player";
 import NumberCounter from "@/components/number-count/NumberCounter";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
+import { describe } from "@/config/team";
 
 export async function generateMetadata({
   params,
@@ -14,7 +15,7 @@ export async function generateMetadata({
   const { year } = await params;
   return {
     title: `${year}年 背番号タイマー`,
-    description: `横浜DeNAベイスターズ${year}年の背番号タイマー。背番号順に選手名を読み上げてカウント。`,
+    description: describe("numberCount", { year }),
   };
 }
 

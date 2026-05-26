@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Year } from "@/types/Player";
 import YearSelector from "@/components/common/YearSelector";
 import CheerSongViewer from "@/components/cheer-songs/CheerSongViewer";
 import PageTitle from "@/components/common/PageTitle";
 import { cheerSongsByYear, cheerSongYears } from "@/lib/cheerSongs";
 import { playersByYear } from "@/lib/players";
+import { describe, TEAM } from "@/config/team";
 
 export async function generateMetadata({
   params,
@@ -15,11 +17,12 @@ export async function generateMetadata({
   const { year } = await params;
   return {
     title: `${year}年 応援歌`,
-    description: `横浜DeNAベイスターズ${year}年の応援歌・歌詞一覧`,
+    description: describe("cheerSongs", { year }),
   };
 }
 
 export async function generateStaticParams() {
+  if (!TEAM.features.cheerSongs) return [];
   return cheerSongYears.map((y) => ({ year: y.toString() }));
 }
 
@@ -28,6 +31,9 @@ export default async function Page({
 }: {
   params: Promise<{ year: Year }>;
 }) {
+  if (!TEAM.features.cheerSongs) {
+    notFound();
+  }
   const { year } = await params;
   const currentYear = Number(year) as Year;
   const players = playersByYear(currentYear);

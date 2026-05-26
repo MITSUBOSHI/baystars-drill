@@ -1,10 +1,18 @@
 import { registeredYears } from "@/constants/player";
 import { draftYears } from "@/constants/draft";
+import { TEAM } from "@/config/team";
 
 const maxYear = Math.max(...registeredYears);
 const maxDraftYear = Math.max(...draftYears);
 
-export const navItems = [
+type NavItem = {
+  title: string;
+  titleReading: string;
+  href: string;
+  icon: string;
+};
+
+const allNavItems: NavItem[] = [
   {
     title: "選手名鑑",
     titleReading: "せんしゅめいかん",
@@ -47,4 +55,9 @@ export const navItems = [
     href: `/draft/${maxDraftYear}`,
     icon: "📋",
   },
-] as const;
+];
+
+export const navItems: readonly NavItem[] = allNavItems.filter((item) => {
+  if (item.title === "応援歌" && !TEAM.features.cheerSongs) return false;
+  return true;
+});

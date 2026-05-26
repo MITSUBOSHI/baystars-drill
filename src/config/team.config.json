@@ -1,0 +1,102 @@
+{
+  "id": "baystars",
+  "name": "Baystars Drill",
+  "shortName": "ベイスターズ",
+  "shortNameReading": "べいすたーず",
+  "fullName": "横浜DeNAベイスターズ",
+  "subtitleSegments": [
+    { "text": "横浜", "reading": "よこはま" },
+    { "text": "DeNA" },
+    { "text": "ベイスターズ", "reading": "べいすたーず" },
+    { "text": "の" },
+    { "text": "背番号", "reading": "せばんごう" },
+    { "text": "で" },
+    { "text": "遊", "reading": "あそ" },
+    { "text": "ぼう!" }
+  ],
+  "siteSubtitle": "横浜DeNAベイスターズの背番号で遊ぼう!",
+  "siteDescription": "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+  "descriptionTemplate": {
+    "draft": "横浜DeNAベイスターズ{year}年のドラフト指名選手一覧",
+    "numberDrill": "横浜DeNAベイスターズ{year}年の選手背番号で計算ドリルに挑戦",
+    "playerDirectory": "横浜DeNAベイスターズ{year}年の選手一覧・背番号名鑑",
+    "lineupMaker": "横浜DeNAベイスターズ{year}年の選手でオリジナルスタメンを作成",
+    "numberCount": "横浜DeNAベイスターズ{year}年の背番号タイマー。背番号順に選手名を読み上げてカウント。",
+    "uniformView": "横浜DeNAベイスターズ{year}年のユニフォーム背面を再現。選手のユニフォーム名と背番号を表示。",
+    "cheerSongs": "横浜DeNAベイスターズ{year}年の応援歌・歌詞一覧"
+  },
+  "keywords": [
+    "横浜DeNAベイスターズ",
+    "Baystars",
+    "ベイスターズ",
+    "背番号",
+    "計算ドリル",
+    "スタメン",
+    "選手名鑑",
+    "応援歌",
+    "ユニフォーム",
+    "歌詞",
+    "ふりがな"
+  ],
+  "disclaimer": "本サイトは個人が運営するファンサイトであり、株式会社横浜DeNAベイスターズとは一切関係ありません。",
+  "basePath": "/baystars-drill",
+  "siteUrl": "https://mitsuboshi.github.io/baystars-drill",
+  "capacitor": {
+    "appId": "com.mitsuboshi.baystarsdrill",
+    "appName": "Baystars Drill"
+  },
+  "colors": {
+    "themeColor": "#0046AB",
+    "brand": {
+      "50": "#E6F0FA",
+      "100": "#B3D4F0",
+      "200": "#80B8E6",
+      "300": "#4D9CDC",
+      "400": "#2680D2",
+      "500": "#0055A5",
+      "600": "#004A91",
+      "700": "#003F7D",
+      "800": "#003469",
+      "900": "#002955"
+    }
+  },
+  "logo": {
+    "png": "logo.png",
+    "svg": "logo.svg",
+    "alt": "Baystars Drill Logo"
+  },
+  "storage": {
+    "furiganaKey": "baystars-drill-furigana",
+    "drillScoreKey": "baystars-drill-scores",
+    "pwaCacheKey": "baystars-drill-v1"
+  },
+  "lineup": {
+    "defaultTitle": "ベイスターズ スタメン",
+    "imageFileName": "baystars-lineup.png"
+  },
+  "uniform": {
+    "fallbackName": "BAYSTARS",
+    "fallbackPlayerName": "ベイスターズ",
+    "fallbackPlayerKana": "べいすたーず",
+    "svg": {
+      "primaryColor": "#004B98",
+      "accentColor": "#C9A84C",
+      "stripeStyle": "vertical",
+      "numberFontFamily": "var(--font-oswald), 'Oswald', sans-serif"
+    }
+  },
+  "npb": {
+    "teamCode": "db",
+    "rosterUrls": {
+      "2026": "https://npb.jp/bis/teams/rst_db.html"
+    },
+    "draftUrlTemplate": "https://draft.npb.jp/draft/{year}/draftlist_db.html"
+  },
+  "features": {
+    "cheerSongs": true
+  },
+  "analytics": {
+    "gaId": "G-EW129H86JD",
+    "googleSiteVerification": "vlzDVPRDmQPcycgM2kxNfnsjt5eA2wGV40ksGd7LRRI"
+  }
+}

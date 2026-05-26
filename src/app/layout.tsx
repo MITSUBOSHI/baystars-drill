@@ -3,6 +3,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { Oswald } from "next/font/google";
 import Provider from "./provider";
 import AppBreadcrumb from "@/components/common/Breadcrumb";
+import { TEAM } from "@/config/team";
 import "./globals.css";
 
 const oswald = Oswald({
@@ -12,54 +13,38 @@ const oswald = Oswald({
   variable: "--font-oswald",
 });
 
-const gaId = "G-EW129H86JD";
-const basePath = process.env.CAPACITOR === "true" ? "" : "/baystars-drill";
-const siteUrl = "https://mitsuboshi.github.io/baystars-drill";
+const basePath = process.env.CAPACITOR === "true" ? "" : TEAM.basePath;
+const logoUrl = `${basePath}/${TEAM.logo.png}`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(TEAM.siteUrl),
   title: {
-    default: "Baystars Drill",
-    template: "%s | Baystars Drill",
+    default: TEAM.name,
+    template: `%s | ${TEAM.name}`,
   },
-  description:
-    "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+  description: TEAM.siteDescription,
   icons: "/favicon.ico",
-  keywords: [
-    "横浜DeNAベイスターズ",
-    "Baystars",
-    "ベイスターズ",
-    "背番号",
-    "計算ドリル",
-    "スタメン",
-    "選手名鑑",
-    "応援歌",
-    "ユニフォーム",
-    "歌詞",
-    "ふりがな",
-  ],
+  keywords: [...TEAM.keywords],
   openGraph: {
     type: "website",
-    siteName: "Baystars Drill",
+    siteName: TEAM.name,
     locale: "ja_JP",
-    title: "Baystars Drill",
-    description:
-      "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+    title: TEAM.name,
+    description: TEAM.siteDescription,
     images: [
       {
-        url: "/baystars_drill.png",
+        url: logoUrl,
         width: 512,
         height: 512,
-        alt: "Baystars Drill Logo",
+        alt: TEAM.logo.alt,
       },
     ],
   },
   twitter: {
     card: "summary",
-    title: "Baystars Drill",
-    description:
-      "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
-    images: ["/baystars_drill.png"],
+    title: TEAM.name,
+    description: TEAM.siteDescription,
+    images: [logoUrl],
   },
 };
 
@@ -73,14 +58,14 @@ export default function RootLayout({
       <head>
         <meta
           name="google-site-verification"
-          content="vlzDVPRDmQPcycgM2kxNfnsjt5eA2wGV40ksGd7LRRI"
+          content={TEAM.analytics.googleSiteVerification}
         />
         <link rel="manifest" href={`${basePath}/manifest.json`} />
         <link
           rel="apple-touch-icon"
           href={`${basePath}/icons/apple-touch-icon.png`}
         />
-        <meta name="theme-color" content="#0046AB" />
+        <meta name="theme-color" content={TEAM.colors.themeColor} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <script
@@ -89,15 +74,14 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Baystars Drill",
-              url: siteUrl,
-              description:
-                "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
+              name: TEAM.name,
+              url: TEAM.siteUrl,
+              description: TEAM.siteDescription,
             }),
           }}
         />
       </head>
-      <GoogleAnalytics gaId={gaId} />
+      <GoogleAnalytics gaId={TEAM.analytics.gaId} />
       <body>
         <script
           dangerouslySetInnerHTML={{
@@ -115,7 +99,7 @@ export default function RootLayout({
           {children}
           <footer className="py-4 px-6 text-center flex flex-col items-center gap-1">
             <p className="text-xs text-[var(--text-secondary)]">
-              本サイトは個人が運営するファンサイトであり、株式会社横浜DeNAベイスターズとは一切関係ありません。
+              {TEAM.disclaimer}
             </p>
             <a
               href="https://buymeacoffee.com/MITSUBOSHI"

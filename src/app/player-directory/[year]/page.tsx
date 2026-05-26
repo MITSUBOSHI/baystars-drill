@@ -6,6 +6,7 @@ import { Year } from "@/types/Player";
 import PlayerTable from "@/components/player-table/PlayerTable";
 import YearSelector from "@/components/common/YearSelector";
 import PageTitle from "@/components/common/PageTitle";
+import { describe, TEAM } from "@/config/team";
 
 export async function generateMetadata({
   params,
@@ -15,7 +16,7 @@ export async function generateMetadata({
   const { year } = await params;
   return {
     title: `${year}年 選手名鑑`,
-    description: `横浜DeNAベイスターズ${year}年の選手一覧・背番号名鑑`,
+    description: describe("playerDirectory", { year }),
   };
 }
 
@@ -31,12 +32,14 @@ export default async function Page({
   const { year } = await params;
   const currentYear = Number(year) as Year;
   const players = playersByYear(currentYear);
-  const songs = cheerSongsByYear(currentYear);
   const cheerSongNumbers = new Set<string>();
-  for (const song of songs) {
-    if (song.playerNumber) cheerSongNumbers.add(song.playerNumber);
-    if (song.applicablePlayers) {
-      for (const p of song.applicablePlayers) cheerSongNumbers.add(p.number);
+  if (TEAM.features.cheerSongs) {
+    const songs = cheerSongsByYear(currentYear);
+    for (const song of songs) {
+      if (song.playerNumber) cheerSongNumbers.add(song.playerNumber);
+      if (song.applicablePlayers) {
+        for (const p of song.applicablePlayers) cheerSongNumbers.add(p.number);
+      }
     }
   }
 
