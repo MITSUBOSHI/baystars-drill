@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
+import team from "../src/config/team.config.json";
 
 test.describe("応援歌", () => {
+  test.skip(!team.features.cheerSongs, "cheer songs feature is disabled");
   test("ページが表示される", async ({ page }) => {
     await page.goto("/cheer-songs/2026");
 
