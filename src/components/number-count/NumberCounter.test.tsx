@@ -375,7 +375,7 @@ describe("NumberCounter", () => {
     );
   });
 
-  it("「0を含める」ONでカウントダウン時に最終ステップが00になる", () => {
+  it("「0を含める」ONでカウントダウン時も 00→0 の順を保ち最終ステップが0になる", () => {
     render(<NumberCounter players={mockPlayersWithZero} />);
     openSettings();
     // 「0を含める」ON
@@ -387,7 +387,8 @@ describe("NumberCounter", () => {
     act(() => {
       fireEvent.click(screen.getByText("カウントダウン"));
     });
-    // countLimit(30) から開始、最終ステップは "00"（00→0 の逆順）
-    expect(screen.getByText("30 / 00")).toBeInTheDocument();
+    // countLimit(30) から開始。0/00 は方向によらず 00→0 の順なので
+    // 末尾は ...,1,00,0 となり最終ステップは "0"。
+    expect(screen.getByText("30 / 0")).toBeInTheDocument();
   });
 });

@@ -50,34 +50,26 @@ export default function NumberCounter({ players }: Props) {
     return map;
   }, [players]);
 
-  // カウントするステップのリストを構築
+  // カウントするステップのリストを構築。
+  // 0と00はユニフォームビューと揃えて常に 00→0 の順とし、カウントダウン時は
+  // 数字部分のみ反転して末尾に置く（00→0 の並びは方向によらず維持する）。
   const steps = useMemo(() => {
-    const result: Step[] = [];
-
-    if (includeZero) {
-      result.push({
-        displayNumber: "00",
-        player: playerByDisp.get("00") ?? null,
-      });
-      result.push({
-        displayNumber: "0",
-        player: playerByDisp.get("0") ?? null,
-      });
-    }
-
+    const numbers: string[] = [];
     for (let i = 1; i <= countLimit; i++) {
-      const disp = String(i);
-      result.push({
-        displayNumber: disp,
-        player: playerByDisp.get(disp) ?? null,
-      });
+      numbers.push(String(i));
     }
-
     if (direction === "down") {
-      result.reverse();
+      numbers.reverse();
     }
 
-    return result;
+    const zeros = includeZero ? ["00", "0"] : [];
+    const ordered =
+      direction === "down" ? [...numbers, ...zeros] : [...zeros, ...numbers];
+
+    return ordered.map<Step>((displayNumber) => ({
+      displayNumber,
+      player: playerByDisp.get(displayNumber) ?? null,
+    }));
   }, [playerByDisp, includeZero, countLimit, direction]);
 
   // 初期値設定
