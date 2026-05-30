@@ -1,0 +1,11 @@
+[
+  { "year": 2004, "category": "regular", "round": 0, "name": "那須野巧", "name_kana": "なすのたくみ", "position": "投手", "team": "日本大", "team_kana": "", "isLotteryLoss": false, "note": "自由獲得枠" },
+  { "year": 2004, "category": "regular", "round": 0, "name": "染田賢作", "name_kana": "そめだけんさく", "position": "投手", "team": "同志社大", "team_kana": "", "isLotteryLoss": false, "note": "自由獲得枠" },
+  { "year": 2004, "category": "regular", "round": 4, "name": "藤田一也", "name_kana": "ふじたかずや", "position": "内野手", "team": "近畿大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2004, "category": "regular", "round": 5, "name": "岸本秀樹", "name_kana": "きしもとひでき", "position": "投手", "team": "近畿大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2004, "category": "regular", "round": 6, "name": "石川雄洋", "name_kana": "いしかわたけひろ", "position": "内野手", "team": "横浜高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2004, "category": "regular", "round": 7, "name": "橋本太郎", "name_kana": "はしもとたろう", "position": "投手", "team": "大体大浪商高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2004, "category": "regular", "round": 8, "name": "桑原義行", "name_kana": "くわはらよしゆき", "position": "外野手", "team": "日本大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2004, "category": "regular", "round": 9, "name": "松家卓弘", "name_kana": "まつかたかひろ", "position": "投手", "team": "東京大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2004, "category": "regular", "round": 10, "name": "齋藤俊雄", "name_kana": "さいとうとしお", "position": "捕手", "team": "三菱自動車岡崎", "team_kana": "", "isLotteryLoss": false }
+]

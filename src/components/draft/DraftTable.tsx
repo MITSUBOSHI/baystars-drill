@@ -4,7 +4,7 @@ import { useState } from "react";
 import Ruby from "@/components/common/Ruby";
 import { positionKanaMap } from "@/constants/draft";
 import { DraftPick, DraftYear } from "@/types/DraftPick";
-import { TEAM } from "@/config/team";
+import { draftUrlForYear } from "@/config/team";
 
 type DraftTableProps = {
   picks: DraftPick[];
@@ -50,7 +50,8 @@ export default function DraftTable({
         </thead>
         <tbody>
           {picks.map((pick, index) => {
-            const key = `${pick.year}-${pick.category}-${pick.round}`;
+            // 分離ドラフト年は同一 year/category/round が複数存在するため name も含めて一意化。
+            const key = `${pick.year}-${pick.category}-${pick.round}-${pick.name}`;
             return (
               <tr
                 key={key}
@@ -115,7 +116,7 @@ export default function DraftTable({
       <p className="text-xs text-[var(--text-secondary)] mt-2 text-right">
         データソース:{" "}
         <a
-          href={TEAM.npb.draftUrlTemplate.replace("{year}", String(year))}
+          href={draftUrlForYear(year)}
           target="_blank"
           rel="noopener noreferrer"
           className="underline"

@@ -29,7 +29,17 @@ function cleanPosition(s) {
   return normalize(s).replace(/\s/g, "");
 }
 
-// 巡目が付かない特別枠の見出し → 表示ラベル
+// 選手名は姓名間の空白と末尾の脚注記号(※)を除去し、
+// 新フォーマット(2012年以降)の「白崎浩之」スタイルに揃える。
+function cleanName(s) {
+  return normalize(s)
+    .replace(/※.*$/u, "")
+    .replace(/\s+/g, "")
+    .trim();
+}
+
+// 巡目が付かない特別枠(自由獲得枠/希望入団枠/逆指名)の見出し → 表示ラベル。
+// 分離ドラフト年(大学生・社会人/高校生)は区別せず素の巡目で表示する(lions-drill 準拠)。
 function specialSlotNote(headingText) {
   if (headingText.includes("自由獲得")) return "自由獲得枠";
   if (headingText.includes("希望")) return "希望入団枠";
@@ -47,7 +57,7 @@ function parseSection(table, year, category, headingText = "") {
     const tds = tr.querySelectorAll("td");
     if (tds.length < 3) continue;
     const rank = normalize(th.text);
-    const name = normalize(tds[0]?.text);
+    const name = cleanName(tds[0]?.text);
     // 旧フォーマット(2006以前)は 名前/年齢/ポジション/所属 の4列、
     // 新フォーマットは 名前/ポジション/所属 の3列。
     const hasAgeColumn = tds.length >= 4;

@@ -1,0 +1,9 @@
+[
+  { "year": 2009, "category": "regular", "round": 1, "name": "筒香嘉智", "name_kana": "つつごうよしとも", "position": "内野手", "team": "横浜高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2009, "category": "regular", "round": 2, "name": "加賀繁", "name_kana": "かがしげる", "position": "投手", "team": "住友金属鹿島", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2009, "category": "regular", "round": 3, "name": "安斉雄虎", "name_kana": "あんざいたけとら", "position": "投手", "team": "向上高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2009, "category": "regular", "round": 4, "name": "眞下貴之", "name_kana": "まっかたかゆき", "position": "投手", "team": "東海大望洋高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2009, "category": "regular", "round": 5, "name": "福田岳洋", "name_kana": "ふくだたけひろ", "position": "投手", "team": "香川オリーブガイナーズ", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2009, "category": "development", "round": 1, "name": "国吉佑樹", "name_kana": "くによしゆうき", "position": "投手", "team": "秀岳館高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2009, "category": "development", "round": 2, "name": "小林公太", "name_kana": "こばやしこうた", "position": "投手", "team": "多摩大付聖ヶ丘高", "team_kana": "", "isLotteryLoss": false }
+]

@@ -1,0 +1,7 @@
+[
+  { "year": 2001, "category": "regular", "round": 1, "name": "秦裕二", "name_kana": "はたゆうじ", "position": "投手", "team": "智弁学園", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2001, "category": "regular", "round": 3, "name": "小田嶋正邦", "name_kana": "おだじままさくに", "position": "捕手", "team": "東海大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2001, "category": "regular", "round": 4, "name": "岡本直也", "name_kana": "おかもとなおや", "position": "投手", "team": "岡山理大付属", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2001, "category": "regular", "round": 5, "name": "田崎昌弘", "name_kana": "たざきまさひろ", "position": "投手", "team": "ＪＲ九州", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2001, "category": "regular", "round": 6, "name": "千葉英貴", "name_kana": "ちばひでき", "position": "投手", "team": "日大三高", "team_kana": "", "isLotteryLoss": false }
+]

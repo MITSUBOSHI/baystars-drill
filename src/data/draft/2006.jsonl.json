@@ -1,0 +1,10 @@
+[
+  { "year": 2006, "category": "regular", "round": 0, "name": "高崎健太郎", "name_kana": "たかさきけんたろう", "position": "投手", "team": "日産自動車", "team_kana": "", "isLotteryLoss": false, "note": "希望入団枠" },
+  { "year": 2006, "category": "regular", "round": 3, "name": "木村雄太", "name_kana": "きむらゆうた", "position": "投手", "team": "東京ガス", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2006, "category": "regular", "round": 4, "name": "下園辰哉", "name_kana": "しもぞのたつや", "position": "外野手", "team": "九州国際大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2006, "category": "regular", "round": 5, "name": "下窪陽介", "name_kana": "しもくぼようすけ", "position": "外野手", "team": "日本通運", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2006, "category": "regular", "round": 6, "name": "吉原道臣", "name_kana": "よしはらみちおみ", "position": "投手", "team": "ホンダ", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2006, "category": "regular", "round": 1, "name": "北篤", "name_kana": "きたあつし", "position": "投手", "team": "小松工高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2006, "category": "regular", "round": 3, "name": "梶谷隆幸", "name_kana": "かじたにたかゆき", "position": "内野手", "team": "開星高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2006, "category": "regular", "round": 4, "name": "高森勇気", "name_kana": "たかもりゆうき", "position": "捕手", "team": "中京高", "team_kana": "", "isLotteryLoss": false }
+]

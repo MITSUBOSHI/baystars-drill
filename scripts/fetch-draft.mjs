@@ -30,10 +30,19 @@ async function processYear(year, urlTemplate) {
   console.log(`[${year}] wrote ${out}`);
 }
 
+// 横浜ベイスターズ時代(DeNA以前)は draftlist_yb、それ以降は draftlist_db。
+function templateForYear(year) {
+  const { draftUrlTemplate, legacyDraftUrlTemplate, legacyDraftMaxYear } =
+    team.npb;
+  if (legacyDraftUrlTemplate && legacyDraftMaxYear && year <= legacyDraftMaxYear) {
+    return legacyDraftUrlTemplate;
+  }
+  return draftUrlTemplate;
+}
+
 async function main() {
   const args = parseArgs(process.argv);
-  const urlTemplate = team.npb.draftUrlTemplate;
-  if (!urlTemplate) {
+  if (!team.npb.draftUrlTemplate) {
     throw new Error("team.config.json npb.draftUrlTemplate not set");
   }
 
@@ -47,7 +56,7 @@ async function main() {
 
   for (const year of years) {
     try {
-      await processYear(year, urlTemplate);
+      await processYear(year, templateForYear(year));
     } catch (e) {
       console.error(`[${year}] FAILED: ${e.message}`);
     }

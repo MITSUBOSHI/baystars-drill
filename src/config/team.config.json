@@ -90,7 +90,9 @@
     "rosterUrls": {
       "2026": "https://npb.jp/bis/teams/rst_db.html"
     },
-    "draftUrlTemplate": "https://draft.npb.jp/draft/{year}/draftlist_db.html"
+    "draftUrlTemplate": "https://draft.npb.jp/draft/{year}/draftlist_db.html",
+    "legacyDraftUrlTemplate": "https://draft.npb.jp/draft/{year}/draftlist_yb.html",
+    "legacyDraftMaxYear": 2011
   },
   "features": {
     "cheerSongs": true

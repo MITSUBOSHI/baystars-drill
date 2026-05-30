@@ -1,0 +1,7 @@
+[
+  { "year": 2005, "category": "regular", "round": 0, "name": "高宮和也", "name_kana": "たかみやかずや", "position": "投手", "team": "ホンダ鈴鹿", "team_kana": "", "isLotteryLoss": false, "note": "希望入団枠" },
+  { "year": 2005, "category": "regular", "round": 3, "name": "内藤雄太", "name_kana": "ないとうゆうた", "position": "外野手", "team": "八戸大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2005, "category": "regular", "round": 4, "name": "三橋直樹", "name_kana": "みつはしなおき", "position": "投手", "team": "日産自動車", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2005, "category": "regular", "round": 1, "name": "山口俊", "name_kana": "やまぐちしゅん", "position": "投手", "team": "柳ヶ浦高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2005, "category": "regular", "round": 3, "name": "黒羽根利規", "name_kana": "くろばねとしき", "position": "捕手", "team": "日大藤沢高", "team_kana": "", "isLotteryLoss": false }
+]

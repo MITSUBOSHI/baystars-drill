@@ -21,3 +21,17 @@ export function describe(
     String(vars[k] ?? ""),
   );
 }
+
+// 横浜ベイスターズ時代(DeNA以前)のドラフトは別URLテンプレート(draftlist_yb)。
+// legacyDraftMaxYear 以前は legacy テンプレートを使う。
+export function draftUrlForYear(year: number): string {
+  const { npb } = TEAM;
+  const useLegacy =
+    typeof npb.legacyDraftMaxYear === "number" &&
+    year <= npb.legacyDraftMaxYear &&
+    typeof npb.legacyDraftUrlTemplate === "string";
+  const template = useLegacy
+    ? npb.legacyDraftUrlTemplate
+    : npb.draftUrlTemplate;
+  return template.replace("{year}", String(year));
+}

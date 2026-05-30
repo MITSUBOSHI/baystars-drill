@@ -1,0 +1,12 @@
+[
+  { "year": 2002, "category": "regular", "round": 0, "name": "村田修一", "name_kana": "むらたしゅういち", "position": "内野手", "team": "日本大", "team_kana": "", "isLotteryLoss": false, "note": "自由獲得枠" },
+  { "year": 2002, "category": "regular", "round": 0, "name": "土居龍太郎", "name_kana": "どいりょうたろう", "position": "投手", "team": "法政大", "team_kana": "", "isLotteryLoss": false, "note": "自由獲得枠" },
+  { "year": 2002, "category": "regular", "round": 4, "name": "加藤武治", "name_kana": "かとうたけはる", "position": "投手", "team": "三菱ふそう川崎", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2002, "category": "regular", "round": 5, "name": "吉村裕基", "name_kana": "よしむらゆうき", "position": "内野手", "team": "東福岡高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2002, "category": "regular", "round": 6, "name": "北川利之", "name_kana": "きたがわとしゆき", "position": "内野手", "team": "川崎製鉄水島", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2002, "category": "regular", "round": 7, "name": "飯田龍一郎", "name_kana": "いいだりゅういちろう", "position": "投手", "team": "育英高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2002, "category": "regular", "round": 8, "name": "河野友軌", "name_kana": "こうのゆうき", "position": "外野手", "team": "法政大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2002, "category": "regular", "round": 9, "name": "堤内健", "name_kana": "つつみうちたけし", "position": "投手", "team": "日本大", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2002, "category": "regular", "round": 10, "name": "武山真吾", "name_kana": "たけやましんご", "position": "捕手", "team": "享栄高", "team_kana": "", "isLotteryLoss": false },
+  { "year": 2002, "category": "regular", "round": 11, "name": "木村昇吾", "name_kana": "きむらしょうご", "position": "内野手", "team": "愛知学院大", "team_kana": "", "isLotteryLoss": false }
+]
