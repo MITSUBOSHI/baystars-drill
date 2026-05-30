@@ -113,7 +113,7 @@ const Question: React.FC<Props> = ({ players }) => {
                 className="text-xs px-2 py-1 text-red-600 hover:bg-red-50 rounded"
                 onClick={handleReset}
               >
-                <Ruby reading="り">リ</Ruby>セット
+                <Ruby reading="りせっと">リセット</Ruby>
               </button>
             </div>
           </div>
