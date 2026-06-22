@@ -314,6 +314,21 @@
     "isCommon": false
   },
   {
+    "id": "individual-encarnacion",
+    "title": "J.エンカーナシオン",
+    "category": "individual_batter",
+    "year": 2026,
+    "lyrics": [
+      "{目|め}の{前|まえ}にいる{敵|てき}を　{一撃|いちげき}で{蹴散|けち}らせ",
+      "{飛|と}ばせ{遥|はる}か{彼方|かなた}　{見|み}せつけろヘラル",
+      "ジェリー！ジェリー！ジェリー　レッツゴー！"
+    ],
+    "playerName": "J.エンカーナシオン",
+    "playerNumber": "69",
+    "url": "https://youtu.be/ZlZ3Qfcmb6s?si=K7ROiqe3RuOHpjPJ",
+    "isCommon": false
+  },
+  {
     "id": "individual-hummel",
     "title": "C.ヒュンメル",
     "category": "individual_batter",
