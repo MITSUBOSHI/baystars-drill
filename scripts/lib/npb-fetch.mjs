@@ -145,18 +145,40 @@ export function cleanKana(raw) {
     .trim();
 }
 
-export async function fetchPlayerKana(playerUrl) {
-  if (!playerUrl) return "";
+// 外国人選手の英字表記からイニシャルを取り出す。
+// "ヘラル・エンカーナシオン　(JERAR ENCARNACION)" → "J"
+// 日本人 "いのうえ・ともや" → null
+export function foreignInitialFromKana(raw) {
+  if (!raw) return null;
+  const m = raw.match(/[（(]\s*([A-Za-z])/);
+  return m ? m[1].toUpperCase() : null;
+}
+
+// 外国人選手名にイニシャル接頭辞を付与する。
+// ("エンカーナシオン", "J") → "J.エンカーナシオン"
+// 日本人 (initial=null) や既に接頭辞付きの名前はそのまま返す。
+export function applyForeignPrefix(name, initial) {
+  if (!initial) return name;
+  if (/^[A-Za-z]\./.test(name)) return name; // 二重付与を防ぐ
+  return `${initial}.${name}`;
+}
+
+export async function fetchPlayerNameInfo(playerUrl) {
+  if (!playerUrl) return { kana: "", initial: null };
   try {
     const html = await fetchHtml(playerUrl);
     const root = parse(html);
     const kanaEl = root.querySelector("#pc_v_kana");
     const raw = (kanaEl?.text ?? "").trim();
-    return cleanKana(raw);
+    return { kana: cleanKana(raw), initial: foreignInitialFromKana(raw) };
   } catch (e) {
-    console.warn(`failed to fetch kana for ${playerUrl}: ${e.message}`);
-    return "";
+    console.warn(`failed to fetch name info for ${playerUrl}: ${e.message}`);
+    return { kana: "", initial: null };
   }
+}
+
+export async function fetchPlayerKana(playerUrl) {
+  return (await fetchPlayerNameInfo(playerUrl)).kana;
 }
 
 export async function enrichWithKana(records, { concurrency = 3 } = {}) {
@@ -168,8 +190,12 @@ export async function enrichWithKana(records, { concurrency = 3 } = {}) {
     while (idx < tasks.length) {
       const i = idx++;
       const rec = tasks[i];
-      const kana = await fetchPlayerKana(rec.url);
-      result[i] = { ...rec, name_kana: kana };
+      const { kana, initial } = await fetchPlayerNameInfo(rec.url);
+      result[i] = {
+        ...rec,
+        name: applyForeignPrefix(rec.name, initial),
+        name_kana: kana,
+      };
     }
   }
 
