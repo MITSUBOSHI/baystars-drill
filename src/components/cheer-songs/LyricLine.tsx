@@ -18,9 +18,7 @@ export default function LyricLine({ line, showRuby }: LyricLineProps) {
           return (
             <ruby key={i}>
               {segment.base}
-              <rt style={{ fontSize: "0.6em", lineHeight: 1 }}>
-                {segment.reading}
-              </rt>
+              <rt>{segment.reading}</rt>
             </ruby>
           );
         }
