@@ -24,9 +24,38 @@ export const cheerSongYears: number[] = [...registeredYears].sort(
   (a, b) => a - b,
 );
 
+// 同一曲の年別バリアントは id の `-YYYY` サフィックスで表す規約
+// （例: individual-kyoda と individual-kyoda-2024）。まとめるキーを返す。
+function variantKey(song: CheerSongType): string {
+  return song.id.replace(/-\d{4}$/, "");
+}
+
+// 年別バリアントの中から表示する1曲を選ぶ。
+// その年のバリアント → 年指定なし → 最も新しい年、の優先順。
+function pickVariant(variants: CheerSongType[], year: number): CheerSongType {
+  return (
+    variants.find((s) => s.year === year) ??
+    variants.find((s) => s.year == null) ??
+    [...variants].sort((a, b) => (b.year ?? 0) - (a.year ?? 0))[0]
+  );
+}
+
 export function cheerSongsByYear(year: number): CheerSongType[] {
   const roster = playersByYear(year as Year) ?? [];
-  return allSongs.flatMap((song) => {
+
+  const groups = new Map<string, CheerSongType[]>();
+  for (const song of allSongs) {
+    const key = variantKey(song);
+    const list = groups.get(key);
+    if (list) {
+      list.push(song);
+    } else {
+      groups.set(key, [song]);
+    }
+  }
+
+  return [...groups.values()].flatMap((variants) => {
+    const song = pickVariant(variants, year);
     // 選手個人に紐づかない曲（投手/打者共通・チャンステーマ・球団歌）は全年で表示する
     if (!song.playerName) return [song];
     // 選手個人の応援歌は、その選手がその年の名簿に在籍する場合のみ表示する。

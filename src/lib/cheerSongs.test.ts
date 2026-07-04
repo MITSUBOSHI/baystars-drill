@@ -15,13 +15,15 @@ describe("cheerSongYears", () => {
 
 describe("cheerSongsByYear", () => {
   it("選手個人に紐づかない共通曲は全年で表示される", () => {
+    // 年別バリアント（id 末尾の -YYYY）は同一曲とみなして比較する
+    const baseId = (id: string) => id.replace(/-\d{4}$/, "");
     const commonIds = cheerSongsByYear(
       cheerSongYears[cheerSongYears.length - 1],
     )
       .filter((s) => !s.playerName)
-      .map((s) => s.id);
+      .map((s) => baseId(s.id));
     for (const year of cheerSongYears) {
-      const ids = cheerSongsByYear(year).map((s) => s.id);
+      const ids = cheerSongsByYear(year).map((s) => baseId(s.id));
       for (const id of commonIds) {
         expect(ids).toContain(id);
       }
@@ -46,6 +48,17 @@ describe("cheerSongsByYear", () => {
       expect(shownIds).toContain(song.id);
     }
     expect(shownIds.size).toBeGreaterThan(0);
+  });
+
+  it("同じ年のページに同一曲（タイトル×選手）が重複しない", () => {
+    for (const year of cheerSongYears) {
+      const seen = new Set<string>();
+      for (const song of cheerSongsByYear(year)) {
+        const key = `${song.title}|${song.playerName ?? ""}`;
+        expect(seen.has(key)).toBe(false);
+        seen.add(key);
+      }
+    }
   });
 
   it("個人応援歌の背番号とふりがなはその年の名簿に揃う", () => {
