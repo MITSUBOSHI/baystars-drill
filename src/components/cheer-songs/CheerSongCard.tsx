@@ -36,6 +36,7 @@ const categoryLabel: Record<string, { text: string; kana: string }> = {
     text: "外国人投手共通",
     kana: "がいこくじんとうしゅきょうつう",
   },
+  individual_pitcher: { text: "投手個人", kana: "とうしゅこじん" },
   individual_batter: { text: "野手個人", kana: "やしゅこじん" },
   pinch_hitter: { text: "代打", kana: "だいだ" },
   catcher: { text: "捕手", kana: "ほしゅ" },

@@ -2,6 +2,7 @@ export type SongCategory =
   | "right_pitcher"
   | "left_pitcher"
   | "foreign_pitcher"
+  | "individual_pitcher"
   | "individual_batter"
   | "pinch_hitter"
   | "catcher"

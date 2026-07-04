@@ -53,6 +53,7 @@ const categoryToTab: Record<string, CategoryTab> = {
   right_pitcher: "pitcher",
   left_pitcher: "pitcher",
   foreign_pitcher: "pitcher",
+  individual_pitcher: "pitcher",
   individual_batter: "individual",
   pinch_hitter: "other",
   catcher: "other",
@@ -67,9 +68,12 @@ function filterByTab(songs: CheerSongType[], tab: CategoryTab) {
   switch (tab) {
     case "pitcher":
       return songs.filter((s) =>
-        ["right_pitcher", "left_pitcher", "foreign_pitcher"].includes(
-          s.category,
-        ),
+        [
+          "right_pitcher",
+          "left_pitcher",
+          "foreign_pitcher",
+          "individual_pitcher",
+        ].includes(s.category),
       );
     case "individual":
       return songs.filter((s) => s.category === "individual_batter");
@@ -107,9 +111,15 @@ export default function CheerSongViewer({ songs, year }: CheerSongViewerProps) {
       )
     : null;
 
+  // 曲が1件以上あるタブのみ表示する
+  const visibleTabs = useMemo(
+    () => tabs.filter((tab) => filterByTab(songs, tab.key).length > 0),
+    [songs],
+  );
+
   const initialTab = targetSong
-    ? (categoryToTab[targetSong.category] ?? "pitcher")
-    : "pitcher";
+    ? (categoryToTab[targetSong.category] ?? visibleTabs[0]?.key ?? "pitcher")
+    : (visibleTabs[0]?.key ?? "pitcher");
 
   const [activeTab, setActiveTab] = useState<CategoryTab>(initialTab);
   const [searchQuery, setSearchQuery] = useState("");
@@ -196,7 +206,7 @@ export default function CheerSongViewer({ songs, year }: CheerSongViewerProps) {
               role="tablist"
               aria-label="応援歌カテゴリ"
             >
-              {tabs.map((tab) => (
+              {visibleTabs.map((tab) => (
                 <button
                   key={tab.key}
                   role="tab"
