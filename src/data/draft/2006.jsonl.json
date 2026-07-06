@@ -1,0 +1,10 @@
+[
+  {"year":2006,"category":"regular","round":0,"name":"高崎 健太郎","name_kana":"たかさき けんたろう","position":"投手","team":"日産自動車","team_kana":"","isLotteryLoss":false,"note":"希望入団枠"},
+  {"year":2006,"category":"regular","round":3,"name":"木村 雄太","name_kana":"きむら ゆうた","position":"投手","team":"東京ガス","team_kana":"","isLotteryLoss":false},
+  {"year":2006,"category":"regular","round":4,"name":"下園 辰哉","name_kana":"しもぞの たつや","position":"外野手","team":"九州国際大","team_kana":"","isLotteryLoss":false},
+  {"year":2006,"category":"regular","round":5,"name":"下窪 陽介","name_kana":"しもくぼ ようすけ","position":"外野手","team":"日本通運","team_kana":"","isLotteryLoss":false},
+  {"year":2006,"category":"regular","round":6,"name":"吉原 道臣","name_kana":"よしはら みちおみ","position":"投手","team":"ホンダ","team_kana":"","isLotteryLoss":false},
+  {"year":2006,"category":"regular","round":1,"name":"北 篤","name_kana":"きた あつし","position":"投手","team":"小松工高","team_kana":"","isLotteryLoss":true,"lotteryTarget":"田中将大"},
+  {"year":2006,"category":"regular","round":3,"name":"梶谷 隆幸","name_kana":"かじたに たかゆき","position":"内野手","team":"開星高","team_kana":"","isLotteryLoss":false},
+  {"year":2006,"category":"regular","round":4,"name":"高森 勇気","name_kana":"たかもり ゆうき","position":"捕手","team":"中京高","team_kana":"","isLotteryLoss":false}
+]

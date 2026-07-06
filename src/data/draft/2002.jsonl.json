@@ -1,0 +1,12 @@
+[
+  {"year":2002,"category":"regular","round":0,"name":"村田 修一","name_kana":"むらた しゅういち","position":"内野手","team":"日本大","team_kana":"","isLotteryLoss":false,"note":"自由獲得枠"},
+  {"year":2002,"category":"regular","round":0,"name":"土居 龍太郎","name_kana":"どい りょうたろう","position":"投手","team":"法政大","team_kana":"","isLotteryLoss":false,"note":"自由獲得枠"},
+  {"year":2002,"category":"regular","round":4,"name":"加藤 武治","name_kana":"かとう たけはる","position":"投手","team":"三菱ふそう川崎","team_kana":"","isLotteryLoss":false},
+  {"year":2002,"category":"regular","round":5,"name":"吉村 裕基","name_kana":"よしむら ゆうき","position":"内野手","team":"東福岡高","team_kana":"","isLotteryLoss":false},
+  {"year":2002,"category":"regular","round":6,"name":"北川 利之","name_kana":"きたがわ としゆき","position":"内野手","team":"川崎製鉄水島","team_kana":"","isLotteryLoss":false},
+  {"year":2002,"category":"regular","round":7,"name":"飯田 龍一郎","name_kana":"いいだ りゅういちろう","position":"投手","team":"育英高","team_kana":"","isLotteryLoss":false},
+  {"year":2002,"category":"regular","round":8,"name":"河野 友軌","name_kana":"こうの ゆうき","position":"外野手","team":"法政大","team_kana":"","isLotteryLoss":false},
+  {"year":2002,"category":"regular","round":9,"name":"堤内 健","name_kana":"つつみうち たけし","position":"投手","team":"日本大","team_kana":"","isLotteryLoss":false},
+  {"year":2002,"category":"regular","round":10,"name":"武山 真吾","name_kana":"たけやま しんご","position":"捕手","team":"享栄高","team_kana":"","isLotteryLoss":false},
+  {"year":2002,"category":"regular","round":11,"name":"木村 昇吾","name_kana":"きむら しょうご","position":"内野手","team":"愛知学院大","team_kana":"","isLotteryLoss":false}
+]

@@ -1,0 +1,13 @@
+[
+  {"year":2011,"category":"regular","round":1,"name":"北方 悠誠","name_kana":"きたがた ゆうじょう","position":"投手","team":"唐津商高","team_kana":"","isLotteryLoss":true,"lotteryTarget":"藤岡貴裕・松本竜也"},
+  {"year":2011,"category":"regular","round":2,"name":"高城 俊人","name_kana":"たかじょう しゅうと","position":"捕手","team":"九州国際大付高","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"regular","round":3,"name":"渡邊 雄貴","name_kana":"わたなべ ゆうき","position":"内野手","team":"関西高","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"regular","round":4,"name":"桑原 将志","name_kana":"くわはら まさゆき","position":"内野手","team":"福知山成美高","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"regular","round":5,"name":"乙坂 智","name_kana":"おとさか とも","position":"外野手","team":"横浜高","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"regular","round":6,"name":"佐村トラヴィス幹久","name_kana":"さむらとらゔぃす みきひさ","position":"投手","team":"浦添商高","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"regular","round":7,"name":"松井 飛雄馬","name_kana":"まつい ひゅうま","position":"内野手","team":"三菱重工広島","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"regular","round":8,"name":"古村 徹","name_kana":"ふるむら とおる","position":"投手","team":"茅ヶ崎西浜高","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"regular","round":9,"name":"伊藤 拓郎","name_kana":"いとう たくろう","position":"投手","team":"帝京高","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"development","round":1,"name":"冨田 康祐","name_kana":"とみた こうすけ","position":"投手","team":"香川オリーブガイナーズ","team_kana":"","isLotteryLoss":false},
+  {"year":2011,"category":"development","round":2,"name":"西森 将司","name_kana":"にしもり まさし","position":"捕手","team":"香川オリーブガイナーズ","team_kana":"","isLotteryLoss":false}
+]

@@ -1,0 +1,11 @@
+[
+  {"year":2010,"category":"regular","round":1,"name":"須田 幸太","name_kana":"すだ こうた","position":"投手","team":"ＪＦＥ東日本","team_kana":"","isLotteryLoss":true,"lotteryTarget":"大石達也"},
+  {"year":2010,"category":"regular","round":2,"name":"加賀美 希昇","name_kana":"かがみ きしょう","position":"投手","team":"法政大","team_kana":"","isLotteryLoss":false},
+  {"year":2010,"category":"regular","round":3,"name":"荒波 翔","name_kana":"あらなみ しょう","position":"外野手","team":"トヨタ自動車","team_kana":"","isLotteryLoss":false},
+  {"year":2010,"category":"regular","round":4,"name":"小林 寛","name_kana":"こばやし ひろし","position":"投手","team":"大阪学院大","team_kana":"","isLotteryLoss":false},
+  {"year":2010,"category":"regular","round":5,"name":"大原 慎司","name_kana":"おおはら しんじ","position":"投手","team":"ＴＤＫ","team_kana":"","isLotteryLoss":false},
+  {"year":2010,"category":"regular","round":6,"name":"福山 博之","name_kana":"ふくやま ひろゆき","position":"投手","team":"大阪商業大","team_kana":"","isLotteryLoss":false},
+  {"year":2010,"category":"regular","round":7,"name":"大原 淳也","name_kana":"おおはら じゅんや","position":"内野手","team":"香川オリーブガイナーズ","team_kana":"","isLotteryLoss":false},
+  {"year":2010,"category":"regular","round":8,"name":"鶴岡 賢二郎","name_kana":"つるおか けんじろう","position":"捕手","team":"愛媛マンダリンパイレーツ","team_kana":"","isLotteryLoss":false},
+  {"year":2010,"category":"development","round":1,"name":"松下 一郎","name_kana":"まつした いちろう","position":"捕手","team":"関西外国語大","team_kana":"","isLotteryLoss":false}
+]

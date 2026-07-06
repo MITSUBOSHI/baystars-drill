@@ -5,14 +5,34 @@
   "shortNameReading": "べいすたーず",
   "fullName": "横浜DeNAベイスターズ",
   "subtitleSegments": [
-    { "text": "横浜", "reading": "よこはま" },
-    { "text": "DeNA" },
-    { "text": "ベイスターズ", "reading": "べいすたーず" },
-    { "text": "の" },
-    { "text": "背番号", "reading": "せばんごう" },
-    { "text": "で" },
-    { "text": "遊", "reading": "あそ" },
-    { "text": "ぼう!" }
+    {
+      "text": "横浜",
+      "reading": "よこはま"
+    },
+    {
+      "text": "DeNA"
+    },
+    {
+      "text": "ベイスターズ",
+      "reading": "べいすたーず"
+    },
+    {
+      "text": "の"
+    },
+    {
+      "text": "背番号",
+      "reading": "せばんごう"
+    },
+    {
+      "text": "で"
+    },
+    {
+      "text": "遊",
+      "reading": "あそ"
+    },
+    {
+      "text": "ぼう!"
+    }
   ],
   "siteSubtitle": "横浜DeNAベイスターズの背番号で遊ぼう!",
   "siteDescription": "横浜DeNAベイスターズの背番号計算ドリル・スタメン作成・選手名鑑を楽しめるファンサイト",
@@ -90,7 +110,14 @@
     "rosterUrls": {
       "2026": "https://npb.jp/bis/teams/rst_db.html"
     },
-    "draftUrlTemplate": "https://draft.npb.jp/draft/{year}/draftlist_db.html"
+    "draftUrlTemplate": "https://draft.npb.jp/draft/{year}/draftlist_db.html",
+    "draftUrlTemplateOverrides": [
+      {
+        "from": 2001,
+        "to": 2011,
+        "template": "https://draft.npb.jp/draft/{year}/draftlist_yb.html"
+      }
+    ]
   },
   "features": {
     "cheerSongs": true

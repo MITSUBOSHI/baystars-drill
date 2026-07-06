@@ -1,0 +1,10 @@
+[
+  {"year":2007,"category":"regular","round":1,"name":"小林 太志","name_kana":"こばやし ふとし","position":"投手","team":"ＪＲ東日本","team_kana":"","isLotteryLoss":true,"lotteryTarget":"大場翔太"},
+  {"year":2007,"category":"regular","round":3,"name":"桑原 謙太朗","name_kana":"くわはら けんたろう","position":"投手","team":"奈良産業大","team_kana":"","isLotteryLoss":false},
+  {"year":2007,"category":"regular","round":1,"name":"田中 健二朗","name_kana":"たなか けんじろう","position":"投手","team":"常葉菊川高","team_kana":"","isLotteryLoss":true,"lotteryTarget":"佐藤由規・高濱卓也"},
+  {"year":2007,"category":"regular","round":3,"name":"大田 阿斗里","name_kana":"おおた あとり","position":"投手","team":"帝京高","team_kana":"","isLotteryLoss":false},
+  {"year":2007,"category":"regular","round":4,"name":"佐藤 祥万","name_kana":"さとう しょうま","position":"投手","team":"文星芸大付高","team_kana":"","isLotteryLoss":false},
+  {"year":2007,"category":"regular","round":5,"name":"坂本 大空也","name_kana":"さかもと たくや","position":"外野手","team":"市柏高","team_kana":"","isLotteryLoss":false},
+  {"year":2007,"category":"development","round":1,"name":"関口 雄大","name_kana":"せきぐち ゆうた","position":"外野手","team":"滋賀大","team_kana":"","isLotteryLoss":false},
+  {"year":2007,"category":"development","round":2,"name":"杉本 昌都","name_kana":"すぎもと まさと","position":"捕手","team":"水戸短大付高","team_kana":"","isLotteryLoss":false}
+]

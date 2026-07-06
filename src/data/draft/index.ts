@@ -3,6 +3,17 @@
  * 年の範囲はチームごとに異なるため、共有ロジック（src/lib/draft.ts）は
  * この map だけに依存する。
  */
+import Draft2001 from "@/data/draft/2001.jsonl.json";
+import Draft2002 from "@/data/draft/2002.jsonl.json";
+import Draft2003 from "@/data/draft/2003.jsonl.json";
+import Draft2004 from "@/data/draft/2004.jsonl.json";
+import Draft2005 from "@/data/draft/2005.jsonl.json";
+import Draft2006 from "@/data/draft/2006.jsonl.json";
+import Draft2007 from "@/data/draft/2007.jsonl.json";
+import Draft2008 from "@/data/draft/2008.jsonl.json";
+import Draft2009 from "@/data/draft/2009.jsonl.json";
+import Draft2010 from "@/data/draft/2010.jsonl.json";
+import Draft2011 from "@/data/draft/2011.jsonl.json";
 import Draft2012 from "@/data/draft/2012.jsonl.json";
 import Draft2013 from "@/data/draft/2013.jsonl.json";
 import Draft2014 from "@/data/draft/2014.jsonl.json";
@@ -20,6 +31,17 @@ import Draft2025 from "@/data/draft/2025.jsonl.json";
 import { DraftPick, DraftYear } from "@/types/DraftPick";
 
 export const draftByYearMap: Record<DraftYear, DraftPick[]> = {
+  2001: Draft2001 as DraftPick[],
+  2002: Draft2002 as DraftPick[],
+  2003: Draft2003 as DraftPick[],
+  2004: Draft2004 as DraftPick[],
+  2005: Draft2005 as DraftPick[],
+  2006: Draft2006 as DraftPick[],
+  2007: Draft2007 as DraftPick[],
+  2008: Draft2008 as DraftPick[],
+  2009: Draft2009 as DraftPick[],
+  2010: Draft2010 as DraftPick[],
+  2011: Draft2011 as DraftPick[],
   2012: Draft2012 as DraftPick[],
   2013: Draft2013 as DraftPick[],
   2014: Draft2014 as DraftPick[],
