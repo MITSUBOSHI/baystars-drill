@@ -4,74 +4,59 @@
     "title": "相川 亮二 監督（ホーム）",
     "category": "manager",
     "year": 2026,
-    "lyrics": [
-      "{勝利|しょうり}の{女神|めがみ}が　{惚|ほ}れたベイスターズ",
-      "{打|う}てよかっとばせ　ハマの{空|そら}へ",
-      "（{絶対|ぜったい}{勝|か}つぞ　ベイスターズ！）"
-    ],
+    "lyrics": [],
     "playerName": "相川 亮二",
     "playerNumber": "81",
     "url": "https://www.youtube.com/watch?v=5ED7TnYolug",
-    "isCommon": false
+    "isCommon": false,
+    "sourceUrl": "https://www.seihanet.com/players"
   },
   {
     "id": "manager-aikawa-visitor",
     "title": "相川 亮二 監督（ビジター）",
     "category": "manager",
     "year": 2026,
-    "lyrics": [
-      "{大志|たいし}を{抱|いだ}く{男|おとこ}　{内|うち}に{秘|ひ}める{魂|たましい}を",
-      "{今|いま}このグラウンドに　いざ{解|と}き{放|はな}て",
-      "（{絶対|ぜったい}{勝|か}つぞ　ベイスターズ！）"
-    ],
+    "lyrics": [],
     "playerName": "相川 亮二",
     "playerNumber": "81",
     "url": "https://www.youtube.com/watch?v=x7vM795RguU",
-    "isCommon": false
+    "isCommon": false,
+    "sourceUrl": "https://www.seihanet.com/players"
   },
   {
     "id": "manager-miura-2025",
     "title": "三浦 大輔 監督",
     "category": "manager",
     "year": 2025,
-    "lyrics": [
-      "Go!　Go!　Let's　Go　{跳|は}ねろマウンド　{三振|さんしん}{奪取|だっしゅ}",
-      "{決|き}まってるぜ　リーゼント　{勝利|しょうり}だ{三浦|みうら}",
-      "{絶対|ぜったい}{勝|か}つぞ！　ベイスターズ"
-    ],
+    "lyrics": [],
     "playerName": "三浦 大輔",
     "playerNumber": "81",
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=MT5epNrNp44"
+    "url": "https://www.youtube.com/watch?v=MT5epNrNp44",
+    "sourceUrl": "https://www.seihanet.com/players"
   },
   {
     "id": "manager-miura-2024",
     "title": "三浦 大輔 監督",
     "category": "manager",
     "year": 2024,
-    "lyrics": [
-      "Go!　Go!　Let's　Go　{跳|は}ねろマウンド　{三振|さんしん}{奪取|だっしゅ}",
-      "{決|き}まってるぜ　リーゼント　{勝利|しょうり}だ{三浦|みうら}",
-      "{絶対|ぜったい}{勝|か}つぞ！　ベイスターズ"
-    ],
+    "lyrics": [],
     "playerName": "三浦 大輔",
     "playerNumber": "81",
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=MT5epNrNp44"
+    "url": "https://www.youtube.com/watch?v=MT5epNrNp44",
+    "sourceUrl": "https://www.seihanet.com/players"
   },
   {
     "id": "manager-miura-2023",
     "title": "三浦 大輔 監督",
     "category": "manager",
     "year": 2023,
-    "lyrics": [
-      "Go!　Go!　Let's　Go　{跳|は}ねろマウンド　{三振|さんしん}{奪取|だっしゅ}",
-      "{決|き}まってるぜ　リーゼント　{勝利|しょうり}だ{三浦|みうら}",
-      "{絶対|ぜったい}{勝|か}つぞ！　ベイスターズ"
-    ],
+    "lyrics": [],
     "playerName": "三浦 大輔",
     "playerNumber": "81",
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=MT5epNrNp44"
+    "url": "https://www.youtube.com/watch?v=MT5epNrNp44",
+    "sourceUrl": "https://www.seihanet.com/players"
   }
 ]

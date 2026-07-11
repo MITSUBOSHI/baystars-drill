@@ -41,7 +41,7 @@
     "numberDrill": "横浜DeNAベイスターズ{year}年の選手背番号で計算ドリルに挑戦",
     "playerDirectory": "横浜DeNAベイスターズ{year}年の選手一覧・背番号名鑑",
     "lineupMaker": "横浜DeNAベイスターズ{year}年の選手でオリジナルスタメンを作成",
-    "numberCount": "横浜DeNAベイスターズ{year}年の背番号タイマー。背番号順に選手名を読み上げてカウント。",
+    "numberCount": "横浜DeNAベイスターズ{year}年の背番号タイマー。背番号ごとに選手を表示しながらカウント。",
     "uniformView": "横浜DeNAベイスターズ{year}年のユニフォーム背面を再現。選手のユニフォーム名と背番号を表示。",
     "cheerSongs": "横浜DeNAベイスターズ{year}年の応援歌・歌詞一覧"
   },

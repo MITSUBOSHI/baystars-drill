@@ -1,178 +1,83 @@
 [
   {
     "id": "anthem-all-in-one",
-    "title": "All In one",
-    "category": "anthem",
-    "lyrics": [
-      "{心|こころ}をひとつに　{共|とも}に{歩|あゆ}もう",
-      "すべての{力|ちから}あわせて　{共|とも}に{闘|たたか}おう",
-      "どんな{時|とき}も{夢|ゆめ}めざし　{共|とも}に{輝|かがや}こう",
-      "{心|こころ}をひとつに　{心|こころ}をひとつに",
-      "",
-      "We☆Yokohama",
-      "We☆Yokohama",
-      "We☆Yokohama No.1"
-    ],
+    "title": "All in One",
+    "category": "multi",
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=dAxYjIwZF-4"
+    "url": "https://www.youtube.com/watch?v=dAxYjIwZF-4",
+    "sourceUrl": "https://www.seihanet.com/others"
   },
   {
     "id": "anthem-winning",
     "title": "winning",
-    "category": "anthem",
-    "lyrics": [
-      "【1{番|ばん}】",
-      "{勇気|ゆうき}という{名|な}の {白|しろ}いボールを{胸|むね}に",
-      "{夢|ゆめ}を{追|お}いかける どんなときも",
-      "{横浜|よこはま}Bay Stars",
-      "すべてを{賭|か}けて {走|はし}りだせ",
-      "{横浜|よこはま}Bay Stars",
-      "{時代|じだい}の{風|かぜ}を {背|せ}にうけて",
-      "{信|しん}じているよ {熱|あつ}い{気持|きも}ちで",
-      "つかむのさ Your Winning Ball",
-      "",
-      "【2{番|ばん}】",
-      "{希望|きぼう}を{映|うつ}す{星|ほし}が この{胸|むね}{光|ひか}る",
-      "たとえツラくても {逃|に}げ{出|だ}さない",
-      "{横浜|よこはま}Bay Stars",
-      "{力|ちから}の{限|かぎ}り{戦|たたか}おう",
-      "{横浜|よこはま}Bay Stars",
-      "{勝利|しょうり}がきっと {待|ま}っている",
-      "{見|み}つめていたい {心|こころ}の{汗|あせ}が",
-      "{明日|あした}への Your Winning Ball",
-      "",
-      "【ラスト】",
-      "{横浜|よこはま}Bay Stars",
-      "すべてを{賭|か}けて {走|はし}りだせ",
-      "{横浜|よこはま}Bay Stars",
-      "{時代|じだい}の{風|かぜ}を {背|せ}にうけて",
-      "{信|しん}じているよ {熱|あつ}い{気持|きも}ちで",
-      "つかむのさ Your Winning Ball"
-    ],
+    "category": "other",
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=9z2lXnWHquw"
+    "url": "https://www.youtube.com/watch?v=9z2lXnWHquw",
+    "sourceUrl": "https://www.seihanet.com/others"
   },
   {
     "id": "anthem-we-can",
     "title": "We can!",
-    "category": "anthem",
-    "lyrics": [
-      "ヨ！コ！ハ！マ！ We can do it！×{複数回|ふくすうかい}",
-      "（ヨ！コ！ハ！マ！）{一回|いっかい}のみ",
-      "オオオオオオオオー オオオオー オオオオー オオオオー",
-      "{心|こころ}{燃|も}やせ！＊＊＊＊ ヨコハマ！",
-      "オーオオオオーオオオオー",
-      "オーオオオオーオオオオー",
-      "{想|おも}いは{一|ひと}つ",
-      "＊＊＊＊ ヨコハマ！＊＊＊ ×3{回|かい}",
-      "た！た！か！え！　ヨコハマ！"
-    ],
+    "category": "other",
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://youtu.be/Zlo6bFxmCjg?si=MstcsVMvyqjc1CNX"
+    "url": "https://youtu.be/Zlo6bFxmCjg?si=MstcsVMvyqjc1CNX",
+    "sourceUrl": "https://www.seihanet.com/others"
   },
   {
     "id": "anthem-fourball",
     "title": "フォアボールのテーマ",
-    "category": "anthem",
-    "lyrics": [
-      "※{横浜|よこはま}{市歌|しか}の{一部|いちぶ}",
-      "",
-      "わが{日|ひ}の{本|もと}は{島国|しまぐに}よ",
-      "{朝日|あさひ}かがよう{海|うみ}に",
-      "{連|つら}なりそばだつ{島々|しまじま}なれば",
-      "あらゆる{国|くに}より{舟|ふね}こそ{通|かよ}え"
-    ],
+    "category": "other",
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=MeazanUqzYo"
+    "url": "https://www.youtube.com/watch?v=MeazanUqzYo",
+    "sourceUrl": "https://www.seihanet.com/others"
   },
   {
     "id": "anthem-victory-fanfare",
     "title": "勝利のファンファーレ",
-    "category": "anthem",
-    "lyrics": [
-      "※{横浜|よこはま}{市歌|しか}の{一部|いちぶ}",
-      "",
-      "されば{港|みなと}の{数多|かずおお}かれど",
-      "この{横浜|よこはま}にまさるあらめや"
-    ],
+    "category": "other",
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=HuRcdR75GSI"
+    "url": "https://www.youtube.com/watch?v=HuRcdR75GSI",
+    "sourceUrl": "https://www.seihanet.com/others"
   },
   {
     "id": "anthem-bay-blue",
     "title": "Bay Blue Anthem",
-    "category": "anthem",
-    "lyrics": [
-      "オオオオー",
-      "オオオオー",
-      "オオオオー",
-      "オオオオー",
-      "ヨコハマー"
-    ],
+    "category": "other",
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://www.youtube.com/shorts/0EwUqvfWod8"
+    "url": "https://www.youtube.com/shorts/0EwUqvfWod8",
+    "sourceUrl": "https://www.seihanet.com/others"
   },
   {
     "id": "anthem-yusha-no-dna",
     "title": "勇者の遺伝子",
-    "category": "anthem",
-    "lyrics": [
-      "Wow wow wow Baystars",
-      "{勇者|ゆうしゃ}の{遺伝子|でぃーえぬえー}",
-      "{星空|ほしぞら}に{響|ひび}け{激|はげ}しく {魂|たましい}がうねる{音|おと}",
-      "{闘|たたか}えWarriors {俺達|おれたち}は{生|い}きる",
-      "{勝利|しょうり}の{女神|めがみ} {抱|だ}くため",
-      "{情熱|じょうねつ}の{火|ひ}よ {我|わ}が{道|みち}を{照|て}らせ",
-      "Wow wow wow Baystars",
-      "{勇者|ゆうしゃ}の{遺伝子|でぃーえぬえー}"
-    ],
+    "category": "other",
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=qp_jfhVv9O4"
+    "url": "https://www.youtube.com/watch?v=qp_jfhVv9O4",
+    "sourceUrl": "https://www.seihanet.com/others"
   },
   {
     "id": "anthem-atsuki-hoshi",
     "title": "熱き星たちよ",
     "category": "anthem",
-    "lyrics": [
-      "Oh Oh wow wow　DeNAベイスターズ",
-      "{燃|も}える{星|ほし}たちよ　Let's Go!",
-      "",
-      "Oh Oh wow wow　DeNAベイスターズ",
-      "{夢|ゆめ}を{追|お}いかけろ",
-      "",
-      "（I LOVE YOKOHAMA!!　GO！DeNAベイスターズ！）",
-      "",
-      "{闘|たたか}うナインたちの　{輝|かがや}く{絆|きずな}が",
-      "{星座|せいざ}をつなぐよ",
-      "スクラムひとつにして　{情熱|じょうねつ}{重|かさ}ねる",
-      "{勝利|しょうり}を{求|もと}めて",
-      "{栄光|えいこう}へ{届|とど}く{虹|にじ}を",
-      "{描|えが}き{出|だ}す",
-      "{固|かた}いチームワーク",
-      "",
-      "Oh Oh wow wow　DeNAベイスターズ",
-      "{熱|あつ}き{星|ほし}たちよ　Let's Go!",
-      "",
-      "Oh Oh wow wow　いつでも　WINNING STARS　{明日|あした}を{信|しん}じて",
-      "",
-      "Yokohama　Go Go BAYSTARS",
-      "Yokohama　Go Go Let's Go"
-    ],
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=Di1xfk_uTQI"
+    "url": "https://www.youtube.com/watch?v=Di1xfk_uTQI",
+    "sourceUrl": "https://www.seihanet.com/others"
   },
   {
     "id": "anthem-all-baystars",
     "title": "ALL BAYSTARS",
-    "category": "anthem",
-    "lyrics": [
-      "（{前奏|ぜんそう}）",
-      "オイ！オイ！{横浜|よこはま}！",
-      "オイ！オイ！{横浜|よこはま}！",
-      "{横浜|よこはま}{奪首|だっしゅ}！",
-      "{挑|いど}め！{進|すす}め！{共|とも}に{行|い}くぞ{横浜|よこはま}！"
-    ],
+    "category": "other",
+    "lyrics": [],
     "isCommon": false,
-    "url": "https://youtu.be/A7JTnCE4fKY?si=UIOU6sXdHQ5B0ROk"
+    "url": "https://youtu.be/A7JTnCE4fKY?si=UIOU6sXdHQ5B0ROk",
+    "sourceUrl": "https://www.seihanet.com/others"
   }
 ]
