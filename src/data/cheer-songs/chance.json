@@ -3,84 +3,145 @@
     "id": "chance-theme-0",
     "title": "チャンステーマ0",
     "category": "chance",
-    "lyrics": [],
+    "lyrics": [
+      "オイ！オイ！オイ！{{name}}",
+      "ララララ〜さぁ{燃|も}え{上|あ}がれ",
+      "{我|われ}らの {期待|きたい}のせて",
+      "",
+      "オーオオオー",
+      "オーオーオー {今|いま}",
+      "{鋭|するど}く{放|はな}て この{一打|いちだ}",
+      "オイ！オイ！オイ！{{name}}"
+    ],
     "namePlaceholder": "{{name}}",
     "isCommon": true,
-    "url": "https://www.youtube.com/shorts/PaVWpSRr6ps",
-    "sourceUrl": "https://www.seihanet.com/chance"
+    "url": "https://www.youtube.com/shorts/PaVWpSRr6ps"
   },
   {
     "id": "chance-theme-1",
     "title": "チャンステーマ1",
     "category": "chance",
-    "lyrics": [],
+    "lyrics": [
+      "オー（メロディに{合|あ}わせて）",
+      "Let's Go Baystars!",
+      "オイ！オイ！Get the chance! ×2{回|かい}",
+      "",
+      "Let's Go Baystars!",
+      "オイ！オイ！そーれいけいけ{{name}}！{{name}}！{{name}}！"
+    ],
     "namePlaceholder": "{{name}}",
     "isCommon": true,
-    "url": "https://www.youtube.com/shorts/ZOYl63ssEdI",
-    "sourceUrl": "https://www.seihanet.com/chance"
+    "url": "https://www.youtube.com/shorts/ZOYl63ssEdI"
   },
   {
     "id": "chance-theme-2",
     "title": "チャンステーマ2",
     "category": "chance",
-    "lyrics": [],
+    "lyrics": [
+      "Let's Go! ×4{回|かい}",
+      "{打|う}て！{打|う}て！{{name}} ×2{回|かい}",
+      "",
+      "{{name}}！{{name}}！",
+      "かっとばせー！{{name}}！"
+    ],
     "namePlaceholder": "{{name}}",
     "isCommon": true,
-    "url": "https://www.youtube.com/shorts/ePf-nPYnpTk",
-    "sourceUrl": "https://www.seihanet.com/chance"
+    "url": "https://www.youtube.com/shorts/ePf-nPYnpTk"
   },
   {
     "id": "chance-theme-3",
     "title": "チャンステーマ3",
     "category": "chance",
-    "lyrics": [],
+    "lyrics": [
+      "わっしょい！わっしょい！ ×3{回|かい}"
+    ],
     "isCommon": false,
-    "url": "https://www.youtube.com/shorts/CNeYuifn49o",
-    "sourceUrl": "https://www.seihanet.com/chance"
+    "url": "https://www.youtube.com/shorts/CNeYuifn49o"
   },
   {
     "id": "chance-theme-4",
     "title": "チャンステーマ4",
     "category": "chance",
-    "lyrics": [],
+    "lyrics": [
+      "Hey! Hey! Hey!",
+      "{勝|か}つぞ！{横浜|よこはま}！{倒|たお}せ！{{opponent}}！"
+    ],
     "isCommon": false,
-    "url": "https://www.youtube.com/shorts/YyA2RY3tkXQ",
-    "sourceUrl": "https://www.seihanet.com/chance"
+    "url": "https://www.youtube.com/shorts/YyA2RY3tkXQ"
   },
   {
     "id": "chance-rising",
     "title": "チャンステーマ: ライジング",
     "category": "chance",
-    "lyrics": [],
+    "lyrics": [
+      "オイ！ ×{複数回|ふくすうかい}",
+      "{熱|あつ}く！{熱|あつ}く！{熱|あつ}く！{立|た}ち{上|あ}がれ！",
+      "Let's Go Bay {不器用|ぶきよう}で",
+      "カッコ{悪|わる}くても {選手|せんしゅ}を{信|しん}じ{声|こえ}を{枯|か}らし",
+      "Let's Go Bay {変|か}えてゆく",
+      "{俺|おれ}たちが{変|か}える",
+      "{想|おも}いよ{届|とど}け {君|きみ}のもとへ"
+    ],
     "isCommon": false,
-    "url": "https://www.youtube.com/shorts/wckeGbkjRBo",
-    "sourceUrl": "https://www.seihanet.com/chance"
+    "url": "https://www.youtube.com/shorts/wckeGbkjRBo"
   },
   {
     "id": "chance-ose-ose",
     "title": "チャンステーマ: 押せ！押せ！ヨコハマ",
-    "category": "multi",
-    "lyrics": [],
+    "category": "chance",
+    "lyrics": [
+      "{押|お}せ{押|お}せヨコハマ",
+      "{押|お}せ{押|お}せヨコハマ",
+      "オイ！オイ！オイ！",
+      "{押|お}せ {押|お}せ ヨコハマ"
+    ],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=7T0JkIzqMVk",
-    "sourceUrl": "https://www.seihanet.com/others"
+    "url": "https://www.youtube.com/watch?v=7T0JkIzqMVk"
   },
   {
     "id": "chance-sememakure",
     "title": "チャンステーマ: 攻めまくれ",
     "category": "chance",
-    "lyrics": [],
+    "lyrics": [
+      "ララララー　ラー　ララララーラー　ララララ〜",
+      "",
+      "{我|われ}らの{星|ほし}　ヨコハマ　{闘|たたか}え　{誇|ほこ}りを{胸|むね}に",
+      "{我|われ}らの{星|ほし}　ヨコハマ　{今|いま}こそ　{攻|せ}めまくれ",
+      "",
+      "（ドドッ ドン ドンドンドン）　◯◯（{相手|あいて}{球団名|きゅうだんめい}）　{倒|たお}せ！",
+      "（ドドッ ドン ドンドンドン）　{絶対|ぜったい}{勝|か}つぞベイスターズ！"
+    ],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=326HFjJernc",
-    "sourceUrl": "https://www.seihanet.com/chance"
+    "url": "https://www.youtube.com/watch?v=326HFjJernc"
   },
   {
     "id": "chance-fight-oh",
     "title": "チャンステーマ: Fight oh! YOKOHAMA",
     "category": "chance",
-    "lyrics": [],
+    "lyrics": [
+      "Fight oh！YOKOHAMA",
+      "",
+      "ドン　ドン　（オイ！）×2",
+      "",
+      "ファンファーレ",
+      "（メロディーの{裏|うら}で）",
+      "ドン　ドン　（オイ！）×3",
+      "",
+      "【{構成|こうせい}1】",
+      "ドン　ドン　ド　ドッ　ド　ドン",
+      "Go for it！ ×3",
+      "",
+      "ドン　ドン　ド　ドッ　ド　ドン",
+      "BayStars！",
+      "",
+      "【{構成|こうせい}2】",
+      "（Aメロ）Fight oh! YOKOHAMA ×2",
+      "",
+      "（Bメロ）ドン　ド　ドン（オイ！）×4",
+      "",
+      "ドン　ドン　ドン　ドン　ドン（{構成|こうせい}1へ{戻|もど}る）"
+    ],
     "isCommon": false,
-    "url": "https://www.youtube.com/watch?v=Mv-1DLIR-PQ",
-    "sourceUrl": "https://www.seihanet.com/chance"
+    "url": "https://www.youtube.com/watch?v=Mv-1DLIR-PQ"
   }
 ]
